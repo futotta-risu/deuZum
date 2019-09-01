@@ -1,8 +1,7 @@
 package ventanas;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -55,7 +54,7 @@ public class VentanaLogin extends JFrame{
 		lblUsuario = new JLabel("Usuario:");
 		lblUsuario.setFont(new Font("Nirmala UI", Font.BOLD, 14));
 		lblUsuario.setBounds(101, 65, 89, 34);
-		lblContrasenia = new JLabel("Contraseña:");
+		lblContrasenia = new JLabel("ContraseÃ±a:");
 		lblContrasenia.setFont(new Font("Nirmala UI", Font.BOLD, 14));
 		lblContrasenia.setLocation(77, 110);
 		lblContrasenia.setSize(89, 34);
@@ -92,7 +91,7 @@ public class VentanaLogin extends JFrame{
 		btnLogin.setBounds(30, 245, 197, 57);
 		
 		
-		btnForgotPass = new JButton("Contraseña Olvidada?");
+		btnForgotPass = new JButton("ContraseÃ±a Olvidada?");
 		btnForgotPass.setLocation(184, 162);
 		btnForgotPass.setSize(190, 39);
 		
@@ -269,7 +268,7 @@ public class VentanaLogin extends JFrame{
 			                	JOptionPane.showMessageDialog(null, "Login exitoso");
 			                	
 			                }else {
-			                	JOptionPane.showMessageDialog(null, "Contraseña incorrecta");		                	
+			                	JOptionPane.showMessageDialog(null, "ContraseÃ±a incorrecta");		                	
 			                }
 			                	
 			                
