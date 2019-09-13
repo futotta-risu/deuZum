@@ -1,2 +1,10 @@
-# deuZum
-Lo de bizum
+# DeusZum
+
+
+Aplicacion para programacion II
+
+## Uso
+
+## Wiki
+
+## Bibliografia
