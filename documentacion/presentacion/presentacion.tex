@@ -16,7 +16,6 @@
 
 \usepackage{soul}%To highligh
 \usepackage{fancyhdr}
-\usepackage[pagestyles]{titlesec}
 \usepackage[a4paper]{geometry}
 \usepackage{parskip}
 \usepackage{changepage}
@@ -46,10 +45,6 @@
 
 %Page Numeration
 \pagestyle{plain}
-\renewpagestyle{plain}{
-\widenhead[2.5cm][0cm]{0cm}{1.5cm}
-\sethead{}{}{}%
-\setfoot[\bfseries\thepage][][]{}{}{\bfseries\thepage}}
 \thispagestyle{empty}
 \clearpage\pagestyle{plain}
 
@@ -89,27 +84,30 @@
      \textbf{DEUSZUM}
     }
     
-	\vspace*{120pt}
+	\vspace*{200pt}
 	
-	\begin{flushright}
-	{\Large Curso 2019/2020}
-	\end{flushright}
-	\begin{flushright}
-	{\LARGE Ing. Informatica}
-	\end{flushright}
-	\begin{flushright}
-	{\Large Programacion III}
-	\end{flushright}
 	
-	\begin{flushright} 
-		    Terres Escudero, Erik B.  \\
-		    Zarate Jayo, Gorka \\
-		    Zugazaga , Aritz \\
-		    Acha , Amaia\\
-		    Gago ,Leire \\
-		    Sanmillan , Lander
-		    
+	\begin{minipage}{2in}
+		\begin{tabular}{l}
+			Terres Escudero, Erik B.    \\
+			Zarate Jayo, Gorka   \\
+			Zugazaga Alonso, Aritz  \\
+			Acha Aristegui, Amaia  \\
+			Gago López,Leire  \\
+			San Millan Langa, Lander 
+		\end{tabular}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{3in}
+	\begin{flushright}
+	\Large Curso 2019/2020 \\
+		\Huge Ing. Informatica\\
+		\LARGE Programacion III
 	\end{flushright}
+		
+	\end{minipage}
+
+
     
 	
 \end{titlepage}
@@ -120,36 +118,32 @@
 
 \section{INTRODUCCIÓN}
 
-DeusZum es una aplicacion de gestion de dinero online para la gestion de pagos, proyectos o costes grupales. DeusZum ofrece un sistema seguro de transferencias de forma que el cliente no tenga que preocuparse de que este pasando con su dinero en todo momento.
+DeusZum es una aplicación de gestión de dinero online para la gestión de pagos, proyectos o costes grupales. DeusZum ofrece un sistema seguro de transferencias de forma que el cliente no tenga que preocuparse de que este pasando con su dinero en todo momento.
 
+DeusZum estará implementado en un servidor y daría servicio a los usuarios a través de un programa en Windows y una aplicación en Android. Cada una de ellas implementada para conectarse a un servidor central, en el cual se almacenarán los datos, procesarán las peticiones y se garantizará la seguridad de la información.
 
-DeusZum estará implementado en un servidor y daría servicio a los usuarios a traves de un progrma en Windows y una aplicacion en Android. Cada una de ellas implementada para conectarse a un servidor central, en el cual se almacenarán los datos, procesarán las peticiones y se garantizará la seguridad de la informacion.
-
-El servicio que ofrece DeusZum esta dividido en diferentes sectores, algunos puramente economicos y otros de analisis de la conducta o de las transacciones. El servidor ejecutara todas las peticiones de lso usuarios y devolvera la informacion que se haya solicitado. Toda la informacion mientras se envia se encontrara encriptada para la seguridad del usuario.
-
-
-
+El servicio que ofrece DeusZum está dividido en diferentes sectores, algunos puramente económicos y otros de análisis de la conducta o de las transacciones. El servidor ejecutara todas las peticiones de los usuarios y devolverá la información que se haya solicitado. Toda la información mientras se enviá se encontrara encriptada para la seguridad del usuario.
 
 \section{FORMA DE TRABAJO}
 
 
 \subsection{Division del trabajo}
-Para la realizacion del proyecto, hemos optado por la division del trabajo en grupos con tematicas separadas. Los dos grupos tendran que trabajar en una categoria central entre IA y Seguridad y trabajar en una parte de la implementacion. Las categorias y subcategorias serian las siguientes:
+
+Para la realización del proyecto, hemos optado por la división del trabajo en grupos con temáticas separadas. Los dos grupos tendrán que trabajar en una categoría central entre IA y Seguridad, y, trabajar en una parte de la implementación y algoritmia. Las categorías y subcategorías serian las siguientes:
 
 \begin{enumerate}
     \item \textbf{Implementacion} \begin{itemize}
-        \item Implementacion del Server
-        \item Implementacion del cliente Windows
-        \item Implementacion del cliente Android
+        \item Implementación del Server
+        \item Implementación del cliente Windows
+        \item Implementación del cliente Android
     \end{itemize}
     \item \textbf{IA} \begin{itemize}
-        \item Data Analosys
+        \item Data Analysis
         \item Clustering
-        \item 
     \end{itemize}
     \item \textbf{Seguridad} \begin{itemize}
         \item Databases
-        \item Encriptacion
+        \item Encriptación
         \item Conexiones seguras
     \end{itemize}
 \end{enumerate}
@@ -172,8 +166,16 @@ Para evitar errores que afecten al codigo a nivel global, hemos optado por utili
 Para la preparacion del temario que queremos trabajar en el trabajo hemos optado por utilizar un conjunto de libros que consideramos basicos para las personas que no tienen mucha experiencia y utiles/importantes para las personas que tengan un cierto control en ciertos aspectos. Esta lista de libros se encontrara en el apendice de este documento categorizada.
 
 \section{PLANIFICACION}
+23 Reunion Inicial
+8 de octubre	E1. 
+29 de octubre	E2. Fase I del proyec to
+26 de noviembre	E3. Examen parcial
+10 de diciembre	E4. Fase II del proyecto
+13 de diciembre	E5. Informe de desarrollo
 
 \subsection{Entrega de la Idea}
+
+Propuesta de proyecto y planificación
 
 \begin{itemize}
     \item Reparto de tareas
@@ -189,7 +191,7 @@ Para la preparacion del temario que queremos trabajar en el trabajo hemos optado
     \item planificacion per
 \end{itemize}
 \subsection{Fase 1}
-fin noviembre
+29 de octubre
 
 \begin{itemize}
     \item 
@@ -266,7 +268,7 @@ Las tareas que queremos hacer en el apartado de IA son las siguientes:
 
 \subsection{}
 
-\section{Data Analysis}
+\section{DATA ANALYSIS}
 
 \begin{itemize}
     \item Clustering
