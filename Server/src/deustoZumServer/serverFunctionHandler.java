@@ -18,7 +18,6 @@ public class serverFunctionHandler extends Thread{
 	}
 	
 	public void run() {
-		//add the handler funtion
 		try {
 			out = new PrintWriter(tempSocket.getOutputStream(), true);
 	        in = new BufferedReader(
@@ -26,7 +25,8 @@ public class serverFunctionHandler extends Thread{
 	        
 	        String inputLine;
 	        while ((inputLine = in.readLine()) != null) {
-	            if (".".equals(inputLine)) {
+	        	
+	        	if (".".equals(inputLine)) {
 	                out.println("bye");
 	                break;
 	            }
@@ -37,7 +37,7 @@ public class serverFunctionHandler extends Thread{
 			out.close();
 	        tempSocket.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			// TODO Ajustar tema de errores
 			e.printStackTrace();
 		}
         

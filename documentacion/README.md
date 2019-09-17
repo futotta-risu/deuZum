@@ -5,9 +5,13 @@ En esta carpeta se encontraran todos e material con el que se prepara al equipo.
 
 
 
-## Libros
+## Libros y Ensayos
 
-
+1. **IA**
+2. **Seguridad**
+	1. Criptografia
+		- Introduccion a la Criptografia [URL](https://profecd.webnode.es/_files/200000079-90fc291f71/Introduccion%20a%20la%20criptografia.pdf)
+		- Introduccion a la Criptografia 2 [URL](https://biblioteca.unirioja.es/tfe_e/TFE002200.pdf)
 
 ## Videos
 

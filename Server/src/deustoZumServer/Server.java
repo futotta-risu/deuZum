@@ -9,15 +9,13 @@ import java.util.Properties;
 public class Server {
 
 	Properties properties;
-
 	private ServerSocket serverSocket;
 
 	public Server() {
-		try {
-			properties.load(new FileInputStream("server.properties"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		//TODO Add the propierties file checker
+		// TODO Add to the database the user status
+		// El servidor tiene que tener una base de datos hosteando el estado de los usuarios
+		// activos e inactivos
 	}
 	
     public void start(int port) {
