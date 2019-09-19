@@ -11,22 +11,24 @@
 \contentsline {subsection}{\numberline {3.5}13 de diciembre E5. Informe de desarrollo}{3}% 
 \contentsline {section}{\numberline {4}DIVISION DEL TRABAJO}{3}% 
 \contentsline {section}{\numberline {5}Implementacion de Server}{4}% 
-\contentsline {section}{\numberline {6}Implementacion de Desktop}{4}% 
+\contentsline {subsection}{\numberline {5.1}Seguridad durante la transmision de los paquetes}{5}% 
+\contentsline {section}{\numberline {6}Implementacion de Desktop}{5}% 
 \contentsline {section}{\numberline {7}Implementacion de Android}{5}% 
 \contentsline {section}{\numberline {8}IA}{5}% 
-\contentsline {subsection}{\numberline {8.1}Analisis de los movimientos}{5}% 
-\contentsline {subsection}{\numberline {8.2}}{5}% 
-\contentsline {section}{\numberline {9}DATA ANALYSIS}{5}% 
-\contentsline {section}{\numberline {10}SEGURIDAD}{5}% 
-\contentsline {subsection}{\numberline {10.1}Encriptacion de los codigos de los sockets}{5}% 
-\contentsline {subsection}{\numberline {10.2}Trackero de los pagos}{6}% 
-\contentsline {section}{\numberline {11}DATABASES}{6}% 
-\contentsline {section}{\numberline {12}CONCLUSI\IeC {\'O}N}{6}% 
-\contentsline {section}{\numberline {13}LIBRERIAS}{6}% 
-\contentsline {section}{\numberline {14}LIBROS}{6}% 
-\contentsline {subsection}{\numberline {14.1}Java}{6}% 
-\contentsline {subsection}{\numberline {14.2}Android}{6}% 
-\contentsline {subsection}{\numberline {14.3}Server}{6}% 
-\contentsline {subsection}{\numberline {14.4}IA}{6}% 
-\contentsline {subsection}{\numberline {14.5}Data Analisys}{6}% 
-\contentsline {subsection}{\numberline {14.6}Seguridad}{6}% 
+\contentsline {subsection}{\numberline {8.1}Analisis de los movimientos}{6}% 
+\contentsline {subsection}{\numberline {8.2}Bots de Automatizaci\IeC {\'o}n sobre el servidor}{6}% 
+\contentsline {section}{\numberline {9}DATA ANALYSIS}{6}% 
+\contentsline {section}{\numberline {10}SEGURIDAD}{6}% 
+\contentsline {subsection}{\numberline {10.1}Encriptacion del protocolo de envio de hash y verificacion de usuario}{6}% 
+\contentsline {subsection}{\numberline {10.2}Encriptacion de los codigos de los sockets}{6}% 
+\contentsline {subsection}{\numberline {10.3}Trackero de los pagos}{7}% 
+\contentsline {section}{\numberline {11}DATABASES}{7}% 
+\contentsline {section}{\numberline {12}CONCLUSI\IeC {\'O}N}{7}% 
+\contentsline {section}{\numberline {13}LIBRERIAS}{7}% 
+\contentsline {section}{\numberline {14}LIBROS}{7}% 
+\contentsline {subsection}{\numberline {14.1}Java}{7}% 
+\contentsline {subsection}{\numberline {14.2}Android}{7}% 
+\contentsline {subsection}{\numberline {14.3}Server}{7}% 
+\contentsline {subsection}{\numberline {14.4}IA}{7}% 
+\contentsline {subsection}{\numberline {14.5}Data Analisys}{7}% 
+\contentsline {subsection}{\numberline {14.6}Seguridad}{7}% 

@@ -254,6 +254,36 @@ Estos hash se enviaran a traves de la web mediante un sistema de criptografia im
 El ServerHandler no debera ser modificado cada vez que se aniada un nuevo codigo de funcionalidad en el server. Para manejar esto, hemos pensado en hacer que el serverhandler funcione mediante un arbol Autobalanceado (AVL o Black Red por ejemplo) que se genera al inicio de la sesion del servidor y que despues, en cada peticion, el serverhandler simplemente busque cual de las hojas es y luego ejecute otra funcon que se encuentre en algun otro lado del codigo. Este arbol se generaria mediante una base de datos que contenga el conjunto de funcionalidades y la funcion asociada.
 
 
+Los usuarios dentro del servidor deberían tener categorias de forma que un cliente no tenga acceso a el control de ciertos registros de la base de datos por ejemplo. Las categorias que se proponen son las siguientes:
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline Nombre & Permisos & Descripcion \\
+\hline Administrador & 0 & El administrador central de la aplicación tendría acceso a todos los comandos del server. \\
+Programador & 1 & Los programadores tienen acceso a los comandos de edicion en el servidor, así como a algunas meta-funcionalidades. Pueden asignar más permisos (hasta el de programador) a otros usuarios.\\
+Moderadores (?) & & \\
+Cliente & 4 & Los clientes deberían tener la capacidad de acceder a las acciones sobre el servidor que impliquen su informacion directa o informacion global publica. Asi mismo deben tener la capacidad de modificar cierta informacion suya. \\
+Invitados && \\
+
+\end{tabular}
+\end{center}
+
+\subsection{Seguridad durante la transmision de los paquetes}
+
+Para asegurar la seguridad de los paquetes hemos establecido que se encontrarán encriptados por una key que tendrán tanto el servidor como el usuario. Para enviar esta key el servidor y el cliente se comunicaran de forma segura entre ellos. 
+
+Una persona que se registre por primera vez en el servidor(o se loguee) pasaría por el siguiente proceso:
+
+\begin{enumerate}
+\item El cliente crea un paquete con el usuario y contraseña, así como alguna información extra más. \item Este paquete es encriptado por una key aleatoria de longitud aleatoria dentro de su dominio. 
+\item El cliente envia el paquete y el servidor lo recibe. El servidor encripta el paquete con una key aleatoria(la cual guarda de forma temporal) y lo envia de vuelta al cliente.
+\item El cliente desencripta con su key el paquete, haciendo que su información de usuario solo esté encriptada ahora por la clave del servidor.
+\item El cliente envia el paquete al servidor. Este lo desencripta con la clave que tenía guardada.
+\end{enumerate}
+
+Durante todo el proceso el paquete se ha enviado encriptado, manteniendo así la seguridad y evitando posibles ataques de Man in the Middle. Por otro lado, este método requiere que la función de encriptación (o las funciones) formen un grupo conmutativo sobre la composición.
+
+Una vez se ha verificado la validez de las credenciales, el servidor usaría el mismo proceso para enviarle a el usuario el hash que usarán como key para encriptar paquetes a partir de ahora.
+
 
 \section{Implementacion de Desktop}
 
@@ -279,13 +309,15 @@ Las tareas que queremos hacer en el apartado de IA son las siguientes:
     \item Analisis de los movimientos economicos de los clientes.
     \item Analisis del tracking de las direcciones de las transacciones de los clientes.
     \item Analisis conductual del cliente dentro de la apliacion.
-    \item Prediccion de los clientes dentro de la apliacion.
+    \item Prediccion de los clientes dentro de la aplicacion.
 \end{itemize}
 
 
 \subsection{Analisis de los movimientos}
 
-\subsection{}
+\subsection{Bots de Automatización sobre el servidor}
+
+Para tener en control el conjunto del servidor será necesario automatizar grandes partes del proceso, entre ellas, todos los temas que tengan que ver con analizar las posibles cuentas falsas, inactivas, errores de seguridad sobre las bases de datos, etc. Para ello necesitaremos programar un conjunto de bots los cuales actuaran segun arboles de decision o mediante funciones optimizadas previamente.
 
 \section{DATA ANALYSIS}
 
@@ -300,6 +332,15 @@ Las tareas que queremos hacer en el apartado de IA son las siguientes:
     \item Encriptacion de todas las conexiones.
     \item Capacidad de trackeo del historial de conexiones
 \end{itemize}
+
+\subsection{Encriptacion del protocolo de envio de hash y verificacion de usuario}
+
+Propiedades de esta encriptacion:
+\begin{enumerate}
+\item Ha de ser conmnutativa bajo composición.
+\item Ha de ser inyectiva.
+\item No puede ser roto por analisis de frecuencia.
+\end{enumerate}
 
 \subsection{Encriptacion de los codigos de los sockets}
 
