@@ -1,8 +1,12 @@
 # Encriptacion
 
-
+En este archivo se encontrara la documentacion para preparar de forma mas intensa el apartado de seguridad.
 
 ## Metodos famosos 
+
+
+
+
 
 - RSA [URL](https://es.wikipedia.org/wiki/RSA)
 
