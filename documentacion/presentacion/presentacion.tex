@@ -256,13 +256,13 @@ El ServerHandler no debera ser modificado cada vez que se aniada un nuevo codigo
 
 Los usuarios dentro del servidor deberían tener categorias de forma que un cliente no tenga acceso a el control de ciertos registros de la base de datos por ejemplo. Las categorias que se proponen son las siguientes:
 \begin{center}
-\begin{tabular}{|c|c|c|}
+\begin{tabular}{|c|c|p{9cm}|}
 \hline Nombre & Permisos & Descripcion \\
 \hline Administrador & 0 & El administrador central de la aplicación tendría acceso a todos los comandos del server. \\
 Programador & 1 & Los programadores tienen acceso a los comandos de edicion en el servidor, así como a algunas meta-funcionalidades. Pueden asignar más permisos (hasta el de programador) a otros usuarios.\\
 Moderadores (?) & & \\
 Cliente & 4 & Los clientes deberían tener la capacidad de acceder a las acciones sobre el servidor que impliquen su informacion directa o informacion global publica. Asi mismo deben tener la capacidad de modificar cierta informacion suya. \\
-Invitados && \\
+Invitados && \\ \hline
 
 \end{tabular}
 \end{center}
@@ -325,6 +325,16 @@ Para tener en control el conjunto del servidor será necesario automatizar grand
     \item Clustering
     \item Analisis de mercado
 \end{itemize}
+
+\section{Clustering de los clientes}
+
+Una utilidad que queremos que nuestro servidor tenga es la capacidad de analizar a los clientes y dividirlos en categorias similares. Esto nos seria util a la hora de plantear posibles promociones y a que clientes les pueden interesar. De esta forma, no saturariamos con spam a todos los clientes sino que escogeriamos los correos a enviar. 
+
+Para el clustering podriamos usar K nearest neighbour o algun tipo de sistema automatico que organice de forma autonoma todos los elemntos a base de analizar su informacion.
+
+\section{Analisis de las Promociones}
+
+Otra opcion importante es el analisis del mercado que tenemos. Cuanto tiempo pasan los clientes en nuestra app etc..
 
 \section{SEGURIDAD}
 
