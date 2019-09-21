@@ -21,8 +21,9 @@ public class Server {
     public void start(int port) {
         try {
 			serverSocket = new ServerSocket(port);
-			while (true)
-	            new serverFunctionHandler(serverSocket.accept()).start();
+			while (true) 
+				new serverFunctionHandler(serverSocket.accept()).start();
+	            
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

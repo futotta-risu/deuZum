@@ -23,15 +23,17 @@ public class serverFunctionHandler extends Thread{
 	        in = new BufferedReader(
 	          new InputStreamReader(tempSocket.getInputStream()));
 	        
-	        String inputLine;
-	        while ((inputLine = in.readLine()) != null) {
-	        	
-	        	if (".".equals(inputLine)) {
-	                out.println("bye");
-	                break;
-	            }
-	            out.println(inputLine);
-	        }
+	        // TODO Add a function to check whether a Hash exist for the user
+	        
+	        String command = in.readLine();
+	        
+	        // Dechiper the Command
+	        
+	        String[] arr = in.readLine().split(" ");
+	        
+	        
+	        out.println(ServerFunctionTreeHolder.metodos.get(command).runCommand(arr));
+	        
 
 			in.close();
 			out.close();
