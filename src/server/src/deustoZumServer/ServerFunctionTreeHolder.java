@@ -16,51 +16,45 @@ interface Command{
 
 public class ServerFunctionTreeHolder {
 
-	public static Map<String, Command> metodos;
+	public static Map<String, Command> serverCommands;
 	
 	public ServerFunctionTreeHolder() {
 		// TODO Rename this file
 	}
 	
 	public static void createMethodArray() {
-		metodos = new HashMap<String, Command>();
+		serverCommands = new HashMap<String, Command>();
 		File file = new File("./data/methodList"); 
-		System.out.println(file.getAbsolutePath());
 		
 		BufferedReader br;
 		try {
 			br = new BufferedReader(new FileReader(file));
-			String st; 
-			  while ((st = br.readLine()) != null) {
-				  String[] splitted = st.split(" ");
-				  metodos.put(splitted[0], new Command() {
+			String socketLine; 
+			  while ((socketLine = br.readLine()) != null) {
+				  String[] socketLineSplit = socketLine.split(" ");
+				  serverCommands.put(socketLineSplit[0], new Command() {
 
 					public String runCommand(String[] arr) {
 						try {
-							Class<?> temp = Class.forName(splitted[1]);
+							Class<?> temp = Class.forName(socketLineSplit[1]);
 							System.out.println(temp.getName());
 							
 							java.lang.reflect.Method method;
-							method = temp.getMethod(splitted[2], splitted.getClass());
+							method = temp.getMethod(socketLineSplit[2], socketLineSplit.getClass());
 							System.out.println(method.getParameterCount());
 							Object[] params = {arr};
 							return (String) method.invoke(null, params);
 						} catch (ClassNotFoundException e) {
 							e.printStackTrace();
 						} catch (NoSuchMethodException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						} catch (SecurityException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						} catch (IllegalAccessException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						} catch (IllegalArgumentException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						} catch (InvocationTargetException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 						

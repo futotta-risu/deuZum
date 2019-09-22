@@ -10,9 +10,19 @@ public class Server {
 
 	Properties properties;
 	private ServerSocket serverSocket;
-
+	
+	
+	
 	public Server() {
-		//TODO Add the propierties file checker
+
+		properties = new Properties();
+		try {
+			properties.load(new FileInputStream("./src/deustoZumServer/server.properties"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
 		// TODO Add to the database the user status
 		// El servidor tiene que tener una base de datos hosteando el estado de los usuarios
 		// activos e inactivos

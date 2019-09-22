@@ -32,7 +32,7 @@ public class serverFunctionHandler extends Thread{
 	        String[] arr = in.readLine().split(" ");
 	        
 	        
-	        out.println(ServerFunctionTreeHolder.metodos.get(command).runCommand(arr));
+	        out.println(ServerFunctionTreeHolder.serverCommands.get(command).runCommand(arr));
 	        
 
 			in.close();
