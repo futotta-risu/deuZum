@@ -1,6 +1,6 @@
 # Documentacion y Material de Preparacion
 
-En esta carpeta se encontraran todos e material con el que se prepara al equipo. Entre ello se encontraran libros, cursos, etc. Los libros apareceran mencionados como se haria en una bibliografia. Los cursos y videos se referenciaran junto a un enlace.
+En esta carpeta se encontraran todo el material con el que se prepara al equipo. Entre ello se encontraran libros, cursos, etc. Los libros apareceran mencionados como se haria en una bibliografia. Los cursos y videos se referenciaran junto a un enlace.
 
 
 ## Documentación sobre el Proyecto

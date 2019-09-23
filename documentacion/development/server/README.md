@@ -2,10 +2,23 @@
 
 ## Secciones
 
-1. [Organizacion del Servidor](#servidor) 
+1. [Organizacion del Servidor](#organizacion-del-servidor) 
 2. [Como crear comandos](#crear-comandos)
 3. [Como funciona el reconocimiento de comandos](#funcionamiento-del-reconocimiento-de-comandos)
 4. [Sockets y su forma de proceso](#sockets)
+
+
+## Organizacion del servidor
+
+El servidor esta organizado por las siguientes clases:
+
+|Nombre de la Clase| Descripcion|
+|---------------------|-------------------------------------------------------------------------------------------------|
+| ServerLauncher | Clase encargada del lanzamiento del servidor asi como de todas las clases y metodos auxiliares. |
+| Server | Clase del Servidor. Esta clase se encargara del mantenimiento del servidor. |
+| ServerCommands | Clase encargada de guardar el mapa con los comandos existentes. |
+| ServerSocketHandler | Clase encargada de atender las peticiones de los sockets. |
+
 
 ## Crear Comandos
 
@@ -17,7 +30,7 @@ En la siguiente compilación que se haga del servidor, el nuevo comando será fu
 
 ## Funcionamiento del Reconocimiento de Comandos
 
-El funcionamiento interno de los comandos se produce dentro de la clase serverFunctionTreeHolder(**riesgo de cambio**). Dentro de esta clase hemos creado una interfaz *Commando* con la siguiente estructura:
+El funcionamiento interno de los comandos se produce dentro de la clase ServerCommands. Dentro de esta clase hemos creado una interfaz *Commando* con la siguiente estructura:
 
 ~~~~ 
 interface Command{
@@ -52,4 +65,6 @@ while ((line = br.readLine()) != null) {
 A partir de aquí solo necesitamos invocar el metodo desde el mapa:
 
 
-`ServerFunctionTreeHolder.metodos.get(command).runCommand(arr)`
+`ServerCommands.metodos.get(command).runCommand(arr)`
+
+**Aviso:** Para que el mapa pueda ejecutar la funcion, esta ha de ser una funcion static.

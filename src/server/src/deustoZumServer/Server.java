@@ -4,10 +4,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.*;
+import java.util.ArrayList;
 import java.util.Properties;
+
+import deustoZumServer.IA.Bots.*;
 
 public class Server {
 
+	ArrayList<BotBase> bots;
 	Properties properties;
 	private ServerSocket serverSocket;
 	
@@ -22,17 +26,19 @@ public class Server {
 			e.printStackTrace();
 		}
 		
-		
+		createBotList();
 		// TODO Add to the database the user status
 		// El servidor tiene que tener una base de datos hosteando el estado de los usuarios
 		// activos e inactivos
 	}
 	
+	// Server Execution Functions
+	
     public void start(int port) {
         try {
 			serverSocket = new ServerSocket(port);
 			while (true) 
-				new serverFunctionHandler(serverSocket.accept()).start();
+				new ServerSocketHandler(serverSocket.accept()).start();
 	            
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -50,5 +56,16 @@ public class Server {
     	}
     	        
     }
+    
+    // Server Bot Functionality
+    
+    public void createBotList() {
+    	
+    	for(int i = 0; i < Integer.parseInt(this.properties.getProperty("botCount"));i++) 
+    		this.bots.add(BotGenerator.generateBot(BotType.CleaningBot, "Bot-"+i));
+    	
+    	
+    }
+    
     
 }

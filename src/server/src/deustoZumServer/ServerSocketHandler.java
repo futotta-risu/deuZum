@@ -6,14 +6,14 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class serverFunctionHandler extends Thread{
+public class ServerSocketHandler extends Thread{
 
 	Socket tempSocket;
     private PrintWriter out;
     private BufferedReader in;
 	
 	
-	public serverFunctionHandler(Socket tempSocketi) {
+	public ServerSocketHandler(Socket tempSocketi) {
 		this.tempSocket = tempSocketi;
 	}
 	
@@ -32,7 +32,7 @@ public class serverFunctionHandler extends Thread{
 	        String[] arr = in.readLine().split(" ");
 	        
 	        
-	        out.println(ServerFunctionTreeHolder.serverCommands.get(command).runCommand(arr));
+	        out.println(ServerCommands.serverCommands.get(command).runCommand(arr));
 	        
 
 			in.close();

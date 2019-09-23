@@ -14,11 +14,11 @@ interface Command{
 	String runCommand(String[] arr);
 }
 
-public class ServerFunctionTreeHolder {
+public class ServerCommands {
 
 	public static Map<String, Command> serverCommands;
 	
-	public ServerFunctionTreeHolder() {
+	public ServerCommands() {
 		// TODO Rename this file
 	}
 	
