@@ -1,6 +1,5 @@
 package deustoZumServer;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.*;
@@ -61,7 +60,7 @@ public class Server {
     
     public void createBotList() {
     	
-    	for(int i = 0; i < Integer.parseInt(this.properties.getProperty("botCount"));i++) 
+    	for(int i = 0; i < Integer.parseInt(this.properties.getProperty("server.botCount"));i++) 
     		this.bots.add(BotGenerator.generateBot(BotType.CleaningBot, "Bot-"+i));
     	
     	

@@ -8,3 +8,12 @@ DeusZum es una aplicación de gestión de dinero online para la gestión de pago
 
 ## Documentacion
 
+Toda la documentacion se encuentra en la wiki.
+
+## Organizacion interna del Repositorio
+
+- docs
+- src
+- .gitignore
+- README.md
+- 

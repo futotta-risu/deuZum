@@ -17,7 +17,7 @@ En esta carpeta se encontraran todo el material con el que se prepara al equipo.
     1. Criptografia
         - Introduccion a la Criptografia [URL](https://profecd.webnode.es/_files/200000079-90fc291f71/Introduccion%20a%20la%20criptografia.pdf)
         - Introduccion a la Criptografia 2 [URL](https://biblioteca.unirioja.es/tfe_e/TFE002200.pdf)
-
+        - Elementary number theory, cryptography and codes [Temas a Leer]()
 
 ### Videos
 
