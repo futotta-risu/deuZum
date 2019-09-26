@@ -31,6 +31,8 @@
 \usepackage{multirow}
 
 
+\newcommand{\tabitem}{~~\llap{\textbullet}~~}
+
 \pagestyle{plain}
 
 %Paper Margins and size
@@ -165,75 +167,61 @@ Para la preparacion del temario que queremos trabajar en el trabajo hemos optado
 
 \subsection{8 de octubre	E1. Propuesta de proyecto y planificación }
 
-\begin{itemize}
-\item Server \begin{enumerate}
-\item Conseguir conectar un servidor SQL a el servidor.
-\item Hacer que el servidor lea archivos properties.
-\item Preparar la forma en la que se organizarán las carpetas en el servidor
-\end{enumerate}
-\item Desktop \begin{enumerate}
-\item Crear la ventana junto con sus componentes.
-\item Crear el metodo para enviar sockets.
-\end{enumerate}
-\item Android \begin{enumerate}
-\item Leer un poco sobre Android
-\item Crear una aplicación basica
-\end{enumerate}
-\item Database \begin{enumerate}
-\item Crear la estructura de la base de datos.
-\item Crear una base de datos en servidor local
-\end{enumerate}
-\item Seguridad \begin{enumerate}
-\item Haber leido un mínimo sobre RSA, Blowfish, MD5, SHA512, Cesar... 
-\item Plantear los métodos de encriptación que se usarán para cada tarea dentro del servidor.
-\item Preparar la forma en la que se organizarán las carpetas en el servidor
-\end{enumerate}
-\item IA \begin{enumerate}
-\item Plantear que metodos usaremos en el proceso
-\item Plantear que tipo de bots queremos usar
-\item Preparar la forma en la que se organizarán las carpetas en el servidor
-\end{enumerate}
-\item Miscelánea \begin{enumerate}
-\item Entender como funciona la documentación del proyecto.
-\item Entender como funciona el sistema de comandos del servidor.
-\item Organizar el repositorio.
-\item Estudiar la posibilidad de cambiar la documentación a una wiki.
-\end{enumerate}
+\begin{tabular}{|p{3cm}|p{11cm}|}
+\hline
+\multirow{2}{*}{Server} & \tabitem Conseguir conectar un servidor SQL a el servidor.\\
+& \tabitem Hacer que el servidor lea archivos properties.\\
+\hline
+\multirow{2}{*}{Desktop} & \tabitem Crear la ventana junto con sus componentes.\\
+& \tabitem Crear el metodo para enviar sockets. \\
+\hline  
+ Android & \tabitem Leer un poco sobre Android \\
+\hline 
+ Database & \tabitem  Crear la estructura de la base de datos. \\
+ \hline 
+ \multirow{2}{*}{Seguridad} & \tabitem Haber leido un mínimo sobre RSA, Blowfish, MD5, SHA512, Cesar... \\
+ & \tabitem Plantear los métodos de encriptación que se usarán para cada tarea dentro del servidor.\\
+ \hline 
+ \multirow{2}{*}{IA} & \tabitem Plantear que metodos usaremos en el proceso \\
+ &  \tabitem Plantear que tipo de bots queremos usar\\
+ \hline 
+ \multirow{4}{*}{Miscelanea} & \tabitem  Entender como funciona la documentación del proyecto. \\
+ & \tabitem Entender como funciona el sistema de comandos del servidor. \\
+ & \tabitem Organizar el repositorio.\\
+ & \tabitem Estudiar la posibilidad de cambiar la documentación a una wiki.\\
+\hline
+\end{tabular}
 
-\end{itemize}
+
 
 \subsection{29 de octubre	E2. Fase I del proyecto}
 
-\begin{itemize}
-\item Server \begin{enumerate}
-\item Estructurar bien el servidor.
-\item Todos los mensajes de los sockets deberán ir encriptados.
-\item 
-\end{enumerate}
-\item Desktop \begin{enumerate}
-\item Cliente funcional para enviar sockers
-\item Cliente visualmente no horrible
-\end{enumerate}
-\item Android \begin{enumerate}
-\item Cliente funcional para enviar sockers
-\item Cliente visualmente no horrible
-\end{enumerate}
-\item Database \begin{enumerate}
-\item La base de datos debe estar creada y con algunos datos de ejemplo
-\end{enumerate}
-\item Seguridad \begin{enumerate}
-\item Las contraseñas de los usuarios deben estar encriptadas en algun tipo de hash.
-\item Los usuarios deben tener su clave privada para contactar con el servidor
-\end{enumerate}
-\item IA \begin{enumerate}
-\item Tener un bot construido
-\end{enumerate}
-\item Data Mining \begin{enumerate}
-\item
-\end{enumerate}
-\item Miscelánea \begin{enumerate}
-\item 
-\end{enumerate}
+\begin{tabular}{|p{3cm}|p{11cm}|}
+\hline
+\multirow{2}{*}{Server} & \tabitem Estructurar bien el servidor.\\
+& \tabitem Todos los mensajes de los sockets deberán ir encriptados.\\
+\hline
+\multirow{2}{*}{Desktop} & \tabitem Cliente funcional para enviar sockers\\
+& \tabitem Cliente visualmente no horrible \\
+\hline  
+ \multirow{2}{*}{Android} & \tabitem Cliente funcional para enviar sockers \\
+ & Cliente visualmente no horrible \\
+\hline 
+ Database & \tabitem  La base de datos debe estar creada y con algunos datos de ejemplo \\
+ \hline 
+ \multirow{2}{*}{Seguridad} & \tabitem Las contraseñas de los usuarios deben estar encriptadas en algun tipo de hash. \\
+ & \tabitem Los usuarios deben tener su clave privada para contactar con el servidor\\
+ \hline 
+ \multirow{2}{*}{IA} & \tabitem Tener un bot construido \\
+ &  \tabitem \\
+ \hline 
+ \multirow{4}{*}{Miscelanea} & \tabitem  . \\
+ & \tabitem . \\
+ & \tabitem .\\
+ & \tabitem .\\
+\hline
+\end{tabular}
+
 
 \end{itemize}
 
@@ -272,26 +260,32 @@ Los miembros de los grupos seran los siguientes:
 
 
 
-\section{Server}
+\section{Implementacion de Server}
 
-\subsection{Funcionalidades}
 
-La lista de funciones del servidor será la siguiente:
+La implementacion del Server sera una implementacion sencilla de un serversocket con la capacidad de extension de funcionalidades. Incluso tal vez no necesitar modificar el codigo del server per se para la ampliacion de su funcionalidad. 
+
+Los sockets del servidor tendrian una estructura tal que:
 \begin{enumerate}
-\item Menu para cambiar los ajustes del servidor
-\item Menu para ver el historial global de transacciones
-\item Menu de acceso a la base de datos
-\item Menu para crear/editar/eliminar usuarios
-\item Ajustes de los bots 
-\item Menu de acceso a las opciones de IA
-\item Menu de acceso a las opciones de Seguridad
+    \item Conseguir acceder a la cuenta de un usuario.
+    \item Comprobar que el usurio existe y verificar que la contrasenia es correcta.
+    \item Verificar que no ha habido un abnormal comportation.
+    \item Devolverle un hash que representa su sesion actual en el servidor.
+    \item En caso de que quiera guardar la sesion, devolverle otro hash que represente su sesion y guardar en el servidor que esa sera su sesion activa.
+    \item Este hash debera ser modificado cada x tiempo.
 \end{enumerate}
 
+\begin{wrapfigure}{R}{0.4\textwidth}
+\centering
+\includegraphics[width=0.4\textwidth]{pics/serverclient.png}
+\caption{Modelo del Servicio.}
+\end{wrapfigure} 
 
+Los sockets de funcionalidad estaran compuestos por un comando, luego el servidor devolvera un codigo hash de sesion activa y a continuacion el cliente enviara toda la informacion con el hash como cabecera.
 
-\section{Forma de Implementación}
+Estos hash se enviaran a traves de la web mediante un sistema de criptografia implementado por nuestro equipo y, por otro lado, plantearemos un metodo mas seguro para mostrar la capacidad de implementar metodologias mas serias o profesionales.
 
-
+El ServerHandler no debera ser modificado cada vez que se aniada un nuevo codigo de funcionalidad en el server. Para manejar esto, hemos pensado en hacer que el serverhandler funcione mediante un arbol Autobalanceado (AVL o Black Red por ejemplo) que se genera al inicio de la sesion del servidor y que despues, en cada peticion, el serverhandler simplemente busque cual de las hojas es y luego ejecute otra funcon que se encuentre en algun otro lado del codigo. Este arbol se generaria mediante una base de datos que contenga el conjunto de funcionalidades y la funcion asociada.
 
 
 Los usuarios dentro del servidor deberían tener categorias de forma que un cliente no tenga acceso a el control de ciertos registros de la base de datos por ejemplo. Las categorias que se proponen son las siguientes:
@@ -327,24 +321,6 @@ Una vez se ha verificado la validez de las credenciales, el servidor usaría el 
 
 \section{Implementacion de Desktop}
 
-
-\subsection{Funcionalidades}
-
-La lista de funciones del cliente será la siguiente:
-\begin{enumerate}
-\item Ventana de logueo inicial
-\item Menu con las siguientes opciones:\begin{itemize}
-\item Envio de transaccion
-\item Grupos o pagos compartidos
-\item Configuración de la cuenta
-\item Información sobre los gastos y el estado de la cuenta
-\end{itemize}
-\end{enumerate}
-
-
-
-\section{Forma de Implementación}
-
 La aplicacion de escritorio sera puramente una aplicacion que sirva como cliente para el servidor y que sirva para enviar sockets y representar de forma visual todos los comandos que se podran enviar al servidor.
 
 La implementacion del software de Desktop se basará en tres valores principales: comodidad, sencilles y completitud. Buscamos crear una aplicacion que satisfaga todas las necesidades de los usuarios, manteniendo a su vez la sencillez que supone un software minimalista y con el apoyo de IA.
@@ -354,34 +330,14 @@ La implementacion del software de Desktop se basará en tres valores principales
 
 \section{Implementacion de Android}
 
-\subsection{Funcionalidades}
-
-La lista de funciones del cliente será la siguiente:
-\begin{enumerate}
-\item Ventana de logueo inicial
-\item Menu con las siguientes opciones:\begin{itemize}
-\item Envio de transaccion
-\item Grupos o pagos compartidos
-\item Configuración de la cuenta
-\item Información sobre los gastos y el estado de la cuenta
-\end{itemize}
-\end{enumerate}
 
 
-\section{IA y Data Analysis}
+
+\section{IA}
 
 El apartado de IA de DeusZum se basara puramente en el analisis de la conducta de los usuarios dentro de la aplicacion con el unico fin de garantizar su seguridad.
 
-Obligatorios
-
-\begin{enumerate}
-\item Comprobacion de movimientos/comportamientos sospechosos para evitar suplantaciones de identidad
-\item Creacion de bots para el mantenimiento del servidor(Limpieza de datos basura, envio de emails, eliminación de cuentas inactivas)
-\item Clustering del tipo de cliente
-\item IA para envio de promociones segun las caracteristicas del cliente
-\end{enumerate}
-
-Opcionales
+Las tareas que queremos hacer en el apartado de IA son las siguientes:
 
 \begin{itemize}
     \item Analisis de los movimientos economicos de los clientes.
@@ -397,6 +353,12 @@ Opcionales
 
 Para tener en control el conjunto del servidor será necesario automatizar grandes partes del proceso, entre ellas, todos los temas que tengan que ver con analizar las posibles cuentas falsas, inactivas, errores de seguridad sobre las bases de datos, etc. Para ello necesitaremos programar un conjunto de bots los cuales actuaran segun arboles de decision o mediante funciones optimizadas previamente.
 
+\section{DATA ANALYSIS}
+
+\begin{itemize}
+    \item Clustering
+    \item Analisis de mercado
+\end{itemize}
 
 \section{Clustering de los clientes}
 
@@ -408,18 +370,11 @@ Para el clustering podriamos usar K nearest neighbour o algun tipo de sistema au
 
 Otra opcion importante es el analisis del mercado que tenemos. Cuanto tiempo pasan los clientes en nuestra app etc..
 
-
 \section{SEGURIDAD}
-
-Obligatorios
 
 \begin{itemize}
     \item Encriptacion de todas las conexiones.
-    \item Capacidad de trackeo del historial de conexiones.
-    \item Nuevo algoritmo de encriptación inyectivo o conmutativo
-    \item Proteccion de las cadenas de SQL del servidor para evitar inyecciones de SQL
-    \item ‌Preparar funciones para eliminar/echar personas suplantando identidad etc. (Protocolo eliminar gente)
-    
+    \item Capacidad de trackeo del historial de conexiones
 \end{itemize}
 
 \subsection{Encriptacion del protocolo de envio de hash y verificacion de usuario}
