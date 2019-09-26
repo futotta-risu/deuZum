@@ -62,6 +62,7 @@ public class ServerCommands {
 					}
 				  });
 			  }
+			  br.close();
 			  
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block

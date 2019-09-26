@@ -8,7 +8,7 @@ import java.util.Properties;
 
 import deustoZumServer.IA.Bots.*;
 
-public class Server {
+public class Server implements Runnable{
 
 	ArrayList<BotBase> bots;
 	Properties properties;
@@ -41,6 +41,7 @@ public class Server {
 	            
 		} catch (IOException e) {
 			e.printStackTrace();
+			
 		}
         
         
@@ -52,6 +53,9 @@ public class Server {
 
     	}catch(IOException ex1) {
     		System.err.println("Ha habido un error al cerrar el servidor");
+    		e.printStackTrace();
+    		
+    
     	}
     	        
     }
@@ -65,6 +69,12 @@ public class Server {
     	
     	
     }
+
+	@Override
+	public void run() {
+		
+		
+	}
     
     
 }
