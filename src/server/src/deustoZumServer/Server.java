@@ -3,8 +3,12 @@ package deustoZumServer;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.*;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
+
+import com.mysql.jdbc.Connection;
 
 import deustoZumServer.IA.Bots.*;
 
@@ -13,7 +17,7 @@ public class Server implements Runnable{
 	ArrayList<BotBase> bots;
 	Properties properties;
 	private ServerSocket serverSocket;
-	
+	private java.sql.Connection connection;
 	
 	
 	public Server() {
@@ -31,6 +35,7 @@ public class Server implements Runnable{
 		// activos e inactivos
 	}
 	
+	
 	// Server Execution Functions
 	
     public void start(int port) {
@@ -40,7 +45,8 @@ public class Server implements Runnable{
 				new ServerSocketHandler(serverSocket.accept()).start();
 	            
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.err.println("The Server was closed");
+			//e.printStackTrace();
 			
 		}
         
@@ -53,7 +59,7 @@ public class Server implements Runnable{
 
     	}catch(IOException ex1) {
     		System.err.println("Ha habido un error al cerrar el servidor");
-    		e.printStackTrace();
+    		ex1.printStackTrace();
     		
     
     	}
@@ -76,5 +82,31 @@ public class Server implements Runnable{
 		
 	}
     
+	// Other
+	public void connectToDatabase(String direction, String user, String pass) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			connection = DriverManager.getConnection("jdbc:mysql://localhost/deuzum","root", "");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public String getStringFromDatabase() {
+		try {
+			java.sql.Statement sta = connection.createStatement();
+			java.sql.ResultSet result = sta.executeQuery("SELECT * FROM `usuarios` ");
+			if(result.next()) System.out.println(result.getString("pass"));
+			else System.err.println("Joo, no lo pilla");
+		} catch(SQLException ex) {
+			System.err.println(ex.getSQLState());
+		}
+		return null;
+		
+	}
     
 }
