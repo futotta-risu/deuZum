@@ -26,6 +26,9 @@
 hs_err_pid*
 
 
+##
+.DS_Store
+
 ## LaTeX
 *.log
 *.gz

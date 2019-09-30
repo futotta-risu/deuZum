@@ -1,0 +1,134 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+
+%Librerias Matematicas
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+
+%Librerias Algoritmia
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+
+%Librerias Formato
+\usepackage{soul}%To highligh
+\usepackage{fancyhdr}
+\usepackage[a4paper]{geometry}
+\usepackage{parskip}
+\usepackage{changepage}
+\usepackage{lipsum}
+
+%Librerias Imagen
+\usepackage{tikz}
+\usepackage{tikzpagenodes}
+
+
+\usepackage{graphicx}
+\usepackage{wrapfig}
+
+%Librerias Ajuste Tablas
+\usepackage{adjustbox}
+\usepackage{multirow}
+
+\pagestyle{plain}
+
+%Paper Margins and size
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=35mm,
+ top=25mm,
+ right=30mm,
+ bottom=20mm
+ }
+
+%Page Numeration
+\pagestyle{plain}
+
+\thispagestyle{empty}
+\clearpage\pagestyle{plain}
+
+%Interline 1.5 (of Word)
+\linespread{1.25}
+
+%Ident between 0.5 - 1.25max
+\setlength{\parindent}{15pt}
+
+%Math Theorem style
+\newtheorem{theorem}{Teorema}
+\newtheorem{corollary}{Corolario}[theorem]
+\newtheorem{lemma}{Lemma}
+\newtheorem*{remark}{Nota}
+\theoremstyle{definition}
+\newtheorem{definition}{Definición}[section]
+
+%Algorithm and PseudoCode
+\makeatletter
+\def\BState{\State\hskip-\ALG@thistlm}
+\makeatother 
+
+
+\title{ DeuZum}
+\author{Grupo: P01-11: Erik B. Terres Escudero, Amaia Acha Aristegui, Lander San Millan Langa}
+\date{Septiembre 2019}
+
+\begin{document}
+
+\begin{tikzpicture}[remember picture,overlay,shift={(current page.north east)}]
+\node[anchor=north east,xshift=-13.5cm,yshift=-1cm]{\includegraphics[scale = 0.2]{LogoIngenieriaR.jpg}};
+\end{tikzpicture}
+
+\hfill \break
+\makeatletter
+
+\hfil\parbox[t]{0.9\textwidth}{\centering\Huge\bfseries\@title}\par
+\hfil\parbox[t]{0.7\textwidth}{\centering\bfseries\@author\\[1ex]\@date}\par
+
+
+\makeatother
+
+\hfill \break
+
+
+\section{INTRODUCCIÓN}
+
+
+DeuZum es una aplicación de gestión de dinero online (similar a Paypal)para la gestión de pagos, proyectos o costes grupales. DeuZum ofrece un sistema seguro de transferencias de forma que el cliente no tenga que preocuparse de que este pasando con su dinero en todo momento. 
+
+DeuZum estará implementado en un servidor y daría servicio a los usuarios a través de un programa en Windows y una aplicación en Android. Cada una de ellas implementada para conectarse a un servidor central, en el cual se almacenarán los datos, procesarán las peticiones y se garantizará la seguridad de la información.
+
+El servicio que ofrece DeuZum está dividido en diferentes sectores, algunos puramente económicos y otros de análisis de la conducta o de las transacciones. El servidor ejecutara todas las peticiones de los usuarios y devolverá la información que se haya solicitado. Toda la información mientras se enviá se encontrara encriptada para la seguridad del usuario.
+
+\section{IDEAS}
+
+La creacion de DeuZum se divide en diferentes sectores. Entre ellos se encuentra el crear un servidor central el cual se encarge de procesar todas las peticiones que reciba, dos clientes (windows y android). Dentro del servidor existiran funcionalidades que incluiran temas de criptografia, deteccion de errores, analisis de series temporales, etc.
+
+En nuestro grupo nos encargaremos de los siguientes apartados:
+\begin{itemize}
+\item Creacion de la estructura central del servidor y el serverSocket.
+\item Desarrollo de los algoritmos de IA encargados de automatizar el servidor y de analizar la informacion generada por los clientes.
+\item Creacion de la estructura de la base de datos.
+\item Captacion, almacenamiento y procesamiento de los datos de los usuarios dentro de la aplicacion.
+\end{itemize}
+
+\section{FUNCIONALIDAD}
+
+Aquí dejamos la lista de funcionalidades que hemos planteado para el proyecto:
+\begin{enumerate}
+\item \textbf{Ejecución de ServerSocket que acepte múltiples conexiones}.
+\item \textbf{Creación y Ejecución de comandos propios dentro del servidor}: Para ello hemos creado un archivo en el cual se puede escribir un nombre de comando y la dirección de la función que ejecuta dentro de los jars. De esta forma no tenemos que cambiar el código del servidor a la hora de aumentar su funcionalidad. Estos comandos se guardan al iniciarse el servidor en un HashMap<String, Method>(aunque tal vez lo cambiemos a un enum).
+\item \textbf{Funciones de encriptacion}: Dentro del servidor habrá implementadas un mínimo de dos funciones de encriptacion, una conmutativa e inyectiva y otra sin ninguna de estas propiedades. Estas las usaremos para encriptar sockets o passwords dentro del server.
+\item \textbf{Clustering de Clientes}: Crearemos con python información pseudoaleatoria de diferentes tipos de clientes(con relativa varianza para que no sea un ejercicio trivial) y implementaremos algoritmos de clustering como K Means Algorithm, K Nearest N y Mean-Shift Clustering. Estos serán los algoritmos que si o si implementaremos, pero es posible que se implementen otros extra. 
+\item \textbf{Predicción de Series Temporales}: Utilizaremos metodos clásicos para intentar, dada cierta cantidad de información sobre las cuentas de nuestros clientes, predecir el estado de su cuenta durante los próximos meses.  Debido a que la información la generaremos nosotros y tengamos bastante información a nuestra disposicion, tal vez implementemos alguna red simple con LSMT y entrenemos diferentes redes según los clusters(Aunque no prometemos nada).
+\item \textbf{Sistemas de Bots}: El servidor tendrá incorporadas la capacidad para los desarrolladores de implementar bots de forma sencilla y conseguir ejecutarlos solo cambiando una linea. Estos bots tendrán la capacidad de decisión sobre ciertas funciones dentro del servidor con el objetivo de automatizar tareas y aumentar la seguridad/estabilidad del servidor.
+\item \textbf{Base de datos para guardar la información necesaria/util}
+\item \textbf{Funciones de acceso sencillo a la base de Datos}: Dentro del servidor estableceremos algunas funciones de acceso a la base de datos SQL tal que obtener la información común no requiera queries excesivamente complejas.
+\item \textbf{Proporcionar a los clientes informes sobre su informacion}: Queremos ofrecer al cliente la capacidad de ver su información o ciertos análisis que realizamos de forma sencilla y comprensible eliminando del medio toda la información mas técnica.
+\end{enumerate}
+
+
+
+\end{document}
