@@ -82,7 +82,7 @@ public class Server implements Runnable{
 		
 	}
     
-	// Other
+	// Database Functions
 	public void connectToDatabase(String direction, String user, String pass) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");

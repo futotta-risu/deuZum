@@ -1,0 +1,248 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+
+%Librerias Matematicas
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+
+\usepackage[table]{xcolor}% http://ctan.org/pkg/xcolor
+
+%Algorithms
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+
+
+\usepackage{soul}%To highligh
+\usepackage{fancyhdr}
+\usepackage[a4paper]{geometry}
+\usepackage{parskip}
+\usepackage{changepage}
+\usepackage{lipsum}
+\usepackage{tikz}
+\usepackage{tikzpagenodes}
+
+\usepackage{graphicx}
+\usepackage{wrapfig}
+
+\usepackage{adjustbox}
+\usepackage{multirow}
+\newcommand{\tabitem}{~~\llap{\textbullet}~~}
+
+\pagestyle{plain}
+
+%Paper Margins and size
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=30mm,
+ top=20mm,
+ right=30mm,
+ bottom=20mm
+ }
+
+%Page Numeration
+\pagestyle{plain}
+\thispagestyle{empty}
+\clearpage\pagestyle{plain}
+
+%Interline 1.5 (of Word)
+\linespread{1.25}
+
+%Ident between 0.5 - 1.25max
+\setlength{\parindent}{15pt}
+
+%Math Theorem style
+\newtheorem{theorem}{Teorema}
+\newtheorem{corollary}{Corolario}[theorem]
+\newtheorem{lemma}{Lemma}
+\newtheorem*{remark}{Nota}
+\theoremstyle{definition}
+\newtheorem{definition}{Definición}[section]
+\newenvironment{Proof}[1][Proof]
+  {\proof[#1]\leftskip=1cm}
+  {\endproof}
+
+%Algorithm and PseudoCode
+\makeatletter
+\def\BState{\State\hskip-\ALG@thistlm}
+\makeatother 
+
+
+\begin{document}
+
+\begin{titlepage}
+	\begin{center}
+	    \includegraphics[scale = 0.5]{LogoIngenieriaR.jpg}\\[1.0 cm]
+	\end{center}
+	
+    \vspace*{150pt}
+    \centering
+    {\Huge
+     \textbf{DEUZUM}
+    }
+    
+	\vspace*{200pt}
+	
+	
+	\begin{minipage}{2in}
+		\begin{tabular}{l}
+			Terres Escudero, Erik B.    \\
+			Zarate Jayo, Gorka   \\
+			Zugazaga Alonso, Aritz  \\
+			Acha Aristegui, Amaia  \\
+			Gago López,Leire  \\
+			San Millan Langa, Lander 
+		\end{tabular}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{3in}
+	\begin{flushright}
+	\Large Curso 2019/2020 \\
+		\Huge Ing. Informatica\\
+		\LARGE Programacion III
+	\end{flushright}
+		
+	\end{minipage}
+    
+	
+\end{titlepage}
+
+
+\section{INTRODUCCIÓN}
+
+
+DeuZum es una aplicación de gestión de dinero online para la gestión de pagos, proyectos o costes grupales. DeuZum ofrece un sistema seguro de transferencias de forma que el cliente no tenga que preocuparse de que este pasando con su dinero en todo momento.
+
+DeuZum estará implementado en un servidor y daría servicio a los usuarios a través de un programa en Windows y una aplicación en Android. Cada una de ellas implementada para conectarse a un servidor central, en el cual se almacenarán los datos, procesarán las peticiones y se garantizará la seguridad de la información.
+
+El servicio que ofrece DeuZum está dividido en diferentes sectores, algunos puramente económicos y otros de análisis de la conducta o de las transacciones. El servidor ejecutara todas las peticiones de los usuarios y devolverá la información que se haya solicitado. Toda la información mientras se enviá se encontrara encriptada para la seguridad del usuario.
+
+\section{IDEAS}
+
+\section{ESTRUCTURA DEL PROYECTO}
+
+\subsection{Apartados}
+
+\subsection{Directorios y Estructura}
+
+\subsection{Implementación del Server}
+
+\subsection{IA}
+
+\subsection{Data Analisys}
+
+\subsection{Bases de Datos I}
+
+\section{FORMA DE TRABAJO}
+
+\subsection{Division del trabajo}
+
+Para la realización del proyecto, hemos optado por la división del trabajo en grupos con temáticas separadas. Los dos grupos tendrán que trabajar en una categoría central entre IA y Seguridad, y, trabajar en una parte de la implementación y algoritmia. Las categorías y subcategorías serian las siguientes:
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+	\hline	
+	\cellcolor{cyan!12} Implementacion & \cellcolor{cyan!12}Uso de datos & \cellcolor{cyan!12}Seguridad \\ \hline
+	Servidor & Data Analysis & Database \\
+	Windows & IA & Criptografia \\
+	Android & Big Data & Proteccion \\
+	\hline
+	
+\end{tabular}
+\end{center}
+
+
+
+Cada uno de los grupos tendra un conjunto de tareas las cuales se diviran en \textit{tareas principales} y \textit{tareas secundarias}. Las tareas principales son aquellas a las que se les daran prioridad y buscamos que esten terminadas a la hora de terminar el proyecto. Las tareas secundarias son aquellas que no tienen tanta importancia y que se empezaran una vez se vallan acabando las tareas principales.
+
+A su vez, las tareas estaran numeradas segun importancia, dificultad y tiempo de trabajo con el fin de poder establecer un orden de prioridad para que su progreso haga que el proceso de construccion del proyecto sea relativamente optimo y de forma que su estructura no se vea afectada por software anterior.
+
+Por ultimo, hay un sector no especializado que trata los temas de algoritmia sobre como handlear la forma de minimizar el total de pagos que hay realizar en forma de peticiones. Este algoritmo estara pensado en forma de algoritmo greedy al tener complejidad $O(n)$, pero en caso de que consigamos un algoritmo que no dependa de combinatorial algorithms o complejidades exponenciales para encontrar el minimo numero de pagos, tal vez aniadamos la opcion. Por ahora no sabemos como de rentable resultaria este algoritmo, ni tampoco sabemos ninguna upperbound del numero de movmientos que sea inferior a $n$ aproximadamente. Esto se mostrara en la bibliografia final o en la documentacion sobre el software.
+
+El apartado de algoritmia se dividira segun convenga, aunque se mostrara dentro de la documentacion quien ha hecho que tareas y como ha resuelto los problemas.
+\subsection{Error Handling}
+
+Para evitar errores que afecten al codigo a nivel global, hemos optado por utilizar github y hacer que cada miembro del grupo tenga su propia cuenta. Los errores, comentarios y todo se enviarian a traves de github excepto la informacion mas urgente que se enviaria a traves de un grupo de whatsapp o telegram/discord en si defecto.
+
+\subsection{Preparacion del temario}
+
+Para la preparacion del temario que queremos trabajar en el trabajo hemos optado por utilizar un conjunto de libros que consideramos basicos para las personas que no tienen mucha experiencia y utiles/importantes para las personas que tengan un cierto control en ciertos aspectos. Esta lista de libros se encontrara en el apendice de este documento categorizada.
+
+
+\section{PLANIFICACIÓN}
+
+
+\subsection{8 de octubre	E1. Propuesta de proyecto y planificación }
+
+\begin{tabular}{|p{3cm}|p{11cm}|}
+\hline
+\multirow{2}{*}{Server} & \tabitem Conseguir conectar un servidor SQL a el servidor.\\
+& \tabitem Hacer que el servidor lea archivos properties.\\
+\hline
+\multirow{2}{*}{Desktop} & \tabitem Crear la ventana junto con sus componentes.\\
+& \tabitem Crear el metodo para enviar sockets. \\
+\hline  
+ Android & \tabitem Leer un poco sobre Android \\
+\hline 
+ Database & \tabitem  Crear la estructura de la base de datos. \\
+ \hline 
+ \multirow{2}{*}{Seguridad} & \tabitem Haber leido un mínimo sobre RSA, Blowfish, MD5, SHA512, Cesar... \\
+ & \tabitem Plantear los métodos de encriptación que se usarán para cada tarea dentro del servidor.\\
+ \hline 
+ \multirow{2}{*}{IA} & \tabitem Plantear que metodos usaremos en el proceso \\
+ &  \tabitem Plantear que tipo de bots queremos usar\\
+ \hline 
+ \multirow{4}{*}{Miscelanea} & \tabitem  Entender como funciona la documentación del proyecto. \\
+ & \tabitem Entender como funciona el sistema de comandos del servidor. \\
+ & \tabitem Organizar el repositorio.\\
+ & \tabitem Estudiar la posibilidad de cambiar la documentación a una wiki.\\
+\hline
+\end{tabular}
+
+
+
+\subsection{29 de octubre	E2. Fase I del proyecto}
+
+\begin{tabular}{|p{3cm}|p{11cm}|}
+\hline
+\multirow{2}{*}{Server} & \tabitem Estructurar bien el servidor.\\
+& \tabitem Todos los mensajes de los sockets deberán ir encriptados.\\
+\hline
+\multirow{2}{*}{Desktop} & \tabitem Cliente funcional para enviar sockers\\
+& \tabitem Cliente visualmente no horrible \\
+\hline  
+ \multirow{2}{*}{Android} & \tabitem Cliente funcional para enviar sockers \\
+ & Cliente visualmente no horrible \\
+\hline 
+ Database & \tabitem  La base de datos debe estar creada y con algunos datos de ejemplo \\
+ \hline 
+ \multirow{2}{*}{Seguridad} & \tabitem Las contraseñas de los usuarios deben estar encriptadas en algun tipo de hash. \\
+ & \tabitem Los usuarios deben tener su clave privada para contactar con el servidor\\
+ \hline 
+ \multirow{2}{*}{IA} & \tabitem Tener un bot construido \\
+ &  \tabitem \\
+ \hline 
+ \multirow{4}{*}{Miscelanea} & \tabitem  . \\
+ & \tabitem . \\
+ & \tabitem .\\
+ & \tabitem .\\
+\hline
+\end{tabular}
+
+\subsection{10 de diciembre	E4. Fase II del proyecto}
+\subsection{13 de diciembre	E5. Informe de desarrollo}
+
+
+
+
+\section{MATERIAL}
+
+\section{LIBRERÍAS}
+
+
+
+\end{document}
