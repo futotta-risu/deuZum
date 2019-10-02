@@ -30,6 +30,7 @@ public class Server implements Runnable{
 		}
 		
 		createBotList();
+		connectToDatabase("jdbc:mysql://localhost/deuzum", "root", "");
 		// TODO Add to the database the user status
 		// El servidor tiene que tener una base de datos hosteando el estado de los usuarios
 		// activos e inactivos
@@ -86,7 +87,7 @@ public class Server implements Runnable{
 	public void connectToDatabase(String direction, String user, String pass) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			connection = DriverManager.getConnection("jdbc:mysql://localhost/deuzum","root", "");
+			connection = DriverManager.getConnection(direction,user, pass);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -95,18 +96,11 @@ public class Server implements Runnable{
 			e.printStackTrace();
 		}
 	}
-	
-	public String getStringFromDatabase() {
-		try {
-			java.sql.Statement sta = connection.createStatement();
-			java.sql.ResultSet result = sta.executeQuery("SELECT * FROM `usuarios` ");
-			if(result.next()) System.out.println(result.getString("pass"));
-			else System.err.println("Joo, no lo pilla");
-		} catch(SQLException ex) {
-			System.err.println(ex.getSQLState());
-		}
-		return null;
-		
+
+
+	public java.sql.Connection getConnection() {
+		return connection;
 	}
+	
     
 }
