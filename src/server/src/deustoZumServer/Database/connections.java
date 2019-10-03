@@ -19,5 +19,18 @@ public class connections {
 		
 	}
 	
+	public static void insetEntryIntoDatabase(Connection connection, String table, String[] columnNames, String[] values) throws SQLException {
+		if(columnNames.length != values.length || columnNames.length == 0 || values.length==0)
+			return;
+		// TODO check if table exist
+		
+		String insert_SQL_query = "INSERT INTO '"+table+"' ("+String.join(",", columnNames)+") "
+				+ "VALUES ("+String.join(",", values)+")";
+		connections.execQuery(connection, insert_SQL_query);
+	}
+	
+	public static void updateEntryFromDatabase(Connection connection, String table, String[] columnNames, String[] values, String condition) {
+		
+	}
 	
 }

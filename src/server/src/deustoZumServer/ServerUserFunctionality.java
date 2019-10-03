@@ -1,7 +1,7 @@
 package deustoZumServer;
 
 import java.sql.SQLException;
-
+import java.util.Date;
 import java.sql.Connection;
 
 import deustoZumServer.Database.connections;
@@ -11,6 +11,7 @@ public class ServerUserFunctionality {
 	public static void createUser(Connection connection, String user, String pass, String pSegu, String res ){
 		// Create User
 		try {
+			// TODO cambiar esto por la nnueva funcion de connections de insert
 			String add_SQL_usuarios = "INSERT INTO `usuarios` (`user`, `pass`, `pregSeguridad`, `respuesta`)"
 					+ " VALUES ('"+user+"','"+pass+"' , '"+pSegu+"', '"+res+"')";
 			connections.execQuery(connection, add_SQL_usuarios);
@@ -31,6 +32,27 @@ public class ServerUserFunctionality {
 		 * 1- Tener en un switch algunas posibles longitudes (4- la trivial, 8- la completa)
 		 * 2- Meter siempre 8 datos y que algunos sean nulos
 		 */
+	}
+	
+	public static void createTransaction(Connection connection, String userID_A, String userID_B, int value, Date fecha) {
+		String dinero_A;
+		try {
+			dinero_A = connections.getEntryFromDatabase(connection, "cuentas", "dinero", " WHERE user_id='"+userID_A+"'");
+		
+			if(Integer.valueOf(dinero_A)<value) {
+				// TODO no tiene el dinero suficiente
+			}
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		
+	
 	}
 	
 }

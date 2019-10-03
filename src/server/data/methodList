@@ -1,1 +1,25 @@
+#########################################
+#   Lista de comandos del servidor      #
+#########################################
+# 
+# Los # funcionan como comentarios
+#
+# Mantened este fichero organizado, recordad que aunque sean comentarios
+$ siguen tomando tiempo de lectura, asique no abuseis de ellos
+
+# Ejemplo: hash deustoZumServer.Security.hashFunctions hashNumber
+
+# Server Functions
+
+stopServer
+startServer
+
+# IA Commands
+addBot
+
+# Database Commands
+addUser	
+addTransaction
+
+# Security Commands
 hash deustoZumServer.Security.hashFunctions hashNumber

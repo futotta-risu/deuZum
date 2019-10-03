@@ -31,6 +31,9 @@ public class ServerCommands {
 			br = new BufferedReader(new FileReader(file));
 			String socketLine; 
 			  while ((socketLine = br.readLine()) != null) {
+				  // Este if comprueba si la linea es un comentario
+				  if(socketLine.startsWith("#"))
+					  continue;
 				  String[] socketLineSplit = socketLine.split(" ");
 				  serverCommands.put(socketLineSplit[0], new Command() {
 
