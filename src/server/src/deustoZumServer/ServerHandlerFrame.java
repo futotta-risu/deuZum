@@ -1,28 +1,16 @@
 package deustoZumServer;
 
 import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-
-import com.mysql.jdbc.Connection;
 
 import deustoZumServer.Dialogs.createUser;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.awt.event.ActionEvent;
-import javax.swing.JLabel;
-import javax.swing.JTextArea;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
-import java.awt.Component;
-import javax.swing.Box;
 import net.miginfocom.swing.MigLayout;
-import javax.swing.JTextField;
 import javax.swing.JLayeredPane;
-import java.awt.FlowLayout;
 
 public class ServerHandlerFrame  extends JFrame{
 	
@@ -43,19 +31,6 @@ public class ServerHandlerFrame  extends JFrame{
 		JPanel sup_Bar = new JPanel();
 		sup_Bar.setBounds(0, 0, 484, 33);
 		getContentPane().add(sup_Bar);
-		
-		JButton btnStopServer = new JButton("Stop Server");
-		sup_Bar.add(btnStopServer);
-		btnStopServer.setBounds(36, 106, 103, 23);
-		
-		btnStopServer.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				server.stop();
-				
-			}
-		});
 		
 		
 		JButton btnStartServer = new JButton("Start Server");
@@ -85,6 +60,19 @@ public class ServerHandlerFrame  extends JFrame{
 			}
 		});
 		
+		JButton btnStopServer = new JButton("Stop Server");
+		sup_Bar.add(btnStopServer);
+		btnStopServer.setBounds(36, 106, 103, 23);
+		
+		btnStopServer.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				server.stop();
+				
+			}
+		});
+		
 		JButton btnExit = new JButton("Exit");
 		sup_Bar.add(btnExit);
 		btnExit.setBounds(36, 167, 103, 23);
@@ -93,8 +81,10 @@ public class ServerHandlerFrame  extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//dispose();
-				ServerUserFunctionality.createUser(server.getConnection(), "erikt1", "erik331", "1", "erik122" );
+				server.stop();
+				dispose();
+				
+				
 			}
 		});
 		
@@ -150,10 +140,11 @@ public class ServerHandlerFrame  extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
+		// TODO cambiar el nombre
 		panel_Historial.add(btnJejej, "cell 0 0,alignx left,aligny top");
 		btnCrearUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				createUser cr = new createUser(server.getConnection());
+				new createUser(server.getConnection());
 			}
 		});
 		
@@ -179,8 +170,7 @@ public class ServerHandlerFrame  extends JFrame{
 	}
 	
 	public static void main(String[] args) {
-		
-		ServerHandlerFrame serverHandler = new ServerHandlerFrame();
+		new ServerHandlerFrame();
 		
 	
 	}

@@ -37,3 +37,4 @@ hs_err_pid*
 *.xml
 *.prefs
 src/server/src - Acceso directo.lnk
+test/.ipynb_checkpoints/test1-checkpoint.ipynb

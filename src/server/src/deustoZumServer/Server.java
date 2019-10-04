@@ -3,13 +3,12 @@ package deustoZumServer;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.*;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import com.mysql.jdbc.Connection;
 
+import deustoZumServer.Database.GeneralSQLFunctions;
 import deustoZumServer.IA.Bots.*;
 
 public class Server implements Runnable{
@@ -17,7 +16,7 @@ public class Server implements Runnable{
 	ArrayList<BotBase> bots;
 	Properties properties;
 	private ServerSocket serverSocket;
-	private java.sql.Connection connection;
+	private Connection connection;
 	
 	
 	public Server() {
@@ -30,7 +29,7 @@ public class Server implements Runnable{
 		}
 		
 		createBotList();
-		connectToDatabase("jdbc:mysql://localhost/deuzum", "root", "");
+		this.connection = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost/deuzum", "root", "");
 		// TODO Add to the database the user status
 		// El servidor tiene que tener una base de datos hosteando el estado de los usuarios
 		// activos e inactivos
@@ -43,7 +42,7 @@ public class Server implements Runnable{
         try {
 			serverSocket = new ServerSocket(port);
 			while (true) 
-				new ServerSocketHandler(serverSocket.accept()).start();
+				new ServerSocketHandler(serverSocket.accept(), connection).start();
 	            
 		} catch (IOException e) {
 			System.err.println("The Server was closed");
@@ -82,23 +81,9 @@ public class Server implements Runnable{
 		
 		
 	}
-    
-	// Database Functions
-	public void connectToDatabase(String direction, String user, String pass) {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			connection = DriverManager.getConnection(direction,user, pass);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 
 
-	public java.sql.Connection getConnection() {
+	public Connection getConnection() {
 		return connection;
 	}
 	

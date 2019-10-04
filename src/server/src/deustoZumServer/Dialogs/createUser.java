@@ -12,6 +12,10 @@ import java.sql.Connection;
 import java.awt.event.ActionEvent;
 
 public class createUser extends JDialog{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JTextField tFUser;
 	private JTextField tFPass;
 	private JTextField tfPregSeg;

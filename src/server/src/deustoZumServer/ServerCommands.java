@@ -32,21 +32,28 @@ public class ServerCommands {
 			String socketLine; 
 			  while ((socketLine = br.readLine()) != null) {
 				  // Este if comprueba si la linea es un comentario
-				  if(socketLine.startsWith("#"))
+				  if(socketLine.startsWith("#")) 
 					  continue;
-				  String[] socketLineSplit = socketLine.split(" ");
+				  
+				  //Cambiamos multiples espacios y tabuladores
+				  String[] socketLineSplit = socketLine.trim().replaceAll("[ \\t]+", " ").split(" ");
+				  
+				  // Si solo son espacios o tabulacions
+				  if(socketLineSplit.length == 1) 
+					  continue;
+				  
 				  serverCommands.put(socketLineSplit[0], new Command() {
 
 					public String runCommand(String[] arr) {
 						try {
 							Class<?> temp = Class.forName(socketLineSplit[1]);
-							System.out.println(temp.getName());
 							
 							java.lang.reflect.Method method;
 							method = temp.getMethod(socketLineSplit[2], socketLineSplit.getClass());
-							System.out.println(method.getParameterCount());
 							Object[] params = {arr};
 							return (String) method.invoke(null, params);
+							
+							// TODO cambiar los errores para algo más util
 						} catch (ClassNotFoundException e) {
 							e.printStackTrace();
 						} catch (NoSuchMethodException e) {

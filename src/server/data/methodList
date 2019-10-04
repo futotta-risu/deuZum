@@ -5,21 +5,23 @@
 # Los # funcionan como comentarios
 #
 # Mantened este fichero organizado, recordad que aunque sean comentarios
-$ siguen tomando tiempo de lectura, asique no abuseis de ellos
+# siguen tomando tiempo de lectura, asique no abuseis de ellos.
+# Recordad evitar poner espacios aleatorios o letras aleatorias 
+# fuera de comentarios
 
 # Ejemplo: hash deustoZumServer.Security.hashFunctions hashNumber
 
 # Server Functions
 
-stopServer
-startServer
+# stopServer
+# tartServer
 
 # IA Commands
-addBot
+# addBot
 
 # Database Commands
-addUser	
-addTransaction
+addUser	deustoZumServer.ServerUserFunctionality createUserC
+# addTransaction
 
 # Security Commands
 hash deustoZumServer.Security.hashFunctions hashNumber
