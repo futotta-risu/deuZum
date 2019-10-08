@@ -1,7 +1,8 @@
 package deustoZumServer.Database;
 
 import java.sql.SQLException;
-
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
@@ -27,7 +28,7 @@ public class GeneralSQLFunctions {
 		statement.executeUpdate(query);
 	}
 	
-	public static String getEntryFromDatabase(Connection connection, String table, String column, String conditions) throws SQLException {
+	public static final String getEntryFromDatabase(Connection connection, String table, String column, String conditions) throws SQLException {
 		
 		java.sql.Statement sta = connection.createStatement();
 		java.sql.ResultSet result = sta.executeQuery("SELECT * FROM `"+table+"` "+conditions);
@@ -36,17 +37,17 @@ public class GeneralSQLFunctions {
 		
 	}
 	
-	public static void insetEntryIntoDatabase(Connection connection, String table, String[] columnNames, String[] values) throws SQLException {
+	public static final void insetEntryIntoDatabase(Connection connection, String table, String[] columnNames, String[] values) throws SQLException {
 		if(columnNames.length != values.length || columnNames.length == 0)
 			return;
 		// TODO check if table exist
 		
 		String insert_SQL_query = "INSERT INTO '"+table+"' ("+String.join(",", columnNames)+") "
 				+ "VALUES ("+String.join(",", values)+")";
-		GeneralSQLFunctions.execQuery(connection, insert_SQL_query);
+		GeneralSQLFunctionsTest.execQuery(connection, insert_SQL_query);
 	}
 	
-	public static void updateEntryFromDatabase(Connection connection, String table, String[] columnNames, String[] values, String conditions) throws SQLException {
+	public static final void updateEntryFromDatabase(Connection connection, String table, String[] columnNames, String[] values, String conditions) throws SQLException {
 		
 		if(columnNames.length != values.length || columnNames.length == 0)
 			return;
@@ -55,13 +56,14 @@ public class GeneralSQLFunctions {
 		for(int i = 0; i < columnNames.length-1; i++) 
 			update_SQL_query+=columnNames[i] + "='" + values[i] + "',";
 		update_SQL_query+=columnNames[columnNames.length-1] + "='" + values[columnNames.length-1] + " WHERE " + conditions;
-		GeneralSQLFunctions.execQuery(connection, update_SQL_query);
+		GeneralSQLFunctionsTest.execQuery(connection, update_SQL_query);
 	}
 	
-	public static String getWhereEqualsClause(String[] columnNames, String[] data) {
+	public static final String getWhereEqualsClause(String[] columnNames, String[] data) {
 		String whereClause = "WHERE ";
-		for(int i = 0; i < columnNames.length -1; i++)
-			whereClause
+		data = GeneralFunctions.surroundText(data, "'", "'");
+		String[] concatenatedText = GeneralFunctions.concatenateAlternative(columnNames, data, "=");
+		return whereClause+String.join(" AND ", concatenatedText);
 	}
 	 
 	
