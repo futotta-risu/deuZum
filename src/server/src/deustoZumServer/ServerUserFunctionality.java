@@ -8,17 +8,17 @@ import deustoZumServer.Database.GeneralSQLFunctions;
 
 public class ServerUserFunctionality {
 
-	public static void createUser(Connection connection, String user, String pass, String pSegu, String res ){
+	public static void createUser(Connection connection, String[] data){
+		String[] columnNamesUsuarios = {"users","pass","pregSeguridad","respuesta"};
+		String[] columnNamesCuentas = {"user_id", "dinero"};
 		// Create User
 		try {
-			// TODO cambiar esto por la nnueva funcion de connections de insert
-			String add_SQL_usuarios = "INSERT INTO `usuarios` (`user`, `pass`, `pregSeguridad`, `respuesta`)"
-					+ " VALUES ('"+user+"','"+pass+"' , '"+pSegu+"', '"+res+"')";
-			GeneralSQLFunctions.execQuery(connection, add_SQL_usuarios);
-			String new_user_id = GeneralSQLFunctions.getEntryFromDatabase(connection, "usuarios", "id", " WHERE user='"+user+"'");
+			GeneralSQLFunctions.insetEntryIntoDatabase(connection, "usuarios", columnNamesUsuarios, data);
+			String new_user_id = GeneralSQLFunctions.getEntryFromDatabase(connection, "usuarios", "user_id", " WHERE user='"+data[0]+"'");
 			// Create Account
 			String add_SQL_cuentas = "INSERT INTO `cuentas` (`user_id`,  `dinero`) "
 					+ "VALUES ('"+new_user_id+"','"+0+"')";
+			GeneralSQLFunctions.insetEntryIntoDatabase(connection, "cuentas", columnNamesCuentas,new String[]{new_user_id, "0"});
 			GeneralSQLFunctions.execQuery(connection, add_SQL_cuentas);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -28,7 +28,7 @@ public class ServerUserFunctionality {
 	
 	public static void createUserC(String[] dataArr) {
 		Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost/deuzum", "root", "");
-		createUser(conn, dataArr[0], dataArr[1], dataArr[2], dataArr[3]);
+		createUser(conn, dataArr);
 	}
 	
 	public static void createTransaction(Connection connection, String userID_A, String userID_B, int value, Date fecha) {

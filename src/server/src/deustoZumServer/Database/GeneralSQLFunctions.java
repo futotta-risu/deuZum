@@ -58,4 +58,11 @@ public class GeneralSQLFunctions {
 		GeneralSQLFunctions.execQuery(connection, update_SQL_query);
 	}
 	
+	public static String getWhereEqualsClause(String[] columnNames, String[] data) {
+		String whereClause = "WHERE ";
+		for(int i = 0; i < columnNames.length -1; i++)
+			whereClause
+	}
+	 
+	
 }

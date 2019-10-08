@@ -66,7 +66,7 @@ public class createUser extends JDialog{
 		btnCrear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// TODO verificar que los datos sena validos (e.g. |tFUser|<33)
-				ServerUserFunctionality.createUser(conn, tFUser.getText(), tFPass.getText(), tfPregSeg.getText(), tFRes.getText());
+				ServerUserFunctionality.createUser(conn, new String[] {tFUser.getText(), tFPass.getText(), tfPregSeg.getText(), tFRes.getText()});
 				dispose();
 			}
 		});
