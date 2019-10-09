@@ -2,6 +2,8 @@ package deustoZumServer;
 
 import javax.swing.JFrame;
 
+import deustoZumServer.Algorithms.TextFunctions;
+import deustoZumServer.Database.GeneralSQLFunctions;
 import deustoZumServer.Dialogs.createUser;
 
 import javax.swing.JButton;

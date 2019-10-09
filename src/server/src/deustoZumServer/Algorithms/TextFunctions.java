@@ -1,6 +1,6 @@
-package deustoZumServer.Database;
+package deustoZumServer.Algorithms;
 
-public class GeneralFunctions {
+public class TextFunctions {
 
 	public static final String[] surroundText(String[] arr, String preffix, String suffix) {
 		for(int i = 0; i < arr.length; i++)

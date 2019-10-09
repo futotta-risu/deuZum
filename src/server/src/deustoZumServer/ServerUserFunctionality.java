@@ -16,10 +16,8 @@ public class ServerUserFunctionality {
 			GeneralSQLFunctions.insetEntryIntoDatabase(connection, "usuarios", columnNamesUsuarios, data);
 			String new_user_id = GeneralSQLFunctions.getEntryFromDatabase(connection, "usuarios", "user_id", " WHERE user='"+data[0]+"'");
 			// Create Account
-			String add_SQL_cuentas = "INSERT INTO `cuentas` (`user_id`,  `dinero`) "
-					+ "VALUES ('"+new_user_id+"','"+0+"')";
 			GeneralSQLFunctions.insetEntryIntoDatabase(connection, "cuentas", columnNamesCuentas,new String[]{new_user_id, "0"});
-			GeneralSQLFunctions.execQuery(connection, add_SQL_cuentas);
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

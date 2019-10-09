@@ -3,6 +3,9 @@ package deustoZumServer.Database;
 import java.sql.SQLException;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import deustoZumServer.Algorithms.TextFunctions;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 
@@ -44,7 +47,7 @@ public class GeneralSQLFunctions {
 		
 		String insert_SQL_query = "INSERT INTO '"+table+"' ("+String.join(",", columnNames)+") "
 				+ "VALUES ("+String.join(",", values)+")";
-		GeneralSQLFunctionsTest.execQuery(connection, insert_SQL_query);
+		GeneralSQLFunctions.execQuery(connection, insert_SQL_query);
 	}
 	
 	public static final void updateEntryFromDatabase(Connection connection, String table, String[] columnNames, String[] values, String conditions) throws SQLException {
@@ -56,13 +59,15 @@ public class GeneralSQLFunctions {
 		for(int i = 0; i < columnNames.length-1; i++) 
 			update_SQL_query+=columnNames[i] + "='" + values[i] + "',";
 		update_SQL_query+=columnNames[columnNames.length-1] + "='" + values[columnNames.length-1] + " WHERE " + conditions;
-		GeneralSQLFunctionsTest.execQuery(connection, update_SQL_query);
+		GeneralSQLFunctions.execQuery(connection, update_SQL_query);
 	}
 	
 	public static final String getWhereEqualsClause(String[] columnNames, String[] data) {
+		if(columnNames.length != data.length || columnNames.length==0) return "";
+		
 		String whereClause = "WHERE ";
-		data = GeneralFunctions.surroundText(data, "'", "'");
-		String[] concatenatedText = GeneralFunctions.concatenateAlternative(columnNames, data, "=");
+		data = TextFunctions.surroundText(data, "'", "'");
+		String[] concatenatedText = TextFunctions.concatenateAlternative(columnNames, data, "=");
 		return whereClause+String.join(" AND ", concatenatedText);
 	}
 	 
