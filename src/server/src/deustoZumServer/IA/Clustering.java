@@ -7,7 +7,7 @@ import java.util.Random;
 import deustoZumServer.Algorithms.Math.Metrics;
 import deustoZumServer.Algorithms.Math.Vectors;
 
-public class genericFunctions {
+public class Clustering {
 	
 	public static ArrayList<int[]> KNN(ArrayList<double[][]> users, ArrayList<int[]> labels, ArrayList<double[][]> newVector){
 		ArrayList<int[]> resultMatrix= new ArrayList<int[]>();

@@ -35,4 +35,8 @@ public class Vectors {
 			arr1[i]/=val;
 		return arr1;
 	}
+	public static double[] normalize(double[] arr1) {
+		return divVC(arr1, Metrics.euclideanDistance(arr1));
+	}
+	
 }
