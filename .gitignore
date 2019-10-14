@@ -14,13 +14,17 @@
 
 # Package Files #
 *.jar
-!lib/*
 *.war
 *.nar
 *.ear
 *.zip
 *.tar.gz
 *.rar
+
+
+#Evitamos que eliminen el lab
+!lib/*
+
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
@@ -36,5 +40,14 @@ hs_err_pid*
 *.aux
 *.xml
 *.prefs
+*.bbl
+*.blg
+
+# Random
 src/server/src - Acceso directo.lnk
-test/.ipynb_checkpoints/test1-checkpoint.ipynb
+
+# Jupyter-Notebook
+
+.ipynb_checkpoints/
+
+

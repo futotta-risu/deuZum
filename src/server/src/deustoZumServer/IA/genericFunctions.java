@@ -2,8 +2,10 @@ package deustoZumServer.IA;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Random;
 
 import deustoZumServer.Algorithms.Math.Metrics;
+import deustoZumServer.Algorithms.Math.Vectors;
 
 public class genericFunctions {
 	
@@ -28,17 +30,46 @@ public class genericFunctions {
 		return 0;
 	}
 	
-	public static ArrayList<int[]> KMC(ArrayList<double[][]> users, int[] clusters){
+	public static ArrayList<int[]> KMC(ArrayList<double[][]> users, int[] clusters, int[] convergencePeriod){
 		ArrayList<int[]> resultMatrix = new ArrayList<int[]>();
 		int totalCases = users.size();
 		for(int i = 0; i < totalCases; i++) 
-			resultMatrix.add(KMC(users.get(i), clusters[i]));
+			resultMatrix.add(KMC(users.get(i), clusters[i],convergencePeriod[i]));
 		
 		return resultMatrix;
 		
 	}
 	
-	public static int[] KMC(double[][] users, int clusters) {
+	public static int[] KMC(double[][] users, int clusters, int convergencePeriod) {
+		if(users.length==0) return null;
+		// TODO convergencePeriod 0, clusters 0 o <0
+		int dimension = users[0].length;
+		int points = users.length;
+		Random gen = new Random();
+		// Asumiremos un espacio normalizado
+		
+		double[][] clusterPoints = new double[clusters][dimension];
+		
+		for(int i = 0; i < clusters; i++)
+			for(int j = 0; j < dimension; j++) 
+				clusterPoints[i][j] = 1-2*gen.nextDouble();
+		
+		for(int n = 0; n < convergencePeriod; n++) 
+			for(int i = 0; i < clusters; i++) {
+				double[] shift = new double[dimension];
+				int totalMove = 0;
+				
+				for(int j = 0; j < points;j++) 
+					if(Metrics.flatKernel(clusterPoints[i],0.1,  users[j])>0) {
+						shift = Vectors.sumV(shift, users[j]);
+						totalMove++;
+					}
+				shift = Vectors.divVC(shift, totalMove);
+				clusterPoints[i] = Vectors.sumV(clusterPoints[i], shift);
+			}
+		
+		
+		
 		
 		// TODO Implementar
 		return null;
@@ -56,17 +87,14 @@ public class genericFunctions {
 	public static int[] DBSCAN(double[][] users, double radius){
 		int popSize = users.length;
 		int[] cluster = new int[popSize];
-		Boolean[] bool = new Boolean[popSize];
-		int actCluster = 0;
+		int actCluster = 1;
 		for(int i = 0; i < popSize; i++) {
-			if(bool[i]==true) continue; //Alredy visited
-			cluster[i]= actCluster++;
+			if(cluster[i]==0) 
+				cluster[i]= actCluster++;
 			
 			for(int j = i+1; j < popSize; j++) {
-				if(bool[j]==true) continue;
 				if(Metrics.euclideanDistance(users[i],users[j])<radius) {
 					cluster[j]=cluster[i];
-					bool[j]=true;
 				}
 			}
 			
