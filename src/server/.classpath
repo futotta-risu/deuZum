@@ -10,5 +10,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
 	<classpathentry kind="lib" path="C:/Users/whiwho/Documents/GitHub/deuZum/lib/jdbc.jar"/>
 	<classpathentry kind="lib" path="C:/Users/whiwho/Documents/GitHub/deuZum/lib/miglayout-4.0.jar"/>
+	<classpathentry kind="lib" path="/Users/landersanmillan/Documents/GitHub/deuZum/lib/jdbc.jar"/>
+	<classpathentry kind="lib" path="/Users/landersanmillan/Documents/GitHub/deuZum/lib/miglayout-4.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
