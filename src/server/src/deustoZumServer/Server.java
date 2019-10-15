@@ -7,12 +7,13 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Properties;
 
-
 import deustoZumServer.Database.GeneralSQLFunctions;
 import deustoZumServer.IA.Bots.*;
 
 public class Server implements Runnable{
 
+	public static boolean isRunning = false;
+	
 	ArrayList<BotBase> bots;
 	Properties properties;
 	private ServerSocket serverSocket;
@@ -20,10 +21,12 @@ public class Server implements Runnable{
 	
 	
 	public Server() {
-
-		properties = new Properties();
+		isRunning = true;
+		ServerCommands.createMethodArray();
+		this.properties = new Properties();
 		try {
 			properties.load(new FileInputStream("./src/deustoZumServer/server.properties"));
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -33,14 +36,16 @@ public class Server implements Runnable{
 		// TODO Add to the database the user status
 		// El servidor tiene que tener una base de datos hosteando el estado de los usuarios
 		// activos e inactivos
+		
+		
+		
 	}
-	
 	
 	// Server Execution Functions
 	
-    public void start(int port) {
+    public void start() {
         try {
-			serverSocket = new ServerSocket(port);
+			serverSocket = new ServerSocket(Integer.valueOf(this.properties.getProperty("server.port")));
 			while (true) 
 				new ServerSocketHandler(serverSocket.accept(), connection).start();
 	            
@@ -56,7 +61,7 @@ public class Server implements Runnable{
     public void stop() {
     	try {
     		serverSocket.close();
-
+    		isRunning = false;
     	}catch(IOException ex1) {
     		System.err.println("Ha habido un error al cerrar el servidor");
     		ex1.printStackTrace();

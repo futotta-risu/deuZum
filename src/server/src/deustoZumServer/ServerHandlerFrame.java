@@ -50,9 +50,12 @@ public class ServerHandlerFrame  extends JFrame{
 					
 					@Override
 					public void run() {
-						ServerCommands.createMethodArray();
+						// Checks if the server is alredy running
+						if(Server.isRunning) 
+							return;
+						
 						server = new Server();
-						server.start(1352);
+						server.start();
 						
 					}
 				};
