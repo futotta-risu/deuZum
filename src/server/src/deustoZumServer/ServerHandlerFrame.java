@@ -159,9 +159,10 @@ public class ServerHandlerFrame  extends JFrame{
 		
 		
 		JPanel panel_Proyectos = new JPanel();
-		layeredPane.setLayer(panel_Proyectos, 1);
+		layeredPane.setLayer(panel_Proyectos, 4);
 		panel_Proyectos.setBounds(0, 5, 367, 210);
 		layeredPane.add(panel_Proyectos);
+		panel_Proyectos.setLayout(new MigLayout("", "[55px]", "[23px][][]"));
 		
 		JPanel panel_Grupos = new JPanel();
 		panel_Grupos.setBounds(0, 5, 367, 210);
@@ -170,15 +171,17 @@ public class ServerHandlerFrame  extends JFrame{
 		JPanel panel_Funcionalidades = new JPanel();
 		panel_Funcionalidades.setBounds(0, 5, 367, 210);
 		layeredPane.add(panel_Funcionalidades);
+		panel_Funcionalidades.setLayout(new MigLayout("", "[55px]", "[23px][][]"));
 		
 		JPanel panel_Configuracion = new JPanel();
 		panel_Configuracion.setBounds(0, 5, 367, 210);
 		layeredPane.add(panel_Configuracion);
+		panel_Configuracion.setLayout(new MigLayout("", "[55px]", "[23px][][][][][]"));
 		
 		panel_Usuario = new JPanel();
 		panel_Usuario.setBounds(0, 5, 367, 210);
 		layeredPane.add(panel_Usuario);
-		panel_Usuario.setLayout(new MigLayout("", "[99px]", "[23px][][][]"));
+		panel_Usuario.setLayout(new MigLayout("", "[55px]", "[23px][][][]"));
 		
 		panel_Historial = new JPanel();
 		
@@ -189,16 +192,32 @@ public class ServerHandlerFrame  extends JFrame{
 
 		layeredPane.setLayer(panel_Usuario, 2);
 		layeredPane.setLayer(panel_Historial, 1);
-		layeredPane.setLayer(panel_Proyectos, 5);
-		panel_Proyectos.setLayout(new MigLayout("", "[]", "[]"));
-		
-		JButton btnCrearProyecto = new JButton("Crear Proyecto");
-		panel_Proyectos.add(btnCrearProyecto, "cell 0 0,growx");
+		layeredPane.setLayer(panel_Proyectos, 4);
 		layeredPane.setLayer(panel_Grupos, 3);
-		layeredPane.setLayer(panel_Funcionalidades, 4);
-		layeredPane.setLayer(panel_Configuracion, 0);
+		layeredPane.setLayer(panel_Funcionalidades, 0);	
+		layeredPane.setLayer(panel_Configuracion, 5);
+		
+		JButton btnMaxConnection = new JButton("Max Connection");
+		panel_Configuracion.add(btnMaxConnection, "cell 0 0,growx");
+		
+		JButton btnConnectionTimeout = new JButton("Connection TimeOut");
+		panel_Configuracion.add(btnConnectionTimeout, "cell 0 1");
+		
+		JButton btnMaxSocketsize = new JButton("Max SocketSize");
+		panel_Configuracion.add(btnMaxSocketsize, "cell 0 2,growx");
+		
+		JButton btnServerPort = new JButton("Server Port");
+		panel_Configuracion.add(btnServerPort, "cell 0 3,growx");
+		
+		JButton btnServerName = new JButton("Server Name");
+		panel_Configuracion.add(btnServerName, "cell 0 4,growx");
+		
+		JButton btnBotCount = new JButton("Bot Count");
+		panel_Configuracion.add(btnBotCount, "cell 0 5");
 		
 		
+		
+
 
 		
 		//  BOTONES USUARIO
@@ -217,20 +236,19 @@ public class ServerHandlerFrame  extends JFrame{
 		
 		
 		//  BOTONES TRANSACCION
-		
-		
+				
 		JButton btnRealizarTransaccion = new JButton("Realizar Transaccion");
 		btnRealizarTransaccion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		panel_Historial.add(btnRealizarTransaccion, "cell 0 0,alignx left,aligny top");
+		panel_Historial.add(btnRealizarTransaccion, "cell 0 0,growx,alignx left,aligny top");
 		
 		JButton btnVerTransacciones = new JButton("Ver Transacciones");
-		panel_Historial.add(btnVerTransacciones, "cell 0 1");
+		panel_Historial.add(btnVerTransacciones, "cell 0 1,growx");
 		
 		JButton btnFiltrarTransacciones = new JButton("Filtrar Transacciones");
-		panel_Historial.add(btnFiltrarTransacciones, "cell 0 2");
+		panel_Historial.add(btnFiltrarTransacciones, "cell 0 2,growx");
 		btnCrearUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new createUser(server.getConnection());
@@ -239,6 +257,50 @@ public class ServerHandlerFrame  extends JFrame{
 		
 		
 		//   BOTONES PROYECTO
+		
+		JButton btnCrearProyecto = new JButton("Crear Proyecto");
+		panel_Proyectos.add(btnCrearProyecto, "cell 0 0,growx");
+		
+		JButton btnVerProyectos = new JButton("Ver Proyectos");
+		panel_Proyectos.add(btnVerProyectos, "cell 0 1,growx");
+		
+		JButton btnEditarProyecto = new JButton("Editar Proyecto");
+		panel_Proyectos.add(btnEditarProyecto, "cell 0 2,growx");
+		
+		JButton btnEliminarProyecto = new JButton("Eliminar Proyecto");
+		panel_Proyectos.add(btnEliminarProyecto, "cell 0 3,growx");
+		
+		
+		//		BOTONES GRUPO
+				
+		JButton btnCrearGrupo = new JButton("Crear Grupo");
+		btnCrearGrupo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		panel_Grupos.setLayout(new MigLayout("", "[117px]", "[29px][][][]"));
+		panel_Grupos.add(btnCrearGrupo, "cell 0 0,growx,aligny top");
+		
+		JButton btnVerGrupos = new JButton("Ver Grupos");
+		panel_Grupos.add(btnVerGrupos, "cell 0 1,growx");
+		
+		JButton btnEditarGrupos = new JButton("Editar Grupos");
+		panel_Grupos.add(btnEditarGrupos, "cell 0 2,growx");
+		
+		JButton btnEliminarGrupos = new JButton("Eliminar Grupos");
+		panel_Grupos.add(btnEliminarGrupos, "cell 0 3,growx");
+		
+		
+		//		BOTONES FUNCIONALIDADES
+		
+		JButton btnRellenarBd = new JButton("Rellenar BD");
+		panel_Funcionalidades.add(btnRellenarBd, "cell 0 0");
+		
+		
+		//		 BOTONES CONFIGURACION
+		
+		
+		
 		
 		
 		
