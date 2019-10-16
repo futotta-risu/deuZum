@@ -1,15 +1,16 @@
 package deustoZumServer.IA;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 import deustoZumServer.Algorithms.Math.Metrics;
 import deustoZumServer.Algorithms.Math.Vectors;
 
 public class Clustering {
 	
-	public static ArrayList<int[]> KNN(ArrayList<double[][]> users, ArrayList<int[]> labels, ArrayList<double[][]> newVector){
+	public static final ArrayList<int[]> KNN(ArrayList<double[][]> users, ArrayList<int[]> labels, ArrayList<double[][]> newVector){
 		ArrayList<int[]> resultMatrix= new ArrayList<int[]>();
 		int totalCases = users.size();
 		for(int i = 0;  i < totalCases; i++) {
@@ -25,12 +26,12 @@ public class Clustering {
 		return resultMatrix;
 	}
 	
-	public static int KNN(double[][] users, int[] lables, double[] newVector) {
+	public static final int KNN(double[][] users, int[] lables, double[] newVector) {
 		// TODO Lander, crea esta funcion
 		return 0;
 	}
 	
-	public static ArrayList<int[]> MSC(ArrayList<double[][]> users, int[] clusters, int[] convergencePeriod){
+	public static final ArrayList<int[]> MSC(ArrayList<double[][]> users, int[] clusters, int[] convergencePeriod){
 		ArrayList<int[]> resultMatrix = new ArrayList<int[]>();
 		int totalCases = users.size();
 		for(int i = 0; i < totalCases; i++) 
@@ -40,7 +41,7 @@ public class Clustering {
 		
 	}
 	
-	public static int[] MSC(double[][] users, int clusters, int convergencePeriod) {
+	public static final int[] MSC(double[][] users, int clusters, int convergencePeriod) {
 		if(users.length==0) return null;
 		// TODO convergencePeriod 0, clusters 0 o <0
 		int dimension = users[0].length;
@@ -75,7 +76,7 @@ public class Clustering {
 		return null;
 	}
 	
-	public static ArrayList<int[]> DBSCAN(ArrayList<double[][]> users, double[] radius){
+	public static final ArrayList<int[]> DBSCAN(ArrayList<double[][]> users, double[] radius){
 		ArrayList<int[]> resultMatrix = new ArrayList<int[]>();
 		int totalCases = users.size();
 		for(int i = 0; i < totalCases; i++) 
@@ -84,7 +85,7 @@ public class Clustering {
 		return resultMatrix;
 	}
 	
-	public static int[] DBSCAN(double[][] users, double radius){
+	public static final int[] DBSCAN(double[][] users, double radius){
 		int popSize = users.length;
 		int[] cluster = new int[popSize];
 		int actCluster = 1;
@@ -93,14 +94,73 @@ public class Clustering {
 				cluster[i]= actCluster++;
 			
 			for(int j = i+1; j < popSize; j++) {
-				if(Metrics.euclideanDistance(users[i],users[j])<radius) {
+				if(cluster[j]!=0)
+					continue;
+				
+				if(Metrics.euclideanDistance(users[i],users[j])<radius) 
 					cluster[j]=cluster[i];
-				}
 			}
-			
 		}
 		
 		return cluster;
+	}
+	
+	public static final ArrayList<int[]> KMC(ArrayList<double[][]> users, int[] clusters, int[] iterations){
+		ArrayList<int[]> resultMatrix = new ArrayList<int[]>();
+		
+		for(int i  = 0; i < users.size(); i++) 
+			resultMatrix.add(KMC(users.get(i), clusters[i], iterations[i]));
+		
+		return resultMatrix;
+	}
+	
+	public static final int[] KMC(double[][] users, int clusters, int iteration){
+		
+		if(users.length == 0) return null;
+		if(clusters > users[0].length) return null;
+		
+		
+		int userCount = users.length;
+		int dimension = users[0].length;
+		
+		double[][] clusterPoints = new double[clusters][dimension];
+		
+		// TODO Revisar que algoritmo usar para optener numeros aleatorios
+		
+		Set<Integer> puntosIniciales = new HashSet<Integer>();
+		Random ran = new Random();
+		int tempSize = 0;
+		while(tempSize< clusters) {
+			int n = ran.nextInt(userCount);
+			if(puntosIniciales.contains(n))
+				continue;
+			puntosIniciales.add(n);
+			clusterPoints[tempSize] = users[n];
+			tempSize++;
+		}
+		
+		
+		int[] nearCluster = new int[userCount];
+		
+		for(int i  = 0; i < iteration; i++) {
+			int[] clusterCount = new int[clusters];
+			double[][] clusterMoves = new double[clusters][dimension];
+			//Fase de calculo de distancias
+			for(int j = 0; j < userCount; j++) {
+				// Encontramos el cluster mas cercano respecto a el usuario j
+				int minCluster = Metrics.getMinimumDistancePoint(users[j], clusterPoints);
+				
+				nearCluster[j] = minCluster;
+				clusterCount[minCluster]++;
+				clusterMoves[minCluster] = Vectors.sumV(clusterMoves[minCluster], users[j]);
+			}
+			
+			for(int j = 0; j < clusters; j++)
+				clusterPoints[j] = Vectors.divVC(clusterMoves[j], clusterCount[j]);
+			
+		}
+		
+		return nearCluster;
 	}
 	
 }

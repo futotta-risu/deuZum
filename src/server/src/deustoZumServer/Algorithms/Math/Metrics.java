@@ -31,4 +31,22 @@ public class Metrics {
 		if(distance >= radius*radius) return 0;
 		else return 1;
 	}
+	
+	public static final int getMinimumDistancePoint(double[] point, double[][] pointList) {
+		if(pointList.length==0) return -1;
+		if(pointList[0].length!=point.length) return -1;
+		
+		double minDistance = Metrics.euclideanDistance(point, pointList[0]);
+		int minCluster = 0;
+		// TODO Repasar este algoritmo
+		for(int k = 1; k < pointList.length; k++) {
+			double minDistanceT = Metrics.euclideanDistance(point, pointList[k]);
+			if(minDistanceT < minDistance) {
+				minDistance = minDistanceT;
+				minCluster = k;
+			}
+		}
+		
+		return minCluster;
+	}
 }
