@@ -2,6 +2,8 @@ package deustoZumServer.IA;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Random;
 import java.util.Set;
 
@@ -80,12 +82,14 @@ public class Clustering {
 		ArrayList<int[]> resultMatrix = new ArrayList<int[]>();
 		int totalCases = users.size();
 		for(int i = 0; i < totalCases; i++) 
-			resultMatrix.add(DBSCAN(users.get(i), radius[i]));
+			resultMatrix.add(DBSCAN1(users.get(i), radius[i]));
 		
 		return resultMatrix;
 	}
 	
-	public static final int[] DBSCAN(double[][] users, double radius){
+	public static final int[] DBSCAN1(double[][] users, double radius){
+		// Falta la parte de puntos minimos
+		// Este es el caso con min 1
 		int popSize = users.length;
 		int[] cluster = new int[popSize];
 		int actCluster = 1;
@@ -104,6 +108,70 @@ public class Clustering {
 		
 		return cluster;
 	}
+	
+	public static final int[] DBSCANn(double[][] users, double radius, int minPuntos) {
+		// TODO 17:27 Posible implementacion por grafos
+		// TODO 17:36. No me gusta nada... Quiero cambiarlo
+		// TODO 18:02 Me tengo que ir, ha quedado mas bonito, pero hayq ue terminar de verificar
+		int popSize = users.length;
+		int totalVisitados = 1;
+		
+		int[] clusters = new int[popSize];
+		
+		boolean[] visited = new boolean[popSize];
+		Queue<Integer> colaPuntos = new LinkedList<Integer>();
+		
+		int[] puntosContacto = new int[popSize];
+		
+		for(int i = 0; i < popSize; i++) 
+			for(int j = 0; j < popSize; j++) 
+				if(Metrics.euclideanDistance(users[i], users[j])<radius)
+					puntosContacto[j]++;
+			
+		
+		colaPuntos.add(0);
+		visited[0]=true;
+		int tempMax = 1;
+		int actCluster = 2;
+		while(true) {
+			// Conseguir el siguiente punto libre
+			if(colaPuntos.isEmpty()) {
+				while(tempMax<popSize) {
+					if(visited[tempMax]) break;
+					tempMax++;
+				}
+				
+				if(tempMax>=popSize) break;	
+				visited[tempMax] = true;
+				
+				if(puntosContacto[tempMax]<minPuntos+1)
+					continue;
+				colaPuntos.add(tempMax);
+				
+			}
+			// Explorar el siguiente cluster
+			actCluster++;
+			while(!colaPuntos.isEmpty()) {
+				int actualPunto = colaPuntos.poll();
+				
+				for(int i = 0; i < popSize; i++) {
+					if(i==actualPunto) continue;
+					if(Metrics.euclideanDistance(users[actualPunto], users[i])<radius) {
+						if(!visited[i] & puntosContacto[actualPunto]>=minPuntos+1) {
+							visited[i]=true;
+							colaPuntos.add(i);
+						}
+					}
+				}
+				clusters[actualPunto] = actCluster;
+				
+				
+			}
+		}
+		return clusters;
+	}
+	
+	
 	
 	public static final ArrayList<int[]> KMC(ArrayList<double[][]> users, int[] clusters, int[] iterations){
 		ArrayList<int[]> resultMatrix = new ArrayList<int[]>();
