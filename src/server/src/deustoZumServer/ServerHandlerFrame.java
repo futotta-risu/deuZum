@@ -164,6 +164,9 @@ public class ServerHandlerFrame  extends JFrame{
 		JPanel panel_Grupos = new JPanel();
 		panel_Grupos.setBounds(0, 5, 367, 210);
 		layeredPane.add(panel_Grupos);
+		panel_Grupos.setLayout(new MigLayout("", "[113px][5px][129px]", "[29px][29px]"));
+		
+		
 		
 		JPanel panel_Funcionalidades = new JPanel();
 		panel_Funcionalidades.setBounds(0, 5, 367, 210);
@@ -181,16 +184,14 @@ public class ServerHandlerFrame  extends JFrame{
 		panel_Usuario.setLayout(new MigLayout("", "[55px]", "[23px][][][]"));
 		
 		panel_Historial = new JPanel();
-		
-	
 		panel_Historial.setBounds(0, 5, 367, 210);
 		layeredPane.add(panel_Historial);
 		panel_Historial.setLayout(new MigLayout("", "[55px]", "[23px][][]"));
 
-		layeredPane.setLayer(panel_Usuario, 2);
-		layeredPane.setLayer(panel_Historial, 1);
-		layeredPane.setLayer(panel_Proyectos, 4);
-		layeredPane.setLayer(panel_Grupos, 3);
+		layeredPane.setLayer(panel_Usuario, 3);
+		layeredPane.setLayer(panel_Historial, 4);
+		layeredPane.setLayer(panel_Proyectos, 2);
+		layeredPane.setLayer(panel_Grupos, 1);
 		layeredPane.setLayer(panel_Funcionalidades, 0);	
 		layeredPane.setLayer(panel_Configuracion, 5);
 		
@@ -210,7 +211,7 @@ public class ServerHandlerFrame  extends JFrame{
 		panel_Configuracion.add(btnServerName, "cell 0 4,growx");
 		
 		JButton btnBotCount = new JButton("Bot Count");
-		panel_Configuracion.add(btnBotCount, "cell 0 5");
+		panel_Configuracion.add(btnBotCount, "cell 0 5,growx");
 		
 		
 		
@@ -220,13 +221,13 @@ public class ServerHandlerFrame  extends JFrame{
 		//  BOTONES USUARIO
 		
 		JButton btnCrearUser = new JButton("Crear Usuario");
-		panel_Usuario.add(btnCrearUser, "cell 0 0");
+		panel_Usuario.add(btnCrearUser, "cell 0 0,growx");
 	
 		JButton btnEditarUsuario = new JButton("Editar Usuario");
-		panel_Usuario.add(btnEditarUsuario, "cell 0 1");
+		panel_Usuario.add(btnEditarUsuario, "cell 0 1,growx");
 		
 		JButton btnEliminarUsuario = new JButton("Eliminar Usuario");
-		panel_Usuario.add(btnEliminarUsuario, "cell 0 2");
+		panel_Usuario.add(btnEliminarUsuario, "cell 0 2,growx");
 		
 		JButton btnVerCuentas = new JButton("Ver cuentas Usuario");
 		panel_Usuario.add(btnVerCuentas, "cell 0 3");
@@ -245,6 +246,10 @@ public class ServerHandlerFrame  extends JFrame{
 		panel_Historial.add(btnVerTransacciones, "cell 0 1,growx");
 		
 		JButton btnFiltrarTransacciones = new JButton("Filtrar Transacciones");
+		btnFiltrarTransacciones.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		panel_Historial.add(btnFiltrarTransacciones, "cell 0 2,growx");
 		btnCrearUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -265,6 +270,10 @@ public class ServerHandlerFrame  extends JFrame{
 		panel_Proyectos.add(btnEditarProyecto, "cell 0 2,growx");
 		
 		JButton btnEliminarProyecto = new JButton("Eliminar Proyecto");
+		btnEliminarProyecto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		panel_Proyectos.add(btnEliminarProyecto, "cell 0 3,growx");
 		
 		
@@ -275,17 +284,16 @@ public class ServerHandlerFrame  extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		panel_Grupos.setLayout(new MigLayout("", "[117px]", "[29px][][][]"));
-		panel_Grupos.add(btnCrearGrupo, "cell 0 0,growx,aligny top");
+		
 		
 		JButton btnVerGrupos = new JButton("Ver Grupos");
-		panel_Grupos.add(btnVerGrupos, "cell 0 1,growx");
+		panel_Grupos.add(btnVerGrupos, "cell 0 0,alignx left,aligny top");
 		
 		JButton btnEditarGrupos = new JButton("Editar Grupos");
-		panel_Grupos.add(btnEditarGrupos, "cell 0 2,growx");
+		panel_Grupos.add(btnEditarGrupos, "cell 2 0,alignx left,aligny top");
 		
 		JButton btnEliminarGrupos = new JButton("Eliminar Grupos");
-		panel_Grupos.add(btnEliminarGrupos, "cell 0 3,growx");
+		panel_Grupos.add(btnEliminarGrupos, "cell 0 1 3 1,alignx center,aligny top");
 		
 		
 		//		BOTONES FUNCIONALIDADES
