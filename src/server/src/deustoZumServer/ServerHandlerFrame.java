@@ -19,6 +19,11 @@ public class ServerHandlerFrame  extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private JPanel panel_Usuario;
 	private JPanel panel_Historial;
+	private JPanel panel_Proyectos;
+	private JPanel panel_Grupos;
+	private JPanel panel_Funcionalidades;
+	private JPanel panel_Configuracion;
+	
 	private JLayeredPane layeredPane;
 
 	public ServerHandlerFrame() {
@@ -33,7 +38,7 @@ public class ServerHandlerFrame  extends JFrame{
 		 */
 		
 		JPanel sup_Bar = new JPanel();
-		sup_Bar.setBounds(0, 0, 484, 33);
+		sup_Bar.setBounds(0, 0, 652, 33);
 		getContentPane().add(sup_Bar);
 		
 		
@@ -97,7 +102,7 @@ public class ServerHandlerFrame  extends JFrame{
 		
 		
 		JPanel central_Panel = new JPanel();
-		central_Panel.setBounds(0, 32, 484, 229);
+		central_Panel.setBounds(0, 32, 652, 350);
 		getContentPane().add(central_Panel);
 		central_Panel.setLayout(new BorderLayout(0, 0));
 		
@@ -128,6 +133,7 @@ public class ServerHandlerFrame  extends JFrame{
 		JButton btnProyectos = new JButton("Proyectos");
 		btnProyectos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				switchPanel(panel_Proyectos);
 			}
 		});
 		central_Direction_Panel.add(btnProyectos, "cell 0 2,growx");
@@ -135,12 +141,27 @@ public class ServerHandlerFrame  extends JFrame{
 		
 		JButton btnGrupos = new JButton("Grupos");
 		central_Direction_Panel.add(btnGrupos, "cell 0 3,growx");
+		btnGrupos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				switchPanel(panel_Grupos);
+			}
+		});
 		
 		JButton btnFuncionalidades = new JButton("Funcionalidades");
 		central_Direction_Panel.add(btnFuncionalidades, "cell 0 4,growx");
+		btnFuncionalidades.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				switchPanel(panel_Funcionalidades);
+			}
+		});
 		
 		JButton btnConfiguracionDelServer = new JButton("Configuracion del server");
-		central_Direction_Panel.add(btnConfiguracionDelServer, "cell 0 6");
+		central_Direction_Panel.add(btnConfiguracionDelServer, "cell 0 5");
+		btnConfiguracionDelServer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				switchPanel(panel_Configuracion);
+			}
+		});
 		
 		
 		//         MUTABLE TABLE
@@ -167,7 +188,7 @@ public class ServerHandlerFrame  extends JFrame{
 		JPanel panel_Grupos = new JPanel();
 		panel_Grupos.setBounds(0, 5, 367, 210);
 		layeredPane.add(panel_Grupos);
-		panel_Grupos.setLayout(new MigLayout("", "[113px][5px][129px]", "[29px][29px]"));
+		panel_Grupos.setLayout(new MigLayout("", "[113px]", ""));
 		
 		
 		
@@ -177,7 +198,7 @@ public class ServerHandlerFrame  extends JFrame{
 		panel_Funcionalidades.setLayout(new MigLayout("", "[55px]", "[23px][][]"));
 		
 		JPanel panel_Configuracion = new JPanel();
-		panel_Configuracion.setBounds(0, 5, 367, 210);
+		panel_Configuracion.setBounds(0, 0, 384, 231);
 		layeredPane.add(panel_Configuracion);
 		panel_Configuracion.setLayout(new MigLayout("", "[55px]", "[23px][][][][][]"));
 		
@@ -191,30 +212,14 @@ public class ServerHandlerFrame  extends JFrame{
 		layeredPane.add(panel_Historial);
 		panel_Historial.setLayout(new MigLayout("", "[55px]", "[23px][][]"));
 
-		layeredPane.setLayer(panel_Usuario, 3);
+		layeredPane.setLayer(panel_Usuario, 5);
 		layeredPane.setLayer(panel_Historial, 4);
-		layeredPane.setLayer(panel_Proyectos, 2);
-		layeredPane.setLayer(panel_Grupos, 1);
-		layeredPane.setLayer(panel_Funcionalidades, 0);	
-		layeredPane.setLayer(panel_Configuracion, 5);
+		layeredPane.setLayer(panel_Proyectos, 3);
+		layeredPane.setLayer(panel_Grupos, 2);
+		layeredPane.setLayer(panel_Funcionalidades, 1);	
+		layeredPane.setLayer(panel_Configuracion, 0);
 		
-		JButton btnMaxConnection = new JButton("Max Connection");
-		panel_Configuracion.add(btnMaxConnection, "cell 0 0,growx");
 		
-		JButton btnConnectionTimeout = new JButton("Connection TimeOut");
-		panel_Configuracion.add(btnConnectionTimeout, "cell 0 1");
-		
-		JButton btnMaxSocketsize = new JButton("Max SocketSize");
-		panel_Configuracion.add(btnMaxSocketsize, "cell 0 2,growx");
-		
-		JButton btnServerPort = new JButton("Server Port");
-		panel_Configuracion.add(btnServerPort, "cell 0 3,growx");
-		
-		JButton btnServerName = new JButton("Server Name");
-		panel_Configuracion.add(btnServerName, "cell 0 4,growx");
-		
-		JButton btnBotCount = new JButton("Bot Count");
-		panel_Configuracion.add(btnBotCount, "cell 0 5,growx");
 		
 		
 		
@@ -308,11 +313,31 @@ public class ServerHandlerFrame  extends JFrame{
 		//		 BOTONES CONFIGURACION
 		
 		
+		JButton btnMaxConnection = new JButton("Max Connection");
+		panel_Configuracion.add(btnMaxConnection, "cell 0 0,growx");
+		
+		JButton btnConnectionTimeout = new JButton("Connection TimeOut");
+		panel_Configuracion.add(btnConnectionTimeout, "cell 0 1");
+		
+		JButton btnMaxSocketsize = new JButton("Max SocketSize");
+		panel_Configuracion.add(btnMaxSocketsize, "cell 0 2,growx");
+		
+		JButton btnServerPort = new JButton("Server Port");
+		panel_Configuracion.add(btnServerPort, "cell 0 3,growx");
+		
+		JButton btnServerName = new JButton("Server Name");
+		panel_Configuracion.add(btnServerName, "cell 0 4,growx");
+		
+		JButton btnBotCount = new JButton("Bot Count");
+		btnBotCount.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		panel_Configuracion.add(btnBotCount, "cell 0 5,growx");
 		
 		
 		
-		
-		this.setSize(500, 300);
+		this.setSize(1280, 720);
 		this.setVisible(true);
 		this.setTitle("Configuracion del server");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
