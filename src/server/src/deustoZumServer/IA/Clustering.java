@@ -30,17 +30,17 @@ public class Clustering {
 		return 0;
 	}
 	
-	public static ArrayList<int[]> KMC(ArrayList<double[][]> users, int[] clusters, int[] convergencePeriod){
+	public static ArrayList<int[]> MSC(ArrayList<double[][]> users, int[] clusters, int[] convergencePeriod){
 		ArrayList<int[]> resultMatrix = new ArrayList<int[]>();
 		int totalCases = users.size();
 		for(int i = 0; i < totalCases; i++) 
-			resultMatrix.add(KMC(users.get(i), clusters[i],convergencePeriod[i]));
+			resultMatrix.add(MSC(users.get(i), clusters[i],convergencePeriod[i]));
 		
 		return resultMatrix;
 		
 	}
 	
-	public static int[] KMC(double[][] users, int clusters, int convergencePeriod) {
+	public static int[] MSC(double[][] users, int clusters, int convergencePeriod) {
 		if(users.length==0) return null;
 		// TODO convergencePeriod 0, clusters 0 o <0
 		int dimension = users[0].length;

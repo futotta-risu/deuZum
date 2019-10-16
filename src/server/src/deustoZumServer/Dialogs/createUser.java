@@ -21,7 +21,7 @@ public class createUser extends JDialog{
 	private JTextField tfPregSeg;
 	private JTextField tFRes;
 	public createUser(Connection conn) {
-		
+		// TODO Actualizar esta ventana respecto a los nuevos parametros de la base de datos
 		setSize(400,300);
 		setVisible(true);
 		getContentPane().setLayout(null);

@@ -18,9 +18,6 @@ public class ServerCommands {
 
 	public static Map<String, Command> serverCommands;
 	
-	public ServerCommands() {
-		// TODO Rename this file
-	}
 	
 	public static void createMethodArray() {
 		serverCommands = new HashMap<String, Command>();

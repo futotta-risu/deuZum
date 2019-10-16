@@ -6,6 +6,7 @@ import deustoZumServer.Algorithms.TextFunctions;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 
 public class GeneralSQLFunctions {
 	
@@ -24,28 +25,30 @@ public class GeneralSQLFunctions {
 		return conn;
 	}
 	
-	public static void execQuery(Connection connection, String query) throws SQLException {
-		java.sql.Statement statement = connection.createStatement();
-		statement.executeUpdate(query);
+	public static void execUpdate(Connection connection, String query) throws SQLException {
+		connection.createStatement().executeUpdate(query);
+	}
+	
+	public static ResultSet getExecQuery(Connection connection, String query) throws SQLException{
+		return connection.createStatement().executeQuery(query);
 	}
 	
 	public static final String getEntryFromDatabase(Connection connection, String table, String column, String conditions) throws SQLException {
 		
-		java.sql.Statement sta = connection.createStatement();
-		java.sql.ResultSet result = sta.executeQuery("SELECT * FROM `"+table+"` "+conditions);
+		ResultSet result = getExecQuery(connection, "SELECT * FROM `"+table+"` "+conditions);
 		if(result.next()) return result.getString(column);
 		else return null;
 		
 	}
 	
-	public static final void insetEntryIntoDatabase(Connection connection, String table, String[] columnNames, String[] values) throws SQLException {
+	public static final void insertEntryIntoDatabase(Connection connection, String table, String[] columnNames, String[] values) throws SQLException {
 		if(columnNames.length != values.length || columnNames.length == 0)
 			return;
 		// TODO check if table exist
 		
 		String insert_SQL_query = "INSERT INTO '"+table+"' ("+String.join(",", columnNames)+") "
 				+ "VALUES ("+String.join(",", values)+")";
-		GeneralSQLFunctions.execQuery(connection, insert_SQL_query);
+		GeneralSQLFunctions.execUpdate(connection, insert_SQL_query);
 	}
 	
 	public static final void updateEntryFromDatabase(Connection connection, String table, String[] columnNames, String[] values, String conditions) throws SQLException {
@@ -53,11 +56,10 @@ public class GeneralSQLFunctions {
 		if(columnNames.length != values.length || columnNames.length == 0)
 			return;
 		
-		String update_SQL_query = "UPDATE '"+table+"' SET  ";
-		for(int i = 0; i < columnNames.length-1; i++) 
-			update_SQL_query+=columnNames[i] + "='" + values[i] + "',";
-		update_SQL_query+=columnNames[columnNames.length-1] + "='" + values[columnNames.length-1] + " WHERE " + conditions;
-		GeneralSQLFunctions.execQuery(connection, update_SQL_query);
+		String update_SQL_query = "UPDATE '"+table+"' SET " +
+				String.join(",", TextFunctions.concatenateAlternative(columnNames, TextFunctions.surroundText(values, "'"),"=")) 
+				+" WHERE " + conditions;
+		GeneralSQLFunctions.execUpdate(connection, update_SQL_query);
 	}
 	
 	public static final String getWhereEqualsClause(String[] columnNames, String[] data) {

@@ -10,14 +10,12 @@ import java.sql.Connection;
 public class ServerSocketHandler extends Thread{
 
 	Socket tempSocket;
-	Connection conn;
     private PrintWriter out;
     private BufferedReader in;
 	
 	
 	public ServerSocketHandler(Socket tempSocketi, Connection conn) {
 		this.tempSocket = tempSocketi;
-		this.conn = conn;
 	}
 	
 	public void run() {
