@@ -10,6 +10,7 @@ import java.util.Set;
 
 import deustoZumServer.Algorithms.Math.Metrics;
 import deustoZumServer.Algorithms.Math.Pair;
+import deustoZumServer.Algorithms.Math.Statistics;
 import deustoZumServer.Algorithms.Math.Vectors;
 
 public class Clustering {
@@ -48,7 +49,7 @@ public class Clustering {
 			results[i] = lables[index];		
 		}
 		
-		int KNN = Metrics.getModa(results);
+		int KNN = Statistics.getModa(results);
 	
 		return KNN;
 	}
