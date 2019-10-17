@@ -52,10 +52,9 @@ public class Clustering {
 			results[i] = lables[index];		
 		}
 		
-		
-			
-		
-		return 0;
+		int KNN = Metrics.getModa(results);
+	
+		return KNN;
 	}
 	
 	public static final ArrayList<int[]> MSC(ArrayList<double[][]> users, int[] clusters, int[] convergencePeriod){

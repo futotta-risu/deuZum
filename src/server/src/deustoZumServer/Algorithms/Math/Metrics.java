@@ -49,4 +49,28 @@ public class Metrics {
 		
 		return minCluster;
 	}
+	
+	public static int getModa(int[] muestras) {
+
+	    int maximoNumRepeticiones= 0;
+	    int moda= 0;
+
+	    for(int i=0; i<muestras.length; i++)
+	    {
+	        int numRepeticiones= 0;
+	        for(int j=0; j<muestras.length; j++)
+	        {
+	            if(muestras[i]==muestras[j])
+	            {
+	                numRepeticiones++;
+	            }  
+	            if(numRepeticiones>maximoNumRepeticiones)
+	            {
+	                moda= muestras[i];
+	                maximoNumRepeticiones= numRepeticiones;
+	            }  
+	        }
+	    }  
+	   return moda;
+	}   
 }
