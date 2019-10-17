@@ -1,6 +1,6 @@
 package deustoZumServer.IA.Bots;
 
-public class CleaningBot extends BotBase implements BotFunctions{
+public class CleaningBot extends BotBase {
 
 	public CleaningBot() {}
 	
@@ -8,7 +8,20 @@ public class CleaningBot extends BotBase implements BotFunctions{
 		this.name = name;
 	}
 	
-	public void exec() {
+	@Override
+	public void execute() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void stop() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void kill() {
 		// TODO Auto-generated method stub
 		
 	}

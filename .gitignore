@@ -51,3 +51,4 @@ src/server/src - Acceso directo.lnk
 .ipynb_checkpoints/
 
 
+src/server/.classpath
