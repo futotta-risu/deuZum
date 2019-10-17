@@ -1,4 +1,4 @@
-package ventanas;
+package desktop;
 
 import java.awt.*;
 import java.awt.event.*;
