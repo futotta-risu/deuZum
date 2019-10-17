@@ -1,13 +1,19 @@
 package deustoZumServer.IA;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Random;
 import java.util.Set;
+import java.util.TreeMap;
 
 import deustoZumServer.Algorithms.Math.Metrics;
+import deustoZumServer.Algorithms.Math.Pair;
 import deustoZumServer.Algorithms.Math.Vectors;
 
 public class Clustering {
@@ -28,8 +34,27 @@ public class Clustering {
 		return resultMatrix;
 	}
 	
-	public static final int KNN(double[][] users, int[] lables, double[] newVector) {
-		// TODO Lander, crea esta funcion
+	public static final int KNN(double[][] users, int[] lables, double[] newVector, int k) {
+		 
+		if (users.length ==0) return -1;
+		if(users[0].length!=newVector.length) return -1;
+		
+		Pair[] distanciasIndex = new Pair[users.length];
+				
+		for (int i = 0; i < users.length; i++) 
+			distanciasIndex[i] = new Pair(i,Metrics.euclideanDistance(users[i], newVector));
+		
+		Arrays.sort(distanciasIndex);	
+		int[] results = new int[k];
+		
+		for(int i = 0; i < k; i++) {
+			int index = distanciasIndex[i].getIndex();
+			results[i] = lables[index];		
+		}
+		
+		
+			
+		
 		return 0;
 	}
 	
