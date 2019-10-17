@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry excluding="android/src/main/java/|desktop/|android/src/test/java/|android/src/androidTest/java/" kind="src" path=""/>
+	<classpathentry kind="src" path="android/src/androidTest/java"/>
+	<classpathentry kind="src" path="android/src/main/java"/>
+	<classpathentry kind="src" path="android/src/test/java"/>
+	<classpathentry kind="src" path="desktop"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

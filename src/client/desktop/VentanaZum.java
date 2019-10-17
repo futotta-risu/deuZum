@@ -68,6 +68,7 @@ public class VentanaZum {
 		panel.add(faq);
 		
 		
-
 	}
-}
+	
+	}
+
