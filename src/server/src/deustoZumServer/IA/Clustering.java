@@ -2,15 +2,11 @@ package deustoZumServer.IA;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.Map;
 import java.util.Queue;
 import java.util.Random;
 import java.util.Set;
-import java.util.TreeMap;
 
 import deustoZumServer.Algorithms.Math.Metrics;
 import deustoZumServer.Algorithms.Math.Pair;
@@ -18,7 +14,7 @@ import deustoZumServer.Algorithms.Math.Vectors;
 
 public class Clustering {
 	
-	public static final ArrayList<int[]> KNN(ArrayList<double[][]> users, ArrayList<int[]> labels, ArrayList<double[][]> newVector){
+	public static final ArrayList<int[]> KNN(ArrayList<double[][]> users, ArrayList<int[]> labels, ArrayList<double[][]> newVector, int[] kVal){
 		ArrayList<int[]> resultMatrix= new ArrayList<int[]>();
 		int totalCases = users.size();
 		for(int i = 0;  i < totalCases; i++) {
@@ -27,7 +23,7 @@ public class Clustering {
 			int[] tempVal = new int[KNNCaseSize];
 			for(int j = 0; j < KNNCaseSize; j++) 
 				// Para cada vector que queremos comprobar
-				tempVal[j] = KNN(users.get(i), labels.get(i), newVector.get(i)[j]);
+				tempVal[j] = KNN(users.get(i), labels.get(i), newVector.get(i)[j], kVal[i]);
 			
 			resultMatrix.add(tempVal);
 		}
