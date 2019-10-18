@@ -8,7 +8,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 
-public class GeneralSQLFunctions {
+public final class GeneralSQLFunctions {
 	
 	public static Connection connectToDatabase(String direction, String user, String pass) {
 		Connection conn = null;
@@ -25,11 +25,11 @@ public class GeneralSQLFunctions {
 		return conn;
 	}
 	
-	public static void execUpdate(Connection connection, String query) throws SQLException {
+	public static final void execUpdate(Connection connection, String query) throws SQLException {
 		connection.createStatement().executeUpdate(query);
 	}
 	
-	public static ResultSet getExecQuery(Connection connection, String query) throws SQLException{
+	public static final ResultSet getExecQuery(Connection connection, String query) throws SQLException{
 		return connection.createStatement().executeQuery(query);
 	}
 	
