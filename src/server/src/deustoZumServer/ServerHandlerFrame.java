@@ -179,25 +179,25 @@ public class ServerHandlerFrame  extends JFrame{
 		//        PANELES MUTABLE
 		
 		
-		JPanel panel_Proyectos = new JPanel();
+		panel_Proyectos = new JPanel();
 		layeredPane.setLayer(panel_Proyectos, 4);
 		panel_Proyectos.setBounds(0, 5, 367, 210);
 		layeredPane.add(panel_Proyectos);
 		panel_Proyectos.setLayout(new MigLayout("", "[55px]", "[23px][][]"));
 		
-		JPanel panel_Grupos = new JPanel();
+		panel_Grupos = new JPanel();
 		panel_Grupos.setBounds(0, 5, 367, 210);
 		layeredPane.add(panel_Grupos);
 		panel_Grupos.setLayout(new MigLayout("", "[113px]", ""));
 		
 		
 		
-		JPanel panel_Funcionalidades = new JPanel();
+		panel_Funcionalidades = new JPanel();
 		panel_Funcionalidades.setBounds(0, 5, 367, 210);
 		layeredPane.add(panel_Funcionalidades);
 		panel_Funcionalidades.setLayout(new MigLayout("", "[55px]", "[23px][][]"));
 		
-		JPanel panel_Configuracion = new JPanel();
+		panel_Configuracion = new JPanel();
 		panel_Configuracion.setBounds(0, 0, 384, 231);
 		layeredPane.add(panel_Configuracion);
 		panel_Configuracion.setLayout(new MigLayout("", "[55px]", "[23px][][][][][]"));
