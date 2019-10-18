@@ -1,5 +1,5 @@
 package deustoZumServer.Security.Encryption;
 
-public enum EncryptionTipes {
+public enum EncryptionTypes {
 
 }
