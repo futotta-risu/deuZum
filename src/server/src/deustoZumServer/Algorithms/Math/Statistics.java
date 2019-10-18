@@ -1,9 +1,8 @@
 package deustoZumServer.Algorithms.Math;
 
-import java.awt.List;
+
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
 
 public final class Statistics {
@@ -34,6 +33,7 @@ public final class Statistics {
 	}   
 	
 	//O(n) (Since k<n, O(n+k)=O(n))
+	// Categories debe contener numeros no negativos y categorySize debe ser >= max(categories)+1
 	public static final int getCategorizedMode(int[] categories, int categorySize) {
 		int[] totalAparition = new int[categorySize];
 		for(int i : categories) 

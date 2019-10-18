@@ -23,7 +23,7 @@
 
 
 #Evitamos que eliminen el lab
-!lib/*
+!src/server/lib/*
 
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml

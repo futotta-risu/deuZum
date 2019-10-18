@@ -39,4 +39,17 @@ public class Vectors {
 		return divVC(arr1, Metrics.euclideanDistance(arr1));
 	}
 	
+	public static final boolean isZero(double[] arr1) {
+		for(int i = 0; i < arr1.length; i++)
+			if(arr1[i]!=0) return false;
+		return true;
+	}
+	
+	public static final boolean isEqual(double[] arr1, double[] arr2) {
+		for(int i = 0; i < arr1.length; i++)
+			if(arr1[i]-arr2[i]!=0) return false;
+		return true;
+	}
+	
+	
 }

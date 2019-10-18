@@ -62,14 +62,7 @@ public class GeneralSQLFunctions {
 		GeneralSQLFunctions.execUpdate(connection, update_SQL_query);
 	}
 	
-	public static final String getWhereEqualsClause(String[] columnNames, String[] data) {
-		if(columnNames.length != data.length || columnNames.length==0) return "";
-		
-		String whereClause = "WHERE ";
-		data = TextFunctions.surroundText(data, "'", "'");
-		String[] concatenatedText = TextFunctions.concatenateAlternative(columnNames, data, "=");
-		return whereClause+String.join(" AND ", concatenatedText);
-	}
+	
 	 
 	
 }

@@ -54,49 +54,59 @@ public class Clustering {
 		return KNN;
 	}
 	
-	public static final ArrayList<int[]> MSC(ArrayList<double[][]> users, int[] clusters, int[] convergencePeriod){
+	public static final ArrayList<int[]> MSC(ArrayList<double[][]> users, int[] convergencePeriod, double[] kernelSize){
 		ArrayList<int[]> resultMatrix = new ArrayList<int[]>();
 		int totalCases = users.size();
 		for(int i = 0; i < totalCases; i++) 
-			resultMatrix.add(MSC(users.get(i), clusters[i],convergencePeriod[i]));
+			resultMatrix.add(MSC(users.get(i),convergencePeriod[i], kernelSize[i]));
 		
 		return resultMatrix;
 		
 	}
 	
-	public static final int[] MSC(double[][] users, int clusters, int convergencePeriod) {
-		if(users.length==0) return null;
-		// TODO convergencePeriod 0, clusters 0 o <0
+	public static final int[] MSC(double[][] users, int convergencePeriod, double kernelSize) {
+		if(users.length==0 || convergencePeriod==0) return null;
 		int dimension = users[0].length;
 		int points = users.length;
-		Random gen = new Random();
-		// Asumiremos un espacio normalizado
-		
-		double[][] clusterPoints = new double[clusters][dimension];
-		
-		for(int i = 0; i < clusters; i++)
-			for(int j = 0; j < dimension; j++) 
-				clusterPoints[i][j] = 1-2*gen.nextDouble();
-		
-		for(int n = 0; n < convergencePeriod; n++) 
-			for(int i = 0; i < clusters; i++) {
+		// TODO revisar el codigo y optimizar
+		// TODO Entender esta linea. Sirve para copiar arrays, pero quiero aprender como funciona stream
+		double[][] clusterPoints = Arrays.stream(users).map(double[]::clone).toArray(double[][]::new);
+		boolean[] hasConverged = new boolean[points];
+		int totalConverged = 0;
+		while(totalConverged < 0)
+			for(int i = 0; i < points; i++) {
+				if(hasConverged[i]==true) continue;
+				
 				double[] shift = new double[dimension];
 				int totalMove = 0;
 				
 				for(int j = 0; j < points;j++) 
-					if(Metrics.flatKernel(clusterPoints[i],0.1,  users[j])>0) {
+					if(Metrics.flatKernel(clusterPoints[i],kernelSize,  users[j])>0) {
 						shift = Vectors.sumV(shift, users[j]);
 						totalMove++;
 					}
+				
+				if(Vectors.isZero(shift)) {
+					hasConverged[i] = true;
+					totalConverged++;
+					continue;
+				}
 				shift = Vectors.divVC(shift, totalMove);
 				clusterPoints[i] = Vectors.sumV(clusterPoints[i], shift);
 			}
-		
-		
-		
-		
-		// TODO Implementar
-		return null;
+		int[] resultClusters = new int[points];
+		int actCluster = 0;
+		for(int i = 0; i < points-1; i++) {
+			if(hasConverged[i]==false) continue;
+			resultClusters[i] = ++actCluster;
+			for(int j = i+1; j < points; j++) 
+				if(Vectors.isEqual(clusterPoints[i], clusterPoints[j])) {
+					hasConverged[j] = false;
+					resultClusters[j] = actCluster;
+				}
+			
+		}
+		return resultClusters;
 	}
 	
 	public static final ArrayList<int[]> DBSCAN(ArrayList<double[][]> users, double[] radius, int[] minPoints){

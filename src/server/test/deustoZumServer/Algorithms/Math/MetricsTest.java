@@ -7,13 +7,7 @@ import org.junit.Test;
 
 public class MetricsTest {
 
-	@Test
-	public void testGetModa() {
-		int[] muestras = {1, 2 , 2, 3, 5, 5, 5};
-		int result = Statistics.getModa(muestras);
-		assertEquals(5, result);
 	
-	}
 	
 	
 	@Test
