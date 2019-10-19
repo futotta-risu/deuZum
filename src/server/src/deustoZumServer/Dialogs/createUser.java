@@ -26,6 +26,7 @@ public class createUser extends JDialog{
 	private JTextField txtEmail;
 	private JTextField txtF_Nacimiento;
 	private JTextField txtSexo;
+	private JButton btnCrear;
 	public createUser(Connection conn) {
 		// TODO Actualizar esta ventana respecto a los nuevos parametros de la base de datos
 		setSize(533,300);

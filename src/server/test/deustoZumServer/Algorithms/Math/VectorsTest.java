@@ -2,6 +2,8 @@ package deustoZumServer.Algorithms.Math;
 
 import static org.junit.Assert.*;
 
+import java.util.Arrays;
+
 import org.junit.Test;
 
 public class VectorsTest {
@@ -11,8 +13,8 @@ public class VectorsTest {
 		double[] arr1 = {0.5, 0.5, 0.5};
 		double[] arr2 = {0.5, 0.5, 0.5};	
 		double[] result = Vectors.sumV(arr1, arr2);
-		double[] expected = {1, 1, 1};
-		//assertEquals(expected, result);
+		double[] expected = {1.0, 1.0, 1.0};
+		assertEquals(true,Arrays.equals(expected,result) );
 	}
 	
 	@Test
@@ -21,7 +23,7 @@ public class VectorsTest {
 		double val = 0.5;	
 		double[] result = Vectors.sumVC(arr1, val);
 		double[] expected = {1, 1, 1};
-		//assertEquals(expected, result);
+		assertEquals(true,Arrays.equals(expected,result) );
 	}
 	
 	@Test
@@ -30,7 +32,7 @@ public class VectorsTest {
 		double[] arr2 = {0.5, 0.5, 0.5};	
 		double[] result = Vectors.subV(arr1, arr2);
 		double[] expected = {0, 0, 0};
-		//assertEquals(expected, result);
+		assertEquals(true,Arrays.equals(expected,result) );
 	}
 	
 	@Test
@@ -38,8 +40,8 @@ public class VectorsTest {
 		double[] arr1 = {0.5, 0.5, 0.5};
 		double val = 2;	
 		double[] result = Vectors.subVC(arr1, val);
-		double[] expected = {1, 1, 1};
-		//assertEquals(expected, result);
+		double[] expected = {-1.5, -1.5, -1.5};
+		assertEquals(true,Arrays.equals(expected,result) );
 	}
 	
 	@Test
@@ -47,16 +49,18 @@ public class VectorsTest {
 		double[] arr1 = {0.5, 0.5, 0.5};
 		double val = 3;	
 		double[] result = Vectors.divVC(arr1, val);
-		double[] expected = {1, 1, 1};
-		//assertEquals(expected, result);
+		double[] expected = {0.5/3, 0.5/3, 0.5/3};
+		assertEquals(true,Arrays.equals(expected,result) );
 	}
 	
 	@Test
 	public void testNormalize() {
 		double[] arr1 = {0.5, 0.5, 0.5};
 		double[] result = Vectors.normalize(arr1);
-		double[] expected = {1, 1, 1};
-		//assertEquals(expected, result);
+		double[] expected = {Math.sqrt((double) 1/3), Math.sqrt((double) 1/3), Math.sqrt((double)1/3)};
+		
+		 //0.1 es el epsilon que escogemos por el tema de aproximaciones de raiz cuadrada
+		assertEquals(true,Arrays.stream(Vectors.subV(expected,result)).parallel().reduce(0, (a,b)-> a+b)<0.1);
 	}
 	
 	@Test 

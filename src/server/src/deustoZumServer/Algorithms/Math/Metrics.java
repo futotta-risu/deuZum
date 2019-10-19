@@ -29,7 +29,7 @@ public class Metrics {
 		double distance = 0;
 		for(int i = 0; i < center.length; i++) 
 			distance+=(center[i]-newPos[i])*(center[i]-newPos[i]);
-		if(distance >= radius*radius) return 0;
+		if(distance > radius*radius) return 0;
 		else return 1;
 	}
 	

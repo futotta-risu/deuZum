@@ -2,7 +2,6 @@ package deustoZumServer.Dialogs;
 
 import javax.swing.JDialog;
 
-import com.mysql.jdbc.Connection;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;

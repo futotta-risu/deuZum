@@ -31,7 +31,7 @@ public class Clustering {
 		return resultMatrix;
 	}
 	
-	public static final int KNN(double[][] users, int[] lables, double[] newVector, int k) {
+	public static final int KNN(double[][] users, int[] labels, double[] newVector, int k) {
 		 
 		if (users.length ==0) return -1;
 		if(users[0].length!=newVector.length) return -1;
@@ -46,7 +46,7 @@ public class Clustering {
 		
 		for(int i = 0; i < k; i++) {
 			int index = distanciasIndex[i].getIndex();
-			results[i] = lables[index];		
+			results[i] = labels[index];		
 		}
 		
 		int KNN = Statistics.getModa(results);
@@ -54,18 +54,18 @@ public class Clustering {
 		return KNN;
 	}
 	
-	public static final ArrayList<int[]> MSC(ArrayList<double[][]> users, int[] convergencePeriod, double[] kernelSize){
+	public static final ArrayList<int[]> MSC(ArrayList<double[][]> users, double[] kernelSize){
 		ArrayList<int[]> resultMatrix = new ArrayList<int[]>();
 		int totalCases = users.size();
 		for(int i = 0; i < totalCases; i++) 
-			resultMatrix.add(MSC(users.get(i),convergencePeriod[i], kernelSize[i]));
+			resultMatrix.add(MSC(users.get(i), kernelSize[i]));
 		
 		return resultMatrix;
 		
 	}
 	
-	public static final int[] MSC(double[][] users, int convergencePeriod, double kernelSize) {
-		if(users.length==0 || convergencePeriod==0) return null;
+	public static final int[] MSC(double[][] users, double kernelSize) {
+		if(users.length==0) return null;
 		int dimension = users[0].length;
 		int points = users.length;
 		// TODO revisar el codigo y optimizar
@@ -73,7 +73,7 @@ public class Clustering {
 		double[][] clusterPoints = Arrays.stream(users).map(double[]::clone).toArray(double[][]::new);
 		boolean[] hasConverged = new boolean[points];
 		int totalConverged = 0;
-		while(totalConverged < 0)
+		while(totalConverged < points)
 			for(int i = 0; i < points; i++) {
 				if(hasConverged[i]==true) continue;
 				
@@ -85,15 +85,15 @@ public class Clustering {
 						shift = Vectors.sumV(shift, users[j]);
 						totalMove++;
 					}
-				
-				if(Vectors.isZero(shift)) {
+				shift = Vectors.divVC(shift, totalMove);
+				if(Vectors.isZero(Vectors.subV(shift, clusterPoints[i]))) {
 					hasConverged[i] = true;
 					totalConverged++;
 					continue;
 				}
-				shift = Vectors.divVC(shift, totalMove);
-				clusterPoints[i] = Vectors.sumV(clusterPoints[i], shift);
+				clusterPoints[i] = shift.clone();
 			}
+		
 		int[] resultClusters = new int[points];
 		int actCluster = 0;
 		for(int i = 0; i < points-1; i++) {
@@ -156,23 +156,21 @@ public class Clustering {
 					puntosContacto[j]++;
 					puntosContacto[i]++;
 				}
-			
 		
-		colaPuntos.add(0);
-		visited[0]=true;
-		int tempMax = 1;
-		int actCluster = 1;
+		int tempMax = 0;
+		int actCluster = 0;
 		while(true) {
 			// Conseguir el siguiente punto libre
 			if(colaPuntos.isEmpty()) {
-				while(tempMax<popSize & !visited[tempMax])
+				while(tempMax<popSize && visited[tempMax])
 					tempMax++;
 				
 				if(tempMax==popSize) break;	
 				visited[tempMax] = true;
 				
-				if(puntosContacto[tempMax]<minPuntos)
+				if(puntosContacto[tempMax]<minPuntos) 
 					continue;
+				
 				colaPuntos.add(tempMax);
 				
 			}
@@ -181,7 +179,7 @@ public class Clustering {
 			while(!colaPuntos.isEmpty()) {
 				int actualPunto = colaPuntos.poll();
 				clusters[actualPunto] = actCluster;
-				for(int i = tempMax+1; i < popSize; i++) {
+				for(int i = actualPunto+1; i < popSize; i++) {
 					if(Metrics.euclideanDistance(users[actualPunto], users[i])<radius)
 						if(!visited[i] & puntosContacto[actualPunto]>=minPuntos) {
 							visited[i]=true;
@@ -197,16 +195,16 @@ public class Clustering {
 	
 	
 	
-	public static final ArrayList<int[]> KMC(ArrayList<double[][]> users, int[] clusters, int[] iterations){
+	public static final ArrayList<int[]> KMC(ArrayList<double[][]> users, int[] clusters){
 		ArrayList<int[]> resultMatrix = new ArrayList<int[]>();
 		
 		for(int i  = 0; i < users.size(); i++) 
-			resultMatrix.add(KMC(users.get(i), clusters[i], iterations[i]));
+			resultMatrix.add(KMC(users.get(i), clusters[i]));
 		
 		return resultMatrix;
 	}
 	
-	public static final int[] KMC(double[][] users, int clusters, int iteration){
+	public static final int[] KMC(double[][] users, int clusters){
 		
 		if(users.length == 0) return null;
 		if(clusters > users[0].length) return null;
@@ -231,10 +229,9 @@ public class Clustering {
 			tempSize++;
 		}
 		
-		
 		int[] nearCluster = new int[userCount];
 		
-		for(int i  = 0; i < iteration; i++) {
+		while(true){
 			int[] clusterCount = new int[clusters];
 			double[][] clusterMoves = new double[clusters][dimension];
 			//Fase de calculo de distancias
@@ -246,9 +243,14 @@ public class Clustering {
 				clusterCount[minCluster]++;
 				clusterMoves[minCluster] = Vectors.sumV(clusterMoves[minCluster], users[j]);
 			}
-			
-			for(int j = 0; j < clusters; j++)
-				clusterPoints[j] = Vectors.divVC(clusterMoves[j], clusterCount[j]);
+			int convergedCount = 0;
+			for(int j = 0; j < clusters; j++) {
+				double[] temp = Vectors.divVC(clusterMoves[j], clusterCount[j]);
+				if(Arrays.equals(clusterPoints[j], temp))
+					convergedCount++;
+				else clusterPoints[j] = temp;
+			}
+			if(convergedCount == clusters) break;
 			
 		}
 		

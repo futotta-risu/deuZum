@@ -2,14 +2,11 @@ package deustoZumServer;
 
 import javax.swing.JFrame;
 
-import deustoZumServer.Dialogs.createUser;
-
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
 
-import com.mysql.jdbc.Connection;
 
 import java.awt.BorderLayout;
 import net.miginfocom.swing.MigLayout;
