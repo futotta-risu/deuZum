@@ -2,12 +2,12 @@ package deustoZumServer;
 
 import javax.swing.JFrame;
 
-import deustoZumServer.Dialogs.createUser;
-
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
+
+
 import java.awt.BorderLayout;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JLayeredPane;
@@ -179,25 +179,25 @@ public class ServerHandlerFrame  extends JFrame{
 		//        PANELES MUTABLE
 		
 		
-		JPanel panel_Proyectos = new JPanel();
+		panel_Proyectos = new JPanel();
 		layeredPane.setLayer(panel_Proyectos, 4);
 		panel_Proyectos.setBounds(0, 5, 367, 210);
 		layeredPane.add(panel_Proyectos);
 		panel_Proyectos.setLayout(new MigLayout("", "[55px]", "[23px][][]"));
 		
-		JPanel panel_Grupos = new JPanel();
+		panel_Grupos = new JPanel();
 		panel_Grupos.setBounds(0, 5, 367, 210);
 		layeredPane.add(panel_Grupos);
 		panel_Grupos.setLayout(new MigLayout("", "[113px]", ""));
 		
 		
 		
-		JPanel panel_Funcionalidades = new JPanel();
+		panel_Funcionalidades = new JPanel();
 		panel_Funcionalidades.setBounds(0, 5, 367, 210);
 		layeredPane.add(panel_Funcionalidades);
 		panel_Funcionalidades.setLayout(new MigLayout("", "[55px]", "[23px][][]"));
 		
-		JPanel panel_Configuracion = new JPanel();
+		panel_Configuracion = new JPanel();
 		panel_Configuracion.setBounds(0, 0, 384, 231);
 		layeredPane.add(panel_Configuracion);
 		panel_Configuracion.setLayout(new MigLayout("", "[55px]", "[23px][][][][][]"));
@@ -230,6 +230,10 @@ public class ServerHandlerFrame  extends JFrame{
 		
 		JButton btnCrearUser = new JButton("Crear Usuario");
 		panel_Usuario.add(btnCrearUser, "cell 0 0,growx");
+		btnCrearUser.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 	
 		JButton btnEditarUsuario = new JButton("Editar Usuario");
 		panel_Usuario.add(btnEditarUsuario, "cell 0 1,growx");
@@ -261,7 +265,7 @@ public class ServerHandlerFrame  extends JFrame{
 		panel_Historial.add(btnFiltrarTransacciones, "cell 0 2,growx");
 		btnCrearUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new createUser(server.getConnection());
+		
 			}
 		});
 		
