@@ -9,9 +9,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
+import org.json.*;
+
 interface Command{
 
-	String runCommand(String[] arr);
+	String runCommand(JSONObject data);
 }
 
 public class ServerCommands {
@@ -41,13 +43,13 @@ public class ServerCommands {
 				  
 				  serverCommands.put(socketLineSplit[0], new Command() {
 
-					public String runCommand(String[] arr) {
+					public String runCommand(JSONObject data) {
 						try {
 							Class<?> temp = Class.forName(socketLineSplit[1]);
 							
 							java.lang.reflect.Method method;
 							method = temp.getMethod(socketLineSplit[2], socketLineSplit.getClass());
-							Object[] params = {arr};
+							Object[] params = {data};
 							return (String) method.invoke(null, params);
 							
 							// TODO cambiar los errores para algo más util

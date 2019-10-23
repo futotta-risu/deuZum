@@ -1,4 +1,4 @@
-º	package deustoZumServer.Dialogs;
+package deustoZumServer.Dialogs.Project;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;

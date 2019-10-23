@@ -1,12 +1,13 @@
-package deustoZumServer.Dialogs;
+package deustoZumServer.Dialogs.Group;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import java.awt.BorderLayout;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 
-public class editGroup extends JDialog{
+public class createGroup extends JDialog{
 
 	/**
 	 * 
@@ -21,17 +22,16 @@ public class editGroup extends JDialog{
 	private JTextField txtMiembro7;
 	private JTextField txtMiembro9;
 	private JTextField txtNombreGrupo;
-	private JTextField txtIdGrupo;
 	
-	public editGroup() {
+	public createGroup() {
 		setSize(500,500);
-		setTitle("Editar Grupo");
+		setTitle("crear Grupo");
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 		
 		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setBounds(38, 104, 61, 16);
+		lblNombre.setBounds(38, 63, 61, 16);
 		getContentPane().add(lblNombre);
 		
 		JLabel lblMiembro = new JLabel("Miembro 1:");
@@ -147,26 +147,13 @@ public class editGroup extends JDialog{
 		getContentPane().add(comboPermiso8);
 		
 		txtNombreGrupo = new JTextField();
-		txtNombreGrupo.setBounds(111, 99, 130, 26);
+		txtNombreGrupo.setBounds(111, 58, 130, 26);
 		getContentPane().add(txtNombreGrupo);
 		txtNombreGrupo.setColumns(10);
 		
-		JButton btnGuardarCambio = new JButton("Guardar Cambios");
-		btnGuardarCambio.setBounds(337, 381, 143, 29);
-		getContentPane().add(btnGuardarCambio);
-		
-		JLabel lblIntroducirIdGrupo = new JLabel("Introducir ID Grupo:");
-		lblIntroducirIdGrupo.setBounds(38, 53, 130, 16);
-		getContentPane().add(lblIntroducirIdGrupo);
-		
-		txtIdGrupo = new JTextField();
-		txtIdGrupo.setBounds(183, 48, 130, 26);
-		getContentPane().add(txtIdGrupo);
-		txtIdGrupo.setColumns(10);
-		
-		JButton btnBuscar = new JButton("Buscar Grupo");
-		btnBuscar.setBounds(337, 48, 117, 29);
-		getContentPane().add(btnBuscar);
+		JButton btnCrearGrupo = new JButton("Crear Grupo");
+		btnCrearGrupo.setBounds(337, 381, 117, 29);
+		getContentPane().add(btnCrearGrupo);
 	}
 	
 	

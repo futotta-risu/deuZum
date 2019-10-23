@@ -7,6 +7,8 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.sql.Connection;
 
+import org.json.JSONObject;
+
 public class ServerSocketHandler extends Thread{
 
 	Socket tempSocket;
@@ -29,8 +31,8 @@ public class ServerSocketHandler extends Thread{
 	        String command = in.readLine();
 	        
 	        // Dechiper the Command
-	        String[] arr = in.readLine().split(" ");
-	        out.println(ServerCommands.serverCommands.get(command).runCommand(arr));
+	        JSONObject data = new JSONObject(in.readLine());
+	        out.println(ServerCommands.serverCommands.get(command).runCommand(data));
 	        
 
 			in.close();
