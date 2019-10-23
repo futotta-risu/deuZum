@@ -324,29 +324,53 @@ public class ServerHandlerFrame  extends JFrame{
 		JButton btnMaxConnection = new JButton("Max Connection");
 		panel_Configuracion.add(btnMaxConnection, "cell 0 0,growx");
 		btnMaxConnection.addActionListener(new ActionListener() {
-			
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showInputDialog("Introducir numero maximo de conexiones");
-				
+				if(Server.isRunning) server.restart();						
 			}
 		});
 		
 		JButton btnConnectionTimeout = new JButton("Connection TimeOut");
 		panel_Configuracion.add(btnConnectionTimeout, "cell 0 1");
+		btnConnectionTimeout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showInputDialog("introducir el tiempo de 'Connection TimeOut'");
+				if(Server.isRunning) server.restart();						
+			}
+		});
 		
 		JButton btnMaxSocketsize = new JButton("Max SocketSize");
 		panel_Configuracion.add(btnMaxSocketsize, "cell 0 2,growx");
+		btnMaxSocketsize.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showInputDialog("Introducir tamaño maximo del socket");
+				if(Server.isRunning) server.restart();						
+			}
+		});
 		
 		JButton btnServerPort = new JButton("Server Port");
 		panel_Configuracion.add(btnServerPort, "cell 0 3,growx");
+		btnServerPort.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showInputDialog("Introducir el puerto del servidor");
+				if(Server.isRunning) server.restart();						
+			}
+		});
 		
 		JButton btnServerName = new JButton("Server Name");
 		panel_Configuracion.add(btnServerName, "cell 0 4,growx");
+		btnServerName.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showInputDialog("Introducir nombre del servidor");
+				if(Server.isRunning) server.restart();						
+			}
+		});
+	
 		
 		JButton btnBotCount = new JButton("Bot Count");
 		btnBotCount.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showInputDialog("Introducir el numero de Bots en el servidor");
 			}
 		});
 		panel_Configuracion.add(btnBotCount, "cell 0 5,growx");
