@@ -2,12 +2,19 @@ package deustoZumServer;
 
 import java.sql.SQLException;
 import java.util.Date;
+
+import org.json.JSONObject;
+
 import java.sql.Connection;
 
 import deustoZumServer.Database.GeneralSQLFunctions;
 
 public class ServerUserFunctionality {
 
+	/**
+	 * Esta clase crea un usuario dentro de la base de datos dada en la conexion
+	 * @params Connection connection, String[] data = {user, pass, pregSeg, resp}
+	 */
 	public static void createUser(Connection connection, String[] data){
 		String[] columnNamesUsuarios = {"users","pass","pregSeguridad","respuesta"};
 		String[] columnNamesCuentas = {"user_id", "dinero"};
@@ -24,9 +31,17 @@ public class ServerUserFunctionality {
 		}
 	}
 	
-	public static void createUserC(String[] dataArr) {
+	public static void logUser(JSONObject data) {
+		
 		Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost/deuzum", "root", "");
-		createUser(conn, dataArr);
+		
+		
+	}
+	
+	
+	public static void createUserC(JSONObject data) {
+		Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost/deuzum", "root", "");
+		createUser(conn, new String[] {data.getString("user"), data.getString("pass"), data.getString("pregSegu"),data.getString("resp")});
 	}
 	
 	public static void createTransaction(Connection connection, String userID_A, String userID_B, int value, Date fecha) {
