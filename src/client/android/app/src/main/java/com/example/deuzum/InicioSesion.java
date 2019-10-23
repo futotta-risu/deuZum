@@ -17,7 +17,7 @@ public class InicioSesion extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_inicio_sesion);
 
         nUsuario = findViewById(R.id.nomUsuario);
         cUsuario = findViewById(R.id.contrUsuario);
@@ -30,9 +30,21 @@ public class InicioSesion extends AppCompatActivity {
                 abrirMenuPrincipal();
             }
         });
+
+        bReg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                abrirCrearUsuario();
+            }
+        });
     }
 
     public void abrirMenuPrincipal() {
+        Intent i = new Intent(this, MenuPrincipal.class);
+        startActivity(i);
+    }
+
+    public void abrirCrearUsuario() {
         Intent i = new Intent(this, MenuPrincipal.class);
         startActivity(i);
     }
