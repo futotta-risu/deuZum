@@ -15,39 +15,45 @@ public class CommandBuilder {
 	
 	
 	public static final String getUpdateQuery(String table, String[] columnNames, String[] values) {
-		// TODO Implementar getUpdateQuery(String table, String[] columnNames, String[] values)
-		return null;
+		String update_SQL_query = "UPDATE '"+table+"' SET " +
+				String.join(",", TextFunctions.concatenateAlternative(
+						columnNames, TextFunctions.surroundText(values, "'") , "=")
+						);
+		return update_SQL_query;
 	}
 	public static final String getUpdateQuery(String table, String[] columnNames, String[] values, String conditions) {
-		// TODO Implementar getUpdateQuery(String table, String[] columnNames, String[] values, String conditions)
-		return null;
+		
+		
+		String update_SQL_query = "UPDATE '"+table+"' SET " +
+				String.join(",", TextFunctions.concatenateAlternative(
+						columnNames, TextFunctions.surroundText(values, "'") , "=")
+						) 
+				+" WHERE " + conditions;
+		return update_SQL_query;
 	}
 	
 	public static final String getInsertQuery(String table, String[] columnNames, String[] values) {
-		// TODO Implementar getInsertQuery(String table, String[] columnNames, String[] values)
-		return null;
-	}
-	
-	public static final String getInsertQuery(String table, String[] columnNames, String[] values, String conditions) {
-		// TODO Implementar getInsertQuery(String table, String[] columnNames, String[] values String conditions)
-		return null;
+		String insert_SQL_query = "INSERT INTO '"+table+"' ("+String.join(",", columnNames)+") "
+				+ "VALUES ("+String.join(",", values)+")";
+		
+		return insert_SQL_query;
 	}
 	
 	public static final String getSelectQuery(String table, String[] columnNames) {
-		// TODO Implementar getSelectQuery(String table, String[] columnNames)
-		return null;
+		String get_SQL_query = "SELECT " + String.join(",", columnNames) + " FROM " + table;
+		return get_SQL_query;
 	}
 	public static final String getSelectQuery(String table, String[] columnNames, String conditions) {
-		// TODO Implementar getSelectQuery(String table, String[] columnNames, String conditions)
-		return null;
+		String get_SQL_query = "SELECT " + String.join(",", columnNames) + " FROM " + table + " WHERE " + conditions;
+		return get_SQL_query;
 	}
 	public static final String getSelectAllQuery(String table) {
-		// TODO Implementar getSelectAllQuery(String table)
-		return null;
+		String get_SQL_query = "SELECT * FROM " + table;
+		return get_SQL_query;
 	}
 	public static final String getSelectAllQuery(String table, String conditions) {
-		// TODO Implementar getSelectAllQuery(String table, String conditions)
-		return null;
+		String get_SQL_query = "SELECT * FROM " + table + "WHERE " + conditions;
+		return get_SQL_query;
 	}
 	
 	public static final String getDeleteQuery(String table, String conditions) {

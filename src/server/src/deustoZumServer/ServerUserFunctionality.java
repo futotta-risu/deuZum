@@ -7,6 +7,7 @@ import org.json.JSONObject;
 
 import java.sql.Connection;
 
+import deustoZumServer.Database.CommandBuilder;
 import deustoZumServer.Database.GeneralSQLFunctions;
 
 public class ServerUserFunctionality {
@@ -31,10 +32,23 @@ public class ServerUserFunctionality {
 		}
 	}
 	
-	public static void logUser(JSONObject data) {
+	public static boolean logUser(JSONObject data) {
+		
+		String realPass;
 		
 		Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost/deuzum", "root", "");
-		
+		String user = data.getString("user");
+		String pass = data.getString("pass");
+		try {
+			realPass = GeneralSQLFunctions.getEntryFromDatabase(conn, "usuarios",  "pass", 
+					CommandBuilder.getWhereEqualsClause(new String[] {"user"}, new String[] {user}));
+		} catch (SQLException e) {
+			System.err.println("Ha habido un problema al intentar recopilar la verdadera password");
+			return false;
+		}
+		if(realPass == pass) 
+			return true;
+		return false;
 		
 	}
 	
