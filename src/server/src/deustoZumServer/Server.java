@@ -25,6 +25,8 @@ public class Server implements Runnable{
 		try{
 			execute();
 		}catch(Exception e) {
+			e.printStackTrace();
+			System.err.println(e);
 			System.err.println("El server no ha podido ejecutarse");
 			shutdown();
 		}
@@ -37,11 +39,11 @@ public class Server implements Runnable{
 	 */
 	public void openProperties() {
 		this.properties = new Properties();
-		try(FileInputStream f = new FileInputStream("./src/deustoZumServer/server.properties")){
+		try(FileInputStream f = new FileInputStream("./data/server.properties")){
 			properties.load(f);
 			
 		}catch(FileNotFoundException e1) {
-			
+			System.err.println("El archivo no se encuentra");
 		}catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -78,7 +80,7 @@ public class Server implements Runnable{
      * Crea un array de Objetos Bot.
      */
     public void createBotList() {
-    	
+    	this.bots = new ArrayList<BotBase>();
     	for(int i = 0; i < Integer.parseInt(this.properties.getProperty("server.botCount"));i++) 
     		this.bots.add(BotGenerator.generateBot(BotType.CleaningBot, "Bot-"+i));
     	
