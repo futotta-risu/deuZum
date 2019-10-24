@@ -22,6 +22,9 @@ interface Command{
 
 public class ServerCommands {
 
+	/**
+	 * Mapa que contiene los commandos y sus respectivas funciones.
+	 */
 	public static Map<String, Command> serverCommands;
 	
 	/**

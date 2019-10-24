@@ -11,6 +11,13 @@ import java.util.Properties;
 import deustoZumServer.Database.GeneralSQLFunctions;
 import deustoZumServer.IA.Bots.*;
 
+
+/**
+ * 
+ * Clase encargada de gestionar los Sockets y procesar las peticiones.
+ * 
+ *
+ */
 public class Server implements Runnable{
 
 	public static boolean isRunning = false;
@@ -23,10 +30,10 @@ public class Server implements Runnable{
 	
 	public Server() {
 		try{
+			
 			execute();
 		}catch(Exception e) {
 			e.printStackTrace();
-			System.err.println(e);
 			System.err.println("El server no ha podido ejecutarse");
 			shutdown();
 		}
@@ -43,7 +50,7 @@ public class Server implements Runnable{
 			properties.load(f);
 			
 		}catch(FileNotFoundException e1) {
-			System.err.println("El archivo no se encuentra");
+			System.err.println("El archivo no se encuentra en el lugar indicado.");
 		}catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -119,10 +126,10 @@ public class Server implements Runnable{
 	 * Carga todos los modulos de ejecución del servidor.
 	 */
 	public void execute() {
-		ServerCommands.createMethodArray();
 		openProperties();
 		createBotList();
-		this.connection = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost/deuzum", "root", "");
+		String dbName = this.properties.getProperty("server.dbName");
+		this.connection = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost/"+dbName, "root", "");
 		// TODO Add to the database the user status
 		// El servidor tiene que tener una base de datos hosteando el estado de los usuarios
 		// activos e inactivos

@@ -19,7 +19,7 @@ Deuzum es un sistema de transacciones online estilo bizum que permite además la
 
 ## Instalación
 
-El servidor requiere de algún servidor de SQL externo para el hosteo de la base de datos. En el, importaremos la base de datos situada en `data/databases/deuzumdb` (la versión que se prefiera). Una vez tengamos la base de datos preparada, descargamos la carpeta server de src y la situamos donde queramos que se encuentre nuestro servidor.
+El servidor requiere de algún servidor de SQL externo para el hosteo de la base de datos. En el, importaremos la base de datos situada en `data/databases/pantilla/deuzumdb`. Una vez tengamos la base de datos preparada, descargamos la carpeta server de src y la situamos donde queramos que se encuentre nuestro servidor.
 
 Para configurar el servidor nos dirigimos a `data/server.propierties`. Dentro de este archivo se encuentran un conjunto de atributos que deberemos cambiar:
 
@@ -48,4 +48,5 @@ La sección de FAQ se encuentra dentro de la Wiki del repositorio. Por otro lado
 
 ## TODO
 
-- Añadir una plantilla de la base de datos vacia
+- Modificar el codigo segun la plantilla
+- Ajustar la forma base de datos sobre el tema de cuentas (forma de asignar numero de cuenta y añadir accountname)
