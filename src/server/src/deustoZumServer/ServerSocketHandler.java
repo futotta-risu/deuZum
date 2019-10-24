@@ -11,20 +11,24 @@ import org.json.JSONObject;
 
 public class ServerSocketHandler extends Thread{
 
-	Socket tempSocket;
+	Socket socket;
     private PrintWriter out;
     private BufferedReader in;
 	
-	
-	public ServerSocketHandler(Socket tempSocketi, Connection conn) {
-		this.tempSocket = tempSocketi;
+	/**
+	 * Crea un hilo que contiene un socket recibido y una conexión para la ejecución de comandos del cliente.
+	 * @param Socket socket
+	 * @param Connection conn
+	 */
+	public ServerSocketHandler(Socket socket, Connection conn) {
+		this.socket = socket;
 	}
 	
 	public void run() {
 		try {
-			out = new PrintWriter(tempSocket.getOutputStream(), true);
+			out = new PrintWriter(socket.getOutputStream(), true);
 	        in = new BufferedReader(
-	          new InputStreamReader(tempSocket.getInputStream()));
+	          new InputStreamReader(socket.getInputStream()));
 	        
 	        // TODO Add a function to check whether a Hash exist for the user
 	        
@@ -37,7 +41,7 @@ public class ServerSocketHandler extends Thread{
 
 			in.close();
 			out.close();
-	        tempSocket.close();
+	        socket.close();
 		} catch (IOException e) {
 			// TODO Ajustar tema de errores
 			e.printStackTrace();

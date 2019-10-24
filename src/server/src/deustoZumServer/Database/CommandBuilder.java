@@ -4,23 +4,27 @@ import deustoZumServer.Algorithms.TextFunctions;
 
 public class CommandBuilder {
 
+	/**
+	 * Devuelve una cadena de texto de WHERE donde todos los datos se establecen con iguales
+	 * @param columnNames Nombre de las columnas
+	 * @param data Datos de las columnas a comprobar
+	 */
 	public static final String getWhereEqualsClause(String[] columnNames, String[] data) {
 		if(columnNames.length != data.length || columnNames.length==0) return "";
 		
 		String whereClause = "WHERE ";
-		data = TextFunctions.surroundText(data, "'", "'");
+		data = TextFunctions.surroundText(data, "'");
 		String[] concatenatedText = TextFunctions.concatenateAlternative(columnNames, data, "=");
 		return whereClause+String.join(" AND ", concatenatedText);
 	}
 	
-	
-	public static final String getUpdateQuery(String table, String[] columnNames, String[] values) {
-		String update_SQL_query = "UPDATE '"+table+"' SET " +
-				String.join(",", TextFunctions.concatenateAlternative(
-						columnNames, TextFunctions.surroundText(values, "'") , "=")
-						);
-		return update_SQL_query;
-	}
+	/**
+	 * Cambia los valores de ciertas columnas según la condición.
+	 * @param table Nombre de la tabla
+	 * @param columnNames Nombre de las columnas
+	 * @param values Nombre de los valores
+	 * @param conditions String con la información de la condición
+	 */
 	public static final String getUpdateQuery(String table, String[] columnNames, String[] values, String conditions) {
 		
 		

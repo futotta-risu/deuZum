@@ -13,8 +13,18 @@ import deustoZumServer.Database.GeneralSQLFunctions;
 public class ServerUserFunctionality {
 
 	/**
-	 * Esta clase crea un usuario dentro de la base de datos dada en la conexion
-	 * @params Connection connection, String[] data = {user, pass, pregSeg, resp}
+	 * Genera una conexión con el servidor SQL y ordena la información en un array para llamar a la funcion createUser
+	 * @param data JSON que contiene la información de usuario
+	 * @see {@link #createUser(Connection connection, String[] data)}
+	 */
+	public static void createUserC(JSONObject data) {
+		Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost/deuzum", "root", "");
+		createUser(conn, new String[] {data.getString("user"), data.getString("pass"), data.getString("pregSegu"),data.getString("resp")});
+	}
+	/**
+	 * Crea un usuario dentro de la base de datos dada en la conexion. Tabla usuario.
+	 * @param connection Conexión de SQL
+	 * @param data Array que contiene la información de creacion del usuario (User, Pass, Pregunta Seguridad, Respuesta)
 	 */
 	public static void createUser(Connection connection, String[] data){
 		String[] columnNamesUsuarios = {"users","pass","pregSeguridad","respuesta"};
@@ -53,10 +63,7 @@ public class ServerUserFunctionality {
 	}
 	
 	
-	public static void createUserC(JSONObject data) {
-		Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost/deuzum", "root", "");
-		createUser(conn, new String[] {data.getString("user"), data.getString("pass"), data.getString("pregSegu"),data.getString("resp")});
-	}
+	
 	
 	public static void createTransaction(Connection connection, String userID_A, String userID_B, int value, Date fecha) {
 		// TODO Crear esta funcion createTransaction y cambiar lo de user por account

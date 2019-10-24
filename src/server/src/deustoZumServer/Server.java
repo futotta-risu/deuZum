@@ -32,6 +32,9 @@ public class Server implements Runnable{
 		
 	}
 	
+	/**
+	 * Abre y carga el archivo properties.
+	 */
 	public void openProperties() {
 		this.properties = new Properties();
 		try(FileInputStream f = new FileInputStream("./src/deustoZumServer/server.properties")){
@@ -46,6 +49,9 @@ public class Server implements Runnable{
 	
 	// Server Execution Functions
 	
+	/**
+	 * Inicia el ServerSocket y activa hilos con cada conexión de un Socket.
+	 */
     public void start() {
         try {
 			serverSocket = new ServerSocket(Integer.valueOf(this.properties.getProperty("server.port")));
@@ -59,12 +65,18 @@ public class Server implements Runnable{
          
     }
 
+    /**
+     * Para el servidor.
+     */
     public void stop() {
     	shutdown();  
     }
     
     // Server Bot Functionality
     
+    /**
+     * Crea un array de Objetos Bot.
+     */
     public void createBotList() {
     	
     	for(int i = 0; i < Integer.parseInt(this.properties.getProperty("server.botCount"));i++) 
@@ -79,6 +91,10 @@ public class Server implements Runnable{
 	}
 
 
+	/**
+	 * Devuelve la conexion del Servidor.
+	 * @return Connection 
+	 */
 	public Connection getConnection() {
 		return connection;
 	}
@@ -97,6 +113,9 @@ public class Server implements Runnable{
 		
 	}
 	
+	/**
+	 * Carga todos los modulos de ejecución del servidor.
+	 */
 	public void execute() {
 		ServerCommands.createMethodArray();
 		openProperties();
@@ -108,6 +127,10 @@ public class Server implements Runnable{
 		
 		isRunning = true;
 	}
+	
+	/**
+	 * Para y reinicia el servidor.
+	 */
 	public void restart() {
 		try{
 			shutdown();

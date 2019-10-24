@@ -1,8 +1,13 @@
 package deustoZumServer.Algorithms;
 
+
+//TODO Arreglar errores con referencias entre llamada y ejecucion en todas
 public class TextFunctions {
 
+	
+	
 	public static final String[] surroundText(String[] arr, String presuffix) {
+		
 		for(int i = 0; i < arr.length; i++)
 			arr[i] = presuffix + arr[i] + presuffix;
 		return arr;

@@ -11,6 +11,10 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.json.*;
 
+/**
+ * Interfaz especifica para guardar metodos dentro del HashMap de comandos del servidor.
+ *	
+ */
 interface Command{
 
 	String runCommand(JSONObject data);
@@ -20,7 +24,9 @@ public class ServerCommands {
 
 	public static Map<String, Command> serverCommands;
 	
-	
+	/**
+	 * Abre el mapa que contiene una lista de direcciones de metodos y las guarda en un HashMap. 
+	 */
 	public static void createMethodArray() {
 		serverCommands = new HashMap<String, Command>();
 		File file = new File("./data/methodList"); 

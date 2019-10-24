@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
 import java.util.Set;
+import java.util.stream.IntStream;
 
 import deustoZumServer.Algorithms.Math.Metrics;
 import deustoZumServer.Algorithms.Math.Pair;
@@ -33,25 +34,22 @@ public class Clustering {
 	
 	public static final int KNN(double[][] users, int[] labels, double[] newVector, int k) {
 		 
-		if (users.length ==0) return -1;
+		int usersSize = users.length;
+		
+		if (usersSize ==0) return -1;
 		if(users[0].length!=newVector.length) return -1;
 		
-		Pair[] distanciasIndex = new Pair[users.length];
+		
+		
+		Pair[] distanciasIndex = new Pair[usersSize];
 				
-		for (int i = 0; i < users.length; i++) 
+		for (int i = 0; i < usersSize; i++) 
 			distanciasIndex[i] = new Pair(i,Metrics.euclideanDistance(users[i], newVector));
 		
 		Arrays.sort(distanciasIndex);	
-		int[] results = new int[k];
+		int[] results = IntStream.range(0, usersSize).map(i -> labels[distanciasIndex[i].getIndex()]).toArray();
 		
-		for(int i = 0; i < k; i++) {
-			int index = distanciasIndex[i].getIndex();
-			results[i] = labels[index];		
-		}
-		
-		int KNN = Statistics.getModa(results);
-	
-		return KNN;
+		return Statistics.getModa(results);
 	}
 	
 	public static final ArrayList<int[]> MSC(ArrayList<double[][]> users, double[] kernelSize){
