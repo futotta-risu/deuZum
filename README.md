@@ -1,4 +1,4 @@
-<img align="right" width="180" height="180" src="/data/img/logo.png?raw=true">
+<img align="right" width="200" height="80" src="/data/img/logo.png?raw=true">
 
 # DeuZum 
 <div align="center"> 
