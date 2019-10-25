@@ -9,20 +9,20 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class InicioSesion extends AppCompatActivity {
-    EditText nUsuario;
-    EditText cUsuario;
-    Button bIni;
-    Button bReg;
+    private EditText nUsuario;
+    private EditText cUsuario;
+    private Button bIni;
+    private Button bReg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio_sesion);
 
-        nUsuario = findViewById(R.id.nomUsuario);
-        cUsuario = findViewById(R.id.contrUsuario);
-        bIni = findViewById(R.id.botonIni);
-        bReg = findViewById(R.id.botonRegis);
+        nUsuario = (EditText)findViewById(R.id.nomUsuario);
+        cUsuario = (EditText)findViewById(R.id.contrUsuario);
+        bIni = (Button)findViewById(R.id.botonIni);
+        bReg = (Button)findViewById(R.id.botonRegis);
 
         bIni.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,7 +45,7 @@ public class InicioSesion extends AppCompatActivity {
     }
 
     public void abrirCrearUsuario() {
-        Intent i = new Intent(this, MenuPrincipal.class);
+        Intent i = new Intent(this, CrearUsuario1.class);
         startActivity(i);
     }
 }
