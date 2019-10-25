@@ -27,10 +27,16 @@ public class ServerHandlerFrame  extends JFrame{
 	
 	private JLayeredPane layeredPane;
 
+	/**
+	 * Crea un objeto de ServerHandlerFrame, el cual contiene un frame que controla una instancia de Server.
+	 */
 	public ServerHandlerFrame() {
 		configWindow();
 	}
 	
+	/**
+	 * Configuración del JFrame de ServerHandlerFrame
+	 */
 	public void configWindow() {
 		getContentPane().setLayout(null);
 		
@@ -386,7 +392,10 @@ public class ServerHandlerFrame  extends JFrame{
 		
 	}
 
-	
+	/**
+	 * Cambia el panel por capas central por otro panel introducido como parametro.
+	 * @param panel
+	 */
 	public void switchPanel(JPanel panel) {
 		layeredPane.removeAll();
 		layeredPane.add(panel);

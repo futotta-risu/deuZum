@@ -12,9 +12,7 @@ import java.sql.Connection;
 import java.awt.event.ActionEvent;
 
 public class createUser extends JDialog{
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private JTextField tFUser;
 	private JTextField tFPass;
@@ -26,26 +24,43 @@ public class createUser extends JDialog{
 	private JTextField txtEmail;
 	private JTextField txtF_Nacimiento;
 	private JTextField txtSexo;
+	
+	private JLabel lblUsuario;
+	private JLabel lblPass;
+	private JLabel lblPregSeguridad;
+	private JLabel lblRespuesta;
+	private JLabel lblNombre;
+	private JLabel lblApellidos;
+	private JLabel lblTelefono;
+	private JLabel lblEmail;
+	private JLabel lblFNacimiento;
+	private JLabel lblSexo;
+	
 	private JButton btnCrear;
+	
+	/**
+	 * Crea un objeto de createUser que contiene un Dialogo que permite crear un usuario
+	 * @param Connection
+	 */
 	public createUser(Connection conn) {
 		// TODO Actualizar esta ventana respecto a los nuevos parametros de la base de datos
 		setSize(533,300);
 		setVisible(true);
 		getContentPane().setLayout(null);
 		
-		JLabel lblUser = new JLabel("user");
-		lblUser.setBounds(10, 11, 102, 14);
-		getContentPane().add(lblUser);
+		lblUsuario = new JLabel("user");
+		lblUsuario.setBounds(10, 11, 102, 14);
+		getContentPane().add(lblUsuario);
 		
-		JLabel lblPass = new JLabel("pass");
+		lblPass = new JLabel("pass");
 		lblPass.setBounds(10, 36, 102, 14);
 		getContentPane().add(lblPass);
 		
-		JLabel lblPregSeguridad = new JLabel("Preg Seguridad");
+		lblPregSeguridad = new JLabel("Preg Seguridad");
 		lblPregSeguridad.setBounds(10, 81, 102, 14);
 		getContentPane().add(lblPregSeguridad);
 		
-		JLabel lblRespuesta = new JLabel("Respuesta");
+		lblRespuesta = new JLabel("Respuesta");
 		lblRespuesta.setBounds(10, 124, 102, 14);
 		getContentPane().add(lblRespuesta);
 		
@@ -73,7 +88,7 @@ public class createUser extends JDialog{
 		btnCrear.setBounds(216, 228, 89, 23);
 		getContentPane().add(btnCrear);
 		
-		JLabel lblNombre = new JLabel("Nombre");
+		lblNombre = new JLabel("Nombre");
 		lblNombre.setBounds(10, 165, 61, 16);
 		getContentPane().add(lblNombre);
 		
@@ -82,7 +97,7 @@ public class createUser extends JDialog{
 		getContentPane().add(txtNombre);
 		txtNombre.setColumns(10);
 		
-		JLabel lblApellidos = new JLabel("Apellidos");
+		lblApellidos = new JLabel("Apellidos");
 		lblApellidos.setBounds(10, 193, 61, 16);
 		getContentPane().add(lblApellidos);
 		
@@ -91,7 +106,7 @@ public class createUser extends JDialog{
 		getContentPane().add(txtApellidos);
 		txtApellidos.setColumns(10);
 		
-		JLabel lblTelefono = new JLabel("Telefono");
+		lblTelefono = new JLabel("Telefono");
 		lblTelefono.setBounds(271, 53, 61, 16);
 		getContentPane().add(lblTelefono);
 		
@@ -100,7 +115,7 @@ public class createUser extends JDialog{
 		getContentPane().add(txtTelefono);
 		txtTelefono.setColumns(10);
 		
-		JLabel lblEmail = new JLabel("Email");
+		lblEmail = new JLabel("Email");
 		lblEmail.setBounds(291, 103, 61, 16);
 		getContentPane().add(lblEmail);
 		
@@ -109,16 +124,16 @@ public class createUser extends JDialog{
 		getContentPane().add(txtEmail);
 		txtEmail.setColumns(10);
 		
-		JLabel lblFechaDeNacimiento = new JLabel("Fecha de Nacimiento");
-		lblFechaDeNacimiento.setBounds(216, 139, 136, 32);
-		getContentPane().add(lblFechaDeNacimiento);
+		lblFNacimiento = new JLabel("Fecha de Nacimiento");
+		lblFNacimiento.setBounds(216, 139, 136, 32);
+		getContentPane().add(lblFNacimiento);
 		
 		txtF_Nacimiento = new JTextField();
 		txtF_Nacimiento.setBounds(368, 142, 130, 26);
 		getContentPane().add(txtF_Nacimiento);
 		txtF_Nacimiento.setColumns(10);
 		
-		JLabel lblSexo = new JLabel("Sexo");
+		lblSexo = new JLabel("Sexo");
 		lblSexo.setBounds(291, 193, 61, 16);
 		getContentPane().add(lblSexo);
 		
@@ -127,7 +142,7 @@ public class createUser extends JDialog{
 		getContentPane().add(txtSexo);
 		txtSexo.setColumns(10);
 		
-		JButton btnCrear = new JButton("Crear");
+		btnCrear = new JButton("Crear");
 		btnCrear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// TODO verificar que los datos sena validos (e.g. |tFUser|<33)

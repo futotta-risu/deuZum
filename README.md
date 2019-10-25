@@ -1,19 +1,52 @@
-# DeusZum
+<img align="right" width="200" height="80" src="/data/img/logo.png?raw=true">
 
-DeusZum es una aplicación de gestión de dinero online para la gestión de pagos, proyectos o costes grupales. DeusZum ofrece un sistema seguro de transferencias de forma que el cliente no tenga que preocuparse de que este pasando con su dinero en todo momento.
+# DeuZum 
+<div align="center"> 
+<img src="https://img.shields.io/badge/Cliente-Android%20%7C%20Windows-brightgreen?style=flat-square"
+      alt="Standard" />
+      <img src="https://img.shields.io/badge/Servidor-Java-informational?style=flat-square"
+      alt="Standard" />
+      <img src="https://img.shields.io/badge/Java-8-yellow?style=flat-square&logo=java"
+      alt="Standard" />
+      <img src="https://img.shields.io/badge/Android_SDK-15-green?style=flat-square&logo=android"
+      alt="Standard" />
+</div>
 
-## Uso
 
-## Garantias de Seguridad
+Deuzum es un sistema de transacciones online estilo bizum que permite además la gestión de gastos grupales. 
 
-## Documentacion
+======
 
-Toda la documentacion se encuentra en la wiki.
+## Instalación
 
-## Organizacion interna del Repositorio
+El servidor requiere de algún servidor de SQL externo para el hosteo de la base de datos. En el, importaremos la base de datos situada en `data/databases/pantilla/deuzumdb`. Una vez tengamos la base de datos preparada, descargamos la carpeta server de src y la situamos donde queramos que se encuentre nuestro servidor.
 
-- docs
-- src
-- .gitignore
-- README.md
-- 
+Para configurar el servidor nos dirigimos a `data/server.propierties`. Dentro de este archivo se encuentran un conjunto de atributos que deberemos cambiar:
+
+  
+
+|Propiedad     | Descripción                                                  |
+|------------- | -------------------------------------------------------------|
+|server.port   | Número del puerto que queramos usar para el servidor.        |
+|server.dbName | Nombre de la base de datos que usamos para guardar los datos.|
+
+Una vez configurado esto, podemos lanzar el server desde la carpeta `src/deustoZumServer` mediante el comando:
+
+    java ServerHandlerFrame
+
+
+
+## Caracteristicas
+
+1. Bases de Datos como plantilla
+2. Archivos de Configuración/Propiedades
+3. Algoritmos para Clusterizar la información
+
+## FAQ y Documentación
+
+La sección de FAQ se encuentra dentro de la Wiki del repositorio. Por otro lado, la documentación oficial del código todavía no esta disponible, esperamos tenerla preparada para finales de diciembre.
+
+## TODO
+
+- Modificar el codigo segun la plantilla
+- Ajustar la forma base de datos sobre el tema de cuentas (forma de asignar numero de cuenta y añadir accountname)

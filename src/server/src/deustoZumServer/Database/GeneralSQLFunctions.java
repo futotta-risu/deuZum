@@ -46,9 +46,10 @@ public final class GeneralSQLFunctions {
 			return;
 		// TODO check if table exist
 		
-		String insert_SQL_query = "INSERT INTO '"+table+"' ("+String.join(",", columnNames)+") "
-				+ "VALUES ("+String.join(",", values)+")";
-		GeneralSQLFunctions.execUpdate(connection, insert_SQL_query);
+		
+		GeneralSQLFunctions.execUpdate(connection, 
+				CommandBuilder.getInsertQuery(table, columnNames, values));
+		
 	}
 	
 	public static final void updateEntryFromDatabase(Connection connection, String table, String[] columnNames, String[] values, String conditions) throws SQLException {
@@ -56,10 +57,8 @@ public final class GeneralSQLFunctions {
 		if(columnNames.length != values.length || columnNames.length == 0)
 			return;
 		
-		String update_SQL_query = "UPDATE '"+table+"' SET " +
-				String.join(",", TextFunctions.concatenateAlternative(columnNames, TextFunctions.surroundText(values, "'"),"=")) 
-				+" WHERE " + conditions;
-		GeneralSQLFunctions.execUpdate(connection, update_SQL_query);
+		GeneralSQLFunctions.execUpdate(connection, 
+				CommandBuilder.getUpdateQuery(table, columnNames, values, conditions));
 	}
 	
 	

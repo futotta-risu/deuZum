@@ -11,11 +11,6 @@ import java.awt.event.ActionEvent;
 
 public class editUser extends JDialog{
 
-	
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JTextField txtIDUser;
 	private JTextField txtUser;
@@ -28,7 +23,27 @@ public class editUser extends JDialog{
 	private JTextField txtEmail;
 	private JTextField txtF_Nacimiento;
 	private JTextField txtSexo;
-
+	
+	private JLabel lblIntroducirIdUsuario;
+	private JLabel lblUsuario;
+	private JLabel lblPass;
+	private JLabel lblPregSeguridad;
+	private JLabel lblRespuesta;
+	private JLabel lblNombre;
+	private JLabel lblApellidos;
+	private JLabel lblTelefono;
+	private JLabel lblEmail;
+	private JLabel lblFNacimiento;
+	private JLabel lblSexo;
+	
+	private JButton btnBuscarUsuario;
+	private JButton btnGuardarCambios;
+	
+	/**
+	 * Crea un objeto de editUser, este contiene un Dialogo que sirve para buscar un usuario por su ID 
+	 * y modificar sus datos
+	 * @param Connection
+	 */	
 	public editUser(Connection c) {
 		setSize(550,300);
 		setTitle("Editar usuario");
@@ -36,7 +51,7 @@ public class editUser extends JDialog{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 		
-		JLabel lblIntroducirIdUsuario = new JLabel("Introducir ID usuario");
+		lblIntroducirIdUsuario = new JLabel("Introducir ID usuario");
 		lblIntroducirIdUsuario.setBounds(47, 19, 139, 16);
 		getContentPane().add(lblIntroducirIdUsuario);
 		
@@ -45,47 +60,47 @@ public class editUser extends JDialog{
 		getContentPane().add(txtIDUser);
 		txtIDUser.setColumns(10);
 		
-		JButton btnBuscarUsuario = new JButton("Buscar Usuario");
+		btnBuscarUsuario = new JButton("Buscar Usuario");
 		btnBuscarUsuario.setBounds(377, 14, 117, 29);
 		getContentPane().add(btnBuscarUsuario);
 		
-		JLabel lblUser = new JLabel("User");
-		lblUser.setBounds(31, 62, 61, 16);
-		getContentPane().add(lblUser);
+		lblUsuario = new JLabel("User");
+		lblUsuario.setBounds(31, 62, 61, 16);
+		getContentPane().add(lblUsuario);
 		
-		JLabel lblPass = new JLabel("Pass");
+		lblPass = new JLabel("Pass");
 		lblPass.setBounds(31, 93, 61, 16);
 		getContentPane().add(lblPass);
 		
-		JLabel lblRespuesta = new JLabel("Respuesta");
+		lblRespuesta = new JLabel("Respuesta");
 		lblRespuesta.setBounds(31, 159, 77, 16);
 		getContentPane().add(lblRespuesta);
 		
-		JLabel lblNombre = new JLabel("Nombre");
+		lblNombre = new JLabel("Nombre");
 		lblNombre.setBounds(31, 200, 61, 16);
 		getContentPane().add(lblNombre);
 		
-		JLabel lblApellidos = new JLabel("Apellidos");
+		lblApellidos = new JLabel("Apellidos");
 		lblApellidos.setBounds(31, 228, 61, 16);
 		getContentPane().add(lblApellidos);
 		
-		JLabel label = new JLabel("Preg. Seguridad");
-		label.setBounds(6, 131, 102, 16);
-		getContentPane().add(label);
+		lblPregSeguridad = new JLabel("Preg. Seguridad");
+		lblPregSeguridad.setBounds(6, 131, 102, 16);
+		getContentPane().add(lblPregSeguridad);
 		
-		JLabel lblTelefono = new JLabel("Telefono");
+		lblTelefono = new JLabel("Telefono");
 		lblTelefono.setBounds(277, 93, 61, 16);
 		getContentPane().add(lblTelefono);
 		
-		JLabel lblEmail = new JLabel("Email");
+		lblEmail = new JLabel("Email");
 		lblEmail.setBounds(287, 131, 61, 16);
 		getContentPane().add(lblEmail);
 		
-		JLabel lblFNacimiento = new JLabel("F. Nacimiento");
+		lblFNacimiento = new JLabel("F. Nacimiento");
 		lblFNacimiento.setBounds(261, 159, 87, 16);
 		getContentPane().add(lblFNacimiento);
 		
-		JLabel lblSexo = new JLabel("Sexo");
+		lblSexo = new JLabel("Sexo");
 		lblSexo.setBounds(287, 200, 61, 16);
 		getContentPane().add(lblSexo);
 		
@@ -139,15 +154,13 @@ public class editUser extends JDialog{
 		getContentPane().add(txtSexo);
 		txtSexo.setColumns(10);
 		
-		JButton btnGuardarCambios = new JButton("Guardar Cambios");
+		btnGuardarCambios = new JButton("Guardar Cambios");
 		btnGuardarCambios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
 		btnGuardarCambios.setBounds(289, 228, 205, 29);
 		getContentPane().add(btnGuardarCambios);
-		
-		
-		
+	
 	}
 }
