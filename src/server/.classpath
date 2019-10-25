@@ -11,5 +11,6 @@
 	<classpathentry kind="lib" path="lib/jdbc.jar"/>
 	<classpathentry kind="lib" path="lib/miglayout-4.0.jar"/>
 	<classpathentry kind="lib" path="lib/json-20190722.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ASUS/Documents/GitHub/deuZum/src/server/lib/log4j-1.2.17.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
