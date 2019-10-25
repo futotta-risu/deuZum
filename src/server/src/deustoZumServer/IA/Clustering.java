@@ -16,6 +16,17 @@ import deustoZumServer.Algorithms.Math.Vectors;
 
 public class Clustering {
 	
+	
+	/**
+	 * Ejecuta el algoritmo KNN sobre un tensor de informacion.
+	 * 
+	 * @param users Tensor con una matriz que representa una lista de vectores de usuarios.
+	 * @param labels Etiquetas de los usuarios.
+	 * @param newVector Vector de vectores de los que queremos saber la etiqueta.
+	 * @param kVal Valor de k.
+	 * @return Devuelve una lista con las categorias de los vectores.
+	 * @see 
+	 */
 	public static final ArrayList<int[]> KNN(ArrayList<double[][]> users, ArrayList<int[]> labels, ArrayList<double[][]> newVector, int[] kVal){
 		ArrayList<int[]> resultMatrix= new ArrayList<int[]>();
 		int totalCases = users.size();
@@ -32,6 +43,16 @@ public class Clustering {
 		return resultMatrix;
 	}
 	
+	
+	
+	/**
+	 * 
+	 * @param users Lista de vectores que contiene las coordenadas de los usuarios
+	 * @param labels
+	 * @param newVector
+	 * @param k
+	 * @return
+	 */
 	public static final int KNN(double[][] users, int[] labels, double[] newVector, int k) {
 		 
 		int usersSize = users.length;
