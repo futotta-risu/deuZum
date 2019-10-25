@@ -8,12 +8,18 @@ import javax.swing.JList;
 
 public class TransactionList extends JDialog{
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private JTextField txtFiltrado;
+	private JComboBox<String> comboFiltrar;
+	private JButton btnFiltrar;
+	private JButton btnEliminar;
+	private JList<String> listsTransacciones;
 	
+	/**
+	 * Crea un objeto de TransactionList, el cual contiene un Dialogo que muestra la lista
+	 * de todos las transacciones y permite hacer busquedas filtradas para poder eliminarlas.
+	 */
 	public TransactionList() {
 		setSize(500,500);
 		setTitle("Lista de Transacciones");
@@ -21,24 +27,24 @@ public class TransactionList extends JDialog{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(25, 33, 156, 27);
-		getContentPane().add(comboBox);
+		comboFiltrar = new JComboBox<String>();
+		comboFiltrar.setBounds(25, 33, 156, 27);
+		getContentPane().add(comboFiltrar);
 		
 		txtFiltrado = new JTextField();
 		txtFiltrado.setBounds(193, 32, 130, 26);
 		getContentPane().add(txtFiltrado);
 		txtFiltrado.setColumns(10);
 		
-		JButton btnFiltrar = new JButton("Filtrar");
+		btnFiltrar = new JButton("Filtrar");
 		btnFiltrar.setBounds(354, 32, 117, 29);
 		getContentPane().add(btnFiltrar);
 		
-		JList listsTransacciones = new JList();
+		listsTransacciones = new JList<String>();
 		listsTransacciones.setBounds(25, 106, 337, 338);
 		getContentPane().add(listsTransacciones);
 		
-		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar = new JButton("Eliminar");
 		btnEliminar.setBounds(374, 250, 117, 29);
 		getContentPane().add(btnEliminar);
 	}

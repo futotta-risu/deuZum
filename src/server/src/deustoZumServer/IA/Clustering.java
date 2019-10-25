@@ -25,7 +25,7 @@ public class Clustering {
 	 * @param newVector Vector de vectores de los que queremos saber la etiqueta.
 	 * @param kVal Valor de k.
 	 * @return Devuelve una lista con las categorias de los vectores.
-	 * @see 
+	 * @see
 	 */
 	public static final ArrayList<int[]> KNN(ArrayList<double[][]> users, ArrayList<int[]> labels, ArrayList<double[][]> newVector, int[] kVal){
 		ArrayList<int[]> resultMatrix= new ArrayList<int[]>();

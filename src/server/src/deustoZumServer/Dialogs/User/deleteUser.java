@@ -13,13 +13,15 @@ import javax.swing.JButton;
 
 public class deleteUser extends JDialog {
 
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private JTextField textField;
-
+	private JLabel lblIntroducirIdUsuario;
+	private JButton btnEliminar;
+	
+	/**
+	 * Crea un objeto de deleteUser que permite eliminar un usuario buscandolo por su ID.
+	 */
 	public deleteUser() {
 		setSize(400, 200);
 		setVisible(true);
@@ -27,7 +29,7 @@ public class deleteUser extends JDialog {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 		
-		JLabel lblIntroducirIdUsuario = new JLabel("Introducir ID usuario");
+		lblIntroducirIdUsuario = new JLabel("Introducir ID usuario");
 		lblIntroducirIdUsuario.setBounds(28, 16, 140, 16);
 		getContentPane().add(lblIntroducirIdUsuario);
 		
@@ -36,21 +38,15 @@ public class deleteUser extends JDialog {
 		getContentPane().add(textField);
 		textField.setColumns(10);
 		
-		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar = new JButton("Eliminar");
 		btnEliminar.setBounds(277, 11, 117, 29);
 		getContentPane().add(btnEliminar);
 		btnEliminar.addActionListener(new ActionListener() {
-			
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showConfirmDialog(null, "¿Estas seguro de que quieres eliminar el usuario?");
 			}
 		});
-		
-		
-		
+	
 	}
-	public static void main(String[] args) {
-		new deleteUser();
-	}
+
 }

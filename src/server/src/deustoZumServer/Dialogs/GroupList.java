@@ -10,12 +10,18 @@ import java.awt.event.ActionEvent;
 
 public class GroupList extends JDialog{
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private JTextField txtFiltrarGrupos;
+	private JComboBox<String> comboFiltrar;
+	private JButton btnFiltrar;
+	private JButton btnEliminar;
+	private JList<String> listaGrupos;
 	
+	/**
+	 * Crea un objeto de GroupList, el cual contiene un Dialogo que muestra la lista
+	 * de todos las grupos y permite hacer busquedas filtradas para poder eliminarlos.
+	 */
 	public GroupList() {
 		setSize(500,500);
 		setTitle("Lista de Grupos");
@@ -23,30 +29,30 @@ public class GroupList extends JDialog{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 		
-		JComboBox comboBoxFiltrar = new JComboBox();
-		comboBoxFiltrar.setBounds(26, 22, 138, 27);
-		getContentPane().add(comboBoxFiltrar);
+		comboFiltrar = new JComboBox<String>();
+		comboFiltrar.setBounds(26, 22, 138, 27);
+		getContentPane().add(comboFiltrar);
 		
 		txtFiltrarGrupos = new JTextField();
 		txtFiltrarGrupos.setBounds(176, 21, 138, 26);
 		getContentPane().add(txtFiltrarGrupos);
 		txtFiltrarGrupos.setColumns(10);
 		
-		JButton btnFiltrar = new JButton("Filtrar");
+		btnFiltrar = new JButton("Filtrar");
 		btnFiltrar.setBounds(326, 21, 138, 29);
 		getContentPane().add(btnFiltrar);
 		
-		JList listaGrupos = new JList();
+		listaGrupos = new JList<String>();
 		listaGrupos.setBounds(24, 104, 342, 351);
 		getContentPane().add(listaGrupos);
 		
-		JButton btnBotonEliminar = new JButton("Eliminar");
-		btnBotonEliminar.addActionListener(new ActionListener() {
+		btnEliminar = new JButton("Eliminar");
+		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnBotonEliminar.setBounds(377, 237, 117, 29);
-		getContentPane().add(btnBotonEliminar);
+		btnEliminar.setBounds(377, 237, 117, 29);
+		getContentPane().add(btnEliminar);
 	}
 	
 
