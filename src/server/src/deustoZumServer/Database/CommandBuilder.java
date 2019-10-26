@@ -37,8 +37,8 @@ public class CommandBuilder {
 	}
 	
 	public static final String getInsertQuery(String table, String[] columnNames, String[] values) {
-		String insert_SQL_query = "INSERT INTO '"+table+"' ("+String.join(",", columnNames)+") "
-				+ "VALUES ("+String.join(",", values)+")";
+		String insert_SQL_query = "INSERT INTO "+table+" ("+String.join(",", columnNames)+") "
+				+ "VALUES ("+String.join(",", TextFunctions.surroundText(values, "'"))+")";
 		
 		return insert_SQL_query;
 	}
@@ -61,8 +61,8 @@ public class CommandBuilder {
 	}
 	
 	public static final String getDeleteQuery(String table, String conditions) {
-		// TODO Implementar getDeleteQuery(String table, String conditions)
-		return null;
+		String get_SQL_query = "DELETE FROM " + table + " " + conditions;
+		return get_SQL_query;
 	}
 	
 }

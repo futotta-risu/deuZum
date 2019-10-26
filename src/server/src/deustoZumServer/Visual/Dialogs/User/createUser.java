@@ -5,11 +5,20 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import deustoZumServer.ServerUserFunctionality;
+import deustoZumServer.Visual.Style.FlatButton;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.awt.event.ActionEvent;
+import java.awt.GridLayout;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import java.awt.BorderLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import java.awt.Color;
 
 public class createUser extends JDialog{
 
@@ -37,120 +46,213 @@ public class createUser extends JDialog{
 	private JLabel lblSexo;
 	
 	private JButton btnCrear;
+	private JPanel userData;
+	private JPanel beautyW;
+	private JPanel beautyE;
+	private JPanel beautyN;
 	
 	/**
 	 * Crea un objeto de createUser que contiene un Dialogo que permite crear un usuario
 	 * @param Connection
 	 */
 	public createUser(Connection conn) {
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		// TODO Actualizar esta ventana respecto a los nuevos parametros de la base de datos
 		setSize(533,300);
-		setVisible(true);
-		getContentPane().setLayout(null);
-		
-		lblUsuario = new JLabel("user");
-		lblUsuario.setBounds(10, 11, 102, 14);
-		getContentPane().add(lblUsuario);
-		
-		lblPass = new JLabel("pass");
-		lblPass.setBounds(10, 36, 102, 14);
-		getContentPane().add(lblPass);
-		
-		lblPregSeguridad = new JLabel("Preg Seguridad");
-		lblPregSeguridad.setBounds(10, 81, 102, 14);
-		getContentPane().add(lblPregSeguridad);
-		
-		lblRespuesta = new JLabel("Respuesta");
-		lblRespuesta.setBounds(10, 124, 102, 14);
-		getContentPane().add(lblRespuesta);
-		
-		tFUser = new JTextField();
-		tFUser.setBounds(122, 8, 86, 20);
-		getContentPane().add(tFUser);
-		tFUser.setColumns(10);
-		
-		tFPass = new JTextField();
-		tFPass.setBounds(122, 33, 86, 20);
-		getContentPane().add(tFPass);
-		tFPass.setColumns(10);
-		
-		tfPregSeg = new JTextField();
-		tfPregSeg.setBounds(122, 78, 86, 20);
-		getContentPane().add(tfPregSeg);
-		tfPregSeg.setColumns(10);
-		
-		tFRes = new JTextField();
-		tFRes.setBounds(122, 121, 86, 20);
-		getContentPane().add(tFRes);
-		tFRes.setColumns(10);
 		
 		
-		btnCrear.setBounds(216, 228, 89, 23);
-		getContentPane().add(btnCrear);
-		
-		lblNombre = new JLabel("Nombre");
-		lblNombre.setBounds(10, 165, 61, 16);
-		getContentPane().add(lblNombre);
-		
-		txtNombre = new JTextField();
-		txtNombre.setBounds(122, 160, 86, 26);
-		getContentPane().add(txtNombre);
-		txtNombre.setColumns(10);
-		
-		lblApellidos = new JLabel("Apellidos");
-		lblApellidos.setBounds(10, 193, 61, 16);
-		getContentPane().add(lblApellidos);
-		
-		txtApellidos = new JTextField();
-		txtApellidos.setBounds(122, 188, 86, 26);
-		getContentPane().add(txtApellidos);
-		txtApellidos.setColumns(10);
-		
-		lblTelefono = new JLabel("Telefono");
-		lblTelefono.setBounds(271, 53, 61, 16);
-		getContentPane().add(lblTelefono);
-		
-		txtTelefono = new JTextField();
-		txtTelefono.setBounds(344, 48, 130, 26);
-		getContentPane().add(txtTelefono);
-		txtTelefono.setColumns(10);
-		
-		lblEmail = new JLabel("Email");
-		lblEmail.setBounds(291, 103, 61, 16);
-		getContentPane().add(lblEmail);
-		
-		txtEmail = new JTextField();
-		txtEmail.setBounds(344, 96, 130, 26);
-		getContentPane().add(txtEmail);
-		txtEmail.setColumns(10);
-		
-		lblFNacimiento = new JLabel("Fecha de Nacimiento");
-		lblFNacimiento.setBounds(216, 139, 136, 32);
-		getContentPane().add(lblFNacimiento);
-		
-		txtF_Nacimiento = new JTextField();
-		txtF_Nacimiento.setBounds(368, 142, 130, 26);
-		getContentPane().add(txtF_Nacimiento);
-		txtF_Nacimiento.setColumns(10);
-		
-		lblSexo = new JLabel("Sexo");
-		lblSexo.setBounds(291, 193, 61, 16);
-		getContentPane().add(lblSexo);
-		
-		txtSexo = new JTextField();
-		txtSexo.setBounds(344, 188, 130, 26);
-		getContentPane().add(txtSexo);
-		txtSexo.setColumns(10);
-		
-		btnCrear = new JButton("Crear");
+		btnCrear = new FlatButton("Crear Usuario");
 		btnCrear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// TODO verificar que los datos sena validos (e.g. |tFUser|<33)
-				ServerUserFunctionality.createUser(conn, new String[] {tFUser.getText(), tFPass.getText(), tfPregSeg.getText(), tFRes.getText()});
+				ServerUserFunctionality.createUser(conn, new String[] {tFUser.getText(), tFPass.getText(), tfPregSeg.getText(), tFRes.getText(),"cliente"});
 				dispose();
 			}
 		});
+		getContentPane().setLayout(new BorderLayout(0, 0));
 		
+		
+		
+		userData = new JPanel();
+		
+		GridBagLayout gbl_userData = new GridBagLayout();
+		gbl_userData.columnWeights = new double[]{1.0, 1.0};
+		gbl_userData.columnWidths = new int[]{167, 293};
+		userData.setLayout(gbl_userData);
+		
+		lblUsuario = new JLabel("Usuario");
+		lblUsuario.setHorizontalAlignment(SwingConstants.CENTER);
+		GridBagConstraints gbc_lblUsuario = new GridBagConstraints();
+		gbc_lblUsuario.fill = GridBagConstraints.BOTH;
+		gbc_lblUsuario.gridwidth  = 1;
+		gbc_lblUsuario.gridheight  = 1;
+		gbc_lblUsuario.gridx = 0;
+		gbc_lblUsuario.gridy = 0;
+		userData.add(lblUsuario, gbc_lblUsuario);
+		
+		tFUser = new JTextField();
+		GridBagConstraints gbc_tFUser = new GridBagConstraints();
+		gbc_tFUser.fill = GridBagConstraints.BOTH;
+		gbc_tFUser.gridx = 1;
+		gbc_tFUser.gridy = 0;
+		userData.add(tFUser, gbc_tFUser);
+		tFUser.setColumns(20);
+		
+		lblPass = new JLabel("Contrase\u00F1a");
+		lblPass.setHorizontalAlignment(SwingConstants.CENTER);
+		GridBagConstraints gbc_lblPass = new GridBagConstraints();
+		gbc_lblPass.fill = GridBagConstraints.BOTH;
+		gbc_lblPass.gridx = 0;
+		gbc_lblPass.gridy = 1;
+		userData.add(lblPass, gbc_lblPass);
+		
+		tFPass = new JTextField();
+		GridBagConstraints gbc_tFPass = new GridBagConstraints();
+		gbc_tFPass.fill = GridBagConstraints.BOTH;
+		gbc_tFPass.gridx = 1;
+		gbc_tFPass.gridy = 1;
+		userData.add(tFPass, gbc_tFPass);
+		tFPass.setColumns(20);
+		
+		lblTelefono = new JLabel("Telefono");
+		lblTelefono.setHorizontalAlignment(SwingConstants.CENTER);
+		GridBagConstraints gbc_lblTelefono = new GridBagConstraints();
+		gbc_lblTelefono.fill = GridBagConstraints.BOTH;
+		gbc_lblTelefono.gridx = 0;
+		gbc_lblTelefono.gridy = 2;
+		userData.add(lblTelefono, gbc_lblTelefono);
+		
+		txtTelefono = new JTextField();
+		GridBagConstraints gbc_txtTelefono = new GridBagConstraints();
+		gbc_txtTelefono.fill = GridBagConstraints.BOTH;
+		gbc_txtTelefono.gridx = 1;
+		gbc_txtTelefono.gridy = 2;
+		userData.add(txtTelefono, gbc_txtTelefono);
+		txtTelefono.setColumns(20);
+		
+		lblPregSeguridad = new JLabel("Pregunta Seguridad");
+		lblPregSeguridad.setHorizontalAlignment(SwingConstants.CENTER);
+		GridBagConstraints gbc_lblPregSeguridad = new GridBagConstraints();
+		gbc_lblPregSeguridad.fill = GridBagConstraints.BOTH;
+		gbc_lblPregSeguridad.gridx = 0;
+		gbc_lblPregSeguridad.gridy = 3;
+		userData.add(lblPregSeguridad, gbc_lblPregSeguridad);
+		
+		tfPregSeg = new JTextField();
+		GridBagConstraints gbc_tfPregSeg = new GridBagConstraints();
+		gbc_tfPregSeg.fill = GridBagConstraints.BOTH;
+		gbc_tfPregSeg.gridx = 1;
+		gbc_tfPregSeg.gridy = 3;
+		userData.add(tfPregSeg, gbc_tfPregSeg);
+		tfPregSeg.setColumns(20);
+		
+		lblRespuesta = new JLabel("Respuesta");
+		lblRespuesta.setHorizontalAlignment(SwingConstants.CENTER);
+		GridBagConstraints gbc_lblRespuesta = new GridBagConstraints();
+		gbc_lblRespuesta.fill = GridBagConstraints.BOTH;
+		gbc_lblRespuesta.gridx = 0;
+		gbc_lblRespuesta.gridy = 4;
+		userData.add(lblRespuesta, gbc_lblRespuesta);
+		
+		tFRes = new JTextField();
+		GridBagConstraints gbc_tFRes = new GridBagConstraints();
+		gbc_tFRes.fill = GridBagConstraints.BOTH;
+		gbc_tFRes.gridx = 1;
+		gbc_tFRes.gridy = 4;
+		userData.add(tFRes, gbc_tFRes);
+		tFRes.setColumns(20);
+		
+		lblEmail = new JLabel("Email");
+		lblEmail.setHorizontalAlignment(SwingConstants.CENTER);
+		GridBagConstraints gbc_lblEmail = new GridBagConstraints();
+		gbc_lblEmail.fill = GridBagConstraints.BOTH;
+		gbc_lblEmail.gridx = 0;
+		gbc_lblEmail.gridy = 5;
+		userData.add(lblEmail, gbc_lblEmail);
+		
+		txtEmail = new JTextField();
+		GridBagConstraints gbc_txtEmail = new GridBagConstraints();
+		gbc_txtEmail.fill = GridBagConstraints.BOTH;
+		gbc_txtEmail.gridx = 1;
+		gbc_txtEmail.gridy = 5;
+		userData.add(txtEmail, gbc_txtEmail);
+		txtEmail.setColumns(20);
+		
+		lblNombre = new JLabel("Nombre");
+		lblNombre.setHorizontalAlignment(SwingConstants.CENTER);
+		GridBagConstraints gbc_lblNombre = new GridBagConstraints();
+		gbc_lblNombre.fill = GridBagConstraints.BOTH;
+		gbc_lblNombre.gridx = 0;
+		gbc_lblNombre.gridy = 6;
+		userData.add(lblNombre, gbc_lblNombre);
+		
+		txtNombre = new JTextField();
+		GridBagConstraints gbc_txtNombre = new GridBagConstraints();
+		gbc_txtNombre.fill = GridBagConstraints.BOTH;
+		gbc_txtNombre.gridx = 1;
+		gbc_txtNombre.gridy = 6;
+		userData.add(txtNombre, gbc_txtNombre);
+		txtNombre.setColumns(20);
+		
+		lblApellidos = new JLabel("Apellidos");
+		lblApellidos.setHorizontalAlignment(SwingConstants.CENTER);
+		GridBagConstraints gbc_lblApellidos = new GridBagConstraints();
+		gbc_lblApellidos.fill = GridBagConstraints.BOTH;
+		gbc_lblApellidos.gridx = 0;
+		gbc_lblApellidos.gridy = 7;
+		userData.add(lblApellidos, gbc_lblApellidos);
+		
+		txtApellidos = new JTextField();
+		GridBagConstraints gbc_txtApellidos = new GridBagConstraints();
+		gbc_txtApellidos.fill = GridBagConstraints.BOTH;
+		gbc_txtApellidos.gridx = 1;
+		gbc_txtApellidos.gridy = 7;
+		userData.add(txtApellidos, gbc_txtApellidos);
+		txtApellidos.setColumns(20);
+		
+		lblFNacimiento = new JLabel("Fecha de Nacimiento");
+		lblFNacimiento.setHorizontalAlignment(SwingConstants.CENTER);
+		GridBagConstraints gbc_lblFNacimiento = new GridBagConstraints();
+		gbc_lblFNacimiento.fill = GridBagConstraints.BOTH;
+		gbc_lblFNacimiento.gridx = 0;
+		gbc_lblFNacimiento.gridy = 8;
+		userData.add(lblFNacimiento, gbc_lblFNacimiento);
+		
+		txtF_Nacimiento = new JTextField();
+		GridBagConstraints gbc_txtF_Nacimiento = new GridBagConstraints();
+		gbc_txtF_Nacimiento.fill = GridBagConstraints.BOTH;
+		gbc_txtF_Nacimiento.gridx = 1;
+		gbc_txtF_Nacimiento.gridy = 8;
+		userData.add(txtF_Nacimiento, gbc_txtF_Nacimiento);
+		txtF_Nacimiento.setColumns(20);
+		
+		lblSexo = new JLabel("Sexo");
+		lblSexo.setHorizontalAlignment(SwingConstants.CENTER);
+		GridBagConstraints gbc_lblSexo = new GridBagConstraints();
+		gbc_lblSexo.fill = GridBagConstraints.BOTH;
+		gbc_lblSexo.gridx = 0;
+		gbc_lblSexo.gridy = 9;
+		userData.add(lblSexo, gbc_lblSexo);
+		
+		txtSexo = new JTextField();
+		GridBagConstraints gbc_txtSexo = new GridBagConstraints();
+		gbc_txtSexo.fill = GridBagConstraints.BOTH;
+		gbc_txtSexo.gridx = 1;
+		gbc_txtSexo.gridy = 9;
+		userData.add(txtSexo, gbc_txtSexo);
+		txtSexo.setColumns(20);
+		
+		beautyW = new JPanel();
+		getContentPane().add(beautyW, BorderLayout.WEST);
+		
+		beautyE = new JPanel();
+		getContentPane().add(beautyE, BorderLayout.EAST);
+		
+		beautyN = new JPanel();
+		getContentPane().add(beautyN, BorderLayout.NORTH);
+		getContentPane().add(btnCrear, BorderLayout.SOUTH);
+		getContentPane().add(userData, BorderLayout.CENTER);
+		setVisible(true);
 		
 	}
 }

@@ -45,8 +45,6 @@ public final class GeneralSQLFunctions {
 		if(columnNames.length != values.length || columnNames.length == 0)
 			return;
 		// TODO check if table exist
-		
-		
 		GeneralSQLFunctions.execUpdate(connection, 
 				CommandBuilder.getInsertQuery(table, columnNames, values));
 		
@@ -61,6 +59,11 @@ public final class GeneralSQLFunctions {
 				CommandBuilder.getUpdateQuery(table, columnNames, values, conditions));
 	}
 	
+	public static final void deleteEntryFromDatabase(Connection connection, String table, String conditions) throws SQLException {
+		GeneralSQLFunctions.execUpdate(connection, 
+					CommandBuilder.getDeleteQuery(table, conditions));
+		
+	}
 	
 	 
 	
