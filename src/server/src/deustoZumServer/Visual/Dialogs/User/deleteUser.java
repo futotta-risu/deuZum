@@ -1,4 +1,4 @@
-package deustoZumServer.Dialogs.User;
+package deustoZumServer.Visual.Dialogs.User;
 
 import javax.swing.JDialog;
 
