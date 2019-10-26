@@ -1,4 +1,4 @@
-package deustoZumServer.Dialogs.Group;
+package deustoZumServer.Visual.Dialogs.Group;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;

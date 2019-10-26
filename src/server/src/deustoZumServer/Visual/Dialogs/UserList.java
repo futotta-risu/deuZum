@@ -1,4 +1,4 @@
-package deustoZumServer.Dialogs;
+package deustoZumServer.Visual.Dialogs;
 
 import javax.swing.JDialog;
 import javax.swing.JComboBox;

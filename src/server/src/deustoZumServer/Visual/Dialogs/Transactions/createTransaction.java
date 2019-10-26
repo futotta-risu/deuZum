@@ -1,4 +1,4 @@
-package deustoZumServer.Dialogs.Transactions;
+package deustoZumServer.Visual.Dialogs.Transactions;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;

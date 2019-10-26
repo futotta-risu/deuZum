@@ -18,7 +18,8 @@ public class ServerUserFunctionality {
 	 * @see {@link #createUser(Connection connection, String[] data)}
 	 */
 	public static void createUserC(JSONObject data) {
-		Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost/deuzum", "root", "");
+		// TODO hacer que acceda a la base de datos segun el nobre de la base de datos
+		Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost/deuzumdb", "root", "");
 		createUser(conn, new String[] {data.getString("user"), data.getString("pass"), data.getString("pregSegu"),data.getString("resp")});
 	}
 	/**
@@ -27,15 +28,10 @@ public class ServerUserFunctionality {
 	 * @param data Array que contiene la información de creacion del usuario (User, Pass, Pregunta Seguridad, Respuesta)
 	 */
 	public static void createUser(Connection connection, String[] data){
-		String[] columnNamesUsuarios = {"users","pass","pregSeguridad","respuesta"};
-		String[] columnNamesCuentas = {"user_id", "dinero"};
+		String[] columnNamesUsuarios = {"usuario","contraseña","preg_seguridad","resp_seguridad", "permisos"};
 		// Create User
 		try {
-			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "usuarios", columnNamesUsuarios, data);
-			String new_user_id = GeneralSQLFunctions.getEntryFromDatabase(connection, "usuarios", "user_id", " WHERE user='"+data[0]+"'");
-			// Create Account
-			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "cuentas", columnNamesCuentas,new String[]{new_user_id, "0"});
-			
+			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "usuario", columnNamesUsuarios, data);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -90,6 +86,15 @@ public class ServerUserFunctionality {
 			return "Fallo en el SQL";
 		}
 		return "Operacion realizada con exito";
+	}
+	
+	public static void deleteUser(Connection connection, String userID) {
+		try {
+			GeneralSQLFunctions.deleteEntryFromDatabase(connection, "usuario", " WHERE id='" + userID + "'");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public static void addToGroup(Connection connection, String userID, String groupID, String permisos) {

@@ -1,4 +1,4 @@
-package deustoZumServer.Dialogs.User;
+package deustoZumServer.Visual.Dialogs.User;
 
 import javax.swing.JDialog;
 
@@ -24,8 +24,7 @@ public class editUser extends JDialog{
 	private JTextField txtF_Nacimiento;
 	private JTextField txtSexo;
 	
-	private JLabel lblIntroducirIdUsuario;
-	private JLabel lblUsuario;
+	private JLabel lblIntroducirIdUsuario,lblUsuario;
 	private JLabel lblPass;
 	private JLabel lblPregSeguridad;
 	private JLabel lblRespuesta;

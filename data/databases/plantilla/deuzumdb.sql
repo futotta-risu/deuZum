@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-10-2019 a las 23:01:53
+-- Tiempo de generación: 26-10-2019 a las 12:55:03
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.3.9
 
@@ -43,9 +43,8 @@ CREATE TABLE `cuenta` (
   `numero_cuenta` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
   `dinero` int(11) NOT NULL,
-  `permisos` int(11) NOT NULL,
   `tipo_cuenta` varchar(15) NOT NULL,
-  `descripcion` int(11) DEFAULT NULL,
+  `descripcion` text DEFAULT NULL,
   `estado` int(11) NOT NULL,
   `categoria` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -70,8 +69,7 @@ CREATE TABLE `cuentacategoria` (
 CREATE TABLE `grupo` (
   `id` int(10) NOT NULL,
   `nombre` varchar(15) CHARACTER SET latin1 NOT NULL,
-  `descripcion` text DEFAULT NULL,
-  `permisos` varchar(15) DEFAULT NULL
+  `descripcion` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -97,6 +95,14 @@ CREATE TABLE `grupopermiso` (
   `nombre` varchar(15) NOT NULL,
   `poder` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `grupopermiso`
+--
+
+INSERT INTO `grupopermiso` (`nombre`, `poder`) VALUES
+('administrador', 1),
+('miembro', 2);
 
 -- --------------------------------------------------------
 
@@ -125,6 +131,15 @@ CREATE TABLE `permisos` (
   `nombre` varchar(15) CHARACTER SET utf8mb4 NOT NULL,
   `poder` int(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `permisos`
+--
+
+INSERT INTO `permisos` (`nombre`, `poder`) VALUES
+('administrador', 1),
+('programador', 2),
+('cliente', 3);
 
 -- --------------------------------------------------------
 
@@ -224,11 +239,11 @@ CREATE TABLE `transaccion` (
 
 CREATE TABLE `usuario` (
   `id` int(11) NOT NULL,
-  `usuario` int(11) NOT NULL,
-  `contraseña` int(11) NOT NULL,
-  `fecha_creacion` int(11) NOT NULL DEFAULT current_timestamp(),
+  `usuario` varchar(32) NOT NULL,
+  `contraseña` varchar(32) NOT NULL,
+  `fecha_creacion` date DEFAULT current_timestamp(),
   `preg_seguridad` int(11) NOT NULL,
-  `resp_seguridad` int(11) NOT NULL,
+  `resp_seguridad` varchar(32) NOT NULL,
   `permisos` varchar(15) DEFAULT NULL,
   `categoria` varchar(15) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -402,7 +417,7 @@ ALTER TABLE `transaccion`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Restricciones para tablas volcadas

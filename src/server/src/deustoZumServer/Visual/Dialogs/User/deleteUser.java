@@ -1,4 +1,4 @@
-package deustoZumServer.Dialogs.User;
+package deustoZumServer.Visual.Dialogs.User;
 
 import javax.swing.JDialog;
 
@@ -8,8 +8,16 @@ import javax.swing.JTextField;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
 
 import javax.swing.JButton;
+import javax.swing.SwingConstants;
+
+import deustoZumServer.ServerUserFunctionality;
+import deustoZumServer.Visual.Style.FlatButton;
+
+import java.awt.Color;
+import java.awt.Font;
 
 public class deleteUser extends JDialog {
 
@@ -22,28 +30,33 @@ public class deleteUser extends JDialog {
 	/**
 	 * Crea un objeto de deleteUser que permite eliminar un usuario buscandolo por su ID.
 	 */
-	public deleteUser() {
-		setSize(400, 200);
+	public deleteUser(Connection connection) {
+		setSize(400, 130);
 		setVisible(true);
 		setTitle("Eliminar Usuario");
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
-		
+		setBackground(Color.WHITE);
 		lblIntroducirIdUsuario = new JLabel("Introducir ID usuario");
-		lblIntroducirIdUsuario.setBounds(28, 16, 140, 16);
+		lblIntroducirIdUsuario.setFont(new Font("Verdana", Font.PLAIN, 11));
+		lblIntroducirIdUsuario.setHorizontalAlignment(SwingConstants.CENTER);
+		lblIntroducirIdUsuario.setBounds(10, 16, 178, 16);
 		getContentPane().add(lblIntroducirIdUsuario);
 		
 		textField = new JTextField();
-		textField.setBounds(170, 11, 106, 26);
+		textField.setBounds(10, 43, 178, 26);
 		getContentPane().add(textField);
 		textField.setColumns(10);
 		
-		btnEliminar = new JButton("Eliminar");
-		btnEliminar.setBounds(277, 11, 117, 29);
+		btnEliminar = new FlatButton("Eliminar");
+		btnEliminar.setFont(new Font("Verdana", Font.PLAIN, 14));
+		btnEliminar.setBounds(198, 16, 176, 59);
 		getContentPane().add(btnEliminar);
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ServerUserFunctionality.deleteUser(connection, textField.getText());
 				JOptionPane.showConfirmDialog(null, "¿Estas seguro de que quieres eliminar el usuario?");
+				dispose();
 			}
 		});
 	
