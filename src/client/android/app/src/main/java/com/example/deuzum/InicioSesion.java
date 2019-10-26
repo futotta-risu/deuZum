@@ -34,7 +34,7 @@ public class InicioSesion extends AppCompatActivity {
         bReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                abrirCrearUsuario();
+                abrirCrearUsuario1();
             }
         });
     }
@@ -44,7 +44,7 @@ public class InicioSesion extends AppCompatActivity {
         startActivity(i);
     }
 
-    public void abrirCrearUsuario() {
+    public void abrirCrearUsuario1() {
         Intent i = new Intent(this, CrearUsuario1.class);
         startActivity(i);
     }
