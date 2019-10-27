@@ -3,7 +3,24 @@ package deustoZumServer.Visual.Dialogs.Transactions;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+
+import javax.swing.JPanel;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import java.awt.GridLayout;
+import javax.swing.SwingConstants;
+
+import deustoZumServer.ServerUserFunctionality;
+import deustoZumServer.Visual.Style.FlatButton;
+
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.awt.event.ActionEvent;
 
 public class createTransaction extends JDialog{
 
@@ -18,57 +35,116 @@ public class createTransaction extends JDialog{
 	private JLabel lblCantidad;
 	private JLabel lblFecha;
 	private JButton btnCrearTransaccion;
+	private JPanel panel;
 	
 	/**
 	 * Crea un objeto de createTransaction el cual contiene un Dialogo que muestra un formulario para
 	 * crear una Transaccion.
 	 */
-	public createTransaction() {
-		setSize(350,350);
+	public createTransaction(Connection connection) {
+		setSize(300,250);
 		setVisible(true);
 		setTitle("Crear Transaccion");
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		getContentPane().setLayout(null);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		getContentPane().setLayout(new BorderLayout(0, 0));
 		
-		lblIdCuentaOrigen = new JLabel("ID cuenta Origen:");
-		lblIdCuentaOrigen.setBounds(23, 49, 118, 16);
-		getContentPane().add(lblIdCuentaOrigen);
+		btnCrearTransaccion = new FlatButton("Crear Transaccion");
+		btnCrearTransaccion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ServerUserFunctionality.createTransaction(connection, txtOrigen.getText(),
+						txtDestino.getText(), Integer.valueOf(txtCantidad.getText()));
+			}
+		});
+		btnCrearTransaccion.setPreferredSize(new Dimension(350,55));
+		getContentPane().add(btnCrearTransaccion, BorderLayout.SOUTH);
 		
-		lblIdCuentaDestino = new JLabel("ID cuenta Destino:");
-		lblIdCuentaDestino.setBounds(23, 84, 118, 16);
-		getContentPane().add(lblIdCuentaDestino);
+		panel = new JPanel();
+		panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+		getContentPane().add(panel, BorderLayout.CENTER);
+		GridBagLayout gbl_panel = new GridBagLayout();
+		gbl_panel.columnWidths = new int[]{95, 95, 95};
+		gbl_panel.rowHeights = new int[]{30, 30, 30, 30};
+		gbl_panel.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0};
+		panel.setLayout(gbl_panel);
 		
-		lblCantidad = new JLabel("Cantidad:");
-		lblCantidad.setBounds(23, 138, 61, 16);
-		getContentPane().add(lblCantidad);
-		
-		lblFecha = new JLabel("Fecha:");
-		lblFecha.setBounds(23, 176, 61, 16);
-		getContentPane().add(lblFecha);
+		lblIdCuentaOrigen = new JLabel("ID Origen:");
+		lblIdCuentaOrigen.setHorizontalAlignment(SwingConstants.CENTER);
+		GridBagConstraints gbc_lblIdCuentaOrigen = new GridBagConstraints();
+		gbc_lblIdCuentaOrigen.fill = GridBagConstraints.BOTH;
+		gbc_lblIdCuentaOrigen.insets = new Insets(0, 0, 5, 5);
+		gbc_lblIdCuentaOrigen.gridx = 0;
+		gbc_lblIdCuentaOrigen.gridy = 0;
+		panel.add(lblIdCuentaOrigen, gbc_lblIdCuentaOrigen);
 		
 		txtOrigen = new JTextField();
-		txtOrigen.setBounds(153, 44, 130, 26);
-		getContentPane().add(txtOrigen);
-		txtOrigen.setColumns(10);
+		GridBagConstraints gbc_txtOrigen = new GridBagConstraints();
+		gbc_txtOrigen.fill = GridBagConstraints.BOTH;
+		gbc_txtOrigen.insets = new Insets(0, 0, 5, 0);
+		gbc_txtOrigen.gridx = 1;
+		gbc_txtOrigen.gridwidth = 2;
+		gbc_txtOrigen.gridy = 0;
+		panel.add(txtOrigen, gbc_txtOrigen);
+		txtOrigen.setColumns(30);
+		
+		lblIdCuentaDestino = new JLabel("ID Destino:");
+		lblIdCuentaDestino.setHorizontalAlignment(SwingConstants.CENTER);
+		GridBagConstraints gbc_lblIdCuentaDestino = new GridBagConstraints();
+		gbc_lblIdCuentaDestino.fill = GridBagConstraints.BOTH;
+		gbc_lblIdCuentaDestino.insets = new Insets(0, 0, 5, 5);
+		gbc_lblIdCuentaDestino.gridx = 0;
+		gbc_lblIdCuentaDestino.gridy = 1;
+		
+		panel.add(lblIdCuentaDestino, gbc_lblIdCuentaDestino);
 		
 		txtDestino = new JTextField();
-		txtDestino.setBounds(153, 79, 130, 26);
-		getContentPane().add(txtDestino);
+		GridBagConstraints gbc_txtDestino = new GridBagConstraints();
+		gbc_txtDestino.fill = GridBagConstraints.BOTH;
+		gbc_txtDestino.insets = new Insets(0, 0, 5, 0);
+		gbc_txtDestino.gridx = 1;
+
+		gbc_txtDestino.gridwidth = 2;
+		gbc_txtDestino.gridy = 1;
+		panel.add(txtDestino, gbc_txtDestino);
 		txtDestino.setColumns(10);
 		
+		lblCantidad = new JLabel("Cantidad:");
+		lblCantidad.setHorizontalAlignment(SwingConstants.CENTER);
+		GridBagConstraints gbc_lblCantidad = new GridBagConstraints();
+		gbc_lblCantidad.fill = GridBagConstraints.BOTH;
+		gbc_lblCantidad.insets = new Insets(0, 0, 5, 5);
+		gbc_lblCantidad.gridx = 0;
+		
+		gbc_lblCantidad.gridy = 2;
+		panel.add(lblCantidad, gbc_lblCantidad);
+		
 		txtCantidad = new JTextField();
-		txtCantidad.setBounds(153, 133, 130, 26);
-		getContentPane().add(txtCantidad);
+		GridBagConstraints gbc_txtCantidad = new GridBagConstraints();
+		gbc_txtCantidad.fill = GridBagConstraints.BOTH;
+		gbc_txtCantidad.insets = new Insets(0, 0, 5, 0);
+		gbc_txtCantidad.gridx = 1;
+		gbc_txtCantidad.gridwidth = 2;
+		gbc_txtCantidad.gridy = 2;
+		panel.add(txtCantidad, gbc_txtCantidad);
 		txtCantidad.setColumns(10);
 		
-		txtFecha = new JTextField();
-		txtFecha.setBounds(153, 171, 130, 26);
-		getContentPane().add(txtFecha);
-		txtFecha.setColumns(10);
+		lblFecha = new JLabel("Fecha:");
+		lblFecha.setHorizontalAlignment(SwingConstants.CENTER);
+		GridBagConstraints gbc_lblFecha = new GridBagConstraints();
+		gbc_lblFecha.fill = GridBagConstraints.BOTH;
+		gbc_lblFecha.insets = new Insets(0, 0, 0, 5);
+		gbc_lblFecha.gridx = 0;
+		gbc_lblFecha.gridy = 3;
+		panel.add(lblFecha, gbc_lblFecha);
 		
-		btnCrearTransaccion = new JButton("Crear Transaccion");
-		btnCrearTransaccion.setBounds(92, 237, 149, 26);
-		getContentPane().add(btnCrearTransaccion);
+		txtFecha = new JTextField();
+		GridBagConstraints gbc_txtFecha = new GridBagConstraints();
+		gbc_txtFecha.fill = GridBagConstraints.BOTH;
+		gbc_txtFecha.gridx = 1;
+		gbc_txtFecha.gridwidth = 2;
+		gbc_txtFecha.gridy = 3;
+		panel.add(txtFecha, gbc_txtFecha);
+		txtFecha.setColumns(10);
 		
 	}
 }

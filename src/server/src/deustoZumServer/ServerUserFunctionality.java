@@ -61,7 +61,7 @@ public class ServerUserFunctionality {
 	
 	
 	
-	public static String createTransaction(Connection connection, String userID_A, String userID_B, int value, Date fecha) {
+	public static String createTransaction(Connection connection, String userID_A, String userID_B, int value) {
 		// TODO Hacer las comprobaciones de SQL
 		String dinero_A, dinero_B;
 		try {
@@ -79,7 +79,9 @@ public class ServerUserFunctionality {
 			GeneralSQLFunctions.updateEntryFromDatabase(connection, "cuentas", 
 					new String[] {"dinero"}, new String[] {Integer.toString(actdinero_B)},
 					" WHERE user_id='"+userID_B+"'");
-		
+			String[] columns = {"source","destino","dinero"};
+			
+			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "transaccion", columns, new String[]{userID_A, userID_B,String.valueOf(value)});
 		} catch (SQLException e) {
 			
 			e.printStackTrace();

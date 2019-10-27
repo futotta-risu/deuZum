@@ -7,9 +7,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
 
+import deustoZumServer.Visual.Dialogs.Transactions.createTransaction;
 import deustoZumServer.Visual.Dialogs.User.createUser;
 import deustoZumServer.Visual.Dialogs.User.deleteUser;
+import deustoZumServer.Visual.Style.CustomColors;
 import deustoZumServer.Visual.Style.FlatButton;
+import deustoZumServer.Visual.Style.MenuButton;
 
 import java.awt.BorderLayout;
 import net.miginfocom.swing.MigLayout;
@@ -24,6 +27,8 @@ import javax.swing.ImageIcon;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.GridBagLayout;
+import java.awt.SystemColor;
+import java.awt.GridLayout;
 
 public class ServerHandlerFrame  extends JFrame{
 	
@@ -31,7 +36,7 @@ public class ServerHandlerFrame  extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
 	private JPanel panel_Usuario;
-	private JPanel panel_Historial;
+	private JPanel panel_Transaccion;
 	private JPanel panel_Proyectos;
 	private JPanel panel_Grupos;
 	private JPanel panel_Funcionalidades;
@@ -79,6 +84,7 @@ public class ServerHandlerFrame  extends JFrame{
 		
 		
 		JButton btnStopServer = new FlatButton("Stop Server");
+		btnStopServer.setFont(new Font("Georgia", Font.PLAIN, 11));
 		constraints.gridx = 3;
 		constraints.gridy = 0;
 		constraints.gridwidth  = 1;
@@ -89,6 +95,7 @@ public class ServerHandlerFrame  extends JFrame{
 		
 		
 		JButton btnExit = new FlatButton("Exit");
+		btnExit.setFont(new Font("Georgia", Font.PLAIN, 11));
 		constraints.gridx = 3;
 		constraints.gridy = 1;
 		sup_Bar.add(btnExit,constraints.clone());
@@ -174,64 +181,64 @@ public class ServerHandlerFrame  extends JFrame{
 		JPanel central_Direction_Panel = new JPanel();
 		
 		central_Panel.add(central_Direction_Panel, BorderLayout.WEST);
-		central_Direction_Panel.setLayout(new MigLayout("", "[89px]", "[23px][][][][][][]"));
-		central_Direction_Panel.setBackground(new Color(100,100,100));
+		central_Direction_Panel.setBackground(CustomColors.mBBlue);
 		//       BOTONES DIRECTION
 		
-		JButton SQL_User_Button = new FlatButton("Usuarios");
+		JButton SQL_User_Button = new MenuButton("Usuarios");
 		SQL_User_Button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchPanel(panel_Usuario);
 			}
 		});
-		central_Direction_Panel.add(SQL_User_Button, "cell 0 0,grow");
 		
-		JButton btnTransaccion = new FlatButton("Transacciones");
+		central_Direction_Panel.setLayout(new GridLayout(0, 1, 0, 0));
+		central_Direction_Panel.add(SQL_User_Button);
+		
+		JButton btnTransaccion = new MenuButton("Transacciones");
 		btnTransaccion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				switchPanel(panel_Historial);
+				switchPanel(panel_Transaccion);
 			}
 		});
-		central_Direction_Panel.add(btnTransaccion, "cell 0 1,growx");
+		central_Direction_Panel.add(btnTransaccion);
 		
-		JButton btnProyectos = new FlatButton("Proyectos");
+		JButton btnProyectos = new MenuButton("Proyectos");
 		btnProyectos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchPanel(panel_Proyectos);
 			}
 		});
-		central_Direction_Panel.add(btnProyectos, "cell 0 2,growx");
+		central_Direction_Panel.add(btnProyectos);
 		
 		
-		JButton btnGrupos = new FlatButton("Grupos");
-		central_Direction_Panel.add(btnGrupos, "cell 0 3,growx");
+		JButton btnGrupos = new MenuButton("Grupos");
+		central_Direction_Panel.add(btnGrupos);
 		btnGrupos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchPanel(panel_Grupos);
 			}
 		});
 		
-		JButton btnFuncionalidades = new FlatButton("Funcionalidades");
-		central_Direction_Panel.add(btnFuncionalidades, "cell 0 4,growx");
+		JButton btnFuncionalidades = new MenuButton("Funcionalidades");
+		central_Direction_Panel.add(btnFuncionalidades);
 		btnFuncionalidades.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchPanel(panel_Funcionalidades);
 			}
 		});
 		
-		JButton btnConfiguracionDelServer = new FlatButton("Configuracion del server");
-		central_Direction_Panel.add(btnConfiguracionDelServer, "cell 0 5");
+		JButton btnConfiguracionDelServer = new MenuButton("Configuracion del server");
+		central_Direction_Panel.add(btnConfiguracionDelServer);
 		btnConfiguracionDelServer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchPanel(panel_Configuracion);
 			}
 		});
 		
-		
 		//         MUTABLE TABLE
 		
-		
 		JPanel central_Mutable_Panel = new JPanel();
+		central_Mutable_Panel.setBackground(new Color(255, 255, 255));
 		central_Panel.add(central_Mutable_Panel, BorderLayout.CENTER);
 		central_Mutable_Panel.setLayout(new MigLayout("", "[16px,grow]", "[30px,grow]"));
 		
@@ -239,79 +246,49 @@ public class ServerHandlerFrame  extends JFrame{
 		central_Mutable_Panel.add(layeredPane, "cell 0 0,grow");
 		layeredPane.setLayout(null);
 		
-		
-		//        PANELES MUTABLE
-		
-		
-		panel_Proyectos = new JPanel();
-		layeredPane.setLayer(panel_Proyectos, 4);
-		panel_Proyectos.setBounds(0, 5, 367, 210);
-		layeredPane.add(panel_Proyectos);
-		panel_Proyectos.setLayout(new MigLayout("", "[55px]", "[23px][][][][][]"));
-		
-		panel_Grupos = new JPanel();
-		panel_Grupos.setBounds(0, 5, 367, 210);
-		layeredPane.add(panel_Grupos);
-		
-		
-		
-		panel_Funcionalidades = new JPanel();
-		panel_Funcionalidades.setBounds(0, 5, 367, 210);
-		layeredPane.add(panel_Funcionalidades);
-		panel_Funcionalidades.setLayout(new MigLayout("", "[55px]", "[23px][][]"));
-		
-		panel_Configuracion = new JPanel();
-		panel_Configuracion.setBounds(0, 0, 384, 231);
-		layeredPane.add(panel_Configuracion);
-		panel_Configuracion.setLayout(new MigLayout("", "[55px]", "[23px][][][][][]"));
-		
 		panel_Usuario = new JPanel();
-		panel_Usuario.setBounds(0, 5, 367, 210);
+		panel_Usuario.setBackground(Color.WHITE);
+		panel_Usuario.setBounds(0, 0, 517, 387);
 		layeredPane.add(panel_Usuario);
 		panel_Usuario.setLayout(new MigLayout("", "[55px]", "[23px][][][]"));
 		
-		panel_Historial = new JPanel();
-		panel_Historial.setBounds(0, 5, 367, 210);
-		layeredPane.add(panel_Historial);
-		panel_Historial.setLayout(new MigLayout("", "[55px]", "[23px][][]"));
-
-		layeredPane.setLayer(panel_Usuario, 2);
-		layeredPane.setLayer(panel_Historial, 3);
-		layeredPane.setLayer(panel_Proyectos, 4);
-		layeredPane.setLayer(panel_Grupos, 5);
-		layeredPane.setLayer(panel_Funcionalidades, 1);	
-		layeredPane.setLayer(panel_Configuracion, 0);
+				layeredPane.setLayer(panel_Usuario, 9);
+				
+				//  BOTONES USUARIO
+				
+				JButton btnCrearUser = new FlatButton("Crear Usuario");
+				panel_Usuario.add(btnCrearUser, "cell 0 0,growx");
+				btnCrearUser.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						createUser cU = new createUser(server.getConnection());
+					}
+				});
+				
+					JButton btnEditarUsuario = new FlatButton("Editar Usuario");
+					panel_Usuario.add(btnEditarUsuario, "cell 0 1,growx");
+					
+					JButton btnEliminarUsuario = new FlatButton("Eliminar Usuario");
+					panel_Usuario.add(btnEliminarUsuario, "cell 0 2,growx");
+					btnEliminarUsuario.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							deleteUser cU = new deleteUser(server.getConnection());
+						}
+					});
+					
+					JButton btnVerCuentas = new FlatButton("Ver cuentas Usuario");
+					panel_Usuario.add(btnVerCuentas, "cell 0 3");
+					btnCrearUser.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+					
+						}
+					});
 		
-		
-		
-		
-		
-
-
-		
-		//  BOTONES USUARIO
-		
-		JButton btnCrearUser = new FlatButton("Crear Usuario");
-		panel_Usuario.add(btnCrearUser, "cell 0 0,growx");
-		btnCrearUser.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				createUser cU = new createUser(server.getConnection());
-			}
-		});
-	
-		JButton btnEditarUsuario = new FlatButton("Editar Usuario");
-		panel_Usuario.add(btnEditarUsuario, "cell 0 1,growx");
-		
-		JButton btnEliminarUsuario = new FlatButton("Eliminar Usuario");
-		panel_Usuario.add(btnEliminarUsuario, "cell 0 2,growx");
-		btnEliminarUsuario.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				deleteUser cU = new deleteUser(server.getConnection());
-			}
-		});
-		
-		JButton btnVerCuentas = new FlatButton("Ver cuentas Usuario");
-		panel_Usuario.add(btnVerCuentas, "cell 0 3");
+		panel_Transaccion = new JPanel();
+		panel_Transaccion.setBackground(new Color(224, 255, 255));
+		panel_Transaccion.setBounds(0, 0, 517, 387);
+		layeredPane.add(panel_Transaccion);
+		panel_Transaccion.setLayout(new MigLayout("", "[55px]", "[23px][][]"));
+		layeredPane.setLayer(panel_Transaccion, 3);
 		
 		
 		//  BOTONES TRANSACCION
@@ -319,20 +296,49 @@ public class ServerHandlerFrame  extends JFrame{
 		JButton btnRealizarTransaccion = new FlatButton("Realizar Transaccion");
 		btnRealizarTransaccion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				createTransaction cT = new createTransaction(server.getConnection());
 			}
 		});
-		panel_Historial.add(btnRealizarTransaccion, "cell 0 0,growx,alignx left,aligny top");
+		panel_Transaccion.add(btnRealizarTransaccion, "cell 0 0,growx,alignx left,aligny top");
 		
 		JButton btnEliminarTransaccion = new FlatButton("Eliminar Transaccion");
-		panel_Historial.add(btnEliminarTransaccion, "cell 0 1,growx");
+		panel_Transaccion.add(btnEliminarTransaccion, "cell 0 1,growx");
 		
 		JButton btnVerTransacciones = new FlatButton("Ver Transacciones");
-		panel_Historial.add(btnVerTransacciones, "cell 0 2,growx");
-		btnCrearUser.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		panel_Transaccion.add(btnVerTransacciones, "cell 0 2,growx");
 		
-			}
-		});
+		
+		//        PANELES MUTABLE
+		
+		
+		panel_Proyectos = new JPanel();
+		panel_Proyectos.setBackground(new Color(224, 255, 255));
+		layeredPane.setLayer(panel_Proyectos, 4);
+		panel_Proyectos.setBounds(0, 0, 517, 387);
+		layeredPane.add(panel_Proyectos);
+		panel_Proyectos.setLayout(new MigLayout("", "[55px]", "[23px][][][][][]"));
+		
+		panel_Grupos = new JPanel();
+		panel_Grupos.setBackground(new Color(224, 255, 255));
+		panel_Grupos.setBounds(0, 0, 517, 387);
+		layeredPane.add(panel_Grupos);
+		
+		
+		
+		panel_Funcionalidades = new JPanel();
+		panel_Funcionalidades.setBackground(new Color(224, 255, 255));
+		panel_Funcionalidades.setBounds(0, 0, 517, 387);
+		layeredPane.add(panel_Funcionalidades);
+		panel_Funcionalidades.setLayout(new MigLayout("", "[55px]", "[23px][][]"));
+		
+		panel_Configuracion = new JPanel();
+		panel_Configuracion.setBounds(0, 0, 517, 387);
+		layeredPane.add(panel_Configuracion);
+		panel_Configuracion.setLayout(new MigLayout("", "[55px]", "[23px][][][][][]"));
+		layeredPane.setLayer(panel_Proyectos, 4);
+		layeredPane.setLayer(panel_Grupos, 5);
+		layeredPane.setLayer(panel_Funcionalidades, 8);	
+		layeredPane.setLayer(panel_Configuracion, 1);
 		
 		
 		//   BOTONES PROYECTO

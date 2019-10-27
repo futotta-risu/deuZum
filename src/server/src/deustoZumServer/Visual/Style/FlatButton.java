@@ -2,7 +2,9 @@ package deustoZumServer.Visual.Style;
 
 import java.awt.Color;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.border.Border;
 
 /**
  * Boton con estilo Flat.
@@ -22,5 +24,7 @@ public class FlatButton extends JButton {
 		setFocusPainted(false);
 		setContentAreaFilled(true);
 	}
+	
+
 	
 }
