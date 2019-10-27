@@ -7,15 +7,22 @@ import javax.swing.JButton;
 
 public class createTransaction extends JDialog{
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private JTextField txtOrigen;
 	private JTextField txtDestino;
 	private JTextField txtCantidad;
 	private JTextField txtFecha;
+	private JLabel lblIdCuentaOrigen;
+	private JLabel lblIdCuentaDestino;
+	private JLabel lblCantidad;
+	private JLabel lblFecha;
+	private JButton btnCrearTransaccion;
 	
+	/**
+	 * Crea un objeto de createTransaction el cual contiene un Dialogo que muestra un formulario para
+	 * crear una Transaccion.
+	 */
 	public createTransaction() {
 		setSize(350,350);
 		setVisible(true);
@@ -23,19 +30,19 @@ public class createTransaction extends JDialog{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 		
-		JLabel lblIdCuentaOrigen = new JLabel("ID cuenta Origen:");
+		lblIdCuentaOrigen = new JLabel("ID cuenta Origen:");
 		lblIdCuentaOrigen.setBounds(23, 49, 118, 16);
 		getContentPane().add(lblIdCuentaOrigen);
 		
-		JLabel lblIdCuentaDestino = new JLabel("ID cuenta Destino:");
+		lblIdCuentaDestino = new JLabel("ID cuenta Destino:");
 		lblIdCuentaDestino.setBounds(23, 84, 118, 16);
 		getContentPane().add(lblIdCuentaDestino);
 		
-		JLabel lblCantidad = new JLabel("Cantidad:");
+		lblCantidad = new JLabel("Cantidad:");
 		lblCantidad.setBounds(23, 138, 61, 16);
 		getContentPane().add(lblCantidad);
 		
-		JLabel lblFecha = new JLabel("Fecha:");
+		lblFecha = new JLabel("Fecha:");
 		lblFecha.setBounds(23, 176, 61, 16);
 		getContentPane().add(lblFecha);
 		
@@ -59,7 +66,7 @@ public class createTransaction extends JDialog{
 		getContentPane().add(txtFecha);
 		txtFecha.setColumns(10);
 		
-		JButton btnCrearTransaccion = new JButton("Crear Transaccion");
+		btnCrearTransaccion = new JButton("Crear Transaccion");
 		btnCrearTransaccion.setBounds(92, 237, 149, 26);
 		getContentPane().add(btnCrearTransaccion);
 		

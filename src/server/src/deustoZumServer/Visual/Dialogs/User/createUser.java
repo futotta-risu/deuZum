@@ -11,14 +11,11 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.awt.event.ActionEvent;
-import java.awt.GridLayout;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.Color;
 
 public class createUser extends JDialog{
 
@@ -52,7 +49,7 @@ public class createUser extends JDialog{
 	private JPanel beautyN;
 	
 	/**
-	 * Crea un objeto de createUser que contiene un Dialogo que permite crear un usuario
+	 * Crea un objeto de createUser que contiene un Dialogo que permite crear un usuario.
 	 * @param Connection
 	 */
 	public createUser(Connection conn) {

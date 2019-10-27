@@ -37,6 +37,7 @@ public class deleteUser extends JDialog {
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
 		setBackground(Color.WHITE);
+		
 		lblIntroducirIdUsuario = new JLabel("Introducir ID usuario");
 		lblIntroducirIdUsuario.setFont(new Font("Verdana", Font.PLAIN, 11));
 		lblIntroducirIdUsuario.setHorizontalAlignment(SwingConstants.CENTER);
