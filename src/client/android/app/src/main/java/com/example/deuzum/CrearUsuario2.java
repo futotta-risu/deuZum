@@ -19,6 +19,7 @@ public class CrearUsuario2 extends AppCompatActivity {
     private Spinner sPreguntaSeguridad;
     private EditText tRespuestaSeguridad;
     private Button bCrear;
+    private Button bAtras;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,8 @@ public class CrearUsuario2 extends AppCompatActivity {
         sPreguntaSeguridad = (Spinner) findViewById(R.id.spinnerPreguntaSeguridad);
         tRespuestaSeguridad = (EditText) findViewById(R.id.textoRespuestaSeguridad);
         bCrear = (Button) findViewById(R.id.botonFinalizar);
+        bAtras = (Button) findViewById(R.id.botonAtrasCU2);
+
 
         String[] opciones = {"¿Cual fue el nombre de tu primera mascota?","¿En que colegio hiciste primaria?","¿Cual fue tu ciudad de nacimiento?","¿Cual es el nombre de tu hermano mayor?"};
 
@@ -43,10 +46,22 @@ public class CrearUsuario2 extends AppCompatActivity {
                 abrirMenuPrincipal();
             }
         });
+
+        bAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                abrirCrearUsuario1();
+            }
+        });
     }
 
     public void abrirMenuPrincipal() {
         Intent i = new Intent(this, MenuPrincipal.class);
+        startActivity(i);
+    }
+
+    public void abrirCrearUsuario1() {
+        Intent i = new Intent(this, CrearUsuario1.class);
         startActivity(i);
     }
 }

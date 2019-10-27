@@ -22,6 +22,7 @@ public class CrearUsuario1 extends AppCompatActivity {
     private EditText dFechaNacimiento;
     private Spinner sGenero;
     private Button bSiguiente;
+    private Button bAtras;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,7 @@ public class CrearUsuario1 extends AppCompatActivity {
         dFechaNacimiento = (EditText) findViewById(R.id.fechaFechaNacimiento);
         sGenero = (Spinner) findViewById(R.id.spinnerGenero);
         bSiguiente = (Button) findViewById(R.id.botonSiguiente);
+        bAtras = (Button) findViewById(R.id.botonAtrasCU1);
 
         String[] opciones = {"Hombre","Mujer","Otro"};
 
@@ -49,10 +51,22 @@ public class CrearUsuario1 extends AppCompatActivity {
                 abrirCrearUsuario2();
             }
         });
+
+        bAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                abrirInicioSesion();
+            }
+        });
     }
 
     public void abrirCrearUsuario2() {
         Intent i = new Intent(this, CrearUsuario2.class);
+        startActivity(i);
+    }
+
+    public void abrirInicioSesion() {
+        Intent i = new Intent(this, InicioSesion.class);
         startActivity(i);
     }
 }

@@ -15,6 +15,7 @@ public class MenuPrincipal extends AppCompatActivity {
     private Button vUsuario;
     private Button mCuentas;
     private Button ayudaFAQ;
+    private Button bAtras;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +25,9 @@ public class MenuPrincipal extends AppCompatActivity {
         cMenuPrincip = (TextView) findViewById(R.id.cajaMenuPrincipal);
         hTransaccion = (Button)findViewById(R.id.botonHacerTrans);
         vUsuario = (Button)findViewById(R.id.botonVerUsuario);
-        mCuentas = (Button)findViewById(R.id.botonMisCuentas);
+        mCuentas = (Button)findViewById(R.id.botonMiCuenta);
         ayudaFAQ = (Button)findViewById(R.id.botonAyudaFAQ);
+        bAtras = (Button) findViewById(R.id.botonAtrasMP);
 
         hTransaccion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,6 +57,13 @@ public class MenuPrincipal extends AppCompatActivity {
             }
         });
 
+        bAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                abrirInicioSesion();
+            }
+        });
+
     }
 
     public void abrirHacerTransaccion() {
@@ -68,12 +77,17 @@ public class MenuPrincipal extends AppCompatActivity {
     }
 
     public void abrirMisCuentas() {
-        Intent i = new Intent(this, MisCuentas.class);
+        Intent i = new Intent(this, MiCuenta.class);
         startActivity(i);
     }
 
     public void abrirAyudaFAQ() {
         Intent i = new Intent(this, AyudaFAQ.class);
+        startActivity(i);
+    }
+
+    public void abrirInicioSesion() {
+        Intent i = new Intent(this, InicioSesion.class);
         startActivity(i);
     }
 }

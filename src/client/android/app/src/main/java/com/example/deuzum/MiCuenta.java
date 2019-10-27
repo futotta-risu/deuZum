@@ -8,17 +8,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class AyudaFAQ extends AppCompatActivity {
-    private TextView cAyudaFAQ;
+public class MiCuenta extends AppCompatActivity {
+    private TextView cMiCuenta;
     private Button bAtras;
+    private Button bAñadirCuenta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ayuda_faq);
+        setContentView(R.layout.activity_mi_cuenta);
 
-        cAyudaFAQ = (TextView) findViewById(R.id.cajaAyudaFAQ);
-        bAtras = findViewById(R.id.botonAtrasAF);
+        cMiCuenta = findViewById(R.id.cajaMiCuenta);
+        bAtras = findViewById(R.id.botonAtrasMC);
+        bAñadirCuenta = findViewById(R.id.botonAñadirCuenta);
 
         bAtras.setOnClickListener(new View.OnClickListener() {
             @Override
