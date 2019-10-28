@@ -2,7 +2,6 @@ package deustoZumServer.Visual.Dialogs.Group;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import java.awt.BorderLayout;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;

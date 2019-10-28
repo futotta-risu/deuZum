@@ -2,18 +2,21 @@ package deustoZumServer.Visual.Dialogs.Group;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import java.awt.BorderLayout;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
 public class deleteGroup extends JDialog{
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private JTextField txtIdGrupo;
+	private JLabel lblIntroducirIdGrupo;
+	private JButton btnEliminar;
 	
+	/**
+	 * Crea un objeto de deleteGroup, este contiene un Dialogo que permite eliminar un grupo buscandolo 
+	 * a traves de su ID.
+	 */
 	public deleteGroup() {
 		setSize(500,130);
 		setTitle("Eliminar Grupo");
@@ -21,7 +24,7 @@ public class deleteGroup extends JDialog{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 		
-		JLabel lblIntroducirIdGrupo = new JLabel("Introducir ID Grupo:");
+		lblIntroducirIdGrupo = new JLabel("Introducir ID Grupo:");
 		lblIntroducirIdGrupo.setBounds(27, 41, 131, 16);
 		getContentPane().add(lblIntroducirIdGrupo);
 		
@@ -30,7 +33,7 @@ public class deleteGroup extends JDialog{
 		getContentPane().add(txtIdGrupo);
 		txtIdGrupo.setColumns(10);
 		
-		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar = new JButton("Eliminar");
 		btnEliminar.setBounds(338, 36, 117, 29);
 		getContentPane().add(btnEliminar);
 	}
