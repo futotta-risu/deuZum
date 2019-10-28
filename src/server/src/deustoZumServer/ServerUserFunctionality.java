@@ -20,7 +20,7 @@ public class ServerUserFunctionality {
 	public static void createUserC(JSONObject data) {
 		// TODO hacer que acceda a la base de datos segun el nobre de la base de datos
 		Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost/deuzumdb", "root", "");
-		createUser(conn, new String[] {data.getString("user"), data.getString("pass"), data.getString("pregSegu"),data.getString("resp")});
+		createUser(conn, new String[] {data.getString("user"), data.getString("pass"), data.getString("pregSegu"),data.getString("resp"),"3"});
 	}
 	/**
 	 * Crea un usuario dentro de la base de datos dada en la conexion. Tabla usuario.
