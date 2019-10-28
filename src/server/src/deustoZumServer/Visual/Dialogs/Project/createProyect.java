@@ -2,21 +2,25 @@ package deustoZumServer.Visual.Dialogs.Project;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import java.awt.BorderLayout;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
 public class createProyect extends JDialog{
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private JTextField txtIdGrupo;
 	private JTextField txtNombre;
 	private JTextField txtDescripcion;
 	private JButton btnCrearTransaccion;
+	private JLabel lblIdGrupo;
+	private JLabel lblNombre;
+	private JLabel lblDescripcion;
 	
+	
+	/**
+	 * Crea un objeto de createProyect, este Contiene un Dialogo que permite crear un nuevo Proyecto.
+	 */
 	public createProyect() {
 		setSize(500,430);
 		setVisible(true);
@@ -24,15 +28,15 @@ public class createProyect extends JDialog{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 		
-		JLabel lblIdGrupo = new JLabel("ID grupo:");
+		lblIdGrupo = new JLabel("ID grupo:");
 		lblIdGrupo.setBounds(67, 65, 94, 26);
 		getContentPane().add(lblIdGrupo);
 		
-		JLabel lblNombre = new JLabel("Nombre:");
+		lblNombre = new JLabel("Nombre:");
 		lblNombre.setBounds(67, 128, 61, 16);
 		getContentPane().add(lblNombre);
 		
-		JLabel lblDescripcion = new JLabel("Descripcion:");
+		lblDescripcion = new JLabel("Descripcion:");
 		lblDescripcion.setBounds(49, 185, 79, 16);
 		getContentPane().add(lblDescripcion);
 		
