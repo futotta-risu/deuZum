@@ -29,6 +29,7 @@ import java.awt.Insets;
 import java.awt.GridBagLayout;
 import java.awt.SystemColor;
 import java.awt.GridLayout;
+import java.awt.FlowLayout;
 
 public class ServerHandlerFrame  extends JFrame{
 	
@@ -48,7 +49,6 @@ public class ServerHandlerFrame  extends JFrame{
 	 * Crea un objeto de ServerHandlerFrame, el cual contiene un frame que controla una instancia de Server.
 	 */
 	public ServerHandlerFrame() {
-		setResizable(false);
 		configWindow();
 	}
 	
@@ -179,59 +179,63 @@ public class ServerHandlerFrame  extends JFrame{
 		//        DIRECTION
 		
 		JPanel central_Direction_Panel = new JPanel();
-		
 		central_Panel.add(central_Direction_Panel, BorderLayout.WEST);
 		central_Direction_Panel.setBackground(CustomColors.mBBlue);
+		central_Direction_Panel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+		
+		JPanel central_Direction_Menu_Panel = new JPanel();
+		central_Direction_Menu_Panel.setPreferredSize(new Dimension(180,200));
+		central_Direction_Panel.add(central_Direction_Menu_Panel);
+		central_Direction_Menu_Panel.setLayout(new GridLayout(0, 1, 0, 0));
 		//       BOTONES DIRECTION
 		
 		JButton SQL_User_Button = new MenuButton("Usuarios");
-		SQL_User_Button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				switchPanel(panel_Usuario);
-			}
-		});
-		
-		central_Direction_Panel.setLayout(new GridLayout(0, 1, 0, 0));
-		central_Direction_Panel.add(SQL_User_Button);
+		central_Direction_Menu_Panel.add(SQL_User_Button);
 		
 		JButton btnTransaccion = new MenuButton("Transacciones");
-		btnTransaccion.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				switchPanel(panel_Transaccion);
-			}
-		});
-		central_Direction_Panel.add(btnTransaccion);
+		central_Direction_Menu_Panel.add(btnTransaccion);
 		
 		JButton btnProyectos = new MenuButton("Proyectos");
-		btnProyectos.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				switchPanel(panel_Proyectos);
-			}
-		});
-		central_Direction_Panel.add(btnProyectos);
+		central_Direction_Menu_Panel.add(btnProyectos);
 		
 		
 		JButton btnGrupos = new MenuButton("Grupos");
-		central_Direction_Panel.add(btnGrupos);
-		btnGrupos.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				switchPanel(panel_Grupos);
-			}
-		});
+		central_Direction_Menu_Panel.add(btnGrupos);
 		
 		JButton btnFuncionalidades = new MenuButton("Funcionalidades");
-		central_Direction_Panel.add(btnFuncionalidades);
+		central_Direction_Menu_Panel.add(btnFuncionalidades);
+		
+		JButton btnConfiguracionDelServer = new MenuButton("Configuracion del server");
+		central_Direction_Menu_Panel.add(btnConfiguracionDelServer);
+		btnConfiguracionDelServer.setText("Configuracion");
+		btnConfiguracionDelServer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				switchPanel(panel_Configuracion);
+			}
+		});
 		btnFuncionalidades.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchPanel(panel_Funcionalidades);
 			}
 		});
-		
-		JButton btnConfiguracionDelServer = new MenuButton("Configuracion del server");
-		central_Direction_Panel.add(btnConfiguracionDelServer);
-		btnConfiguracionDelServer.addActionListener(new ActionListener() {
+		btnGrupos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				switchPanel(panel_Configuracion);
+				switchPanel(panel_Grupos);
+			}
+		});
+		btnProyectos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				switchPanel(panel_Proyectos);
+			}
+		});
+		btnTransaccion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				switchPanel(panel_Transaccion);
+			}
+		});
+		SQL_User_Button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				switchPanel(panel_Usuario);
 			}
 		});
 		
@@ -248,7 +252,7 @@ public class ServerHandlerFrame  extends JFrame{
 		
 		panel_Usuario = new JPanel();
 		panel_Usuario.setBackground(Color.WHITE);
-		panel_Usuario.setBounds(0, 0, 517, 387);
+		panel_Usuario.setBounds(0, 0, 490, 377);
 		layeredPane.add(panel_Usuario);
 		panel_Usuario.setLayout(new MigLayout("", "[55px]", "[23px][][][]"));
 		

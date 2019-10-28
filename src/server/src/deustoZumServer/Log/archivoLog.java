@@ -1,12 +1,9 @@
 package deustoZumServer.Log;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import java.text.SimpleDateFormat;
-import java.time.LocalTime;
 
 import org.apache.log4j.*;
 
@@ -48,10 +45,6 @@ public class archivoLog {
     public void setLog(Logger log) {
         this.log = log;
     }
-
-    public static void main(String[] args) throws IOException {
-	new archivoLog("C:/Users/ASUS/Documents/GitHub/deuZum/src/server/src/deustoZumServer/Log");
-	}
     
 }
 
