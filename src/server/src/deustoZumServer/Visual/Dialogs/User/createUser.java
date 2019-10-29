@@ -8,10 +8,13 @@ import deustoZumServer.ServerUserFunctionality;
 import deustoZumServer.Visual.Style.Components.Buttons.FlatButton;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.SwingConstants;
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
@@ -22,14 +25,14 @@ public class createUser extends JDialog{
 	private static final long serialVersionUID = 1L;
 	private JTextField tFUser;
 	private JTextField tFPass;
-	private JTextField tfPregSeg;
+	private JComboBox<String> comboPregSeg;
 	private JTextField tFRes;
 	private JTextField txtNombre;
 	private JTextField txtApellidos;
 	private JTextField txtTelefono;
 	private JTextField txtEmail;
 	private JTextField txtF_Nacimiento;
-	private JTextField txtSexo;
+	private JComboBox<String> comboSexo;
 	
 	private JLabel lblUsuario;
 	private JLabel lblPass;
@@ -62,7 +65,9 @@ public class createUser extends JDialog{
 		btnCrear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// TODO verificar que los datos sena validos (e.g. |tFUser|<33)
-				ServerUserFunctionality.createUser(conn, new String[] {tFUser.getText(), tFPass.getText(), tfPregSeg.getText(), tFRes.getText(),"cliente"});
+				ServerUserFunctionality.createUser(conn, new String[] 
+						{tFUser.getText(), tFPass.getText(), comboPregSeg.getSelectedItem().toString(), tFRes.getText()
+						,"cliente"});
 				dispose();
 			}
 		});
@@ -103,7 +108,7 @@ public class createUser extends JDialog{
 		gbc_lblPass.gridy = 1;
 		userData.add(lblPass, gbc_lblPass);
 		
-		tFPass = new JTextField();
+		tFPass = new JPasswordField();
 		GridBagConstraints gbc_tFPass = new GridBagConstraints();
 		gbc_tFPass.fill = GridBagConstraints.BOTH;
 		gbc_tFPass.gridx = 1;
@@ -135,13 +140,19 @@ public class createUser extends JDialog{
 		gbc_lblPregSeguridad.gridy = 3;
 		userData.add(lblPregSeguridad, gbc_lblPregSeguridad);
 		
-		tfPregSeg = new JTextField();
-		GridBagConstraints gbc_tfPregSeg = new GridBagConstraints();
-		gbc_tfPregSeg.fill = GridBagConstraints.BOTH;
-		gbc_tfPregSeg.gridx = 1;
-		gbc_tfPregSeg.gridy = 3;
-		userData.add(tfPregSeg, gbc_tfPregSeg);
-		tfPregSeg.setColumns(20);
+		comboPregSeg = new JComboBox<String>();
+		comboPregSeg.addItem("¿Cual era tu apodo de pequeñ@?");
+		comboPregSeg.addItem("¿En que ciudad conociste a tu pareja?");
+		comboPregSeg.addItem("¿Cual era el nombre de tu mejor amig@ de la infacia?");
+		comboPregSeg.addItem("¿Cual era el nombre de tu primera mascota?");
+		comboPregSeg.addItem("¿Cual era el heroe de tu infacia?");
+		comboPregSeg.addItem("¿En que ciudad te gustaria jubilarte?");
+		GridBagConstraints gbc_comboPregSeg = new GridBagConstraints();
+		gbc_comboPregSeg.fill = GridBagConstraints.BOTH;
+		gbc_comboPregSeg.gridx = 1;
+		gbc_comboPregSeg.gridy = 3;
+		userData.add(comboPregSeg, gbc_comboPregSeg);
+		
 		
 		lblRespuesta = new JLabel("Respuesta");
 		lblRespuesta.setHorizontalAlignment(SwingConstants.CENTER);
@@ -231,13 +242,15 @@ public class createUser extends JDialog{
 		gbc_lblSexo.gridy = 9;
 		userData.add(lblSexo, gbc_lblSexo);
 		
-		txtSexo = new JTextField();
-		GridBagConstraints gbc_txtSexo = new GridBagConstraints();
-		gbc_txtSexo.fill = GridBagConstraints.BOTH;
-		gbc_txtSexo.gridx = 1;
-		gbc_txtSexo.gridy = 9;
-		userData.add(txtSexo, gbc_txtSexo);
-		txtSexo.setColumns(20);
+		comboSexo = new JComboBox<String>();
+		comboSexo.addItem("Hombre");
+		comboSexo.addItem("Mujer");
+		comboSexo.addItem("Otro");
+		GridBagConstraints gbc_comboSexo = new GridBagConstraints();
+		gbc_comboSexo.fill = GridBagConstraints.BOTH;
+		gbc_comboSexo.gridx = 1;
+		gbc_comboSexo.gridy = 9;
+		userData.add(comboSexo, gbc_comboSexo);
 		
 		beautyW = new JPanel();
 		getContentPane().add(beautyW, BorderLayout.WEST);

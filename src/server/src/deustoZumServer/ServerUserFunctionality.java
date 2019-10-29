@@ -13,8 +13,8 @@ import deustoZumServer.Database.GeneralSQLFunctions;
 public class ServerUserFunctionality {
 
 	/**
-	 * Genera una conexión con el servidor SQL y ordena la información en un array para llamar a la funcion createUser
-	 * @param data JSON que contiene la información de usuario
+	 * Genera una conexiï¿½n con el servidor SQL y ordena la informaciï¿½n en un array para llamar a la funcion createUser
+	 * @param data JSON que contiene la informaciï¿½n de usuario
 	 * @see {@link #createUser(Connection connection, String[] data)}
 	 */
 	public static void createUserC(JSONObject data) {
@@ -24,16 +24,43 @@ public class ServerUserFunctionality {
 	}
 	/**
 	 * Crea un usuario dentro de la base de datos dada en la conexion. Tabla usuario.
-	 * @param connection Conexión de SQL
-	 * @param data Array que contiene la información de creacion del usuario (User, Pass, Pregunta Seguridad, Respuesta)
+	 * @param connection Conexiï¿½n de SQL
+	 * @param data Array que contiene la informaciï¿½n de creacion del usuario (User, Pass, Pregunta Seguridad, Respuesta)
 	 */
 	public static void createUser(Connection connection, String[] data){
-		String[] columnNamesUsuarios = {"usuario","contraseña","preg_seguridad","resp_seguridad", "permisos"};
+		String[] columnNamesUsuarios = {"usuario","contraseï¿½a","preg_seguridad","resp_seguridad", "permisos"};
 		// Create User
 		try {
 			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "usuario", columnNamesUsuarios, data);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Genera una conexiÃ³n con el servidor SQL y ordena la informacion en un array para llamar a la funcion createUserInf.
+	 * @param data JSON que contiene informacion detallada de usuario.
+	 * @see {@link #createUserInf(Connection connection, String[] data)}
+	 */
+	public static void crerateUserInfC(JSONObject data) {
+		Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost/deuzumdb", "root", "");
+		createUserInf(conn, new String[] {data.getString("nombre"), data.getString("apellidos"), data.getString("telefono"), 
+				data.getString("email"), data.getString("direccion"), data.getString("fecha_nacimiento"), data.getString("sexo")});	
+	}
+		
+	/**
+	 * Crea la informacion de un usuario dentro de la base de datos dada en la conexion. Tabla infousuario.
+	 * @param connection ConexiÃ³n de SQL
+	 * @param data Array que contiene la informaciÃ³n de usuario (Nombre, Apellidos, Telefono, Email, Direccion, F_Nacimiento, Sexo).
+	 */	
+	public static void createUserInf(Connection connection, String[] data) {
+		String[] columnNamesUserInf = {"nombre", "apellidos", "telefono", "email", "direccion", "fecha_nacimiento", "sexo"};
+		// Create UserInf
+		try {
+			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "infousuario", columnNamesUserInf, data);
+		}catch(SQLException e) {
+			//TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -69,7 +96,7 @@ public class ServerUserFunctionality {
 			dinero_B = GeneralSQLFunctions.getEntryFromDatabase(connection, "cuentas", "dinero", " WHERE user_id='"+userID_B+"'");
 			
 			if(Integer.valueOf(dinero_A)<value) 
-				return "No hay dinero suficinete como para realizar la transacción";
+				return "No hay dinero suficinete como para realizar la transacciï¿½n";
 			
 			int actdinero_A = Integer.valueOf(dinero_A)-value;
 			GeneralSQLFunctions.updateEntryFromDatabase(connection, "cuentas", 
@@ -100,7 +127,7 @@ public class ServerUserFunctionality {
 	}
 	
 	public static void addToGroup(Connection connection, String userID, String groupID, String permisos) {
-		// TODO añadir las funciones de verificacion de groupName
+		// TODO aï¿½adir las funciones de verificacion de groupName
 		try {
 			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "grupomiembros", new String[] {"id_grupo","miembro", "permisos"},new String[] {groupID, userID, permisos} );
 		} catch (SQLException e) {
@@ -110,7 +137,7 @@ public class ServerUserFunctionality {
 	}
 	
 	public static void createGroup(Connection connection, String groupName) {
-		// TODO añadir las funciones de verificacion de groupName
+		// TODO aï¿½adir las funciones de verificacion de groupName
 		try {
 			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "grupo", new String[] {"nombre"},new String[] {groupName} );
 		} catch (SQLException e) {
@@ -120,7 +147,7 @@ public class ServerUserFunctionality {
 	}
 	
 	public static void createAccount(Connection connection, String userID, String accountName) {
-		// TODO añadir las funciones de verificacion de userId, accountName
+		// TODO aï¿½adir las funciones de verificacion de userId, accountName
 		try {
 			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "cuentas", new String[] {"id_usuario", "numeroCuenta","permisos"},new String[] {userID, accountName, "3"} );
 		} catch (SQLException e) {
@@ -129,7 +156,7 @@ public class ServerUserFunctionality {
 		}
 	}
 	public static void updateAccountInfo(Connection connection, String userID, String[] columns, String[] data) {
-		// TODO añadir las funciones de verificacion de userId, accountName
+		// TODO aï¿½adir las funciones de verificacion de userId, accountName
 		try {
 			GeneralSQLFunctions.updateEntryFromDatabase(connection, "cuenta", columns, data, " WHERE user_id='"+userID+"'");
 		} catch (SQLException e) {

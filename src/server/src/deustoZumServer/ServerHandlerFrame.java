@@ -11,12 +11,8 @@ import javax.swing.UIManager;
 
 import deustoZumServer.FileManagement.Icons;
 import deustoZumServer.Visual.Dialogs.*;
-import deustoZumServer.Visual.Dialogs.Group.createGroup;
-import deustoZumServer.Visual.Dialogs.Group.deleteGroup;
-import deustoZumServer.Visual.Dialogs.Group.editGroup;
-import deustoZumServer.Visual.Dialogs.Project.createProyect;
-import deustoZumServer.Visual.Dialogs.Project.deleteProyect;
-import deustoZumServer.Visual.Dialogs.Project.editProyect;
+import deustoZumServer.Visual.Dialogs.Group.*;
+import deustoZumServer.Visual.Dialogs.Project.*;
 import deustoZumServer.Visual.Dialogs.Transactions.*;
 import deustoZumServer.Visual.Dialogs.User.*;
 import deustoZumServer.Visual.Style.CustomColors;
@@ -460,10 +456,10 @@ public class ServerHandlerFrame  extends JFrame{
 			panel_Configuracion.add(btnServerName, "cell 0 4,growx");
 			btnServerName.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					String serverName = "hola";
-					while(serverName.equals("hola")) {
+					String serverName = "";
+					while(serverName.equals("")) {
 						serverName = JOptionPane.showInputDialog("Introducir nombre del servidor");
-						if (serverName.equals("hola")) {
+						if (serverName.equals("")) {
 							JOptionPane.showMessageDialog(null, "Introducir un nombre valido", "ERROR", 0);
 						}
 					}
@@ -472,18 +468,19 @@ public class ServerHandlerFrame  extends JFrame{
 			});
 			
 				
-				JButton btnBotCount = new FlatButton("Bot Count");
-				btnBotCount.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						JOptionPane.showInputDialog("Introducir el numero de Bots en el servidor");
-					}
-				});
-				panel_Configuracion.add(btnBotCount, "cell 0 5,growx");
-			btnCrearUser.addActionListener(new ActionListener() {
+			JButton btnBotCount = new FlatButton("Bot Count");
+			panel_Configuracion.add(btnBotCount, "cell 0 5,growx");
+			btnBotCount.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-			
+					try {
+						int botCount = Integer.parseInt(JOptionPane.showInputDialog("Introducir el numero de Bots en el servidor"));
+					}catch (NumberFormatException nfe) {
+						JOptionPane.showMessageDialog(null, "No se ha introducido un numero", "ERROR", 0);
+					}
+					if (server.isRunning) server.restart();
 				}
 			});
+
 
 	}
 
