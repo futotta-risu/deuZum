@@ -4,6 +4,9 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+
+import java.sql.Connection;
+
 import javax.swing.JButton;
 
 public class editGroup extends JDialog{
@@ -44,7 +47,7 @@ public class editGroup extends JDialog{
 	 * Crea un objeto de editGroup, el cual contiene un Dialogo que permite buscar un grupo por su
 	 * ID y modificar todos los datos de este.
 	 */
-	public editGroup() {
+	public editGroup(Connection c) {
 		setSize(500,500);
 		setTitle("Editar Grupo");
 		setVisible(true);

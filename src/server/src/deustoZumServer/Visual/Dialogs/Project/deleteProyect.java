@@ -3,6 +3,9 @@ package deustoZumServer.Visual.Dialogs.Project;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import java.sql.Connection;
+
 import javax.swing.JButton;
 
 public class deleteProyect extends JDialog{
@@ -17,7 +20,7 @@ public class deleteProyect extends JDialog{
 	 * Crea un objeto de deleteProyect, el cual contiene un Dialogo que permite borrar un proyecto buscandolo
 	 * a traves de su ID.
 	 */
-	public deleteProyect() {
+	public deleteProyect(Connection c) {
 		setSize(500,130);
 		setTitle("Eliminar Proyecto");
 		setVisible(true);

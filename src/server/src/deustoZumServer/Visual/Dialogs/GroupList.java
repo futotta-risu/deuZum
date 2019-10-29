@@ -6,6 +6,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JList;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
 import java.awt.event.ActionEvent;
 
 public class GroupList extends JDialog{
@@ -22,7 +23,7 @@ public class GroupList extends JDialog{
 	 * Crea un objeto de GroupList, el cual contiene un Dialogo que muestra la lista
 	 * de todos las grupos y permite hacer busquedas filtradas para poder eliminarlos.
 	 */
-	public GroupList() {
+	public GroupList(Connection c) {
 		setSize(500,500);
 		setTitle("Lista de Grupos");
 		setVisible(true);

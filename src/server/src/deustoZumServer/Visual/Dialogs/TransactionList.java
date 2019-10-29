@@ -3,6 +3,9 @@ package deustoZumServer.Visual.Dialogs;
 import javax.swing.JDialog;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
+
+import java.sql.Connection;
+
 import javax.swing.JButton;
 import javax.swing.JList;
 
@@ -20,7 +23,7 @@ public class TransactionList extends JDialog{
 	 * Crea un objeto de TransactionList, el cual contiene un Dialogo que muestra la lista
 	 * de todos las transacciones y permite hacer busquedas filtradas para poder eliminarlas.
 	 */
-	public TransactionList() {
+	public TransactionList(Connection c) {
 		setSize(500,500);
 		setTitle("Lista de Transacciones");
 		setVisible(true);

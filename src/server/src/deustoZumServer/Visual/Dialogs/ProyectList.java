@@ -3,6 +3,9 @@ package deustoZumServer.Visual.Dialogs;
 import javax.swing.JDialog;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
+
+import java.sql.Connection;
+
 import javax.swing.JButton;
 import javax.swing.JList;
 
@@ -20,7 +23,7 @@ public class ProyectList extends JDialog{
 	 * Crea un objeto de ProyectList, el cual contiene un Dialogo que muestra la lista
 	 * de todos las proyectos y permite hacer busquedas filtradas para poder eliminarlos.
 	 */
-	public ProyectList() {
+	public ProyectList(Connection c) {
 		setSize(500, 500);
 		setVisible(true);
 		setTitle("Lista de Proyectos");

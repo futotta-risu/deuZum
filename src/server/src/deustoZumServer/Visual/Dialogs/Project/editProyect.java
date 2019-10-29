@@ -3,6 +3,9 @@ package deustoZumServer.Visual.Dialogs.Project;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import java.sql.Connection;
+
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 
@@ -25,7 +28,7 @@ public class editProyect extends JDialog{
 	 * Crea un objeto de editProyect el cual contiene un Dialogo que permite editar la informacion de un proyecto
 	 * buscandolo a traves de su ID.
 	 */
-	public editProyect() {
+	public editProyect(Connection c) {
 		setSize(500,500);
 		setTitle("Editar Usuario");
 		setVisible(true);
