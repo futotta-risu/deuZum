@@ -4,6 +4,9 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+
+import java.sql.Connection;
+
 import javax.swing.JButton;
 
 public class editGroup extends JDialog{
@@ -28,19 +31,23 @@ public class editGroup extends JDialog{
 	private JLabel lblMiembro6;
 	private JLabel lblMiembro7;
 	private JLabel lblMiembro8;
-	private JComboBox comboPermiso1;
-	private JComboBox comboPermiso2;
-	private JComboBox comboPermiso3;
-	private JComboBox comboPermiso4;
-	private JComboBox comboPermiso5;
-	private JComboBox comboPermiso6;
-	private JComboBox comboPermiso7;
-	private JComboBox comboPermiso8;
+	private JComboBox<String> comboPermiso1;
+	private JComboBox<String> comboPermiso2;
+	private JComboBox<String> comboPermiso3;
+	private JComboBox<String> comboPermiso4;
+	private JComboBox<String> comboPermiso5;
+	private JComboBox<String> comboPermiso6;
+	private JComboBox<String> comboPermiso7;
+	private JComboBox<String> comboPermiso8;
+	private JButton btnGuardarCambio;
+	private JLabel lblIntroducirIdGrupo;
+	private JButton btnBuscar;
 
 	/**
-	 * 
+	 * Crea un objeto de editGroup, el cual contiene un Dialogo que permite buscar un grupo por su
+	 * ID y modificar todos los datos de este.
 	 */
-	public editGroup() {
+	public editGroup(Connection c) {
 		setSize(500,500);
 		setTitle("Editar Grupo");
 		setVisible(true);
@@ -125,56 +132,57 @@ public class editGroup extends JDialog{
 		
 		
 		
-		JComboBox comboPermiso1 = new JComboBox();
+		comboPermiso1 = new JComboBox<String>();
 		comboPermiso1.setToolTipText("Permiso");
 		comboPermiso1.setBounds(38, 188, 126, 27);
 		getContentPane().add(comboPermiso1);
 		
-		JComboBox comboPermiso2 = new JComboBox();
+		comboPermiso2 = new JComboBox<String>();
 		comboPermiso2.setToolTipText("Permiso");
 		comboPermiso2.setBounds(176, 188, 126, 27);
 		getContentPane().add(comboPermiso2);
 		
-		JComboBox comboPermiso3 = new JComboBox();
+		comboPermiso3 = new JComboBox<String>();
 		comboPermiso3.setToolTipText("Permiso");
 		comboPermiso3.setBounds(316, 188, 126, 27);
 		getContentPane().add(comboPermiso3);
 		
-		JComboBox comboPermiso4 = new JComboBox();
+		comboPermiso4 = new JComboBox<String>();
 		comboPermiso4.setToolTipText("Permiso");
 		comboPermiso4.setBounds(38, 283, 126, 27);
 		getContentPane().add(comboPermiso4);
 		
-		JComboBox comboPermiso5 = new JComboBox();
+		comboPermiso5 = new JComboBox<String>();
 		comboPermiso5.setToolTipText("Permiso");
 		comboPermiso5.setBounds(183, 283, 126, 27);
 		getContentPane().add(comboPermiso5);	
 		
-		JComboBox comboPermiso6 = new JComboBox();
+		comboPermiso6 = new JComboBox<String>();
 		comboPermiso6.setToolTipText("Permiso");
 		comboPermiso6.setBounds(322, 283, 126, 27);
 		getContentPane().add(comboPermiso6);
 		
-		JComboBox comboPermiso7 = new JComboBox();
+		comboPermiso7 = new JComboBox<String>();
 		comboPermiso7.setToolTipText("Permiso");
 		comboPermiso7.setBounds(38, 400, 126, 27);
 		getContentPane().add(comboPermiso7);
 				
-		JComboBox comboPermiso8 = new JComboBox();
+		comboPermiso8 = new JComboBox<String>();
 		comboPermiso8.setToolTipText("Permiso");
 		comboPermiso8.setBounds(183, 400, 126, 27);
 		getContentPane().add(comboPermiso8);
 		
+			
 		txtNombreGrupo = new JTextField();
 		txtNombreGrupo.setBounds(111, 99, 130, 26);
 		getContentPane().add(txtNombreGrupo);
 		txtNombreGrupo.setColumns(10);
 		
-		JButton btnGuardarCambio = new JButton("Guardar Cambios");
+		btnGuardarCambio = new JButton("Guardar Cambios");
 		btnGuardarCambio.setBounds(337, 381, 143, 29);
 		getContentPane().add(btnGuardarCambio);
 		
-		JLabel lblIntroducirIdGrupo = new JLabel("Introducir ID Grupo:");
+		lblIntroducirIdGrupo = new JLabel("Introducir ID Grupo:");
 		lblIntroducirIdGrupo.setBounds(38, 53, 130, 16);
 		getContentPane().add(lblIntroducirIdGrupo);
 		
@@ -183,11 +191,9 @@ public class editGroup extends JDialog{
 		getContentPane().add(txtIdGrupo);
 		txtIdGrupo.setColumns(10);
 		
-		JButton btnBuscar = new JButton("Buscar Grupo");
+		btnBuscar = new JButton("Buscar Grupo");
 		btnBuscar.setBounds(337, 48, 117, 29);
 		getContentPane().add(btnBuscar);
 	}
 	
-	
-
 }

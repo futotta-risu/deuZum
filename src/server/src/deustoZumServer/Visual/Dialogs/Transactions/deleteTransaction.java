@@ -3,6 +3,9 @@ package deustoZumServer.Visual.Dialogs.Transactions;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import java.sql.Connection;
+
 import javax.swing.JButton;
 
 public class deleteTransaction extends JDialog{
@@ -18,7 +21,7 @@ public class deleteTransaction extends JDialog{
 	 * Crea un objeto de deleteTransaction, el cual contiene un Dialogo que da la opcion de buscar una
 	 * transaccion por su ID y eliminarla.
 	 */
-	public deleteTransaction() {
+	public deleteTransaction(Connection c) {
 		setSize(450,100);
 		setTitle("Eliminar Transaccion");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);

@@ -14,12 +14,13 @@
 # Server Functions
 
 # stopServer
-# tartServer
+# startServer
 
 # IA Commands
 # addBot
 
 # Database Commands
+
 addUser	deustoZumServer.ServerUserFunctionality createUserC
 # addTransaction
 

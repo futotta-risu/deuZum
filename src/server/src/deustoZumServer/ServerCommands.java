@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import  java.lang.reflect.Method;
 
 import org.json.*;
 
@@ -37,29 +38,27 @@ public class ServerCommands {
 		BufferedReader br;
 		try {
 			br = new BufferedReader(new FileReader(file));
-			String socketLine; 
-			  while ((socketLine = br.readLine()) != null) {
-				  // Este if comprueba si la linea es un comentario
-				  if(socketLine.startsWith("#")) 
-					  continue;
+			String fileLine; 
+			while ((fileLine = br.readLine()) != null) {
+				// Este if comprueba si la linea es un comentario
+				if(fileLine.startsWith("#")) 
+					continue;
 				  
-				  //Cambiamos multiples espacios y tabuladores
-				  String[] socketLineSplit = socketLine.trim().replaceAll("[ \\t]+", " ").split(" ");
+				
+				//Cambiamos multiples espacios y tabuladores
+				String[] fileLineSplit = fileLine.trim().replaceAll("[ \\t]+", " ").split(" ");
 				  
-				  // Si solo son espacios o tabulacions
-				  if(socketLineSplit.length == 1) 
-					  continue;
+				// Si solo son espacios o tabulacions
+				if(fileLineSplit.length != 3) 
+					continue;
 				  
-				  serverCommands.put(socketLineSplit[0], new Command() {
-
+				serverCommands.put(fileLineSplit[0], new Command() {
 					public String runCommand(JSONObject data) {
 						try {
-							Class<?> temp = Class.forName(socketLineSplit[1]);
+							Class<?> temp = Class.forName(fileLineSplit[1]);
 							
-							java.lang.reflect.Method method;
-							method = temp.getMethod(socketLineSplit[2], socketLineSplit.getClass());
-							Object[] params = {data};
-							return (String) method.invoke(null, params);
+							Method method = temp.getMethod(fileLineSplit[2], fileLineSplit.getClass());
+							return (String) method.invoke(null, new Object[] {data});
 							
 							// TODO cambiar los errores para algo más util
 						} catch (ClassNotFoundException e) {

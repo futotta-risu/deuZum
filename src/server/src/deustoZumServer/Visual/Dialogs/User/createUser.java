@@ -5,7 +5,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import deustoZumServer.ServerUserFunctionality;
-import deustoZumServer.Visual.Style.FlatButton;
+import deustoZumServer.Visual.Style.Components.Buttons.FlatButton;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;

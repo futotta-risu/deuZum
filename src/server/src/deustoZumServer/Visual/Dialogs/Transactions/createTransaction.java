@@ -16,7 +16,7 @@ import java.awt.GridLayout;
 import javax.swing.SwingConstants;
 
 import deustoZumServer.ServerUserFunctionality;
-import deustoZumServer.Visual.Style.FlatButton;
+import deustoZumServer.Visual.Style.Components.Buttons.FlatButton;
 
 import java.awt.event.ActionListener;
 import java.sql.Connection;
