@@ -3,6 +3,7 @@ package deustoZumServer.Visual.Style;
 import java.awt.Color;
 import java.awt.Font;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 
 public class MenuButton extends JButton{
@@ -21,5 +22,10 @@ public class MenuButton extends JButton{
 			setBorderPainted(true);
 			setFocusPainted(false);
 			setContentAreaFilled(true);
+			setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.WHITE)); 
+		}
+		public MenuButton isBotton() {
+			setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, Color.WHITE)); 
+			return this;
 		}
 }

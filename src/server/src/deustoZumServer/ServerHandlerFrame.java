@@ -6,6 +6,8 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
+import javax.swing.UIDefaults;
+import javax.swing.UIManager;
 
 import deustoZumServer.Visual.Dialogs.Transactions.createTransaction;
 import deustoZumServer.Visual.Dialogs.User.createUser;
@@ -22,6 +24,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 import java.awt.Dimension;
@@ -29,6 +32,7 @@ import java.awt.Insets;
 import java.awt.GridBagLayout;
 import java.awt.SystemColor;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.FlowLayout;
 
 public class ServerHandlerFrame  extends JFrame{
@@ -57,68 +61,73 @@ public class ServerHandlerFrame  extends JFrame{
 	 */
 	public void configWindow() {
 		
+		Icon playIcon = new ImageIcon("data/img/icons/play.png");
+		Image img = ((ImageIcon) playIcon).getImage().getScaledInstance(25, 25,  java.awt.Image.SCALE_SMOOTH);
+		playIcon = new ImageIcon(img);
+
+		Icon stopIcon = new ImageIcon("data/img/icons/stop.png");
+		img = ((ImageIcon) stopIcon).getImage().getScaledInstance(25, 25,  java.awt.Image.SCALE_SMOOTH);
+		stopIcon = new ImageIcon(img);
+		
+		Icon pauseIcon = new ImageIcon("data/img/icons/pause.png");
+		img = ((ImageIcon) pauseIcon).getImage().getScaledInstance(25, 25,  java.awt.Image.SCALE_SMOOTH);
+		pauseIcon = new ImageIcon(img);
+		
+		
+		
+		
 		setIconImage(new ImageIcon("data/img/iconoP.png").getImage());
 		
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
-		JPanel sup_Bar = new JPanel();
-		sup_Bar.setBackground(new Color(50, 50, 50));
-		sup_Bar.setPreferredSize(new Dimension(660, 70));
-		getContentPane().add(sup_Bar, BorderLayout.SOUTH);
-		
-		sup_Bar.setLayout(new GridBagLayout());
-		
-		JButton btnStartServer = new FlatButton("Start Server");
-		btnStartServer.setFont(new Font("Verdana", Font.PLAIN, 30));
-		
-		
-		GridBagConstraints constraints = new GridBagConstraints();
-		constraints.weightx = 1;
-		constraints.weighty = 1;
-		constraints.gridx = 0;
-		constraints.gridwidth  = 3;
-		constraints.gridy = 0;
-		constraints.gridheight  = 2;
-		constraints.fill = GridBagConstraints.BOTH;
-		sup_Bar.add(btnStartServer,constraints.clone());
-		
-		
-		JButton btnStopServer = new FlatButton("Stop Server");
-		btnStopServer.setFont(new Font("Georgia", Font.PLAIN, 11));
-		constraints.gridx = 3;
-		constraints.gridy = 0;
-		constraints.gridwidth  = 1;
-		constraints.gridheight  = 1;
-		
-		sup_Bar.add(btnStopServer,constraints.clone());
-		
-		
-		
-		JButton btnExit = new FlatButton("Exit");
-		btnExit.setFont(new Font("Georgia", Font.PLAIN, 11));
-		constraints.gridx = 3;
-		constraints.gridy = 1;
-		sup_Bar.add(btnExit,constraints.clone());
+		JPanel status_Bar = new JPanel();
+		status_Bar.setBackground(CustomColors.mBlueR);
+		status_Bar.setPreferredSize(new Dimension(getWidth(),38));
+		getContentPane().add(status_Bar, BorderLayout.NORTH);
 		
 		JLabel emptyLabel = new JLabel("Deuzum");
+		status_Bar.add(emptyLabel);
 		emptyLabel.setForeground(Color.CYAN);
-		emptyLabel.setFont(new Font("DecoType Naskh", Font.BOLD, 20));
-		constraints.gridx = 5;
-		constraints.gridheight  = 1;
-		constraints.gridwidth  = 2;
-		constraints.gridy = 0;
-		constraints.fill = GridBagConstraints.HORIZONTAL;
-		constraints.insets = new Insets(0,70,0,0);  //top padding
-		sup_Bar.add(emptyLabel,constraints.clone());
+		emptyLabel.setFont(new Font("Dialog", Font.BOLD, 14));
 		JLabel serverLabel = new JLabel("Status: Off");
+		status_Bar.add(serverLabel);
 		serverLabel.setForeground(Color.WHITE);
-		constraints.gridx = 5;
-		constraints.gridheight  = 1;
-		constraints.gridwidth  = 2;
-		constraints.gridy = 1;
-		constraints.insets = new Insets(0,15,0,0);  //top padding
-		constraints.fill = GridBagConstraints.HORIZONTAL;
-		sup_Bar.add(serverLabel,constraints.clone());
+		
+		JButton btnStartServer = new FlatButton(playIcon);
+		btnStartServer.setPreferredSize(new Dimension(30,30));
+		status_Bar.add(btnStartServer);
+		
+		
+		JButton btnStopServer = new FlatButton(stopIcon);
+		btnStopServer.setPreferredSize(new Dimension(30,30));
+		status_Bar.add(btnStopServer);
+		
+		
+		
+		JButton btnExit = new FlatButton(pauseIcon);
+		btnExit.setPreferredSize(new Dimension(30,30));
+		status_Bar.add(btnExit);
+		
+				
+		btnExit.addActionListener(new ActionListener() {	
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(server != null)  server.stop();
+				dispose();	
+			}
+		});
+		
+		
+		
+		btnStopServer.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				server.stop();
+				serverLabel.setText("Server: off");
+				
+			}
+		});
 		
 		btnStartServer.addActionListener(new ActionListener() {
 			
@@ -143,27 +152,6 @@ public class ServerHandlerFrame  extends JFrame{
 				serverLabel.setText("Server: Running");
 				
 				
-			}
-		});
-		
-		
-		
-		btnStopServer.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				server.stop();
-				serverLabel.setText("Server: off");
-				
-			}
-		});
-		
-				
-		btnExit.addActionListener(new ActionListener() {	
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(server != null)  server.stop();
-				dispose();	
 			}
 		});
 		
@@ -242,7 +230,7 @@ public class ServerHandlerFrame  extends JFrame{
 		//         MUTABLE TABLE
 		
 		JPanel central_Mutable_Panel = new JPanel();
-		central_Mutable_Panel.setBackground(new Color(255, 255, 255));
+		central_Mutable_Panel.setBackground(Color.WHITE);
 		central_Panel.add(central_Mutable_Panel, BorderLayout.CENTER);
 		central_Mutable_Panel.setLayout(new MigLayout("", "[16px,grow]", "[30px,grow]"));
 		
@@ -251,8 +239,8 @@ public class ServerHandlerFrame  extends JFrame{
 		layeredPane.setLayout(null);
 		
 		panel_Usuario = new JPanel();
-		panel_Usuario.setBackground(Color.WHITE);
-		panel_Usuario.setBounds(0, 0, 490, 377);
+		panel_Usuario.setSize(8, 3);
+		panel_Usuario.setBackground(SystemColor.menu);
 		layeredPane.add(panel_Usuario);
 		panel_Usuario.setLayout(new MigLayout("", "[55px]", "[23px][][][]"));
 		
@@ -288,8 +276,7 @@ public class ServerHandlerFrame  extends JFrame{
 					});
 		
 		panel_Transaccion = new JPanel();
-		panel_Transaccion.setBackground(new Color(224, 255, 255));
-		panel_Transaccion.setBounds(0, 0, 517, 387);
+		panel_Transaccion.setBackground(CustomColors.mBBlueLight);
 		layeredPane.add(panel_Transaccion);
 		panel_Transaccion.setLayout(new MigLayout("", "[55px]", "[23px][][]"));
 		layeredPane.setLayer(panel_Transaccion, 3);
@@ -316,27 +303,24 @@ public class ServerHandlerFrame  extends JFrame{
 		
 		
 		panel_Proyectos = new JPanel();
-		panel_Proyectos.setBackground(new Color(224, 255, 255));
+		panel_Proyectos.setBackground(CustomColors.mBBlueLight);
 		layeredPane.setLayer(panel_Proyectos, 4);
-		panel_Proyectos.setBounds(0, 0, 517, 387);
 		layeredPane.add(panel_Proyectos);
 		panel_Proyectos.setLayout(new MigLayout("", "[55px]", "[23px][][][][][]"));
 		
 		panel_Grupos = new JPanel();
-		panel_Grupos.setBackground(new Color(224, 255, 255));
-		panel_Grupos.setBounds(0, 0, 517, 387);
+		panel_Grupos.setBackground(CustomColors.mBBlueLight);
 		layeredPane.add(panel_Grupos);
 		
 		
 		
 		panel_Funcionalidades = new JPanel();
-		panel_Funcionalidades.setBackground(new Color(224, 255, 255));
-		panel_Funcionalidades.setBounds(0, 0, 517, 387);
+		panel_Funcionalidades.setBackground(CustomColors.mBBlueLight);
 		layeredPane.add(panel_Funcionalidades);
 		panel_Funcionalidades.setLayout(new MigLayout("", "[55px]", "[23px][][]"));
 		
 		panel_Configuracion = new JPanel();
-		panel_Configuracion.setBounds(0, 0, 517, 387);
+		panel_Configuracion.setBackground(CustomColors.mBBlueLight);
 		layeredPane.add(panel_Configuracion);
 		panel_Configuracion.setLayout(new MigLayout("", "[55px]", "[23px][][][][][]"));
 		layeredPane.setLayer(panel_Proyectos, 4);
