@@ -1,10 +1,12 @@
-package deustoZumServer.Visual.Style;
+package deustoZumServer.Visual.Style.Components.Buttons;
 
 import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+
+import deustoZumServer.Visual.Style.CustomColors;
 
 public class MenuButton extends JButton{
 

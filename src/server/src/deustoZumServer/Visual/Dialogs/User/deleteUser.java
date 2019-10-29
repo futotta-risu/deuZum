@@ -14,7 +14,7 @@ import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
 import deustoZumServer.ServerUserFunctionality;
-import deustoZumServer.Visual.Style.FlatButton;
+import deustoZumServer.Visual.Style.Components.Buttons.FlatButton;
 
 import java.awt.Color;
 import java.awt.Font;

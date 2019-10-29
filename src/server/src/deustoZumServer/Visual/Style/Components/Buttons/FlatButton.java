@@ -1,6 +1,7 @@
-package deustoZumServer.Visual.Style;
+package deustoZumServer.Visual.Style.Components.Buttons;
 
 import java.awt.Color;
+import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
@@ -26,6 +27,12 @@ public class FlatButton extends JButton {
 	public FlatButton(Icon icono) {
 		super(icono);
 		setStyle();
+		
+	}
+	public FlatButton(Icon icono, int size) {
+		super(icono);
+		setStyle();
+		setPreferredSize(new Dimension(size,size));
 		
 	}
 	public void setStyle() {
