@@ -10,9 +10,15 @@ import javax.swing.UIDefaults;
 import javax.swing.UIManager;
 
 import deustoZumServer.FileManagement.Icons;
-import deustoZumServer.Visual.Dialogs.Transactions.createTransaction;
-import deustoZumServer.Visual.Dialogs.User.createUser;
-import deustoZumServer.Visual.Dialogs.User.deleteUser;
+import deustoZumServer.Visual.Dialogs.*;
+import deustoZumServer.Visual.Dialogs.Group.createGroup;
+import deustoZumServer.Visual.Dialogs.Group.deleteGroup;
+import deustoZumServer.Visual.Dialogs.Group.editGroup;
+import deustoZumServer.Visual.Dialogs.Project.createProyect;
+import deustoZumServer.Visual.Dialogs.Project.deleteProyect;
+import deustoZumServer.Visual.Dialogs.Project.editProyect;
+import deustoZumServer.Visual.Dialogs.Transactions.*;
+import deustoZumServer.Visual.Dialogs.User.*;
 import deustoZumServer.Visual.Style.CustomColors;
 import deustoZumServer.Visual.Style.Components.Buttons.FlatButton;
 import deustoZumServer.Visual.Style.Components.Buttons.MenuButton;
@@ -60,7 +66,7 @@ public class ServerHandlerFrame  extends JFrame{
 	}
 	
 	/**
-	 * Configuraci�n del JFrame de ServerHandlerFrame
+	 * Configuraci�n del JFrame de ServerHandlerFrame
 	 */
 	public void configWindow() {
 		// TODO Hacer que el icono se pueda cambiar desde propierties
@@ -228,6 +234,7 @@ public class ServerHandlerFrame  extends JFrame{
 		central_Mutable_Panel.setLayout(new BorderLayout(0, 0));
 		
 		panel_Usuario = new MenuPanel();
+		central_Mutable_Panel.add(panel_Usuario);
 		
 		//  BOTONES USUARIO
 		
@@ -253,7 +260,15 @@ public class ServerHandlerFrame  extends JFrame{
 			JButton btnVerCuentas = new FlatButton("Ver cuentas Usuario");
 			panel_Usuario.add(btnVerCuentas, "cell 0 3");
 			central_Mutable_Panel.add(panel_Usuario);
+			btnVerCuentas.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					UserList uL = new UserList(server.getConnection());
+				}
+			});
+			
+			
 			panel_Transaccion = new JPanel();
+			central_Mutable_Panel.add(panel_Transaccion);
 			
 			
 			//  BOTONES TRANSACCION
@@ -268,46 +283,89 @@ public class ServerHandlerFrame  extends JFrame{
 			
 			JButton btnEliminarTransaccion = new FlatButton("Eliminar Transaccion");
 			panel_Transaccion.add(btnEliminarTransaccion, "cell 0 1,growx");
+			btnEliminarTransaccion.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					deleteTransaction dT = new deleteTransaction(server.getConnection());
+				}
+			});
 			
 			JButton btnVerTransacciones = new FlatButton("Ver Transacciones");
 			panel_Transaccion.add(btnVerTransacciones, "cell 0 2,growx");
+			btnVerTransacciones.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					TransactionList tL = new TransactionList(server.getConnection());
+				}
+			});
 			
 			
 			//        PANELES MUTABLE
 			
 			
 			panel_Proyectos = new MenuPanel();
+			central_Mutable_Panel.add(panel_Proyectos);
 			
 			
 			//   BOTONES PROYECTO
 			
 			JButton btnCrearProyecto = new FlatButton("Crear Proyecto");
 			panel_Proyectos.add(btnCrearProyecto, "cell 0 0,growx");
+			btnCrearProyecto.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					createProyect cP = new createProyect(server.getConnection());
+				}
+			});
 			
 			JButton btnEditarProyecto = new FlatButton("Editar Proyecto");
 			panel_Proyectos.add(btnEditarProyecto, "cell 0 1,growx");
+			btnEditarProyecto.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					editProyect eP = new editProyect(server.getConnection());
+				}
+			});
 			
 			JButton btnEliminarProyecto = new FlatButton("Eliminar Proyecto");
 			btnEliminarProyecto.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					deleteProyect dP = new deleteProyect(server.getConnection());
 				}
 			});
 			panel_Proyectos.add(btnEliminarProyecto, "cell 0 2,growx");
 			
 			JButton btnVerProyectos = new FlatButton("Ver Proyectos");
 			panel_Proyectos.add(btnVerProyectos, "cell 0 3,growx");
+			btnVerProyectos.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					ProyectList pL = new ProyectList(server.getConnection());
+				}
+			});
 			
+			
+				
 			panel_Grupos = new MenuPanel();
+			central_Mutable_Panel.add(panel_Grupos);
 			
-			JButton btnCrearGrupo_1 = new FlatButton("Crear Grupo");
-			panel_Grupos.add(btnCrearGrupo_1, "cell 0 0,growx");
+			// BOTONES GRUPO
+			
+			JButton btnCrearGrupo = new FlatButton("Crear Grupo");
+			panel_Grupos.add(btnCrearGrupo, "cell 0 0,growx");
+			btnCrearGrupo.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					createGroup cG = new createGroup(server.getConnection());
+				}
+			});
 			
 			JButton btnEliminarGrupo = new FlatButton("Eliminar Grupo");
 			panel_Grupos.add(btnEliminarGrupo, "cell 0 1,growx");
+			btnEliminarGrupo.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					deleteGroup dG = new deleteGroup(server.getConnection());
+				}
+			});
 			
 			JButton btnEditarGrupo = new FlatButton("Editar Grupo");
 			btnEditarGrupo.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					editGroup eG = new editGroup(server.getConnection());
 				}
 			});
 			panel_Grupos.add(btnEditarGrupo, "cell 0 2,growx,aligny top");
@@ -315,28 +373,46 @@ public class ServerHandlerFrame  extends JFrame{
 			
 			JButton btnVerGrupos = new FlatButton("Ver Grupos");
 			panel_Grupos.add(btnVerGrupos, "cell 0 3,growx,aligny top");
+			btnVerGrupos.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					GroupList gL = new GroupList(server.getConnection());
+				}
+			});
+			
 			
 			
 			
 			panel_Funcionalidades = new MenuPanel();
-			
+			central_Mutable_Panel.add(panel_Funcionalidades);
 			
 			//		BOTONES FUNCIONALIDADES
 			
 			JButton btnRellenarBd = new FlatButton("Rellenar BD");
 			panel_Funcionalidades.add(btnRellenarBd, "cell 0 0");
+			btnRellenarBd.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub	
+				}
+			});
 			
 			panel_Configuracion = new MenuPanel();
+			central_Mutable_Panel.add(panel_Configuracion);
 			
 			
 			//		 BOTONES CONFIGURACION
+			
+			//TODO Hacer que los parametros recibidos en los dialogos cambien el properties del server
 			
 			
 			JButton btnMaxConnection = new FlatButton("Max Connection");
 			panel_Configuracion.add(btnMaxConnection, "cell 0 0,growx");
 			btnMaxConnection.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					JOptionPane.showInputDialog("Introducir numero maximo de conexiones");
+					try {
+						int maxConnection = Integer.parseInt(JOptionPane.showInputDialog("Introducir numero maximo de conexiones"));
+					}catch(NumberFormatException nfe) {
+						JOptionPane.showMessageDialog(null, "No se ha introducido un numero", "ERROR", 0);
+					}					
 					if(Server.isRunning) server.restart();						
 				}
 			});
@@ -345,7 +421,11 @@ public class ServerHandlerFrame  extends JFrame{
 			panel_Configuracion.add(btnConnectionTimeout, "cell 0 1");
 			btnConnectionTimeout.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					JOptionPane.showInputDialog("introducir el tiempo de 'Connection TimeOut'");
+					try {
+						int connectionTimeout = Integer.parseInt(JOptionPane.showInputDialog("introducir el tiempo de 'Connection TimeOut'"));
+					}catch(NumberFormatException nfe) {
+						JOptionPane.showMessageDialog(null, "No se ha introducido un numero", "ERROR", 0);
+					}
 					if(Server.isRunning) server.restart();						
 				}
 			});
@@ -354,7 +434,11 @@ public class ServerHandlerFrame  extends JFrame{
 			panel_Configuracion.add(btnMaxSocketsize, "cell 0 2,growx");
 			btnMaxSocketsize.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					JOptionPane.showInputDialog("Introducir tamaño maximo del socket");
+					try {
+						int maxSocketSize = Integer.parseInt(JOptionPane.showInputDialog("Introducir tamaño maximo del socket"));
+					}catch(NumberFormatException nfe) {
+						JOptionPane.showMessageDialog(null, "No se ha introducido un numero", "ERROR", 0);
+					}
 					if(Server.isRunning) server.restart();						
 				}
 			});
@@ -363,7 +447,11 @@ public class ServerHandlerFrame  extends JFrame{
 			panel_Configuracion.add(btnServerPort, "cell 0 3,growx");
 			btnServerPort.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					JOptionPane.showInputDialog("Introducir el puerto del servidor");
+					try {
+						int serverPort = Integer.parseInt(JOptionPane.showInputDialog("Introducir el puerto del servidor"));
+					}catch(NumberFormatException nfe) {
+						JOptionPane.showMessageDialog(null, "No se ha introducido un numero", "ERROR", 0);
+					}
 					if(Server.isRunning) server.restart();						
 				}
 			});
@@ -372,7 +460,13 @@ public class ServerHandlerFrame  extends JFrame{
 			panel_Configuracion.add(btnServerName, "cell 0 4,growx");
 			btnServerName.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					JOptionPane.showInputDialog("Introducir nombre del servidor");
+					String serverName = "hola";
+					while(serverName.equals("hola")) {
+						serverName = JOptionPane.showInputDialog("Introducir nombre del servidor");
+						if (serverName.equals("hola")) {
+							JOptionPane.showMessageDialog(null, "Introducir un nombre valido", "ERROR", 0);
+						}
+					}
 					if(Server.isRunning) server.restart();						
 				}
 			});
@@ -390,15 +484,7 @@ public class ServerHandlerFrame  extends JFrame{
 			
 				}
 			});
-		
-		
-		//		BOTONES GRUPO
-				
-		JButton btnCrearGrupo = new FlatButton("Crear Grupo");
-		btnCrearGrupo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+
 	}
 
 	/**
