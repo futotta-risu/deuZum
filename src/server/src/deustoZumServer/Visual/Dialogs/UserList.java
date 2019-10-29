@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.border.MatteBorder;
 import java.awt.Color;
+import java.sql.Connection;
 
 public class UserList extends JDialog{
 	
@@ -21,7 +22,7 @@ public class UserList extends JDialog{
 	 * Crea un objeto de UserList, el cual contiene un Dialogo que muestra la lista
 	 * de todos los usuarios y permite hacer busquedas filtradas para eliminar usuarios.
 	 */
-	public UserList() {
+	public UserList(Connection c) {
 		setSize(600,450);
 		setTitle("Lista de usuarios");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);

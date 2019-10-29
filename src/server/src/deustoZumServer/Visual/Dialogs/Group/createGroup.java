@@ -4,6 +4,9 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+
+import java.sql.Connection;
+
 import javax.swing.JButton;
 
 public class createGroup extends JDialog{
@@ -41,7 +44,7 @@ public class createGroup extends JDialog{
 	/**
 	 * Crea un objeto de createGroup, el cual contiene un Dialogo que permite crear un grupo nuevo.
 	 */
-	public createGroup() {
+	public createGroup(Connection c) {
 		setSize(500,500);
 		setTitle("crear Grupo");
 		setVisible(true);

@@ -3,6 +3,9 @@ package deustoZumServer.Visual.Dialogs.Project;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import java.sql.Connection;
+
 import javax.swing.JButton;
 
 public class createProyect extends JDialog{
@@ -21,7 +24,7 @@ public class createProyect extends JDialog{
 	/**
 	 * Crea un objeto de createProyect, este Contiene un Dialogo que permite crear un nuevo Proyecto.
 	 */
-	public createProyect() {
+	public createProyect(Connection c) {
 		setSize(500,430);
 		setVisible(true);
 		setTitle("Crear Proyecto");

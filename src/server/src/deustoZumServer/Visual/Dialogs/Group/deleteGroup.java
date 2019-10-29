@@ -3,6 +3,9 @@ package deustoZumServer.Visual.Dialogs.Group;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import java.sql.Connection;
+
 import javax.swing.JButton;
 
 public class deleteGroup extends JDialog{
@@ -17,7 +20,7 @@ public class deleteGroup extends JDialog{
 	 * Crea un objeto de deleteGroup, este contiene un Dialogo que permite eliminar un grupo buscandolo 
 	 * a traves de su ID.
 	 */
-	public deleteGroup() {
+	public deleteGroup(Connection c) {
 		setSize(500,130);
 		setTitle("Eliminar Grupo");
 		setVisible(true);
