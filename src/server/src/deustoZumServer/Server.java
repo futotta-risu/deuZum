@@ -23,7 +23,7 @@ public class Server implements Runnable{
 	public static boolean isRunning = false;
 	
 	ArrayList<BotBase> bots;
-	Properties properties;
+	private Properties properties;
 	private ServerSocket serverSocket;
 	private Connection connection;
 	
@@ -150,6 +150,10 @@ public class Server implements Runnable{
 		}
 		
 		
+	}
+	
+	public void updateProperty(String property, String value) {
+		properties.setProperty(property, value);
 	}
     
 }
