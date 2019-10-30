@@ -116,7 +116,7 @@ CREATE TABLE `infousuario` (
   `apellido` varchar(15) NOT NULL,
   `telefono` varchar(9) NOT NULL,
   `email` varchar(40) NOT NULL,
-  `direccion` varchar(50) NOT NULL,
+  `direccion` varchar(50) NOT NULL DEFAULT 'Bilbao',
   `fecha_nacimiento` date NOT NULL DEFAULT current_timestamp(),
   `sexo` enum('F','M','O') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

@@ -59,7 +59,7 @@ public class Server implements Runnable{
 	// Server Execution Functions
 	
 	/**
-	 * Inicia el ServerSocket y activa hilos con cada conexión de un Socket.
+	 * Inicia el ServerSocket y activa hilos con cada conexiï¿½n de un Socket.
 	 */
     public void start() {
         try {
@@ -123,14 +123,14 @@ public class Server implements Runnable{
 	}
 	
 	/**
-	 * Carga todos los modulos de ejecución del servidor.
+	 * Carga todos los modulos de ejecuciï¿½n del servidor.
 	 */
 	public void execute() {
 		openProperties();
 		createBotList();
 		String dbName = this.properties.getProperty("server.dbName");
 		ServerCommands.createMethodArray();
-		this.connection = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost/"+dbName, "root", "");
+		this.connection = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost:8080/"+dbName, "root", "");
 		// TODO Add to the database the user status
 		// El servidor tiene que tener una base de datos hosteando el estado de los usuarios
 		// activos e inactivos
