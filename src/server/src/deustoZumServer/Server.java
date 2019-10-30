@@ -130,7 +130,7 @@ public class Server implements Runnable{
 		createBotList();
 		String dbName = this.properties.getProperty("server.dbName");
 		ServerCommands.createMethodArray();
-		this.connection = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost:8080/"+dbName, "root", "");
+		this.connection = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost/"+dbName, "root", "");
 		// TODO Add to the database the user status
 		// El servidor tiene que tener una base de datos hosteando el estado de los usuarios
 		// activos e inactivos
