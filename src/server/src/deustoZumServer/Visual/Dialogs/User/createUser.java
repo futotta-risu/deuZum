@@ -63,15 +63,15 @@ public class createUser extends JDialog{
 	public createUser(Connection conn) {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		// TODO Actualizar esta ventana respecto a los nuevos parametros de la base de datos
-		setSize(533,300);
+		setSize(540,350);
 		
 		
 		btnCrear = new FlatButton("Crear Usuario");
 		btnCrear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				boolean nulo = false;
+				//TODO Comprobar que el usser,email y tlfn no esta en uso
 				if(tFUser.getText().equals("")){
-					//TODO Comprobar que el nombre no esta en uso
 					lblUsuario.setBackground(Color.RED);
 					nulo = true;
 				}else if(tFPass.getText().equals("")) {
@@ -315,19 +315,36 @@ public class createUser extends JDialog{
 		userData.add(txtApellidos, gbc_txtApellidos);
 		txtApellidos.setColumns(20);
 		
+		lblDireccion = new JLabel("Direccion");
+		lblDireccion.setHorizontalAlignment(SwingConstants.CENTER);
+		GridBagConstraints gbc_lblDireccion = new GridBagConstraints();
+		gbc_lblDireccion.fill = GridBagConstraints.BOTH;
+		gbc_lblDireccion.gridx = 0;
+		gbc_lblDireccion.gridy = 8;
+		userData.add(lblDireccion, gbc_lblDireccion);
+		
+		txtDireccion = new JTextField();
+		GridBagConstraints gbc_txtDireccion = new GridBagConstraints();
+		gbc_txtDireccion.fill = GridBagConstraints.BOTH;
+		gbc_txtDireccion.gridx = 1;
+		gbc_txtDireccion.gridy = 8;
+		userData.add(txtDireccion, gbc_txtDireccion);
+		txtDireccion.setColumns(20);
+		
+		
 		lblFNacimiento = new JLabel("Fecha de Nacimiento");
 		lblFNacimiento.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_lblFNacimiento = new GridBagConstraints();
 		gbc_lblFNacimiento.fill = GridBagConstraints.BOTH;
 		gbc_lblFNacimiento.gridx = 0;
-		gbc_lblFNacimiento.gridy = 8;
+		gbc_lblFNacimiento.gridy = 9;
 		userData.add(lblFNacimiento, gbc_lblFNacimiento);
 		
 		txtF_Nacimiento = new JTextField();
 		GridBagConstraints gbc_txtF_Nacimiento = new GridBagConstraints();
 		gbc_txtF_Nacimiento.fill = GridBagConstraints.BOTH;
 		gbc_txtF_Nacimiento.gridx = 1;
-		gbc_txtF_Nacimiento.gridy = 8;
+		gbc_txtF_Nacimiento.gridy = 9;
 		userData.add(txtF_Nacimiento, gbc_txtF_Nacimiento);
 		txtF_Nacimiento.setColumns(20);
 		
@@ -336,7 +353,7 @@ public class createUser extends JDialog{
 		GridBagConstraints gbc_lblSexo = new GridBagConstraints();
 		gbc_lblSexo.fill = GridBagConstraints.BOTH;
 		gbc_lblSexo.gridx = 0;
-		gbc_lblSexo.gridy = 9;
+		gbc_lblSexo.gridy = 10;
 		userData.add(lblSexo, gbc_lblSexo);
 		
 		comboSexo = new JComboBox<String>();
@@ -346,7 +363,7 @@ public class createUser extends JDialog{
 		GridBagConstraints gbc_comboSexo = new GridBagConstraints();
 		gbc_comboSexo.fill = GridBagConstraints.BOTH;
 		gbc_comboSexo.gridx = 1;
-		gbc_comboSexo.gridy = 9;
+		gbc_comboSexo.gridy = 10;
 		userData.add(comboSexo, gbc_comboSexo);
 		
 		beautyW = new JPanel();
