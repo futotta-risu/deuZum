@@ -2,6 +2,7 @@ package deustoZumServer;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.*;
 import java.sql.Connection;
@@ -23,11 +24,10 @@ public class Server implements Runnable{
 	public static boolean isRunning = false;
 	
 	ArrayList<BotBase> bots;
-	private Properties properties;
 	private ServerSocket serverSocket;
 	private Connection connection;
-	
-	
+	private int port, botCount;
+	private String dbName;
 	public Server() {
 		try{
 			
@@ -41,20 +41,18 @@ public class Server implements Runnable{
 		
 	}
 	
-	/**
-	 * Abre y carga el archivo properties.
-	 */
-	public void openProperties() {
-		this.properties = new Properties();
-		try(FileInputStream f = new FileInputStream("./data/server.properties")){
-			properties.load(f);
-			
-		}catch(FileNotFoundException e1) {
-			System.err.println("El archivo no se encuentra en el lugar indicado.");
-		}catch (IOException e) {
-			e.printStackTrace();
-		}
+	public void setPort(int port) {
+		this.port = port;
 	}
+	
+	public void setBotCount(int botCount) {
+		this.botCount = botCount;
+	}
+	
+	public void setDBName(String dbname) {
+		this.dbName = dbName;
+	}
+	
 	
 	// Server Execution Functions
 	
@@ -63,7 +61,7 @@ public class Server implements Runnable{
 	 */
     public void start() {
         try {
-			serverSocket = new ServerSocket(Integer.valueOf(this.properties.getProperty("server.port")));
+			serverSocket = new ServerSocket(Integer.valueOf(this.port));
 			while (true) 
 				new ServerSocketHandler(serverSocket.accept(), connection).start();
 	            
@@ -88,7 +86,7 @@ public class Server implements Runnable{
      */
     public void createBotList() {
     	this.bots = new ArrayList<BotBase>();
-    	for(int i = 0; i < Integer.parseInt(this.properties.getProperty("server.botCount"));i++) 
+    	for(int i = 0; i < Integer.parseInt(this.dbName);i++) 
     		this.bots.add(BotGenerator.generateBot(BotType.CleaningBot, "Bot-"+i));
     	
     }
@@ -111,7 +109,6 @@ public class Server implements Runnable{
 	public void shutdown() {
 		isRunning = false;
 		this.connection = null;
-		this.properties = null;
 		this.bots.clear();
 		ServerCommands.serverCommands.clear();
 		try{
@@ -126,11 +123,9 @@ public class Server implements Runnable{
 	 * Carga todos los modulos de ejecuci�n del servidor.
 	 */
 	public void execute() {
-		openProperties();
 		createBotList();
-		String dbName = this.properties.getProperty("server.dbName");
 		ServerCommands.createMethodArray();
-		this.connection = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost/"+dbName, "root", "");
+		this.connection = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost/"+this.dbName, "root", "");
 		// TODO Add to the database the user status
 		// El servidor tiene que tener una base de datos hosteando el estado de los usuarios
 		// activos e inactivos
@@ -152,8 +147,5 @@ public class Server implements Runnable{
 		
 	}
 	
-	public void updateProperty(String property, String value) {
-		properties.setProperty(property, value);
-	}
-    
+	
 }
