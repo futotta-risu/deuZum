@@ -257,6 +257,11 @@ public class ServerHandlerFrame  extends JFrame{
 		
 			JButton btnEditarUsuario = new FlatButton("Editar Usuario");
 			panel_Usuario.add(btnEditarUsuario, "cell 0 1,growx");
+			btnEditarUsuario.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					new editUser(server.getConnection());
+				}
+			});
 			
 			JButton btnEliminarUsuario = new FlatButton("Eliminar Usuario");
 			panel_Usuario.add(btnEliminarUsuario, "cell 0 2,growx");
