@@ -28,7 +28,14 @@ public class Server implements Runnable{
 	private Connection connection;
 	private int port, botCount;
 	private String dbName;
+	
 	public Server() {
+		
+		
+		
+	}
+	
+	public void runServer() {
 		try{
 			
 			execute();
@@ -37,8 +44,6 @@ public class Server implements Runnable{
 			System.err.println("El server no ha podido ejecutarse");
 			shutdown();
 		}
-		
-		
 	}
 	
 	public void setPort(int port) {
@@ -49,7 +54,7 @@ public class Server implements Runnable{
 		this.botCount = botCount;
 	}
 	
-	public void setDBName(String dbname) {
+	public void setDBName(String dbName) {
 		this.dbName = dbName;
 	}
 	
@@ -61,7 +66,7 @@ public class Server implements Runnable{
 	 */
     public void start() {
         try {
-			serverSocket = new ServerSocket(Integer.valueOf(this.port));
+			serverSocket = new ServerSocket(this.port);
 			while (true) 
 				new ServerSocketHandler(serverSocket.accept(), connection).start();
 	            
@@ -86,7 +91,7 @@ public class Server implements Runnable{
      */
     public void createBotList() {
     	this.bots = new ArrayList<BotBase>();
-    	for(int i = 0; i < Integer.parseInt(this.dbName);i++) 
+    	for(int i = 0; i <this.botCount;i++) 
     		this.bots.add(BotGenerator.generateBot(BotType.CleaningBot, "Bot-"+i));
     	
     }

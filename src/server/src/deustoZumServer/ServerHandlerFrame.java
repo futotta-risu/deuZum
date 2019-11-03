@@ -48,17 +48,17 @@ public class ServerHandlerFrame  extends JFrame{
 	private Server server = null;
 	
 
-	private Properties properties;
+	public static Properties properties;
 	
 	private static final long serialVersionUID = 1L;
 	private JPanel panel_Usuario;
 	private JPanel panel_Transaccion;
 	private JPanel panel_Proyectos;
 	private JPanel panel_Grupos;
-	private JPanel panel_Funcionalidades;
 	private JTabbedPane panel_Configuration;
 	private JPanel central_Mutable_Panel;
 	private JTextField txf_ServerName;
+	private JTabbedPane panel_Funcionality;
 	/**
 	 * Crea un objeto de ServerHandlerFrame, el cual contiene un frame que controla una instancia de Server.
 	 */
@@ -155,6 +155,10 @@ public class ServerHandlerFrame  extends JFrame{
 							return;
 						
 						server = new Server();
+						server.setDBName(ServerHandlerFrame.properties.getProperty("server.dbName"));
+						server.setBotCount(Integer.valueOf(ServerHandlerFrame.properties.getProperty("server.port")));
+						server.setPort(Integer.valueOf(ServerHandlerFrame.properties.getProperty("server.botCount")));
+						server.runServer();
 						server.start();
 						
 					}
@@ -203,7 +207,7 @@ public class ServerHandlerFrame  extends JFrame{
 		});
 		btnFuncionalidades.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				switchPanel(panel_Funcionalidades);
+				switchPanel(panel_Funcionality);
 			}
 		});
 		btnGrupos.addActionListener(new ActionListener() {
@@ -393,7 +397,7 @@ public class ServerHandlerFrame  extends JFrame{
 				}
 			});
 			
-			JTabbedPane panel_Funcionality = new JTabbedPane(JTabbedPane.TOP);
+			panel_Funcionality = new JTabbedPane(JTabbedPane.TOP);
 			central_Mutable_Panel.add(panel_Funcionality, BorderLayout.CENTER);
 			
 			JPanel panel_Funct_Database = new JPanel();
@@ -601,7 +605,5 @@ public class ServerHandlerFrame  extends JFrame{
 	public static void main(String[] args) {
 		
 		new ServerHandlerFrame();
-		
-	
 	}
 }

@@ -61,7 +61,7 @@ public class editUser extends JDialog{
 		setSize(550,300);
 		setTitle("Editar usuario");
 		setVisible(true);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
 		
 		lblIntroducirIdUsuario = new JLabel("Introducir ID usuario");
