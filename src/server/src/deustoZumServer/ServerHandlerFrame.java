@@ -20,6 +20,7 @@ import deustoZumServer.Visual.Dialogs.Transactions.*;
 import deustoZumServer.Visual.Dialogs.User.*;
 import deustoZumServer.Visual.Style.CustomColors;
 import deustoZumServer.Visual.Style.Components.Buttons.FlatButton;
+import deustoZumServer.Visual.Style.Components.Buttons.IconizedButton;
 import deustoZumServer.Visual.Style.Components.Buttons.MenuButton;
 import deustoZumServer.Visual.Style.Components.JPanels.MenuPanel;
 
@@ -42,6 +43,9 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.JTextField;
 import javax.swing.JSlider;
+import javax.swing.JToggleButton;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class ServerHandlerFrame  extends JFrame{
 	
@@ -51,6 +55,7 @@ public class ServerHandlerFrame  extends JFrame{
 	public static Properties properties;
 	
 	private static final long serialVersionUID = 1L;
+	private JPanel panel_Home;
 	private JPanel panel_Usuario;
 	private JPanel panel_Transaccion;
 	private JPanel panel_Proyectos;
@@ -85,11 +90,6 @@ public class ServerHandlerFrame  extends JFrame{
 	}
 	
 	public void configLayout() {
-		
-		Icon playIcon = Icons.loadIcon("play.png", 35);
-		Icon stopIcon = Icons.loadIcon("stop.png", 35);
-		Icon pauseIcon = Icons.loadIcon("pause.png", 35);
-		
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		/*
@@ -99,7 +99,7 @@ public class ServerHandlerFrame  extends JFrame{
 		// Configuracion del Panel
 		JPanel status_Bar = new JPanel();
 		status_Bar.setBackground(CustomColors.mBlueR);
-		status_Bar.setPreferredSize(new Dimension(0, 50));
+		status_Bar.setPreferredSize(new Dimension(0, 53));
 		getContentPane().add(status_Bar, BorderLayout.NORTH);
 		
 		// Componentes
@@ -114,16 +114,16 @@ public class ServerHandlerFrame  extends JFrame{
 		status_Bar.add(serverLabel);
 		
 		JPanel sup_Right_Panel = new JPanel();
-		sup_Right_Panel.setPreferredSize(new Dimension(150,50));
 		sup_Right_Panel.setOpaque(false);
+		sup_Right_Panel.setPreferredSize(new Dimension(153, 40));
 		status_Bar.add(sup_Right_Panel, BorderLayout.EAST);
-		sup_Right_Panel.setLayout(new GridLayout(0, 3, 0, 0));
+		sup_Right_Panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JButton btnStartServer = new FlatButton(playIcon,40);
+		JButton btnStartServer = new IconizedButton("symbol","play",35,40);
 		sup_Right_Panel.add(btnStartServer);
-		JButton btnStopServer = new FlatButton(stopIcon,40);
+		JButton btnStopServer = new IconizedButton("symbol","stop",35,40);
 		sup_Right_Panel.add(btnStopServer);
-		JButton btnExit = new FlatButton(pauseIcon,40);
+		JButton btnExit = new IconizedButton("symbol","pause",35,40);
 		sup_Right_Panel.add(btnExit);
 		
 		btnExit.addActionListener(new ActionListener() {	
@@ -186,11 +186,14 @@ public class ServerHandlerFrame  extends JFrame{
 		central_Direction_Panel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		
 		JPanel central_Direction_Menu_Panel = new JPanel();
-		central_Direction_Menu_Panel.setPreferredSize(new Dimension(180,200));
+		central_Direction_Menu_Panel.setBackground(CustomColors.mBBlue);
+		central_Direction_Menu_Panel.setPreferredSize(new Dimension(180,280));
 		central_Direction_Menu_Panel.setLayout(new GridLayout(0, 1, 0, 0));
 		central_Direction_Panel.add(central_Direction_Menu_Panel);
 		//       BOTONES DIRECTION
 		
+		
+		JButton btnHome = new MenuButton("Menu Principal");
 		JButton btnUsuario = new MenuButton("Usuarios");
 		JButton btnTransaccion = new MenuButton("Transacciones");
 		JButton btnProyectos = new MenuButton("Proyectos");
@@ -199,7 +202,11 @@ public class ServerHandlerFrame  extends JFrame{
 		JButton btnConfiguracionDelServer = new MenuButton("Configuracion");
 		
 		
-		
+		btnHome.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				switchPanel(panel_Home);
+			}
+		});
 		btnConfiguracionDelServer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchPanel(panel_Configuration);
@@ -230,8 +237,12 @@ public class ServerHandlerFrame  extends JFrame{
 				switchPanel(panel_Usuario);
 			}
 		});
+		btnHome.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		
-		
+		central_Direction_Menu_Panel.add(btnHome);
 		central_Direction_Menu_Panel.add(btnUsuario);
 		central_Direction_Menu_Panel.add(btnTransaccion);
 		central_Direction_Menu_Panel.add(btnProyectos);
@@ -245,6 +256,9 @@ public class ServerHandlerFrame  extends JFrame{
 		central_Mutable_Panel.setBackground(Color.WHITE);
 		central_Panel.add(central_Mutable_Panel, BorderLayout.CENTER);
 		central_Mutable_Panel.setLayout(new BorderLayout(0, 0));
+		
+		panel_Home = new JPanel();
+		central_Mutable_Panel.add(panel_Home);
 		
 		panel_Usuario = new MenuPanel();
 		central_Mutable_Panel.add(panel_Usuario);
@@ -281,37 +295,6 @@ public class ServerHandlerFrame  extends JFrame{
 			btnVerCuentas.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					new UserList(server.getConnection());
-				}
-			});
-			
-			
-			panel_Transaccion = new JPanel();
-			central_Mutable_Panel.add(panel_Transaccion);
-			
-			
-			//  BOTONES TRANSACCION
-					
-			JButton btnRealizarTransaccion = new FlatButton("Realizar Transaccion");
-			btnRealizarTransaccion.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					new createTransaction(server.getConnection());
-				}
-			});
-			panel_Transaccion.add(btnRealizarTransaccion, "cell 0 0,growx,alignx left,aligny top");
-			
-			JButton btnEliminarTransaccion = new FlatButton("Eliminar Transaccion");
-			panel_Transaccion.add(btnEliminarTransaccion, "cell 0 1,growx");
-			btnEliminarTransaccion.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					new deleteTransaction(server.getConnection());
-				}
-			});
-			
-			JButton btnVerTransacciones = new FlatButton("Ver Transacciones");
-			panel_Transaccion.add(btnVerTransacciones, "cell 0 2,growx");
-			btnVerTransacciones.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					new TransactionList(server.getConnection());
 				}
 			});
 			
@@ -360,7 +343,7 @@ public class ServerHandlerFrame  extends JFrame{
 			
 				
 			panel_Grupos = new MenuPanel();
-			central_Mutable_Panel.add(panel_Grupos, BorderLayout.CENTER);
+			central_Mutable_Panel.add(panel_Grupos);
 			
 			// BOTONES GRUPO
 			
@@ -391,17 +374,43 @@ public class ServerHandlerFrame  extends JFrame{
 			
 			JButton btnVerGrupos = new FlatButton("Ver Grupos");
 			panel_Grupos.add(btnVerGrupos, "cell 0 3,growx,aligny top");
-			btnVerGrupos.addActionListener(new ActionListener() {
+			
+			
+			panel_Transaccion = new JPanel();
+			central_Mutable_Panel.add(panel_Transaccion);
+			
+			
+			//  BOTONES TRANSACCION
+					
+			JButton btnRealizarTransaccion = new FlatButton("Realizar Transaccion");
+			btnRealizarTransaccion.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					new GroupList(server.getConnection());
+					new createTransaction(server.getConnection());
+				}
+			});
+			panel_Transaccion.add(btnRealizarTransaccion, "cell 0 0,growx,alignx left,aligny top");
+			
+			JButton btnEliminarTransaccion = new FlatButton("Eliminar Transaccion");
+			panel_Transaccion.add(btnEliminarTransaccion, "cell 0 1,growx");
+			btnEliminarTransaccion.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					new deleteTransaction(server.getConnection());
+				}
+			});
+			
+			JButton btnVerTransacciones = new FlatButton("Ver Transacciones");
+			panel_Transaccion.add(btnVerTransacciones, "cell 0 2,growx");
+			btnVerTransacciones.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					new TransactionList(server.getConnection());
 				}
 			});
 			
 			panel_Funcionality = new JTabbedPane(JTabbedPane.TOP);
-			central_Mutable_Panel.add(panel_Funcionality, BorderLayout.CENTER);
+			central_Mutable_Panel.add(panel_Funcionality);
 			
 			JPanel panel_Funct_Database = new JPanel();
-			panel_Funcionality.addTab("New tab", null, panel_Funct_Database, null);
+			panel_Funcionality.addTab("Base de Datos", null, panel_Funct_Database, null);
 			
 			//		BOTONES FUNCIONALIDADES
 			
@@ -414,16 +423,58 @@ public class ServerHandlerFrame  extends JFrame{
 			});
 			
 			JPanel panel_Funct_IA = new JPanel();
-			panel_Funcionality.addTab("New tab", null, panel_Funct_IA, null);
+			panel_Funcionality.addTab("IA", null, panel_Funct_IA, null);
 			
-			JPanel panel_Funct_Statistics = new JPanel();
-			panel_Funcionality.addTab("New tab", null, panel_Funct_Statistics, null);
+			JButton btnClusterizarDb = new JButton("Clusterizar DB");
+			panel_Funct_IA.add(btnClusterizarDb);
 			
-			JPanel panel_5 = new JPanel();
-			panel_Funcionality.addTab("New tab", null, panel_5, null);
+			JPanel panel_Funct_Seguridad = new JPanel();
+			panel_Funcionality.addTab("Seguridad", null, panel_Funct_Seguridad, null);
+			GridBagLayout gbl_panel_Funct_Seguridad = new GridBagLayout();
+			gbl_panel_Funct_Seguridad.columnWidths = new int[]{44, 75, 93, 0};
+			gbl_panel_Funct_Seguridad.rowHeights = new int[]{23, 0, 0, 0, 0, 0};
+			gbl_panel_Funct_Seguridad.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+			gbl_panel_Funct_Seguridad.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+			panel_Funct_Seguridad.setLayout(gbl_panel_Funct_Seguridad);
+			
+			JLabel lbl_Encriptar = new JLabel("Encriptaci\u00F3n");
+			GridBagConstraints gbc_lbl_Encriptar = new GridBagConstraints();
+			gbc_lbl_Encriptar.anchor = GridBagConstraints.WEST;
+			gbc_lbl_Encriptar.gridwidth = 2;
+			gbc_lbl_Encriptar.insets = new Insets(0, 0, 5, 0);
+			gbc_lbl_Encriptar.gridx = 1;
+			gbc_lbl_Encriptar.gridy = 1;
+			panel_Funct_Seguridad.add(lbl_Encriptar, gbc_lbl_Encriptar);
+			
+			JButton btnEncriptar = new JButton("Encriptar");
+			GridBagConstraints gbc_btnEncriptar = new GridBagConstraints();
+			gbc_btnEncriptar.anchor = GridBagConstraints.NORTHWEST;
+			gbc_btnEncriptar.insets = new Insets(0, 0, 5, 5);
+			gbc_btnEncriptar.gridx = 1;
+			gbc_btnEncriptar.gridy = 2;
+			panel_Funct_Seguridad.add(btnEncriptar, gbc_btnEncriptar);
+			
+			JButton btnDesencriptar = new JButton("Desencriptar");
+			GridBagConstraints gbc_btnDesencriptar = new GridBagConstraints();
+			gbc_btnDesencriptar.insets = new Insets(0, 0, 5, 0);
+			gbc_btnDesencriptar.anchor = GridBagConstraints.NORTHWEST;
+			gbc_btnDesencriptar.gridx = 2;
+			gbc_btnDesencriptar.gridy = 2;
+			panel_Funct_Seguridad.add(btnDesencriptar, gbc_btnDesencriptar);
+			
+			JLabel lblNewLabel = new JLabel("New label");
+			GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+			gbc_lblNewLabel.insets = new Insets(0, 0, 0, 5);
+			gbc_lblNewLabel.gridx = 1;
+			gbc_lblNewLabel.gridy = 4;
+			panel_Funct_Seguridad.add(lblNewLabel, gbc_lblNewLabel);
+			
+			JPanel panel_Config_G = new JPanel();
+			central_Mutable_Panel.add(panel_Config_G);
+			panel_Config_G.setLayout(new BorderLayout(0, 0));
 			
 			panel_Configuration = new JTabbedPane(JTabbedPane.TOP);
-			central_Mutable_Panel.add(panel_Configuration, BorderLayout.CENTER);
+			panel_Config_G.add(panel_Configuration);
 			
 			JPanel panel_Config_Server = new JPanel();
 			panel_Configuration.addTab("Server", null, panel_Config_Server, null);
@@ -470,28 +521,6 @@ public class ServerHandlerFrame  extends JFrame{
 			panel_Config_Server.add(txf_ServerName, gbc_txf_ServerName);
 			txf_ServerName.setColumns(10);
 			
-			
-			//		 BOTONES CONFIGURACION
-			
-			//TODO Hacer que los parametros recibidos en los dialogos cambien el properties del server
-			
-			
-			JButton btnMaxConnection = new FlatButton("Socket Properties");
-			GridBagConstraints gbc_btnMaxConnection = new GridBagConstraints();
-			gbc_btnMaxConnection.anchor = GridBagConstraints.NORTHWEST;
-			gbc_btnMaxConnection.insets = new Insets(0, 0, 5, 5);
-			gbc_btnMaxConnection.gridx = 1;
-			gbc_btnMaxConnection.gridy = 5;
-			panel_Config_Server.add(btnMaxConnection, gbc_btnMaxConnection);
-			btnMaxConnection.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					String maxConnection = JOptionPane.showInputDialog("Introducir numero maximo de conexiones");
-					updateProperty("server.maxConnection", maxConnection);
-					
-					if(Server.isRunning) server.restart();						
-				}
-			});
-			
 			JLabel lblConnectionTimeOut = new JLabel("Connection Time Out");
 			GridBagConstraints gbc_lblConnectionTimeOut = new GridBagConstraints();
 			gbc_lblConnectionTimeOut.insets = new Insets(0, 0, 5, 5);
@@ -517,15 +546,50 @@ public class ServerHandlerFrame  extends JFrame{
 			gbc_lblActualTimeOut.gridy = 7;
 			panel_Config_Server.add(lblActualTimeOut, gbc_lblActualTimeOut);
 			
-			JButton btnCancelar = new JButton("Cancelar");
-			GridBagConstraints gbc_btnCancelar = new GridBagConstraints();
-			gbc_btnCancelar.insets = new Insets(0, 0, 0, 5);
-			gbc_btnCancelar.gridx = 4;
-			gbc_btnCancelar.gridy = 12;
-			panel_Config_Server.add(btnCancelar, gbc_btnCancelar);
+			JPanel panel_Config_Seguridad = new JPanel();
+			panel_Configuration.addTab("Seguridad", null, panel_Config_Seguridad, null);
+			GridBagLayout gbl_panel_Config_Seguridad = new GridBagLayout();
+			gbl_panel_Config_Seguridad.columnWidths = new int[]{0, 0, 0, 0, 254, 0, 0};
+			gbl_panel_Config_Seguridad.rowHeights = new int[]{0, 0, 0, 0, 0};
+			gbl_panel_Config_Seguridad.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+			gbl_panel_Config_Seguridad.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+			panel_Config_Seguridad.setLayout(gbl_panel_Config_Seguridad);
 			
-			JButton btnGuardadConfiguracin = new JButton("Guardad ");
-			btnGuardadConfiguracin.addActionListener(new ActionListener() {
+			JLabel lblEncriptacinDeSockets = new JLabel("Encriptaci\u00F3n de Sockets");
+			GridBagConstraints gbc_lblEncriptacinDeSockets = new GridBagConstraints();
+			gbc_lblEncriptacinDeSockets.insets = new Insets(0, 0, 5, 5);
+			gbc_lblEncriptacinDeSockets.gridx = 2;
+			gbc_lblEncriptacinDeSockets.gridy = 1;
+			panel_Config_Seguridad.add(lblEncriptacinDeSockets, gbc_lblEncriptacinDeSockets);
+			
+			JToggleButton tglbtnNewToggleButton = new JToggleButton("Si");
+			GridBagConstraints gbc_tglbtnNewToggleButton = new GridBagConstraints();
+			gbc_tglbtnNewToggleButton.insets = new Insets(0, 0, 5, 5);
+			gbc_tglbtnNewToggleButton.gridx = 4;
+			gbc_tglbtnNewToggleButton.gridy = 1;
+			panel_Config_Seguridad.add(tglbtnNewToggleButton, gbc_tglbtnNewToggleButton);
+			
+			JLabel lblFuncinDeEncriptacin = new JLabel("Funci\u00F3n de Encriptaci\u00F3n");
+			GridBagConstraints gbc_lblFuncinDeEncriptacin = new GridBagConstraints();
+			gbc_lblFuncinDeEncriptacin.insets = new Insets(0, 0, 5, 5);
+			gbc_lblFuncinDeEncriptacin.gridx = 2;
+			gbc_lblFuncinDeEncriptacin.gridy = 2;
+			panel_Config_Seguridad.add(lblFuncinDeEncriptacin, gbc_lblFuncinDeEncriptacin);
+			
+			JComboBox<String> comboBox = new JComboBox<String>();
+			comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"RSA", "SHA256", "MD5", "Blowfish", "Cesar", "Vigenere"}));
+			GridBagConstraints gbc_comboBox = new GridBagConstraints();
+			gbc_comboBox.insets = new Insets(0, 0, 5, 5);
+			gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
+			gbc_comboBox.gridx = 4;
+			gbc_comboBox.gridy = 2;
+			panel_Config_Seguridad.add(comboBox, gbc_comboBox);
+			
+			JPanel panel_1 = new JPanel();
+			panel_Config_G.add(panel_1, BorderLayout.SOUTH);
+			
+			JButton btn_Save = new FlatButton("Guardar");
+			btn_Save.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					updateProperty("server.conexionTimeOut",String.valueOf(slider_ConTimeOut.getValue()) );
 					updateProperty("server.port",spinner_Port.getValue().toString());
@@ -534,23 +598,13 @@ public class ServerHandlerFrame  extends JFrame{
 					storeProperties();
 				}
 			});
-			GridBagConstraints gbc_btnGuardadConfiguracin = new GridBagConstraints();
-			gbc_btnGuardadConfiguracin.insets = new Insets(0, 0, 0, 5);
-			gbc_btnGuardadConfiguracin.gridx = 5;
-			gbc_btnGuardadConfiguracin.gridy = 12;
-			panel_Config_Server.add(btnGuardadConfiguracin, gbc_btnGuardadConfiguracin);
-			
-			JPanel panel_Config_IA = new JPanel();
-			panel_Configuration.addTab("IA", null, panel_Config_IA, null);
-			
-			JPanel panel_Config_Seguridad = new JPanel();
-			panel_Configuration.addTab("Seguridad", null, panel_Config_Seguridad, null);
-			
-			JPanel panel_2 = new JPanel();
-			panel_Configuration.addTab("New tab", null, panel_2, null);
-			
-			JPanel panel_3 = new JPanel();
-			panel_Configuration.addTab("New tab", null, panel_3, null);
+			panel_1.setLayout(new BorderLayout(0, 0));
+			panel_1.add(btn_Save, BorderLayout.EAST);
+			btnVerGrupos.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					new GroupList(server.getConnection());
+				}
+			});
 			
 			
 
