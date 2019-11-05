@@ -52,7 +52,7 @@ public class createGroup extends JDialog{
 		setSize(500,500);
 		setTitle("crear Grupo");
 		setVisible(true);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
 		
 		lblNombre = new JLabel("Nombre:");

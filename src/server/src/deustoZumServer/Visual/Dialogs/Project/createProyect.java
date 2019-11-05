@@ -28,7 +28,7 @@ public class createProyect extends JDialog{
 		setSize(500,430);
 		setVisible(true);
 		setTitle("Crear Proyecto");
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
 		
 		lblIdGrupo = new JLabel("ID grupo:");

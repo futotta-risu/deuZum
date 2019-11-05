@@ -4,6 +4,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Properties;
 import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
 
@@ -30,24 +35,35 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.FlowLayout;
 import javax.swing.JTabbedPane;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.JTextField;
+import javax.swing.JSlider;
 
 public class ServerHandlerFrame  extends JFrame{
 	
 	private Server server = null;
+	
+
+	public static Properties properties;
 	
 	private static final long serialVersionUID = 1L;
 	private JPanel panel_Usuario;
 	private JPanel panel_Transaccion;
 	private JPanel panel_Proyectos;
 	private JPanel panel_Grupos;
-	private JPanel panel_Funcionalidades;
 	private JTabbedPane panel_Configuration;
 	private JPanel central_Mutable_Panel;
+	private JTextField txf_ServerName;
+	private JTabbedPane panel_Funcionality;
 	/**
 	 * Crea un objeto de ServerHandlerFrame, el cual contiene un frame que controla una instancia de Server.
 	 */
 	public ServerHandlerFrame() {
-		
+		openProperties();
 		configLayout();
 		configWindow();
 		validate();
@@ -70,9 +86,9 @@ public class ServerHandlerFrame  extends JFrame{
 	
 	public void configLayout() {
 		
-		Icon playIcon = Icons.loadIcon("play.png", 25);
-		Icon stopIcon = Icons.loadIcon("stop.png", 25);
-		Icon pauseIcon = Icons.loadIcon("pause.png", 25);
+		Icon playIcon = Icons.loadIcon("play.png", 35);
+		Icon stopIcon = Icons.loadIcon("stop.png", 35);
+		Icon pauseIcon = Icons.loadIcon("pause.png", 35);
 		
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
@@ -83,14 +99,12 @@ public class ServerHandlerFrame  extends JFrame{
 		// Configuracion del Panel
 		JPanel status_Bar = new JPanel();
 		status_Bar.setBackground(CustomColors.mBlueR);
-		status_Bar.setPreferredSize(new Dimension(getWidth(),38));
+		status_Bar.setPreferredSize(new Dimension(0, 50));
 		getContentPane().add(status_Bar, BorderLayout.NORTH);
 		
 		// Componentes
-		JLabel deuzumText = new JLabel("Deuzum");
-		deuzumText.setForeground(Color.CYAN);
-		deuzumText.setFont(new Font("Dialog", Font.BOLD, 14));
-		
+		JLabel deuzumText = new JLabel();
+		deuzumText.setIcon(new ImageIcon("data/img/logo.png"));
 		JLabel serverLabel = new JLabel("Status: Off");
 		serverLabel.setForeground(Color.WHITE);
 		status_Bar.setLayout(new BorderLayout(0, 0));
@@ -100,14 +114,16 @@ public class ServerHandlerFrame  extends JFrame{
 		status_Bar.add(serverLabel);
 		
 		JPanel sup_Right_Panel = new JPanel();
+		sup_Right_Panel.setPreferredSize(new Dimension(150,50));
 		sup_Right_Panel.setOpaque(false);
 		status_Bar.add(sup_Right_Panel, BorderLayout.EAST);
+		sup_Right_Panel.setLayout(new GridLayout(0, 3, 0, 0));
 		
-		JButton btnStartServer = new FlatButton(playIcon,30);
+		JButton btnStartServer = new FlatButton(playIcon,40);
 		sup_Right_Panel.add(btnStartServer);
-		JButton btnStopServer = new FlatButton(stopIcon,30);
+		JButton btnStopServer = new FlatButton(stopIcon,40);
 		sup_Right_Panel.add(btnStopServer);
-		JButton btnExit = new FlatButton(pauseIcon,30);
+		JButton btnExit = new FlatButton(pauseIcon,40);
 		sup_Right_Panel.add(btnExit);
 		
 		btnExit.addActionListener(new ActionListener() {	
@@ -139,6 +155,10 @@ public class ServerHandlerFrame  extends JFrame{
 							return;
 						
 						server = new Server();
+						server.setDBName(ServerHandlerFrame.properties.getProperty("server.dbName"));
+						server.setBotCount(Integer.valueOf(ServerHandlerFrame.properties.getProperty("server.port")));
+						server.setPort(Integer.valueOf(ServerHandlerFrame.properties.getProperty("server.botCount")));
+						server.runServer();
 						server.start();
 						
 					}
@@ -187,7 +207,7 @@ public class ServerHandlerFrame  extends JFrame{
 		});
 		btnFuncionalidades.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				switchPanel(panel_Funcionalidades);
+				switchPanel(panel_Funcionality);
 			}
 		});
 		btnGrupos.addActionListener(new ActionListener() {
@@ -241,6 +261,11 @@ public class ServerHandlerFrame  extends JFrame{
 		
 			JButton btnEditarUsuario = new FlatButton("Editar Usuario");
 			panel_Usuario.add(btnEditarUsuario, "cell 0 1,growx");
+			btnEditarUsuario.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					new editUser(server.getConnection());
+				}
+			});
 			
 			JButton btnEliminarUsuario = new FlatButton("Eliminar Usuario");
 			panel_Usuario.add(btnEliminarUsuario, "cell 0 2,growx");
@@ -335,7 +360,7 @@ public class ServerHandlerFrame  extends JFrame{
 			
 				
 			panel_Grupos = new MenuPanel();
-			central_Mutable_Panel.add(panel_Grupos);
+			central_Mutable_Panel.add(panel_Grupos, BorderLayout.CENTER);
 			
 			// BOTONES GRUPO
 			
@@ -372,34 +397,78 @@ public class ServerHandlerFrame  extends JFrame{
 				}
 			});
 			
+			panel_Funcionality = new JTabbedPane(JTabbedPane.TOP);
+			central_Mutable_Panel.add(panel_Funcionality, BorderLayout.CENTER);
 			
-			
-			
-			panel_Funcionalidades = new MenuPanel();
-			central_Mutable_Panel.add(panel_Funcionalidades);
+			JPanel panel_Funct_Database = new JPanel();
+			panel_Funcionality.addTab("New tab", null, panel_Funct_Database, null);
 			
 			//		BOTONES FUNCIONALIDADES
 			
 			JButton btnRellenarBd = new FlatButton("Rellenar BD");
-			panel_Funcionalidades.add(btnRellenarBd, "cell 0 0");
+			panel_Funct_Database.add(btnRellenarBd);
 			btnRellenarBd.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub	
 				}
 			});
 			
+			JPanel panel_Funct_IA = new JPanel();
+			panel_Funcionality.addTab("New tab", null, panel_Funct_IA, null);
+			
+			JPanel panel_Funct_Statistics = new JPanel();
+			panel_Funcionality.addTab("New tab", null, panel_Funct_Statistics, null);
+			
+			JPanel panel_5 = new JPanel();
+			panel_Funcionality.addTab("New tab", null, panel_5, null);
+			
 			panel_Configuration = new JTabbedPane(JTabbedPane.TOP);
 			central_Mutable_Panel.add(panel_Configuration, BorderLayout.CENTER);
 			
 			JPanel panel_Config_Server = new JPanel();
 			panel_Configuration.addTab("Server", null, panel_Config_Server, null);
-			panel_Config_Server.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+			GridBagLayout gbl_panel_Config_Server = new GridBagLayout();
+			gbl_panel_Config_Server.columnWidths = new int[]{39, 87, 105, 28, 61, 77, 43, 0};
+			gbl_panel_Config_Server.rowHeights = new int[]{22, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+			gbl_panel_Config_Server.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+			gbl_panel_Config_Server.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+			panel_Config_Server.setLayout(gbl_panel_Config_Server);
 			
-			JButton btnServerPort = new FlatButton("Server Port");
-			panel_Config_Server.add(btnServerPort);
+			JLabel lbl_Server_Port = new JLabel("Puerto del Servidor");
+			GridBagConstraints gbc_lbl_Server_Port = new GridBagConstraints();
+			gbc_lbl_Server_Port.anchor = GridBagConstraints.WEST;
+			gbc_lbl_Server_Port.insets = new Insets(0, 0, 5, 5);
+			gbc_lbl_Server_Port.gridx = 1;
+			gbc_lbl_Server_Port.gridy = 1;
+			panel_Config_Server.add(lbl_Server_Port, gbc_lbl_Server_Port);
 			
-			JButton btnConnectionTimeout = new FlatButton("Connection TimeOut");
-			panel_Config_Server.add(btnConnectionTimeout);
+			JSpinner spinner_Port = new JSpinner();
+			spinner_Port.setModel(new SpinnerNumberModel(Integer.parseInt((String)this.properties.get("server.port")), 0, 65535, 1));
+			GridBagConstraints gbc_spinner_Port = new GridBagConstraints();
+			gbc_spinner_Port.fill = GridBagConstraints.HORIZONTAL;
+			gbc_spinner_Port.insets = new Insets(0, 0, 5, 5);
+			gbc_spinner_Port.gridx = 4;
+			gbc_spinner_Port.gridy = 1;
+			panel_Config_Server.add(spinner_Port, gbc_spinner_Port);
+			
+			JLabel lblNombreDelServidor = new JLabel("Nombre del Servidor");
+			GridBagConstraints gbc_lblNombreDelServidor = new GridBagConstraints();
+			gbc_lblNombreDelServidor.anchor = GridBagConstraints.WEST;
+			gbc_lblNombreDelServidor.insets = new Insets(0, 0, 5, 5);
+			gbc_lblNombreDelServidor.gridx = 1;
+			gbc_lblNombreDelServidor.gridy = 2;
+			panel_Config_Server.add(lblNombreDelServidor, gbc_lblNombreDelServidor);
+			
+			txf_ServerName = new JTextField();
+			txf_ServerName.setText((String) this.properties.get("server.name"));
+			GridBagConstraints gbc_txf_ServerName = new GridBagConstraints();
+			gbc_txf_ServerName.gridwidth = 2;
+			gbc_txf_ServerName.insets = new Insets(0, 0, 5, 5);
+			gbc_txf_ServerName.fill = GridBagConstraints.HORIZONTAL;
+			gbc_txf_ServerName.gridx = 1;
+			gbc_txf_ServerName.gridy = 3;
+			panel_Config_Server.add(txf_ServerName, gbc_txf_ServerName);
+			txf_ServerName.setColumns(10);
 			
 			
 			//		 BOTONES CONFIGURACION
@@ -407,75 +476,83 @@ public class ServerHandlerFrame  extends JFrame{
 			//TODO Hacer que los parametros recibidos en los dialogos cambien el properties del server
 			
 			
-			JButton btnMaxConnection = new FlatButton("Max Connection");
-			panel_Config_Server.add(btnMaxConnection);
-			
-				
-			JButton btnBotCount = new FlatButton("Bot Count");
-			panel_Config_Server.add(btnBotCount);
-			
-			JButton btnMaxSocketsize = new FlatButton("Max SocketSize");
-			panel_Config_Server.add(btnMaxSocketsize);
-			btnMaxSocketsize.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					try {
-						String maxSocketSize = JOptionPane.showInputDialog("Introducir tamaño maximo del socket");
-						server.updateProperty("server.maxSocketSize", maxSocketSize);
-					}catch(NumberFormatException nfe) {
-						JOptionPane.showMessageDialog(null, "No se ha introducido un numero", "ERROR", 0);
-					}
-					if(Server.isRunning) server.restart();						
-				}
-			});
-			btnBotCount.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					String botCount = JOptionPane.showInputDialog("Introducir el numero de Bots en el servidor");
-					server.updateProperty("server.botCount", botCount);
-					if (Server.isRunning) server.restart();
-				}
-			});
+			JButton btnMaxConnection = new FlatButton("Socket Properties");
+			GridBagConstraints gbc_btnMaxConnection = new GridBagConstraints();
+			gbc_btnMaxConnection.anchor = GridBagConstraints.NORTHWEST;
+			gbc_btnMaxConnection.insets = new Insets(0, 0, 5, 5);
+			gbc_btnMaxConnection.gridx = 1;
+			gbc_btnMaxConnection.gridy = 5;
+			panel_Config_Server.add(btnMaxConnection, gbc_btnMaxConnection);
 			btnMaxConnection.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					String maxConnection = JOptionPane.showInputDialog("Introducir numero maximo de conexiones");
-					server.updateProperty("server.maxConnection", maxConnection);	
-					if(Server.isRunning) server.restart();						
-				}
-			});
-			btnConnectionTimeout.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					try {
-						String connectionTimeout = JOptionPane.showInputDialog("introducir el tiempo de 'Connection TimeOut'");
-						server.updateProperty("server.conexionTimeOut", connectionTimeout);
-					}catch(NumberFormatException nfe) {
-						JOptionPane.showMessageDialog(null, "No se ha introducido un numero", "ERROR", 0);
-					}
-					if(Server.isRunning) server.restart();						
-				}
-			});
-			btnServerPort.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					String serverPort = JOptionPane.showInputDialog("Introducir el puerto del servidor");
-					server.updateProperty("server.port", serverPort);
+					updateProperty("server.maxConnection", maxConnection);
 					
 					if(Server.isRunning) server.restart();						
 				}
 			});
 			
-			JButton btnServerName = new FlatButton("Server Name");
-			panel_Configuration.addTab("New tab", null, btnServerName, null);
-			btnServerName.addActionListener(new ActionListener() {
+			JLabel lblConnectionTimeOut = new JLabel("Connection Time Out");
+			GridBagConstraints gbc_lblConnectionTimeOut = new GridBagConstraints();
+			gbc_lblConnectionTimeOut.insets = new Insets(0, 0, 5, 5);
+			gbc_lblConnectionTimeOut.gridx = 1;
+			gbc_lblConnectionTimeOut.gridy = 6;
+			panel_Config_Server.add(lblConnectionTimeOut, gbc_lblConnectionTimeOut);
+			
+			JSlider slider_ConTimeOut = new JSlider();
+			slider_ConTimeOut.setValue(Integer.parseInt((String)this.properties.get("server.conexionTimeOut")));
+			GridBagConstraints gbc_slider_ConTimeOut = new GridBagConstraints();
+			gbc_slider_ConTimeOut.fill = GridBagConstraints.HORIZONTAL;
+			gbc_slider_ConTimeOut.gridwidth = 2;
+			gbc_slider_ConTimeOut.insets = new Insets(0, 0, 5, 5);
+			gbc_slider_ConTimeOut.gridx = 1;
+			gbc_slider_ConTimeOut.gridy = 7;
+			panel_Config_Server.add(slider_ConTimeOut, gbc_slider_ConTimeOut);
+			
+			JLabel lblActualTimeOut = new JLabel("Actual Time Out");
+			GridBagConstraints gbc_lblActualTimeOut = new GridBagConstraints();
+			gbc_lblActualTimeOut.gridwidth = 2;
+			gbc_lblActualTimeOut.insets = new Insets(0, 0, 5, 5);
+			gbc_lblActualTimeOut.gridx = 4;
+			gbc_lblActualTimeOut.gridy = 7;
+			panel_Config_Server.add(lblActualTimeOut, gbc_lblActualTimeOut);
+			
+			JButton btnCancelar = new JButton("Cancelar");
+			GridBagConstraints gbc_btnCancelar = new GridBagConstraints();
+			gbc_btnCancelar.insets = new Insets(0, 0, 0, 5);
+			gbc_btnCancelar.gridx = 4;
+			gbc_btnCancelar.gridy = 12;
+			panel_Config_Server.add(btnCancelar, gbc_btnCancelar);
+			
+			JButton btnGuardadConfiguracin = new JButton("Guardad ");
+			btnGuardadConfiguracin.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					String serverName = "";
-					while(serverName.equals("")) {
-						serverName = JOptionPane.showInputDialog("Introducir nombre del servidor");
-						if (serverName.equals("")) {
-							JOptionPane.showMessageDialog(null, "Introducir un nombre valido", "ERROR", 0);
-						}
-					}
-					if(Server.isRunning) server.restart();						
+					updateProperty("server.conexionTimeOut",String.valueOf(slider_ConTimeOut.getValue()) );
+					updateProperty("server.port",spinner_Port.getValue().toString());
+					updateProperty("server.name",txf_ServerName.getText());
+			
+					storeProperties();
 				}
 			});
-
+			GridBagConstraints gbc_btnGuardadConfiguracin = new GridBagConstraints();
+			gbc_btnGuardadConfiguracin.insets = new Insets(0, 0, 0, 5);
+			gbc_btnGuardadConfiguracin.gridx = 5;
+			gbc_btnGuardadConfiguracin.gridy = 12;
+			panel_Config_Server.add(btnGuardadConfiguracin, gbc_btnGuardadConfiguracin);
+			
+			JPanel panel_Config_IA = new JPanel();
+			panel_Configuration.addTab("IA", null, panel_Config_IA, null);
+			
+			JPanel panel_Config_Seguridad = new JPanel();
+			panel_Configuration.addTab("Seguridad", null, panel_Config_Seguridad, null);
+			
+			JPanel panel_2 = new JPanel();
+			panel_Configuration.addTab("New tab", null, panel_2, null);
+			
+			JPanel panel_3 = new JPanel();
+			panel_Configuration.addTab("New tab", null, panel_3, null);
+			
+			
 
 	}
 
@@ -496,9 +573,37 @@ public class ServerHandlerFrame  extends JFrame{
 		central_Mutable_Panel.repaint();
 	}
 	
-	public static void main(String[] args) {
-		new ServerHandlerFrame();
-		
+
+	/**
+	 * Abre y carga el archivo properties.
+	 */
+	public void openProperties() {
+		this.properties = new Properties();
+		try(FileInputStream f = new FileInputStream("./data/server.properties")){
+			properties.load(f);
+			
+		}catch(FileNotFoundException e1) {
+			System.err.println("El archivo no se encuentra en el lugar indicado.");
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
+	public void updateProperty(String property, String value) {
+		properties.setProperty(property, value);
+	}
+	
+	public void storeProperties() {
+		try {
+			properties.store(new FileOutputStream("./data/server.properties"), null);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void main(String[] args) {
+		
+		new ServerHandlerFrame();
 	}
 }

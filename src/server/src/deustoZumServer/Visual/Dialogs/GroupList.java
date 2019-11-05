@@ -27,7 +27,7 @@ public class GroupList extends JDialog{
 		setSize(500,500);
 		setTitle("Lista de Grupos");
 		setVisible(true);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
 		
 		comboFiltrar = new JComboBox<String>();

@@ -25,7 +25,7 @@ public class UserList extends JDialog{
 	public UserList(Connection c) {
 		setSize(600,450);
 		setTitle("Lista de usuarios");
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
 		
 		comboFiltrar = new JComboBox<String>();
