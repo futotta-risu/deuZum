@@ -2,9 +2,13 @@ package deustoZumServer.Visual.Dialogs.Group;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 
 import javax.swing.JButton;
@@ -177,8 +181,43 @@ public class createGroup extends JDialog{
 		btnCrearGrupo = new JButton("Crear Grupo");
 		btnCrearGrupo.setBounds(337, 381, 117, 29);
 		getContentPane().add(btnCrearGrupo);
+
+		btnCrearGrupo.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+				
+				boolean campoVacio = false;
+				//Comprobar que estan en la base de datos los usuarios que van a unirse en los grupos
+				//Parametros de la base de datos
+				//TODO Avisar donde sale el fallo
+				
+				if(txtNombreGrupo.getText().equals("")) {
+					lblNombre.setBackground(Color.RED);
+					campoVacio = true;
+				
+				}else if(txtMiembro1.getText().equals("")) {
+					lblMiembro1.setBackground(Color.RED);
+					campoVacio = true;
+					
+				}else if(txtMiembro2.getText().equals("")) {
+					lblMiembro2.setBackground(Color.RED);
+					campoVacio = true;
+					
+				}else if(campoVacio) {
+					JOptionPane.showMessageDialog(null, "No puede dejar este campo vacío", "ERROR" , 0);
+				}else {
+					if(txtMiembro1.getText().length()>15/*?*/) {
+						
+					}
+					
+				}
+			}
+			
+		});
+		
 	}
 	
+
 	
 
 }
