@@ -24,7 +24,7 @@ public class deleteGroup extends JDialog{
 		setSize(500,130);
 		setTitle("Eliminar Grupo");
 		setVisible(true);
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 		
 		lblIntroducirIdGrupo = new JLabel("Introducir ID Grupo:");

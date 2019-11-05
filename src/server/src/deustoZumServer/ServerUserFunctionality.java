@@ -1,6 +1,7 @@
 package deustoZumServer;
 
 import java.sql.SQLException;
+import java.util.Date;
 
 import org.json.JSONObject;
 
@@ -60,37 +61,6 @@ public class ServerUserFunctionality {
 			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "infousuario", columnNamesUserInf, data);
 		}catch(SQLException e) {
 			//TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	/**
-	 * Actualiza los datos de un usuario elegido por el administrador mediante su ID
-	 * @param connection Conexion de SQL
-	 * @param userID ID del usuario a modificar
-	 * @param data Array que contiene los datos del usuario (Usuario, Contraseña, Pregunta de Seguridad, Respuesta, Permisos)
-	 */
-	public static void updateUser(Connection connection, String userID, String[] data) {
-		String[] columnNamesUsuarios = {"usuario","contrase�a","preg_seguridad","resp_seguridad", "permisos"};
-		try {
-			GeneralSQLFunctions.updateEntryFromDatabase(connection, "usuario", columnNamesUsuarios, data, " WHERE user_id='"+userID+"'");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-	}
-	
-	/**
-	 * Actualiza la informacion de un usuario elegido por el administrador mediate su ID
-	 * @param conn
-	 * @param userID
-	 * @param data
-	 */
-	public static void updateUserInf(Connection conn, String userID, String[] data) {
-		String[] columnNamesUserInf = {"nombre", "apellidos", "telefono", "email", "direccion", "fecha_nacimiento", "sexo"};
-		try {
-			GeneralSQLFunctions.updateEntryFromDatabase(conn, "usuario", columnNamesUserInf, data, " WHERE user_id='"+userID+"'");
-		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}

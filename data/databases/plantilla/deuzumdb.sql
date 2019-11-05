@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-11-2019 a las 15:20:16
+-- Tiempo de generación: 26-10-2019 a las 12:55:03
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.3.9
 
@@ -92,7 +92,6 @@ CREATE TABLE `grupomiembro` (
 --
 
 CREATE TABLE `grupopermiso` (
-  `id` int(10) NOT NULL,
   `nombre` varchar(15) NOT NULL,
   `poder` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -101,9 +100,9 @@ CREATE TABLE `grupopermiso` (
 -- Volcado de datos para la tabla `grupopermiso`
 --
 
-INSERT INTO `grupopermiso` (`id`, `nombre`, `poder`) VALUES
-(1, 'administrador', 1),
-(2, 'miembro', 2);
+INSERT INTO `grupopermiso` (`nombre`, `poder`) VALUES
+('administrador', 1),
+('miembro', 2);
 
 -- --------------------------------------------------------
 
@@ -129,19 +128,18 @@ CREATE TABLE `infousuario` (
 --
 
 CREATE TABLE `permisos` (
-  `id` int(10) NOT NULL,
-  `nombre` varchar(15) NOT NULL,
-  `poder` int(10) NOT NULL
+  `nombre` varchar(15) CHARACTER SET utf8mb4 NOT NULL,
+  `poder` int(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `permisos`
 --
 
-INSERT INTO `permisos` (`id`, `nombre`, `poder`) VALUES
-(1, 'administrador', 1),
-(2, 'programador', 2),
-(3, 'cliente', 3);
+INSERT INTO `permisos` (`nombre`, `poder`) VALUES
+('administrador', 1),
+('programador', 2),
+('cliente', 3);
 
 -- --------------------------------------------------------
 
@@ -243,10 +241,10 @@ CREATE TABLE `usuario` (
   `id` int(11) NOT NULL,
   `usuario` varchar(32) NOT NULL,
   `contraseña` varchar(32) NOT NULL,
-  `fecha_creacion` timestamp NULL DEFAULT current_timestamp(),
+  `fecha_creacion` date DEFAULT current_timestamp(),
   `preg_seguridad` int(11) NOT NULL,
   `resp_seguridad` varchar(32) NOT NULL,
-  `permisos` int(10) DEFAULT NULL,
+  `permisos` varchar(15) DEFAULT NULL,
   `categoria` varchar(15) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -293,8 +291,7 @@ ALTER TABLE `grupomiembro`
 -- Indices de la tabla `grupopermiso`
 --
 ALTER TABLE `grupopermiso`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `nombre` (`nombre`);
+  ADD PRIMARY KEY (`nombre`);
 
 --
 -- Indices de la tabla `infousuario`
@@ -306,8 +303,9 @@ ALTER TABLE `infousuario`
 -- Indices de la tabla `permisos`
 --
 ALTER TABLE `permisos`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `nombre` (`nombre`);
+  ADD PRIMARY KEY (`nombre`),
+  ADD UNIQUE KEY `nombre` (`nombre`,`poder`) USING BTREE,
+  ADD UNIQUE KEY `poder` (`poder`);
 
 --
 -- Indices de la tabla `pregseguridad`
@@ -361,8 +359,7 @@ ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `usuario` (`usuario`),
   ADD KEY `preg_seguridad` (`preg_seguridad`),
-  ADD KEY `categoria` (`categoria`),
-  ADD KEY `permisos` (`permisos`);
+  ADD KEY `categoria` (`categoria`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -381,22 +378,10 @@ ALTER TABLE `grupomiembro`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `grupopermiso`
---
-ALTER TABLE `grupopermiso`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
 -- AUTO_INCREMENT de la tabla `infousuario`
 --
 ALTER TABLE `infousuario`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `permisos`
---
-ALTER TABLE `permisos`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `pregseguridad`
@@ -432,7 +417,7 @@ ALTER TABLE `transaccion`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Restricciones para tablas volcadas
@@ -450,8 +435,7 @@ ALTER TABLE `cuenta`
 --
 ALTER TABLE `grupomiembro`
   ADD CONSTRAINT `grupomiembro_ibfk_1` FOREIGN KEY (`id_miembro`) REFERENCES `usuario` (`id`),
-  ADD CONSTRAINT `grupomiembro_ibfk_2` FOREIGN KEY (`id_grupo`) REFERENCES `grupo` (`id`),
-  ADD CONSTRAINT `grupomiembro_ibfk_3` FOREIGN KEY (`permisos`) REFERENCES `grupopermiso` (`id`);
+  ADD CONSTRAINT `grupomiembro_ibfk_2` FOREIGN KEY (`id_grupo`) REFERENCES `grupo` (`id`);
 
 --
 -- Filtros para la tabla `infousuario`
@@ -499,8 +483,7 @@ ALTER TABLE `transaccion`
 --
 ALTER TABLE `usuario`
   ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`preg_seguridad`) REFERENCES `pregseguridad` (`id`),
-  ADD CONSTRAINT `usuario_ibfk_2` FOREIGN KEY (`categoria`) REFERENCES `clientecategoria` (`nombre`),
-  ADD CONSTRAINT `usuario_ibfk_3` FOREIGN KEY (`permisos`) REFERENCES `permisos` (`id`);
+  ADD CONSTRAINT `usuario_ibfk_2` FOREIGN KEY (`categoria`) REFERENCES `clientecategoria` (`nombre`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -1,10 +1,5 @@
 package deustoZumServer.Algorithms;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
 
 //TODO Arreglar errores con referencias entre llamada y ejecucion en todas
 public class TextFunctions {
@@ -114,22 +109,5 @@ public class TextFunctions {
 	}
 	
 	
-	public static final boolean endsWithMail(String txtEmail) {
-		if(txtEmail.endsWith("@gmail.com") || txtEmail.endsWith("@opendeusto.com") || txtEmail.endsWith("@hotmail.com") || txtEmail.endsWith("@deusto.com")) {
-			return true;
-		}else {
-			return false;
-		}
-	}
 	
-	public static final boolean dateChecker(String txtDate) {
-		DateFormat df = new SimpleDateFormat();
-		df.setLenient(false);
-		try {
-			df.parse(txtDate);
-		}catch (ParseException e) {
-			return false;
-		}
-		return true;
-	}
 }

@@ -27,7 +27,7 @@ public class ProyectList extends JDialog{
 		setSize(500, 500);
 		setVisible(true);
 		setTitle("Lista de Proyectos");
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 		
 		comboFiltrar = new JComboBox<String>();

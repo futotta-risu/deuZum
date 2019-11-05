@@ -24,7 +24,7 @@ public class deleteProyect extends JDialog{
 		setSize(500,130);
 		setTitle("Eliminar Proyecto");
 		setVisible(true);
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 		
 		lblIntroducirIdProyecto = new JLabel("Introducir ID Proyecto:");

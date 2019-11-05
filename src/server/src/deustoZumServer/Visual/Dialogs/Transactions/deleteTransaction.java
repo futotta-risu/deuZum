@@ -24,7 +24,7 @@ public class deleteTransaction extends JDialog{
 	public deleteTransaction(Connection c) {
 		setSize(450,100);
 		setTitle("Eliminar Transaccion");
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 		
 		lblIntroducirIdTransaccion = new JLabel("Introducir  ID Transaccion:");

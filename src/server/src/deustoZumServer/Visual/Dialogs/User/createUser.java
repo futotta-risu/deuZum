@@ -2,12 +2,10 @@ package deustoZumServer.Visual.Dialogs.User;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import deustoZumServer.ServerUserFunctionality;
 import deustoZumServer.Visual.Style.Components.Buttons.FlatButton;
-import deustoZumServer.Algorithms.TextFunctions;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -19,7 +17,6 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.SwingConstants;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 
@@ -36,7 +33,6 @@ public class createUser extends JDialog{
 	private JTextField txtEmail;
 	private JTextField txtF_Nacimiento;
 	private JComboBox<String> comboSexo;
-	private JTextField txtDireccion;
 	
 	private JLabel lblUsuario;
 	private JLabel lblPass;
@@ -48,7 +44,6 @@ public class createUser extends JDialog{
 	private JLabel lblEmail;
 	private JLabel lblFNacimiento;
 	private JLabel lblSexo;
-	private JLabel lblDireccion;
 	
 	private JButton btnCrear;
 	private JPanel userData;
@@ -63,121 +58,29 @@ public class createUser extends JDialog{
 	public createUser(Connection conn) {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		// TODO Actualizar esta ventana respecto a los nuevos parametros de la base de datos
-		setSize(540,350);
+		setSize(533,300);
 		
 		
 		btnCrear = new FlatButton("Crear Usuario");
 		btnCrear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				boolean nulo = false;
-				//TODO Comprobar que el usser,email y tlfn no esta en uso
-				if(tFUser.getText().equals("")){
-					lblUsuario.setBackground(Color.RED);
-					nulo = true;
-				}else if(tFPass.getText().equals("")) {
-					lblPass.setBackground(Color.RED);
-					nulo = true;
-				}else if(tFRes.getText().equals("")) {
-					lblRespuesta.setBackground(Color.RED);
-					nulo = true;
-				}else if(txtNombre.getText().equals("")) {
-					lblNombre.setBackground(Color.RED);
-					nulo = true;
-				}else if(txtApellidos.getText().equals("")) {
-					lblApellidos.setBackground(Color.RED);
-					nulo = true;
-				}else if(txtTelefono.getText().equals("")) {
-					lblTelefono.setBackground(Color.RED);
-					nulo = true;			
-				}else if(txtEmail.getText().equals("")) {
-					lblEmail.setBackground(Color.RED);
-					nulo = true;
-				}else if(txtF_Nacimiento.getText().equals("")) {
-					lblFNacimiento.setBackground(Color.RED);
-					nulo = true;
-				}else if(txtDireccion.getText().equals("")) {
-					lblDireccion.setBackground(Color.RED);
-					nulo = true;
-				}else if(nulo){
-					JOptionPane.showMessageDialog(null, "Se ha introducido algun dato nulo", "ERROR", 0);
-				}else {
-					boolean format = true;
-					String place = "";
-					if(!TextFunctions.endsWithMail(txtEmail.getText())) {
-						lblEmail.setBackground(Color.RED);
-						format = false;
-						place = "Email";
-					}else if(!TextFunctions.dateChecker(txtF_Nacimiento.getText())) {
-						lblFNacimiento.setBackground(Color.RED);
-						format = false;
-						place = "Fecha de Nacimiento";
-					}else if(!format){
-						JOptionPane.showMessageDialog(null, "Mal formato de datos en: " + place);
-					}else{
-						boolean length = true;
-						if(tFUser.getText().length()>32) {
-							lblUsuario.setBackground(Color.RED);
-							length = false;
-						}else if(tFPass.getText().length()>32){
-							lblPass.setBackground(Color.RED);
-							length = false;
-						}else if(tFRes.getText().length()>32) {
-							lblRespuesta.setBackground(Color.RED);
-							length = false;
-						}else if(txtNombre.getText().length()>15) {
-							lblNombre.setBackground(Color.RED);
-							length = false;
-						}else if(txtApellidos.getText().length()>15) {
-							lblApellidos.setBackground(Color.RED);
-							length = false;
-						}else if(txtTelefono.getText().length()>9) {
-							lblTelefono.setBackground(Color.RED);
-							length = false;
-						}else if(txtEmail.getText().length()>40) {
-							lblEmail.setBackground(Color.RED);
-							length = false;
-						}else if(txtF_Nacimiento.getText().length()>10){
-							lblFNacimiento.setBackground(Color.RED);
-							length = false;
-						}else if(txtDireccion.getText().length()>50) {
-							lblDireccion.setBackground(Color.RED);
-							length = false;
-						}else if(!length){
-							JOptionPane.showMessageDialog(null, "La longitud es incorrecta", "Error", 0);
-						}else {
-							ServerUserFunctionality.createUser(conn, new String[] 
-									{tFUser.getText(), tFPass.getText(), comboPregSeg.getSelectedItem().toString(), tFRes.getText()
-									,"cliente"});
-							dispose();
-							ServerUserFunctionality.createUserInf(conn, new String[]
-									{txtNombre.getText(), txtApellidos.getText(), txtTelefono.getText(), txtEmail.getText(),
-									txtDireccion.getText(), txtF_Nacimiento.getText(), comboSexo.getSelectedItem().toString()});
-							JOptionPane.showMessageDialog(null, "Usuario registrado con exito", "REGISTRADO", 1);
-						}//end if length
-					}//end if format
-						
-					
-				}//end if null
-				
-				
-		
-			}//end actionPerformed
-		});//end actionListener
-		
-		
-		
+				// TODO verificar que los datos sena validos (e.g. |tFUser|<33)
+				ServerUserFunctionality.createUser(conn, new String[] 
+						{tFUser.getText(), tFPass.getText(), comboPregSeg.getSelectedItem().toString(), tFRes.getText()
+						,"cliente"});
+				dispose();
+			}
+		});
 		getContentPane().setLayout(new BorderLayout(0, 0));
+		
+		
+		
 		userData = new JPanel();
 		
 		GridBagLayout gbl_userData = new GridBagLayout();
 		gbl_userData.columnWeights = new double[]{1.0, 1.0};
 		gbl_userData.columnWidths = new int[]{167, 293};
 		userData.setLayout(gbl_userData);
-		
-		
-		lblDireccion = new JLabel("Direccion");
-		lblDireccion.setHorizontalAlignment(SwingConstants.CENTER);
-		
 		
 		lblUsuario = new JLabel("Usuario");
 		lblUsuario.setHorizontalAlignment(SwingConstants.CENTER);
@@ -315,36 +218,19 @@ public class createUser extends JDialog{
 		userData.add(txtApellidos, gbc_txtApellidos);
 		txtApellidos.setColumns(20);
 		
-		lblDireccion = new JLabel("Direccion");
-		lblDireccion.setHorizontalAlignment(SwingConstants.CENTER);
-		GridBagConstraints gbc_lblDireccion = new GridBagConstraints();
-		gbc_lblDireccion.fill = GridBagConstraints.BOTH;
-		gbc_lblDireccion.gridx = 0;
-		gbc_lblDireccion.gridy = 8;
-		userData.add(lblDireccion, gbc_lblDireccion);
-		
-		txtDireccion = new JTextField();
-		GridBagConstraints gbc_txtDireccion = new GridBagConstraints();
-		gbc_txtDireccion.fill = GridBagConstraints.BOTH;
-		gbc_txtDireccion.gridx = 1;
-		gbc_txtDireccion.gridy = 8;
-		userData.add(txtDireccion, gbc_txtDireccion);
-		txtDireccion.setColumns(20);
-		
-		
 		lblFNacimiento = new JLabel("Fecha de Nacimiento");
 		lblFNacimiento.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_lblFNacimiento = new GridBagConstraints();
 		gbc_lblFNacimiento.fill = GridBagConstraints.BOTH;
 		gbc_lblFNacimiento.gridx = 0;
-		gbc_lblFNacimiento.gridy = 9;
+		gbc_lblFNacimiento.gridy = 8;
 		userData.add(lblFNacimiento, gbc_lblFNacimiento);
 		
 		txtF_Nacimiento = new JTextField();
 		GridBagConstraints gbc_txtF_Nacimiento = new GridBagConstraints();
 		gbc_txtF_Nacimiento.fill = GridBagConstraints.BOTH;
 		gbc_txtF_Nacimiento.gridx = 1;
-		gbc_txtF_Nacimiento.gridy = 9;
+		gbc_txtF_Nacimiento.gridy = 8;
 		userData.add(txtF_Nacimiento, gbc_txtF_Nacimiento);
 		txtF_Nacimiento.setColumns(20);
 		
@@ -353,17 +239,17 @@ public class createUser extends JDialog{
 		GridBagConstraints gbc_lblSexo = new GridBagConstraints();
 		gbc_lblSexo.fill = GridBagConstraints.BOTH;
 		gbc_lblSexo.gridx = 0;
-		gbc_lblSexo.gridy = 10;
+		gbc_lblSexo.gridy = 9;
 		userData.add(lblSexo, gbc_lblSexo);
 		
 		comboSexo = new JComboBox<String>();
-		comboSexo.addItem("Femenino");
-		comboSexo.addItem("Masculino");
+		comboSexo.addItem("Hombre");
+		comboSexo.addItem("Mujer");
 		comboSexo.addItem("Otro");
 		GridBagConstraints gbc_comboSexo = new GridBagConstraints();
 		gbc_comboSexo.fill = GridBagConstraints.BOTH;
 		gbc_comboSexo.gridx = 1;
-		gbc_comboSexo.gridy = 10;
+		gbc_comboSexo.gridy = 9;
 		userData.add(comboSexo, gbc_comboSexo);
 		
 		beautyW = new JPanel();

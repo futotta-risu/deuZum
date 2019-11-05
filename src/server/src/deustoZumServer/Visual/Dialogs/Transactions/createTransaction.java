@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.GridLayout;
 import javax.swing.SwingConstants;
 
 import deustoZumServer.ServerUserFunctionality;
