@@ -1,13 +1,10 @@
 package deustoZumServer;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+
 import java.io.IOException;
 import java.net.*;
 import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.Properties;
 
 import deustoZumServer.Database.GeneralSQLFunctions;
 import deustoZumServer.IA.Bots.*;

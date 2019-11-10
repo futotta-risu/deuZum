@@ -12,7 +12,6 @@ import java.util.Properties;
 import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
 
-import deustoZumServer.FileManagement.Icons;
 import deustoZumServer.Visual.Dialogs.*;
 import deustoZumServer.Visual.Dialogs.Group.*;
 import deustoZumServer.Visual.Dialogs.Project.*;
@@ -23,13 +22,12 @@ import deustoZumServer.Visual.Style.Components.Buttons.FlatButton;
 import deustoZumServer.Visual.Style.Components.Buttons.IconizedButton;
 import deustoZumServer.Visual.Style.Components.Buttons.MenuButton;
 import deustoZumServer.Visual.Style.Components.JPanels.MenuPanel;
+import deustoZumServer.Visual.Style.Layout.VerticalFlowLayout;
 
 import java.awt.BorderLayout;
-import javax.swing.JOptionPane;
 import java.awt.Color;
 import java.awt.Font;
 
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 import java.awt.Dimension;
@@ -46,6 +44,13 @@ import javax.swing.JSlider;
 import javax.swing.JToggleButton;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JScrollPane;
+
+import javax.swing.BorderFactory;
+import net.miginfocom.swing.MigLayout;
+import javax.swing.UIManager;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JTextArea;
 
 public class ServerHandlerFrame  extends JFrame{
 	
@@ -58,12 +63,15 @@ public class ServerHandlerFrame  extends JFrame{
 	private JPanel panel_Home;
 	private JPanel panel_Usuario;
 	private JPanel panel_Transaccion;
+	private JPanel panel_Config_G;
 	private JPanel panel_Proyectos;
 	private JPanel panel_Grupos;
 	private JTabbedPane panel_Configuration;
 	private JPanel central_Mutable_Panel;
 	private JTextField txf_ServerName;
 	private JTabbedPane panel_Funcionality;
+	
+	JLabel serverLabel;
 	/**
 	 * Crea un objeto de ServerHandlerFrame, el cual contiene un frame que controla una instancia de Server.
 	 */
@@ -83,7 +91,8 @@ public class ServerHandlerFrame  extends JFrame{
 		setIconImage(new ImageIcon("data/img/iconoP.png").getImage());
 		
 		
-		setSize(700, 500);
+		setSize(new Dimension(900, 500));
+		setMinimumSize(new Dimension(600, 400));
 		setVisible(true);
 		setTitle("DeuZum Servidor");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -105,13 +114,10 @@ public class ServerHandlerFrame  extends JFrame{
 		// Componentes
 		JLabel deuzumText = new JLabel();
 		deuzumText.setIcon(new ImageIcon("data/img/logo.png"));
-		JLabel serverLabel = new JLabel("Status: Off");
-		serverLabel.setForeground(Color.WHITE);
 		status_Bar.setLayout(new BorderLayout(0, 0));
 		
 		
 		status_Bar.add(deuzumText, BorderLayout.WEST);
-		status_Bar.add(serverLabel);
 		
 		JPanel sup_Right_Panel = new JPanel();
 		sup_Right_Panel.setOpaque(false);
@@ -209,7 +215,7 @@ public class ServerHandlerFrame  extends JFrame{
 		});
 		btnConfiguracionDelServer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				switchPanel(panel_Configuration);
+				switchPanel(panel_Config_G);
 			}
 		});
 		btnFuncionalidades.addActionListener(new ActionListener() {
@@ -237,10 +243,6 @@ public class ServerHandlerFrame  extends JFrame{
 				switchPanel(panel_Usuario);
 			}
 		});
-		btnHome.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		
 		central_Direction_Menu_Panel.add(btnHome);
 		central_Direction_Menu_Panel.add(btnUsuario);
@@ -256,9 +258,6 @@ public class ServerHandlerFrame  extends JFrame{
 		central_Mutable_Panel.setBackground(Color.WHITE);
 		central_Panel.add(central_Mutable_Panel, BorderLayout.CENTER);
 		central_Mutable_Panel.setLayout(new BorderLayout(0, 0));
-		
-		panel_Home = new JPanel();
-		central_Mutable_Panel.add(panel_Home);
 		
 		panel_Usuario = new MenuPanel();
 		central_Mutable_Panel.add(panel_Usuario);
@@ -469,7 +468,7 @@ public class ServerHandlerFrame  extends JFrame{
 			gbc_lblNewLabel.gridy = 4;
 			panel_Funct_Seguridad.add(lblNewLabel, gbc_lblNewLabel);
 			
-			JPanel panel_Config_G = new JPanel();
+			panel_Config_G = new JPanel();
 			central_Mutable_Panel.add(panel_Config_G);
 			panel_Config_G.setLayout(new BorderLayout(0, 0));
 			
@@ -494,7 +493,7 @@ public class ServerHandlerFrame  extends JFrame{
 			panel_Config_Server.add(lbl_Server_Port, gbc_lbl_Server_Port);
 			
 			JSpinner spinner_Port = new JSpinner();
-			spinner_Port.setModel(new SpinnerNumberModel(Integer.parseInt((String)this.properties.get("server.port")), 0, 65535, 1));
+			spinner_Port.setModel(new SpinnerNumberModel(Integer.parseInt((String)ServerHandlerFrame.properties.get("server.port")), 0, 65535, 1));
 			GridBagConstraints gbc_spinner_Port = new GridBagConstraints();
 			gbc_spinner_Port.fill = GridBagConstraints.HORIZONTAL;
 			gbc_spinner_Port.insets = new Insets(0, 0, 5, 5);
@@ -511,7 +510,7 @@ public class ServerHandlerFrame  extends JFrame{
 			panel_Config_Server.add(lblNombreDelServidor, gbc_lblNombreDelServidor);
 			
 			txf_ServerName = new JTextField();
-			txf_ServerName.setText((String) this.properties.get("server.name"));
+			txf_ServerName.setText((String) ServerHandlerFrame.properties.get("server.name"));
 			GridBagConstraints gbc_txf_ServerName = new GridBagConstraints();
 			gbc_txf_ServerName.gridwidth = 2;
 			gbc_txf_ServerName.insets = new Insets(0, 0, 5, 5);
@@ -529,7 +528,7 @@ public class ServerHandlerFrame  extends JFrame{
 			panel_Config_Server.add(lblConnectionTimeOut, gbc_lblConnectionTimeOut);
 			
 			JSlider slider_ConTimeOut = new JSlider();
-			slider_ConTimeOut.setValue(Integer.parseInt((String)this.properties.get("server.conexionTimeOut")));
+			slider_ConTimeOut.setValue(Integer.parseInt((String)ServerHandlerFrame.properties.get("server.conexionTimeOut")));
 			GridBagConstraints gbc_slider_ConTimeOut = new GridBagConstraints();
 			gbc_slider_ConTimeOut.fill = GridBagConstraints.HORIZONTAL;
 			gbc_slider_ConTimeOut.gridwidth = 2;
@@ -600,6 +599,104 @@ public class ServerHandlerFrame  extends JFrame{
 			});
 			panel_1.setLayout(new BorderLayout(0, 0));
 			panel_1.add(btn_Save, BorderLayout.EAST);
+			
+			panel_Home = new JPanel();
+			panel_Home.setBackground(new Color(255, 255, 255));
+			central_Mutable_Panel.add(panel_Home, BorderLayout.CENTER);
+			panel_Home.setLayout(new MigLayout("fill,insets 0", "[455.00px,grow,center][200.00px,grow 60,center]", "[408px,grow]"));
+			
+			JPanel panel_Home_Center = new JPanel();
+			panel_Home_Center.setBackground(new Color(255, 255, 255));
+			panel_Home.add(panel_Home_Center, "cell 0 0,grow");
+			panel_Home_Center.setLayout(new BorderLayout(0, 0));
+			
+			JPanel panel_Home_Title = new JPanel();
+			panel_Home_Title.setBackground(new Color(255, 255, 255));
+			panel_Home_Center.add(panel_Home_Title, BorderLayout.NORTH);
+			
+			JLabel lblBienvenido = new JLabel("Bienvenido");
+			panel_Home_Title.add(lblBienvenido);
+			lblBienvenido.setFont(new Font("Maiandra GD", Font.PLAIN, 29));
+			
+			JPanel panel_Home_Info = new JPanel();
+			panel_Home_Info.setBackground(new Color(255, 255, 255));
+			panel_Home_Center.add(panel_Home_Info);
+			panel_Home_Info.setLayout(new VerticalFlowLayout(0,10,10));
+			
+			
+			JTextArea txtrEsteEsEl = new JTextArea();
+			panel_Home_Info.add(txtrEsteEsEl, BorderLayout.NORTH);
+			txtrEsteEsEl.setWrapStyleWord(true);
+			txtrEsteEsEl.setEditable(false);
+			
+			txtrEsteEsEl.setText("Este es el software Deuzum, creado por el grupo FatSquirrels para ejecutar un servidor de gesti\u00F3n de dinero online con diversas funciones de IA implementadas dentro. Dentro de estas se encontrar\u00EDan las siguientes: \r\n\t-IA \r\n\t-Seguridad\r\n");
+			txtrEsteEsEl.setLineWrap(true);
+			txtrEsteEsEl.setOpaque(false);
+			txtrEsteEsEl.setFocusable(false);
+			txtrEsteEsEl.setBackground(UIManager.getColor("Label.background"));
+			txtrEsteEsEl.setFont(UIManager.getFont("Label.font"));
+			txtrEsteEsEl.setBorder(UIManager.getBorder("Label.border"));
+			
+			JLabel lblVersiones = new JLabel("Versiones");
+			lblVersiones.setFont(new Font("Tahoma", Font.PLAIN, 18));
+			panel_Home_Info.add(lblVersiones, BorderLayout.WEST);
+			
+			JTextArea txtrActualmenteEstaAplicacin = new JTextArea();
+			txtrActualmenteEstaAplicacin.setEditable(false);
+			txtrActualmenteEstaAplicacin.setLineWrap(true);
+			txtrActualmenteEstaAplicacin.setWrapStyleWord(true);
+			txtrActualmenteEstaAplicacin.setLineWrap(true);
+			txtrActualmenteEstaAplicacin.setOpaque(false);
+			txtrActualmenteEstaAplicacin.setFocusable(false);
+			txtrActualmenteEstaAplicacin.setBackground(UIManager.getColor("Label.background"));
+			txtrActualmenteEstaAplicacin.setFont(UIManager.getFont("Label.font"));
+			txtrActualmenteEstaAplicacin.setBorder(UIManager.getBorder("Label.border"));
+			txtrActualmenteEstaAplicacin.setText("Actualmente esta aplicaci\u00F3n se encuentra en la versi\u00F3n alpha. Esta permite la realizaci\u00F3n de las tareas m\u00E1s basicas pero requiere todav\u00EDa bastantes cambios para evitar errores y mejorar el rendimiento. Las caracteristicas de esta versi\u00F3n han sido las siguientes:\r\n\r\n\t- Ventanas de control de la base de datos\r\n\t- Plantilla de la base de datos.\r\n\t- Estado actual del servidor");
+			panel_Home_Info.add(txtrActualmenteEstaAplicacin, BorderLayout.EAST);
+			
+			JPanel panel_Home_Info_Botones = new JPanel();
+			panel_Home_Info_Botones.setBackground(Color.WHITE);
+			panel_Home_Info.add(panel_Home_Info_Botones, BorderLayout.SOUTH);
+			
+			JButton btn_FAQ = new JButton("Documentacion");
+			panel_Home_Info_Botones.add(btn_FAQ);
+			
+			JButton btnNewButton_1 = new JButton("Sobre Nosotros");
+			panel_Home_Info_Botones.add(btnNewButton_1);
+			
+			JPanel panel_Home_Lateral = new JPanel();
+			panel_Home_Lateral.setBackground(new Color(176, 224, 230));
+			
+			panel_Home_Lateral.setLayout(new  VerticalFlowLayout(0,true));
+			JPanel panel_Home_Lateral_Status = new JPanel();
+			panel_Home_Lateral.add(panel_Home_Lateral_Status);
+			panel_Home_Lateral_Status.setBackground(CustomColors.mBOrangeL);
+			panel_Home_Lateral_Status.setLayout(new VerticalFlowLayout(0,10,10));
+			serverLabel = new JLabel("Status: Off");
+			serverLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+			panel_Home_Lateral_Status.add(serverLabel);
+			serverLabel.setForeground(new Color(0, 0, 0));
+			
+			JPanel panel_Lateral_Info = new JPanel();
+			panel_Lateral_Info.setLayout(new VerticalFlowLayout(0,5,5));
+			panel_Home_Lateral_Status.add(panel_Lateral_Info);
+			
+			JLabel lblNewLabel_2 = new JLabel("New label");
+			panel_Lateral_Info.add(lblNewLabel_2);
+			
+			JLabel lblNewLabel_1 = new JLabel("New label");
+			panel_Lateral_Info.add(lblNewLabel_1);
+			
+			JPanel panel_Home_Lateral_Help = new JPanel();
+			panel_Home_Lateral_Help.setPreferredSize(new Dimension(200,600));
+			panel_Home_Lateral.add(panel_Home_Lateral_Help);
+			panel_Home_Lateral_Help.setBackground(CustomColors.mBBlueGrayL);
+			
+			JScrollPane scrollPanel_Lateral = new JScrollPane(panel_Home_Lateral,
+					JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+		            JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+			scrollPanel_Lateral.setBorder(new EmptyBorder(0, 0, 0, 0));
+			panel_Home.add(scrollPanel_Lateral, "cell 1 0,grow");
 			btnVerGrupos.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					new GroupList(server.getConnection());
@@ -632,7 +729,7 @@ public class ServerHandlerFrame  extends JFrame{
 	 * Abre y carga el archivo properties.
 	 */
 	public void openProperties() {
-		this.properties = new Properties();
+		ServerHandlerFrame.properties = new Properties();
 		try(FileInputStream f = new FileInputStream("./data/server.properties")){
 			properties.load(f);
 			

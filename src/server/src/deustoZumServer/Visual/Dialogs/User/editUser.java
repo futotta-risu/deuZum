@@ -7,7 +7,6 @@ import javax.swing.JTextField;
 
 import deustoZumServer.ServerUserFunctionality;
 import deustoZumServer.Algorithms.TextFunctions;
-import deustoZumServer.Database.GeneralSQLFunctions;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -30,7 +29,6 @@ public class editUser extends JDialog{
 	private JTextField txtTelefono;
 	private JTextField txtEmail;
 	private JTextField txtF_Nacimiento;
-	private JTextField txtSexo;
 	private JTextField txtDireccion;
 	private JComboBox<String> comboSexo;
 

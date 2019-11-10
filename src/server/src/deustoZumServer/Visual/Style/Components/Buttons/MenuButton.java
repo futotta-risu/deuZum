@@ -11,9 +11,6 @@ import deustoZumServer.Visual.Style.CustomColors;
 
 public class MenuButton extends JButton{
 
-		/**
-	 * 
-	 */
 		public MenuButton() {
 			setStyle();
 		}
