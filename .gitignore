@@ -38,7 +38,6 @@ hs_err_pid*
 *.gz
 *.toc
 *.aux
-*.xml
 *.prefs
 *.bbl
 *.blg

@@ -2,6 +2,7 @@ package io.github.fatsquirrels.deuzum.Database;
 
 import io.github.fatsquirrels.deuzum.Algorithms.TextFunctions;
 
+
 public class CommandBuilder {
 
 	/**

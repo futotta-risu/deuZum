@@ -8,6 +8,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Properties;
 import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
@@ -26,6 +30,7 @@ import io.github.fatsquirrels.deuzum.Visual.Style.Layout.VerticalFlowLayout;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Font;
 
 import javax.swing.ImageIcon;
@@ -50,6 +55,7 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
 
 public class ServerHandlerFrame  extends JFrame{
 	
@@ -655,9 +661,31 @@ public class ServerHandlerFrame  extends JFrame{
 			panel_Home_Info.add(panel_Home_Info_Botones, BorderLayout.SOUTH);
 			
 			JButton btn_FAQ = new JButton("Documentacion");
+			btn_FAQ.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					URL url = null;
+					try {
+						url = new URL("https://github.com/futotta-risu/deuZum/wiki");
+					} catch (MalformedURLException e1) {
+						e1.printStackTrace();
+					}
+					openWebpage(url);
+				}
+			});
 			panel_Home_Info_Botones.add(btn_FAQ);
 			
 			JButton btnNewButton_1 = new JButton("Sobre Nosotros");
+			btnNewButton_1.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					URL url = null;
+					try {
+						url = new URL("https://github.com/futotta-risu/deuZum/graphs/contributors");
+					} catch (MalformedURLException e1) {
+						e1.printStackTrace();
+					}
+					openWebpage(url);
+				}
+			});
 			panel_Home_Info_Botones.add(btnNewButton_1);
 			
 			JPanel panel_Home_Lateral = new JPanel();
@@ -677,10 +705,11 @@ public class ServerHandlerFrame  extends JFrame{
 			panel_Lateral_Info.setLayout(new VerticalFlowLayout(0,5,5));
 			panel_Home_Lateral_Status.add(panel_Lateral_Info);
 			
-			JLabel lblNewLabel_2 = new JLabel("New label");
-			panel_Lateral_Info.add(lblNewLabel_2);
+			JLabel lblVersion = new JLabel("Version: alpha0.0.1");
+			panel_Lateral_Info.add(lblVersion);
 			
-			JLabel lblNewLabel_1 = new JLabel("New label");
+			JLabel lblNewLabel_1 = new JLabel("FatSquirrels");
+			lblNewLabel_1.setHorizontalAlignment(SwingConstants.LEFT);
 			panel_Lateral_Info.add(lblNewLabel_1);
 			
 			JPanel panel_Home_Lateral_Help = new JPanel();
@@ -748,6 +777,29 @@ public class ServerHandlerFrame  extends JFrame{
 			e.printStackTrace();
 		}
 	}
+	
+	public static boolean openWebpage(URI uri) {
+	    Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+	    if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+	        try {
+	            desktop.browse(uri);
+	            return true;
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
+	    return false;
+	}
+
+	public static boolean openWebpage(URL url) {
+	    try {
+	        return openWebpage(url.toURI());
+	    } catch (URISyntaxException e) {
+	        e.printStackTrace();
+	    }
+	    return false;
+	}
+	
 	
 	public static void main(String[] args) {
 		
