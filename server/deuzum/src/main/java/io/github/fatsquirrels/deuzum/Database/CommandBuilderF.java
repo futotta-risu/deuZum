@@ -10,10 +10,15 @@ import java.util.Map.Entry;
 import io.github.fatsquirrels.deuzum.Algorithms.TextFunctions;
 import io.github.fatsquirrels.deuzum.Algorithms.Math.APair;
 
+/**
+ * Enumera la lista de comandos posibles dentro de la clase CommandBuilderF.
+ * Actualmente se encuentran las siguientes opciones:
+ * <ul><li>Insert</li><li>Select</li><li>Update</li><li>Delete</li></ul>
+ */
 enum StatementType{
 	// Remember table contains INNER JOIN
 	INSERT("INSERT INTO {TABLE} ({COLUMNS}) VALUES ({VALUES})"), 
-	SELECT("SELECT {COLUMNS} FROM {TABLE} {WHERE} {GROUP} {HAVING} {ORDER} {LIMIT}"), 
+	SELECT("SELECT {COLUMNS} FROM {TABLE} {WHERE} {GROUP} {ORDER} {LIMIT}"), 
 	UPDATE("UPDATE {TABLE} SET {EXPRESSION} {WHERE} {ORDER} {LIMIT}"), 
 	DELETE("DELETE FROM {TABLE} {WHERE} {ORDER} {LIMIT}");
 	
@@ -24,36 +29,57 @@ enum StatementType{
 	}
 }
 
-
+/**
+ * Lista de Tipos de ordenes de los comandos de SQL. Actualmente se encuentran las siguientes opciones:
+ * <ul><li>DESC</li><li>ASC</li><li>RANDOM</li></ul>
+ *
+ */
 enum OrderType{
-	DEF, DESC, ASC, RANDOM;
+	DESC, ASC, RANDOM;
 
 }
 
-
+/**
+ * Generador de expresiones de SQL mediante el metodo de factoria.
+ * 
+ * @version 1.0.0 
+ * @see StatementType
+ */
 public class CommandBuilderF {
 	
-	// Global
 	private StatementType SQLType;
 	
+	/**
+	 * Estructura que contiene las opciones de Orden de SQL.
+	 */
+	
 	private class Order{
+		private boolean isUp = false;
 		private boolean isRandom = false;
 		private OrderType order;
 		
 		ArrayList<String> keys;
 		
 		public Order(OrderType order) {
+			this.isUp = true;
 			this.order = order;
 			this.keys = new ArrayList<String>();
 		}
-		
+		/**
+		 * Añade las claves de orden.
+		 * 
+		 * @param keys Nombre de las claves
+		 */
 		public void addKeys(String[] keys) {
 			if(this.isRandom) return;
 			for(String i : keys) 
 				this.keys.add(i);
 		}
-		
+		/**
+		 * Devuelve una cadena de texto sobre los valores de Orden
+		 */
 		public String pack() {
+			if(!this.isUp) return "";
 			String result = "ORDER BY";
 			if(this.isRandom) return result+" RAND()";
 			else {
@@ -69,24 +95,27 @@ public class CommandBuilderF {
 			}
 		}
 	}
+	
 	private final APair[] variables = {
-			new APair("{TABLE}","getTable"), // Implemented
-			new APair("{COLUMNS}","getColumnNames"), // Implemented 
-			new APair("{VALUES}","getColumnValues"), // Implemented 
-			new APair("{WHERE}","where"), // Implemented
-			new APair("{GROUP}","getGroup"),// Implemented
-			new APair("{HAVING}","getColumnValues"),
-			new APair("{EXPRESSION}","getColumnValues"),
-			new APair("{ORDER}","getOrder"), // Implemented
-			new APair("{LIMIT}","getColumnValues")};
+			new APair("{TABLE}","getTable"), 
+			new APair("{COLUMNS}","getColumnNames"), 
+			new APair("{VALUES}","getColumnValues"),
+			new APair("{WHERE}","getWhere"), 
+			new APair("{GROUP}","getGroup"),
+			new APair("{EXPRESSION}","getColumnValues"), 
+			new APair("{ORDER}","getOrder"), 
+			new APair("{LIMIT}","getLimit")}; 
 	
 	
-	private String table;
+	private String table = "";
 	private HashMap<String, String> columns;
-	private ArrayList<String> group;
 	private WhereAST where;
+	private ArrayList<String> group;
+	private String expression = "";
 	private Order order;
-	private int limit= -1;
+	private int limit = -1;
+	
+	
 	public CommandBuilderF() {
 		initialize();
 	}
@@ -97,6 +126,7 @@ public class CommandBuilderF {
 	
 	public void initialize() {
 		this.columns = new HashMap<String, String>();
+		this.group = new ArrayList<String>();
 	}
 	
 	
@@ -169,7 +199,6 @@ public class CommandBuilderF {
 		return this;
 	}
 	public CommandBuilderF setGroupBy(String[] keys) {
-		this.group = new ArrayList<String>();
 		for(String i : keys)
 			this.group.add(i);
 		return this;
@@ -177,13 +206,21 @@ public class CommandBuilderF {
 	public CommandBuilderF setLimit(int limit) {
 		// Implementar error
 		if(limit<0) return this;
+		this.limit = limit;
+		return this;
 	}
+	public CommandBuilderF setExpression(String expression) {
+		this.expression = expression;
+		return this;
+	}
+	
 	
 	// String Getters
 	public String getTable() {
 		return table;
 	}
 	public String getColumnNames() {
+		if(this.columns.size()==0) return "";
 		String[] resultL = new String[columns.size()];
 		int count = 0;
 		for(Entry<String, String> i : columns.entrySet()) 
@@ -191,6 +228,7 @@ public class CommandBuilderF {
 		return String.join(",", resultL);
 	}
 	public String getColumnValues() {
+		if(this.columns.size()==0) return "";
 		String[] resultL = new String[columns.size()];
 		int count = 0;
 		for(Entry<String, String> i : columns.entrySet()) 
@@ -198,17 +236,25 @@ public class CommandBuilderF {
 		return String.join(",", TextFunctions.surroundText(resultL, "'"));
 	}
 	public String getWhere() {
+		if(this.where == null) return "";
 		return this.where.pack();
 	}
 	
 	public String getOrder() {
+		if(this.order == null) return "";
 		return this.order.pack();
 	}
 	public String getGroup() {
+		if(this.group.size()==0) return "";
 		return "GROUP BY "+String.join(",", this.group);
 	}
-	
-	
+	public String getLimit() {
+		if(this.limit==-1) return "";
+		return "LIMIT " + this.limit;
+	}
+	public String getExpression() {
+		return this.expression;
+	}
 	
 	public String pack() {
 		String result = this.SQLType.CommandFormat;
@@ -219,6 +265,7 @@ public class CommandBuilderF {
 				if(tempVal.isEmpty()) continue;
 				result = result.replace(String.valueOf(i.getIndex()), tempVal);
 			}catch(Exception e) {
+				System.err.println(i.index);
 				System.err.println("Hubo algun tipo de error al conseguir los resultados");
 			}
 		}

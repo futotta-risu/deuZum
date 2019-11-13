@@ -39,25 +39,28 @@ public class WhereAST {
 
 	private class Node {
 	    private String data;
-	    private logicOP logicOP;
+	    private logicOP logicOPi;
 	    private nodeType nodeT;
 	    private Node parent;
 	    private List<Node> children;
 	    
 	    Node(){
-	    	nodeT = nodeType.LIST;
-	    	root.children = new ArrayList<Node>();
+	    	data = "";
+	    	logicOPi = logicOP.AND;
+	    	nodeT =  nodeType.LIST;
+	    	children= new ArrayList<Node>();
 	    }
 	    
 	    public String pack() {
 			String result = "";
-			if(root.nodeT == nodeType.TOKEN) result = root.data;
+			if(nodeT == nodeType.TOKEN) result = data;
 			else {
-				int length = root.children.size();
+				if(this.children.size()==0) return result;
+				int length = children.size();
 				String[] tempD = new String[length];
-				for(int i  = 0; i <  length;  i++)
-					tempD[i] = root.children.get(i).pack();
-				result = "(" +String.join(logicOP.value, tempD) + ")";
+				for(int i  = 0; i <  length;  i++) 
+					tempD[i] = children.get(i).pack();
+				result = "(" +String.join(" " +logicOPi.value+" ", tempD) + ")";
 			}
 				
 			return result;
@@ -78,13 +81,13 @@ public class WhereAST {
 	public WhereAST addP(logicOP nT) {
 		if(this.root.nodeT == nodeType.TOKEN) return this;
 		this.root = (this.addP()).root;
-		this.root.logicOP = nT;
+		this.root.logicOPi = nT;
 		return this;
 	}
 	
 	public WhereAST addExpr(logicOP logicG) {
 		if(this.root.nodeT == nodeType.TOKEN) return this;
-		this.root.logicOP = logicG;
+		this.root.logicOPi = logicG;
 		return this;
 	}
 	
@@ -109,23 +112,24 @@ public class WhereAST {
 	 */
 	public WhereAST addColumValueLO(String[] columnNames,String[] data, logicOP logiOp,ariOP ariOp ) {
 		// TODO add error case
-		if(this.root.nodeT == nodeType.LIST) return this;
+		if(this.root.nodeT == nodeType.LIST && this.root.children.size()>0) return this;
 		if(columnNames.length != data.length || columnNames.length==0) return this;
 		this.root.nodeT = nodeType.TOKEN;
 		String[] tempD = TextFunctions.surroundText(data, "'");
 		String[] concatenatedText = TextFunctions.concatenateAlternative(columnNames, tempD, ariOp.value);
 		this.root.data = String.join(" " + logiOp.value + " ", concatenatedText);
-		
 		return this;
 	}
 	public WhereAST addValue(String data) {
+		if(this.root.nodeT == nodeType.LIST && this.root.children.size()>0) return this;
 		this.root.data = data;
+		this.root.nodeT = nodeType.TOKEN;
 		return this;
 	}
 	
 	
 	public String pack() {
-		return this.root.pack();
+		return "WHERE " + this.root.pack();
 	}
 	
 }
