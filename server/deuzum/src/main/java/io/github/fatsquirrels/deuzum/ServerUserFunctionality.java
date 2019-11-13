@@ -27,7 +27,7 @@ public class ServerUserFunctionality {
 	 * @param data Array que contiene la informaci�n de creacion del usuario (User, Pass, Pregunta Seguridad, Respuesta)
 	 */
 	public static void createUser(Connection connection, String[] data){
-		String[] columnNamesUsuarios = {"usuario","contraseña","preg_seguridad","resp_seguridad"};
+		String[] columnNamesUsuarios = {"usuario","contrase�a","preg_seguridad","resp_seguridad", "permisos"};
 		// Create User
 		try {
 			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "usuario", columnNamesUsuarios, data);
@@ -44,7 +44,7 @@ public class ServerUserFunctionality {
 	 */
 	public static void crerateUserInfC(JSONObject data) {
 		Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost/deuzumdb", "root", "");
-		createUserInf(conn, new String[] {data.getString("nombre"), data.getString("apellido"), data.getString("telefono"), 
+		createUserInf(conn, new String[] {data.getString("nombre"), data.getString("apellidos"), data.getString("telefono"), 
 				data.getString("email"), data.getString("direccion"), data.getString("fecha_nacimiento"), data.getString("sexo")});	
 	}
 		
@@ -54,7 +54,7 @@ public class ServerUserFunctionality {
 	 * @param data Array que contiene la información de usuario (Nombre, Apellidos, Telefono, Email, Direccion, F_Nacimiento, Sexo).
 	 */	
 	public static void createUserInf(Connection connection, String[] data) {
-		String[] columnNamesUserInf = {"nombre", "apellido", "telefono", "email", "direccion", "sexo"};
+		String[] columnNamesUserInf = {"nombre", "apellidos", "telefono", "email", "direccion", "fecha_nacimiento", "sexo"};
 		// Create UserInf
 		try {
 			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "infousuario", columnNamesUserInf, data);
