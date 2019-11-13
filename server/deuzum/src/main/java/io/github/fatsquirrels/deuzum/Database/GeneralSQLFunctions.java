@@ -11,7 +11,7 @@ public final class GeneralSQLFunctions {
 	public static Connection connectToDatabase(String direction, String user, String pass) {
 		Connection conn = null;
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			conn = DriverManager.getConnection(direction,user, pass);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
