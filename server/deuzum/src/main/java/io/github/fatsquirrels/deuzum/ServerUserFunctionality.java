@@ -9,6 +9,10 @@ import java.sql.Connection;
 import io.github.fatsquirrels.deuzum.Database.CommandBuilder;
 import io.github.fatsquirrels.deuzum.Database.GeneralSQLFunctions;
 
+/**
+ * Funciones comunes para la gestion de usuarios
+ *
+ */
 public class ServerUserFunctionality {
 
 	/**

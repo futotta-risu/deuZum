@@ -18,20 +18,35 @@ import io.github.fatsquirrels.deuzum.IA.Bots.*;
  */
 public class Server implements Runnable{
 
-	public static boolean isRunning = false;
+	/**
+	 * Variable que contiene el estado del servidor.
+	 */
 	
-	ArrayList<BotBase> bots;
+	static boolean isRunning = false;
+	
+	/**
+	 * Array que contiene los bots del servidor.
+	 */
+	private ArrayList<BotBase> bots;
+	
+	
 	private ServerSocket serverSocket;
 	private Connection connection;
 	private int port, botCount;
+	/**
+	 * Nombre de la base de datos. Se extrae del archivo properties.
+	 */
 	private String dbName;
 	
 	public Server() {
 		
-		
-		
 	}
 	
+	/**
+	 * Intenta ejecutar el servidor. En caso de fallar hace un shutdown.
+	 * @see Server#execute()
+	 * @see Server#shutdown()
+	 */
 	public void runServer() {
 		try{
 			
@@ -44,7 +59,10 @@ public class Server implements Runnable{
 	}
 	
 	public void setPort(int port) {
-		this.port = port;
+		if(port <0 || port > 65535) 
+			System.err.println("El numero de puerto que ha intentado introducir no esta en el rango adecuado.");
+		else
+			this.port = port;
 	}
 	
 	public void setBotCount(int botCount) {
@@ -107,6 +125,9 @@ public class Server implements Runnable{
 		return connection;
 	}
 	
+	/**
+	 * Para el servidor y resetea las variables.
+	 */
 	public void shutdown() {
 		isRunning = false;
 		this.connection = null;

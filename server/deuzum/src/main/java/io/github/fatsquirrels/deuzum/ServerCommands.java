@@ -21,6 +21,9 @@ interface Command{
 	String runCommand(JSONObject data);
 }
 
+/**
+ * Contenedor del mapa de comandos.
+ */
 public class ServerCommands {
 
 	/**

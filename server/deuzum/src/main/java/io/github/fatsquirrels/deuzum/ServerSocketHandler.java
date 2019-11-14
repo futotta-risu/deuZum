@@ -9,6 +9,11 @@ import java.sql.Connection;
 
 import org.json.JSONObject;
 
+
+/**
+ * Thread encargado de leer y responder a los sockets.
+ *
+ */
 public class ServerSocketHandler extends Thread{
 
 	Socket socket;

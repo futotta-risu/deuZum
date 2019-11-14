@@ -57,6 +57,11 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
+
+/**
+ * Clase de la ventana principal del servidor.
+ *
+ */
 public class ServerHandlerFrame  extends JFrame{
 	
 	private Server server = null;
