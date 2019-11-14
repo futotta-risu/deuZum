@@ -28,6 +28,8 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
+import io.github.fatsquirrels.deuzum.Algorithms.ObjectMapper;
+
 public class createUser extends JDialog{
 
 	
@@ -77,10 +79,10 @@ public class createUser extends JDialog{
 		// TODO Actualizar esta ventana respecto a los nuevos parametros de la base de datos
 		setSize(540,350);
 		
-		initialize();
-		createComponentMap();
+		initialize(conn);
+		ObjectMapper.createComponentMap(userData);
 	}
-	public void initialize() {
+	public void initialize(Connection conn) {
 		
 		btnCrear = new FlatButton("Crear Usuario");
 		
@@ -346,14 +348,14 @@ public class createUser extends JDialog{
 				};
 		int nError = 0;
 		for(APair i :compulsoryVars){
-			JTextField tempC = (JTextField) getComponentByName(String.valueOf(i.getIndex()));
+			JTextField tempC = (JTextField) ObjectMapper.getComponentByName(String.valueOf(i.getIndex()), componentMap);
 			System.out.println(i.getIndex());
 			if(tempC.getText().isEmpty()) 
 				System.out.println("Error " + String.valueOf(++nError) + ": No ha indicado ninguna respuesta en " + String.valueOf(i.getValue()));
 			
 		}
 		// Comprobamos Fecha
-		JTextField dateT = (JTextField) getComponentByName("txtF_Nacimiento");
+		JTextField dateT = (JTextField) ObjectMapper.getComponentByName("txtF_Nacimiento", componentMap);
 		if(!dateT.getText().isEmpty() && !TextFunctions.dateChecker(dateT.getText()))
 			System.out.println("Error " + String.valueOf(++nError) + ": No ha indicado ninguna respuesta en Fecha de Nacimiento");
 		
@@ -369,7 +371,7 @@ public class createUser extends JDialog{
 				new APair("txtDireccion", new ConcreteText("Dirección",TextTypes.NAME)),
 			};
 		for(APair i : formatVars) {
-			JTextField tempC = (JTextField) getComponentByName(String.valueOf(i.getIndex()));
+			JTextField tempC = (JTextField) ObjectMapper.getComponentByName(String.valueOf(i.getIndex()), componentMap);
 			String tempText = tempC.getText();
 			if(!tempText.isEmpty() && !ConcreteText.isValid(tempText, ((ConcreteText) i.getValue()).getTextType())) 
 				System.out.println("Error " + String.valueOf(++nError) + ": No ha indicado ninguna respuesta en " + String.valueOf(i.getValue()));
@@ -394,19 +396,6 @@ public class createUser extends JDialog{
 		
 	}
 	
-	public void createComponentMap() {
-		componentMap = new HashMap<String,Component>();
-        Component[] components = userData.getComponents();
-        for (int i=0; i < components.length; i++) 
-                componentMap.put(components[i].getName(), components[i]);
-        
-	}
 	
-	
-	public Component getComponentByName(String name) {
-        if (componentMap.containsKey(name)) 
-                return (Component) componentMap.get(name);
-        else return null;
-	}
 	
 }

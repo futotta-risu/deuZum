@@ -6,14 +6,20 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import io.github.fatsquirrels.deuzum.ServerUserFunctionality;
+import io.github.fatsquirrels.deuzum.Algorithms.ConcreteText;
+import io.github.fatsquirrels.deuzum.Algorithms.ObjectMapper;
 import io.github.fatsquirrels.deuzum.Algorithms.TextFunctions;
+import io.github.fatsquirrels.deuzum.Algorithms.TextTypes;
+import io.github.fatsquirrels.deuzum.Algorithms.Math.APair;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.util.HashMap;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 
 public class editUser extends JDialog{
@@ -49,13 +55,14 @@ public class editUser extends JDialog{
 	private JButton btnGuardarCambios;
 	
 	private int userID;
+	private HashMap<String,Component> componentMap;
 	
 	/**
 	 * Crea un objeto de editUser, este contiene un Dialogo que sirve para buscar un usuario por su ID 
 	 * y modificar sus datos
 	 * @param Connection
 	 */	
-	public editUser(Connection connection) {
+	public editUser(Connection conn) {
 		setSize(550,300);
 		setTitle("Editar usuario");
 		setVisible(true);
@@ -184,100 +191,67 @@ public class editUser extends JDialog{
 		btnGuardarCambios = new JButton("Guardar Cambios");
 		btnGuardarCambios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				boolean nulo = false;
-				//TODO Comprobar que el usser,email y tlfn no esta en uso
-				if(txtUser.getText().equals("")){
-					lblUsuario.setBackground(Color.RED);
-					nulo = true;
-				}else if(txtPass.getText().equals("")) {
-					lblPass.setBackground(Color.RED);
-					nulo = true;
-				}else if(txtRespuesta.getText().equals("")) {
-					lblRespuesta.setBackground(Color.RED);
-					nulo = true;
-				}else if(txtNombre.getText().equals("")) {
-					lblNombre.setBackground(Color.RED);
-					nulo = true;
-				}else if(txtApellidos.getText().equals("")) {
-					lblApellidos.setBackground(Color.RED);
-					nulo = true;
-				}else if(txtTelefono.getText().equals("")) {
-					lblTelefono.setBackground(Color.RED);
-					nulo = true;			
-				}else if(txtEmail.getText().equals("")) {
-					lblEmail.setBackground(Color.RED);
-					nulo = true;
-				}else if(txtF_Nacimiento.getText().equals("")) {
-					lblFNacimiento.setBackground(Color.RED);
-					nulo = true;
-				}else if(txtDireccion.getText().equals("")) {
-					lblDireccion.setBackground(Color.RED);
-					nulo = true;
-				}else if(nulo){
-					JOptionPane.showMessageDialog(null, "Se ha introducido algun dato nulo", "ERROR", 0);
-				}else {
-					boolean format = true;
-					String place = "";
-					if(!TextFunctions.endsWithMail(txtEmail.getText())) {
-						lblEmail.setBackground(Color.RED);
-						format = false;
-						place = "Email";
-					}else if(!TextFunctions.dateChecker(txtF_Nacimiento.getText())) {
-						lblFNacimiento.setBackground(Color.RED);
-						format = false;
-						place = "Fecha de Nacimiento";
-					}else if(!format){
-						JOptionPane.showMessageDialog(null, "Mal formato de datos en: " + place);
-					}else{
-						boolean length = true;
-						if(txtUser.getText().length()>32) {
-							lblUsuario.setBackground(Color.RED);
-							length = false;
-						}else if(txtPass.getText().length()>32){
-							lblPass.setBackground(Color.RED);
-							length = false;
-						}else if(txtRespuesta.getText().length()>32) {
-							lblRespuesta.setBackground(Color.RED);
-							length = false;
-						}else if(txtNombre.getText().length()>15) {
-							lblNombre.setBackground(Color.RED);
-							length = false;
-						}else if(txtApellidos.getText().length()>15) {
-							lblApellidos.setBackground(Color.RED);
-							length = false;
-						}else if(txtTelefono.getText().length()>9) {
-							lblTelefono.setBackground(Color.RED);
-							length = false;
-						}else if(txtEmail.getText().length()>40) {
-							lblEmail.setBackground(Color.RED);
-							length = false;
-						}else if(txtF_Nacimiento.getText().length()>10){
-							lblFNacimiento.setBackground(Color.RED);
-							length = false;
-						}else if(txtDireccion.getText().length()>50) {
-							lblDireccion.setBackground(Color.RED);
-							length = false;
-						}else if(!length){
-							JOptionPane.showMessageDialog(null, "La longitud es incorrecta", "Error", 0);
-						}else {
-							//TODO Comprobar parametros existentes
-							ServerUserFunctionality.updateUser(connection,userID+"" ,new String[] 
-									{txtUser.getText(), txtPass.getText(),  comboPregSeg.getSelectedItem().toString(), txtRespuesta.getText()
-									,"cliente"});
-							dispose();
-							ServerUserFunctionality.updateUserInf(connection,userID+"", new String[]
-									{txtNombre.getText(), txtApellidos.getText(), txtTelefono.getText(), txtEmail.getText(),
-									txtDireccion.getText(), txtF_Nacimiento.getText(), comboSexo.getSelectedItem().toString()});
-							JOptionPane.showMessageDialog(null, "Usuario registrado con exito", "REGISTRADO", 1);
-						}//end if length
-					}//end if format
-						
-					
-				}//end if null
+				editarUsuario(conn);
 			}
 		});
 		btnGuardarCambios.setBounds(289, 228, 205, 29);
 		getContentPane().add(btnGuardarCambios);
+		
+	}
+	
+	
+	public void editarUsuario(Connection conn) {
+		//Comprobamos campos vacios
+				APair[] compulsoryVars = {
+						new APair("tFUser","Usuario"),new APair("tFPass","Contraseña"), new APair("tFRes","Respuesta")
+						};
+				int nError = 0;
+				for(APair i :compulsoryVars){
+					JTextField tempC = (JTextField) ObjectMapper.getComponentByName(String.valueOf(i.getIndex()), componentMap);
+					System.out.println(i.getIndex());
+					if(tempC.getText().isEmpty()) 
+						System.out.println("Error " + String.valueOf(++nError) + ": No ha indicado ninguna respuesta en " + String.valueOf(i.getValue()));
+					
+				}
+				// Comprobamos Fecha
+				JTextField dateT = (JTextField) ObjectMapper.getComponentByName("txtF_Nacimiento", componentMap);
+				if(!dateT.getText().isEmpty() && !TextFunctions.dateChecker(dateT.getText()))
+					System.out.println("Error " + String.valueOf(++nError) + ": No ha indicado ninguna respuesta en Fecha de Nacimiento");
+				
+				
+				// Comprobamos Formato y longitud
+				APair[] formatVars = {
+						new APair("txtEmail", new ConcreteText("Email",TextTypes.EMAIL)),
+						new APair("txtNombre", new ConcreteText("Nombre",TextTypes.NAME)),
+						new APair("txtApellidos", new ConcreteText("Apellido",TextTypes.NAME)),
+						new APair("tFPass", new ConcreteText("Contraseña",TextTypes.PASSWORD)),
+						new APair("tFRes", new ConcreteText("Respuesta",TextTypes.NAME)),
+						new APair("txtTelefono", new ConcreteText("Telefono",TextTypes.PHONE)),
+						new APair("txtDireccion", new ConcreteText("Dirección",TextTypes.NAME)),
+					};
+				for(APair i : formatVars) {
+					JTextField tempC = (JTextField) ObjectMapper.getComponentByName(String.valueOf(i.getIndex()), componentMap);
+					String tempText = tempC.getText();
+					if(!tempText.isEmpty() && !ConcreteText.isValid(tempText, ((ConcreteText) i.getValue()).getTextType())) 
+						System.out.println("Error " + String.valueOf(++nError) + ": No ha indicado ninguna respuesta en " + String.valueOf(i.getValue()));
+
+				}
+				
+				// Si no hay errores lo enviamos
+				if(nError==0) {
+					// TODO añadir preg segu bien y permisos
+					ServerUserFunctionality.createUser(conn, new String[] 
+							{txtUser.getText(), txtPass.getText(), "6", txtRespuesta.getText()
+							});
+					dispose();
+					// TODO cambiar lo del sexo
+					/*ServerUserFunctionality.createUserInf(conn, new String[]
+							{txtNombre.getText(), txtApellidos.getText(), txtTelefono.getText(), txtEmail.getText(),
+							txtDireccion.getText(), "F"});*/
+					JOptionPane.showMessageDialog(null, "Usuario registrado con exito", "REGISTRADO", 1);
+				}
+				
+				// TODO Añadir ventana de error
 		
 	}
 }

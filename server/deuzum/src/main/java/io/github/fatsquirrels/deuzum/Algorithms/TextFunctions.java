@@ -131,4 +131,6 @@ public class TextFunctions {
 		}
 		return true;
 	}
+	
+	
 }

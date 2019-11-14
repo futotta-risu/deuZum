@@ -30,7 +30,7 @@ public class deleteUser extends JDialog {
 	/**
 	 * Crea un objeto de deleteUser que permite eliminar un usuario buscandolo por su ID.
 	 */
-	public deleteUser(Connection connection) {
+	public deleteUser( Connection connection) {
 		setSize(400, 130);
 		setVisible(true);
 		setTitle("Eliminar Usuario");
@@ -55,8 +55,8 @@ public class deleteUser extends JDialog {
 		getContentPane().add(btnEliminar);
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ServerUserFunctionality.deleteUser(connection, textField.getText());
 				JOptionPane.showConfirmDialog(null, "¿Estas seguro de que quieres eliminar el usuario?");
+				ServerUserFunctionality.deleteUser(connection, textField.getText());
 				dispose();
 			}
 		});

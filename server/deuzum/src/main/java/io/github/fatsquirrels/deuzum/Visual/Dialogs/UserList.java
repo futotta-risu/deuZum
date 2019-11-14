@@ -6,7 +6,12 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.border.MatteBorder;
+
+import io.github.fatsquirrels.deuzum.Database.GeneralSQLFunctions;
+
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 
 public class UserList extends JDialog{
@@ -50,6 +55,11 @@ public class UserList extends JDialog{
 		btnEliminarUsuarios.setBounds(441, 199, 136, 29);
 		getContentPane().add(btnEliminarUsuarios);
 		setVisible(true);
+		btnEliminarUsuarios.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GeneralSQLFunctions.deleteEntryFromDatabase(c, "usuario", conditions);
+			}
+		});
 		
 	}
 }
