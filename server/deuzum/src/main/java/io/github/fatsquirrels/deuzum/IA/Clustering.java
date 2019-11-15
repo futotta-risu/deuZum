@@ -14,13 +14,18 @@ import io.github.fatsquirrels.deuzum.Algorithms.Math.Pair;
 import io.github.fatsquirrels.deuzum.Algorithms.Math.Statistics;
 import io.github.fatsquirrels.deuzum.Algorithms.Math.Vectors;
 
+
+/**
+ * Clase encargada de los algoritmos de clustering de vectores.
+ *
+ */
 public class Clustering {
 	
 	
 	/**
-	 * Ejecuta el algoritmo KNN sobre un tensor de informacion.
+	 * Ejecuta el algoritmo KNN sobre una lista de listas de informacion.
 	 * 
-	 * @param users Tensor con una matriz que representa una lista de vectores de usuarios.
+	 * @param users Lista con una matriz que representa una lista de vectores de usuarios.
 	 * @param labels Etiquetas de los usuarios.
 	 * @param newVector Vector de vectores de los que queremos saber la etiqueta.
 	 * @param kVal Valor de k.
@@ -46,12 +51,13 @@ public class Clustering {
 	
 	
 	/**
+	 * Ejecuta el algoritmo KNN sobre una matriz de informacion.
 	 * 
 	 * @param users Lista de vectores que contiene las coordenadas de los usuarios
-	 * @param labels
-	 * @param newVector
-	 * @param k
-	 * @return
+	 * @param labels Lista de labels de los vectores
+	 * @param newVector Nuevo vector a añadir
+	 * @param k Valor de K
+	 * @return Label del vector 
 	 */
 	public static final int KNN(double[][] users, int[] labels, double[] newVector, int k) {
 		 
@@ -72,6 +78,12 @@ public class Clustering {
 		
 		return Statistics.getModa(results);
 	}
+	/**
+	 * Ejecuta el algoritmo MSC sobre una lista de lista de usuarios
+	 * @param users Array de matrices de información
+	 * @param kernelSize Tamaños de los kernels
+	 * @return Lista con las labels de los usuarios
+	 */
 	
 	public static final ArrayList<int[]> MSC(ArrayList<double[][]> users, double[] kernelSize){
 		ArrayList<int[]> resultMatrix = new ArrayList<int[]>();
@@ -80,9 +92,14 @@ public class Clustering {
 			resultMatrix.add(MSC(users.get(i), kernelSize[i]));
 		
 		return resultMatrix;
-		
 	}
 	
+	/**
+	 * Ejecuta el algoritmo MSC sobre una lista de lista de usuarios
+	 * @param users Matriz de información
+	 * @param kernelSize Tamaño del kernel
+	 * @return Lista con las labels de los usuarios
+	 */
 	public static final int[] MSC(double[][] users, double kernelSize) {
 		if(users.length==0) return null;
 		int dimension = users[0].length;
@@ -128,6 +145,15 @@ public class Clustering {
 		return resultClusters;
 	}
 	
+	/**
+	 * Ejecuta el algoritmo DBSCAN sobre una matriz de informacion.
+	 * @param users Array de matrices de información
+	 * @param radius Lista con el tamaño de los radios
+	 * @param minPoints Lista con los valores de los puntos minimos
+	 * @return Lista con las labels de los usuarios de cada caso
+	 * @see #DBSCAN0(double[][], double)
+	 * @see #DBSCAN(double[][], double)
+	 */
 	public static final ArrayList<int[]> DBSCAN(ArrayList<double[][]> users, double[] radius, int[] minPoints){
 		ArrayList<int[]> resultMatrix = new ArrayList<int[]>();
 		int totalCases = users.size();
@@ -137,8 +163,14 @@ public class Clustering {
 		return resultMatrix;
 	}
 	
+	/**
+	 * Ejecuta el algoritmo DBSCAN sobre una matriz de informacion asumiendo que el valor de minPoints es 0
+	 * @param users Matriz de información
+	 * @param radius Radio de la n-esfera
+	 * @return Lista con las labels de los usuarios de cada caso
+	 * @see #DBSCAN0(double[][], double)
+	 */
 	public static final int[] DBSCAN0(double[][] users, double radius){
-		// Este es el caso con min 0
 		int popSize = users.length;
 		int[] cluster = new int[popSize];
 		int actCluster = 1;
@@ -158,8 +190,15 @@ public class Clustering {
 		return cluster;
 	}
 	
-	public static final int[] DBSCAN(double[][] users, double radius, int minPuntos) {
-		// TODO crear los test cases
+	/**
+	 * Ejecuta el algoritmo DBSCAN sobre una matriz de informacion.
+	 * @param users Matriz de información
+	 * @param radius Radio de la n-esfera
+	 * @param minPoints Numero de puntos minimo
+	 * @return Lista con las labels de los usuarios de cada caso
+	 * @see #DBSCAN0(double[][], double)
+	 */
+	public static final int[] DBSCAN(double[][] users, double radius, int minPoints) {
 		int popSize = users.length;
 		
 		int[] clusters = new int[popSize];
@@ -187,7 +226,7 @@ public class Clustering {
 				if(tempMax==popSize) break;	
 				visited[tempMax] = true;
 				
-				if(puntosContacto[tempMax]<minPuntos) 
+				if(puntosContacto[tempMax]<minPoints) 
 					continue;
 				
 				colaPuntos.add(tempMax);
@@ -200,7 +239,7 @@ public class Clustering {
 				clusters[actualPunto] = actCluster;
 				for(int i = actualPunto+1; i < popSize; i++) {
 					if(Metrics.euclideanDistance(users[actualPunto], users[i])<radius)
-						if(!visited[i] & puntosContacto[actualPunto]>=minPuntos) {
+						if(!visited[i] & puntosContacto[actualPunto]>=minPoints) {
 							visited[i]=true;
 							colaPuntos.add(i);
 						}
@@ -213,7 +252,13 @@ public class Clustering {
 	}
 	
 	
-	
+	/**
+	 * Ejecuta el algoritmo KMC sobre una matriz de informacion.
+	 * @param users Array de matrices de información
+	 * @param clusters Lista con el numero de clusters de cada caso
+	 * @return Lista con las labels de los usuarios de cada caso
+	 * @see #KMC(double[][], int)
+	 */
 	public static final ArrayList<int[]> KMC(ArrayList<double[][]> users, int[] clusters){
 		ArrayList<int[]> resultMatrix = new ArrayList<int[]>();
 		
@@ -223,6 +268,12 @@ public class Clustering {
 		return resultMatrix;
 	}
 	
+	/**
+	 * Ejecuta el algoritmo KMC sobre una matriz de informacion
+	 * @param users Matriz de información
+	 * @param clusters Número de clusters
+	 * @return Lista con las labels de los usuarios de cada caso
+	 */
 	public static final int[] KMC(double[][] users, int clusters){
 		
 		if(users.length == 0) return null;

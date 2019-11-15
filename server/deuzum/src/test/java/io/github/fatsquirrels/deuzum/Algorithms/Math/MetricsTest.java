@@ -14,16 +14,16 @@ public class MetricsTest {
 	public void testEuclideanDistance() {
 		double[] arr1 = {0.1, 0.2, 0.3};
 		double result = Metrics.euclideanDistance(arr1);
-		//assertEquals(expected, result);
+		assertEquals(true, Math.abs(result-0.374166)<0.1);
 	}
 	
 	
 	@Test
 	public void testEclideanDistanceDoubleArray() {
-		double[] arr1 = {0.1, 0.2, 0.3};
-		double[] arr2 = {0.1, 0.2, 0.3};
+		double[] arr1 = {0.3, 0.2, 0.7};
+		double[] arr2 = {0.1, 0.4, 0.3};
 		double result = Metrics.euclideanDistance(arr1, arr2);
-		assertEquals(0, result);
+		assertEquals(true, Math.abs(result-0.489898)<0.1);
 	}
 	
 	@Test
@@ -38,9 +38,10 @@ public class MetricsTest {
 	
 	@Test
 	public void getMiniumDistancePoint() {
+		//TODO implementar este test
 		double[] point = null;
 		double[][] pointList = null;
-		int result = Metrics.getMinimumDistancePoint(point, pointList);
+		//int result = Metrics.getMinimumDistancePoint(point, pointList);
 		//assertEquals(expected, result);
 	
 	}
