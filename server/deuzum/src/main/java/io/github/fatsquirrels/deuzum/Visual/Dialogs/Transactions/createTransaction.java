@@ -2,10 +2,12 @@ package io.github.fatsquirrels.deuzum.Visual.Dialogs.Transactions;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 
 import javax.swing.JPanel;
@@ -15,10 +17,16 @@ import java.awt.Insets;
 import javax.swing.SwingConstants;
 
 import io.github.fatsquirrels.deuzum.ServerUserFunctionality;
+import io.github.fatsquirrels.deuzum.Algorithms.ConcreteText;
+import io.github.fatsquirrels.deuzum.Algorithms.ObjectMapper;
+import io.github.fatsquirrels.deuzum.Algorithms.TextFunctions;
+import io.github.fatsquirrels.deuzum.Algorithms.TextTypes;
+import io.github.fatsquirrels.deuzum.Algorithms.Math.APair;
 import io.github.fatsquirrels.deuzum.Visual.Style.Components.Buttons.FlatButton;
 
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.util.HashMap;
 import java.awt.event.ActionEvent;
 
 public class createTransaction extends JDialog{
@@ -36,6 +44,8 @@ public class createTransaction extends JDialog{
 	private JButton btnCrearTransaccion;
 	private JPanel panel;
 	
+	private HashMap<String,Component> componentMap;
+	
 	/**
 	 * Crea un objeto de createTransaction el cual contiene un Dialogo que muestra un formulario para
 	 * crear una Transaccion.
@@ -50,8 +60,7 @@ public class createTransaction extends JDialog{
 		btnCrearTransaccion = new FlatButton("Crear Transaccion");
 		btnCrearTransaccion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ServerUserFunctionality.createTransaction(connection, txtOrigen.getText(),
-						txtDestino.getText(), Integer.valueOf(txtCantidad.getText()));
+				crearTransaccion(connection);
 			}
 		});
 		btnCrearTransaccion.setPreferredSize(new Dimension(350,55));
@@ -145,5 +154,51 @@ public class createTransaction extends JDialog{
 		panel.add(txtFecha, gbc_txtFecha);
 		txtFecha.setColumns(10);
 		
+	}
+	
+	public void crearTransaccion(Connection connection) {
+		
+		//Comprobamos campos vacios
+				APair[] compulsoryVars = {
+						new APair("txtOrigen","Origen"),new APair("txtDestino","Destino"), new APair("txtCantidad","Cantidad"),
+						new APair("txtFecha", "Fecha")
+						};
+				int nError = 0;
+				for(APair i :compulsoryVars){
+					JTextField tempC = (JTextField) ObjectMapper.getComponentByName(String.valueOf(i.getIndex()), componentMap);
+					System.out.println(i.getIndex());
+					if(tempC.getText().isEmpty()) 
+						System.out.println("Error " + String.valueOf(++nError) + ": No ha indicado ninguna respuesta en " + String.valueOf(i.getValue()));
+					
+				}
+		
+		// Comprobamos Fecha
+		JTextField dateT = (JTextField) ObjectMapper.getComponentByName("txtFecha", componentMap);
+		if(!dateT.getText().isEmpty() && !TextFunctions.dateChecker(dateT.getText()))
+			System.out.println("Error " + String.valueOf(++nError) + ": No ha indicado ninguna respuesta en Fecha de Nacimiento");
+		
+		// Comprobamos Formato y longitud
+				APair[] formatVars = {
+						new APair("txtOrigen", new ConcreteText("Email",TextTypes.NAME)),
+						new APair("txtDestino", new ConcreteText("Nombre",TextTypes.NAME)),
+						new APair("txtCantidad", new ConcreteText("Apellido",TextTypes.PHONE)),
+					};
+				for(APair i : formatVars) {
+					JTextField tempC = (JTextField) ObjectMapper.getComponentByName(String.valueOf(i.getIndex()), componentMap);
+					String tempText = tempC.getText();
+					if(!tempText.isEmpty() && !ConcreteText.isValid(tempText, ((ConcreteText) i.getValue()).getTextType())) 
+						System.out.println("Error " + String.valueOf(++nError) + ": No ha indicado ninguna respuesta en " + String.valueOf(i.getValue()));
+
+				}
+				
+		// Si no hay errores lo enviamos
+		if(nError==0) {
+			ServerUserFunctionality.createTransaction(connection, txtOrigen.getText(),
+					txtDestino.getText(), Integer.valueOf(txtCantidad.getText()));
+			dispose();
+			
+			JOptionPane.showMessageDialog(null, "Usuario registrado con exito", "REGISTRADO", 1);
+		}		
+			
 	}
 }
