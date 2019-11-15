@@ -23,6 +23,9 @@ interface Command{
 
 /**
  * Contenedor del mapa de comandos.
+ * 
+ * @see #createMethodArray()
+ * @see #serverCommands
  */
 public class ServerCommands {
 

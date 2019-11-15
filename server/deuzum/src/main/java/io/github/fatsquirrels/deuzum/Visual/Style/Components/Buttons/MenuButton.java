@@ -10,7 +10,7 @@ import javax.swing.JButton;
 import io.github.fatsquirrels.deuzum.Visual.Style.CustomColors;
 
 public class MenuButton extends JButton{
-
+	private static final long serialVersionUID = -3682688504237276231L;
 		public MenuButton() {
 			setStyle();
 		}

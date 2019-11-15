@@ -11,9 +11,7 @@ public class PairTest {
 	public void testCompareTo() {
 		Pair p = new Pair(1, 0.5);
 		Pair p2 = new Pair(2, 0.4);
-		double result = p2.compareTo(p);
-		//TODO Arreglas esto
-		//assertEquals(1, result, 0.01);
+		assertEquals(1, p.compareTo(p2));
 	}
 	
 	@Test

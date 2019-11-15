@@ -5,6 +5,11 @@ import java.util.HashMap;
 
 import javax.swing.JPanel;
 
+/**
+ * Contiene las funciones para trabajar con mapas de componentes
+ * @author erik.terres.es
+ *
+ */
 public class ObjectMapper {
 	
 	
