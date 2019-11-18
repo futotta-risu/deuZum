@@ -32,6 +32,11 @@ import java.awt.LayoutManager;
  */
 public class VerticalFlowLayout implements LayoutManager, java.io.Serializable{
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = -6014511038597554237L;
+
+	/**
      * This value indicates that each row of components
      * should be left-justified.
      */

@@ -6,6 +6,10 @@ import org.json.JSONObject;
 
 import java.sql.Connection;
 
+
+import static io.github.fatsquirrels.deuzum.Algorithms.ArrayFunctions.getReducedArrayString;
+
+import io.github.fatsquirrels.deuzum.Algorithms.Math.APair;
 import io.github.fatsquirrels.deuzum.Database.CommandBuilder;
 import io.github.fatsquirrels.deuzum.Database.GeneralSQLFunctions;
 
@@ -58,10 +62,12 @@ public class ServerUserFunctionality {
 	 * @param data Array que contiene la información de usuario (Nombre, Apellidos, Telefono, Email, Direccion, F_Nacimiento, Sexo).
 	 */	
 	public static void createUserInf(Connection connection, String[] data) {
+		// TODO esto deberia obtenerse pidiendoselo a la base de datos para hacerlo automatico y que el cambiar la db no afecte
 		String[] columnNamesUserInf = {"nombre", "apellido", "telefono", "email", "direccion", "sexo"};
 		// Create UserInf
+		APair<String[],String[]> reducedInfo = getReducedArrayString(columnNamesUserInf, data);
 		try {
-			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "infousuario", columnNamesUserInf, data);
+			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "infousuario", reducedInfo.getIndex(), reducedInfo.getValue());
 		}catch(SQLException e) {
 			//TODO Auto-generated catch block
 			e.printStackTrace();
@@ -76,8 +82,9 @@ public class ServerUserFunctionality {
 	 */
 	public static void updateUser(Connection connection, String userID, String[] data) {
 		String[] columnNamesUsuarios = {"usuario","contrase�a","preg_seguridad","resp_seguridad", "permisos"};
+		APair<String[],String[]> reducedInfo = getReducedArrayString(columnNamesUsuarios, data);
 		try {
-			GeneralSQLFunctions.updateEntryFromDatabase(connection, "usuario", columnNamesUsuarios, data, " WHERE user_id='"+userID+"'");
+			GeneralSQLFunctions.updateEntryFromDatabase(connection, "usuario", reducedInfo.getIndex(), reducedInfo.getValue(), " WHERE user_id='"+userID+"'");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -92,6 +99,7 @@ public class ServerUserFunctionality {
 	 */
 	public static void updateUserInf(Connection conn, String userID, String[] data) {
 		String[] columnNamesUserInf = {"nombre", "apellidos", "telefono", "email", "direccion", "fecha_nacimiento", "sexo"};
+		
 		try {
 			GeneralSQLFunctions.updateEntryFromDatabase(conn, "usuario", columnNamesUserInf, data, " WHERE user_id='"+userID+"'");
 		} catch (SQLException e) {

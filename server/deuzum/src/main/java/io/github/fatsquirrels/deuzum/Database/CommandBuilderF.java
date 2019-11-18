@@ -3,7 +3,6 @@ package io.github.fatsquirrels.deuzum.Database;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -95,16 +94,16 @@ public class CommandBuilderF {
 			}
 		}
 	}
-	
-	private final APair[] variables = {
-			new APair("{TABLE}","getTable"), 
-			new APair("{COLUMNS}","getColumnNames"), 
-			new APair("{VALUES}","getColumnValues"),
-			new APair("{WHERE}","getWhere"), 
-			new APair("{GROUP}","getGroup"),
-			new APair("{EXPRESSION}","getColumnValues"), 
-			new APair("{ORDER}","getOrder"), 
-			new APair("{LIMIT}","getLimit")}; 
+		
+	private final APair<?, ?>[] variables = {
+			new APair<String,String>("{TABLE}","getTable"), 
+			new APair<String,String>("{COLUMNS}","getColumnNames"), 
+			new APair<String,String>("{VALUES}","getColumnValues"),
+			new APair<String,String>("{WHERE}","getWhere"), 
+			new APair<String,String>("{GROUP}","getGroup"),
+			new APair<String,String>("{EXPRESSION}","getColumnValues"), 
+			new APair<String,String>("{ORDER}","getOrder"), 
+			new APair<String,String>("{LIMIT}","getLimit")}; 
 	
 	
 	private String table = "";
@@ -258,7 +257,7 @@ public class CommandBuilderF {
 	
 	public String pack() {
 		String result = this.SQLType.CommandFormat;
-		for(APair i : variables) {
+		for(APair<?, ?> i : variables) {
 			try {
 				Method tempMethod = this.getClass().getMethod(String.valueOf(i.getValue()));
 				String tempVal = String.valueOf(tempMethod.invoke(this));

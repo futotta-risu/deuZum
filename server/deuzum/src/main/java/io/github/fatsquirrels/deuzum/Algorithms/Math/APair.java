@@ -1,24 +1,24 @@
 package io.github.fatsquirrels.deuzum.Algorithms.Math;
 
-public class APair{
+import java.util.Collections;
+
+public class APair<I,V> {
 	
-	public final Object index;
-	public final Object value;
+	public final I index;
+	public final V value;
 	
-	public APair(Object index,Object value) {
+	public APair(I index,V value) {
 		this.index =index;
 		this.value = value;
 	}
 	
 	
-	public Object getIndex() {
+	public I getIndex() {
 		return index;
 	}
 	
-	public Object getValue() {
+	public V getValue() {
 		return value;
 	}
-	
-	
 	
 }

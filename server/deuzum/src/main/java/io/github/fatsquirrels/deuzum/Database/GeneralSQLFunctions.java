@@ -52,7 +52,6 @@ public final class GeneralSQLFunctions {
 		
 		if(columnNames.length != values.length || columnNames.length == 0)
 			return;
-		
 		GeneralSQLFunctions.execUpdate(connection, 
 				CommandBuilder.getUpdateQuery(table, columnNames, values, conditions));
 	}
