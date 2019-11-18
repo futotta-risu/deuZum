@@ -17,6 +17,7 @@ import javax.swing.JComboBox;
 
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
@@ -342,15 +343,17 @@ public class createUser extends JDialog{
 	
 	public void crearUsuario() {
 		//Comprobamos campos vacios
-		APair[] compulsoryVars = {
-				new APair("tFUser","Usuario"),new APair("tFPass","Contraseña"), new APair("tFRes","Respuesta")
-				};
+		ArrayList<APair<String,String>> compulsoryVars = new ArrayList<>();
+		compulsoryVars.add(new APair<String,String>("tFUser","Usuario"));
+		compulsoryVars.add(new APair<String,String>("tFPass","Contraseña"));
+		compulsoryVars.add(new APair<String,String>("tFRes","Respuesta"));
+		
 		int nError = 0;
-		for(APair i :compulsoryVars){
-			JTextField tempC = (JTextField) ObjectMapper.getComponentByName(String.valueOf(i.getIndex()), componentMap);
+		for(APair<String,String> i :compulsoryVars){
+			JTextField tempC = (JTextField) ObjectMapper.getComponentByName(i.getIndex(), componentMap);
 			System.out.println(i.getIndex());
 			if(tempC.getText().isEmpty()) 
-				System.out.println("Error " + String.valueOf(++nError) + ": No ha indicado ninguna respuesta en " + String.valueOf(i.getValue()));
+				System.out.println("Error " + String.valueOf(++nError) + ": No ha indicado ninguna respuesta en " + i.getValue());
 			
 		}
 		// Comprobamos Fecha
@@ -360,20 +363,20 @@ public class createUser extends JDialog{
 		
 		
 		// Comprobamos Formato y longitud
-		APair[] formatVars = {
-				new APair("txtEmail", new ConcreteText("Email",TextTypes.EMAIL)),
-				new APair("txtNombre", new ConcreteText("Nombre",TextTypes.NAME)),
-				new APair("txtApellidos", new ConcreteText("Apellido",TextTypes.NAME)),
-				new APair("tFPass", new ConcreteText("Contraseña",TextTypes.PASSWORD)),
-				new APair("tFRes", new ConcreteText("Respuesta",TextTypes.NAME)),
-				new APair("txtTelefono", new ConcreteText("Telefono",TextTypes.PHONE)),
-				new APair("txtDireccion", new ConcreteText("Dirección",TextTypes.NAME)),
-			};
-		for(APair i : formatVars) {
-			JTextField tempC = (JTextField) ObjectMapper.getComponentByName(String.valueOf(i.getIndex()), componentMap);
+		ArrayList<APair<String,ConcreteText>> formatVars = new ArrayList<>();
+		formatVars.add(new APair<String, ConcreteText>("txtEmail", new ConcreteText("Email",TextTypes.EMAIL)));
+		formatVars.add(new APair<String, ConcreteText>("txtNombre", new ConcreteText("Nombre",TextTypes.NAME)));
+		formatVars.add(new APair<String, ConcreteText>("txtApellidos", new ConcreteText("Apellido",TextTypes.NAME)));
+		formatVars.add(new APair<String, ConcreteText>("tFPass", new ConcreteText("Contraseña",TextTypes.PASSWORD)));
+		formatVars.add(new APair<String, ConcreteText>("tFRes", new ConcreteText("Respuesta",TextTypes.NAME)));
+		formatVars.add(new APair<String, ConcreteText>("txtTelefono", new ConcreteText("Telefono",TextTypes.PHONE)));
+		formatVars.add(new APair<String, ConcreteText>("txtDireccion", new ConcreteText("Dirección",TextTypes.NAME)));
+		
+		for(APair<String,ConcreteText> i : formatVars) {
+			JTextField tempC = (JTextField) ObjectMapper.getComponentByName(i.getIndex(), componentMap);
 			String tempText = tempC.getText();
-			if(!tempText.isEmpty() && !ConcreteText.isValid(tempText, ((ConcreteText) i.getValue()).getTextType())) 
-				System.out.println("Error " + String.valueOf(++nError) + ": No ha indicado ninguna respuesta en " + String.valueOf(i.getValue()));
+			if(!tempText.isEmpty() && !ConcreteText.isValid(tempText,  i.getValue().getTextType())) 
+				System.out.println("Error " + String.valueOf(++nError) + ": No ha indicado ninguna respuesta en " + i.getValue());
 
 		}
 		
