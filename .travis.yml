@@ -4,4 +4,4 @@ jdk:
 
 script:
   - cd server/deuzum
-  - mvn package
+  - mvn test
