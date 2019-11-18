@@ -1,7 +1,7 @@
 language: java
 jdk:
- - oraclejdk9
+  - oraclejdk8
 
 script:
   - cd server/deuzum
-  - mvn test
+  - mvn install
