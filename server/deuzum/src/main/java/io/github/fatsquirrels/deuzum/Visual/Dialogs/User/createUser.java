@@ -89,9 +89,8 @@ public class createUser extends JDialog{
 		btnCrear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				crearUsuario();
-			}
-			
-		});//end actionListener
+			}		
+		});
 		
 		
 		

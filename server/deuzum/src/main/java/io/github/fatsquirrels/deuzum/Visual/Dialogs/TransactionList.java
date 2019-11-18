@@ -3,11 +3,26 @@ package io.github.fatsquirrels.deuzum.Visual.Dialogs;
 import javax.swing.JDialog;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.border.MatteBorder;
 
+import io.github.fatsquirrels.deuzum.Database.GeneralSQLFunctions;
+import io.github.fatsquirrels.deuzum.Visual.Dialogs.Transactions.Transacion;
+import io.github.fatsquirrels.deuzum.Visual.Dialogs.User.Usuario;
+
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 
 public class TransactionList extends JDialog{
 
@@ -17,11 +32,12 @@ public class TransactionList extends JDialog{
 	private JComboBox<String> comboFiltrar;
 	private JButton btnFiltrar;
 	private JButton btnEliminar;
-	private JList<String> listsTransacciones;
+	private JList<Transacion> listaTransacciones;
 	
 	/**
 	 * Crea un objeto de TransactionList, el cual contiene un Dialogo que muestra la lista
 	 * de todos las transacciones y permite hacer busquedas filtradas para poder eliminarlas.
+	 * @param Connection 
 	 */
 	public TransactionList(Connection c) {
 		setSize(500,500);
@@ -33,22 +49,70 @@ public class TransactionList extends JDialog{
 		comboFiltrar = new JComboBox<String>();
 		comboFiltrar.setBounds(25, 33, 156, 27);
 		getContentPane().add(comboFiltrar);
+		comboFiltrar.addItem("Origen");
+		
 		
 		txtFiltrado = new JTextField();
 		txtFiltrado.setBounds(193, 32, 130, 26);
 		getContentPane().add(txtFiltrado);
 		txtFiltrado.setColumns(10);
 		
+		DefaultListModel<Transacion> model = new DefaultListModel<>();
+		listaTransacciones = new JList<Transacion>();
+		listaTransacciones.setBounds(25, 106, 337, 338);
+		getContentPane().add(listaTransacciones);
+		
 		btnFiltrar = new JButton("Filtrar");
 		btnFiltrar.setBounds(354, 32, 117, 29);
 		getContentPane().add(btnFiltrar);
+		btnFiltrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String conditions ="";
+				try {
+					//TODO Actualizar sql statement
+					String query = GeneralSQLFunctions.getEntryFromDatabase(c, "transacion", comboFiltrar.getItemAt(comboFiltrar.getSelectedIndex()), conditions);
+					ResultSet resultados = GeneralSQLFunctions.getExecQuery(c, query);
+					while(resultados.next()) {
+						// retrieve and print the values for the current row
+						String codigo = resultados.getString("codigo");
+						String source = resultados.getString("source");
+						String destino = resultados.getString("destino");
+						String dinero = resultados.getString("dinero");
+						String fecha = resultados.getString("fecha");
+						Transacion tempTransacion = new Transacion(codigo,source, destino, dinero, fecha);
+						model.addElement(tempTransacion);
+						
+					}
+				} catch (SQLException e1) {
+					JOptionPane.showMessageDialog(null, "ERROR", "No se ha podido realizar la consulta", 0);
+				}
+				listaTransacciones = new JList<Transacion>(model);
+				listaTransacciones.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+				listaTransacciones.setBounds(48, 85, 381, 287);
+				listaTransacciones.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+			}
+		});
 		
-		listsTransacciones = new JList<String>();
-		listsTransacciones.setBounds(25, 106, 337, 338);
-		getContentPane().add(listsTransacciones);
+		
 		
 		btnEliminar = new JButton("Eliminar");
 		btnEliminar.setBounds(374, 250, 117, 29);
 		getContentPane().add(btnEliminar);
+		btnEliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String conditions ="";
+				List<Transacion> listaBorrar = listaTransacciones.getSelectedValuesList();
+				ArrayList<String> ids = new ArrayList<String>();
+				for (Transacion t : listaBorrar) {
+					ids.add(t.getCodigo());
+				}
+				try {
+					//TODO Actualizar sql statement
+					GeneralSQLFunctions.deleteEntryFromDatabase(c, "transacion", ids+"");
+				} catch (SQLException e1) {
+					JOptionPane.showMessageDialog(null, "ERROR", "Ha habido un error al eliminar la transacion", 0);
+				}
+			}
+		});
 	}
 }

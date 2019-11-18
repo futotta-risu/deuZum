@@ -2,9 +2,15 @@ package io.github.fatsquirrels.deuzum.Visual.Dialogs.Transactions;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import io.github.fatsquirrels.deuzum.Database.GeneralSQLFunctions;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 
@@ -40,6 +46,16 @@ public class deleteTransaction extends JDialog{
 		btnEliminar.setBounds(327, 29, 117, 29);
 		getContentPane().add(btnEliminar);
 		setVisible(true);
+		btnEliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String id = txtId.getText();
+				try {
+					GeneralSQLFunctions.deleteEntryFromDatabase(c, "Transacion", id+"");
+				} catch (SQLException e1) {
+					JOptionPane.showMessageDialog(null, "No se ha podido eliminar el usuario", "ERROR", 0);
+				}
+			}
+		});
 	}
 	
 	

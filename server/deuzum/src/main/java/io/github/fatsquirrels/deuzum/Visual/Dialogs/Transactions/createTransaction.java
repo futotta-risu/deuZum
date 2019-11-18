@@ -60,7 +60,7 @@ public class createTransaction extends JDialog{
 		btnCrearTransaccion = new FlatButton("Crear Transaccion");
 		btnCrearTransaccion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				crearTransaccion(connection);
+				crearTransacion(connection);
 			}
 		});
 		btnCrearTransaccion.setPreferredSize(new Dimension(350,55));
@@ -156,7 +156,7 @@ public class createTransaction extends JDialog{
 		
 	}
 	
-	public void crearTransaccion(Connection connection) {
+	public void crearTransacion(Connection connection) {
 		
 		//Comprobamos campos vacios
 				APair[] compulsoryVars = {
