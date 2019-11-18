@@ -4,4 +4,4 @@ jdk:
 
 script:
   - cd server/deuzum
-  - mvn clean
+  - mvn package
