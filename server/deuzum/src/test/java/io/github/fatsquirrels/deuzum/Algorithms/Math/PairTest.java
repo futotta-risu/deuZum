@@ -3,6 +3,8 @@ package io.github.fatsquirrels.deuzum.Algorithms.Math;
 import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import io.github.fatsquirrels.deuzum.Algorithms.Math.Pair;
+
 import org.junit.Test;
 
 public class PairTest {
