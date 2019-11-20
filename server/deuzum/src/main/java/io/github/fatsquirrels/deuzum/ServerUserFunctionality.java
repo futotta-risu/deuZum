@@ -10,8 +10,8 @@ import java.sql.Connection;
 import static io.github.fatsquirrels.deuzum.Algorithms.ArrayFunctions.getReducedArrayString;
 
 import io.github.fatsquirrels.deuzum.Algorithms.Math.APair;
-import io.github.fatsquirrels.deuzum.Database.CommandBuilder;
 import io.github.fatsquirrels.deuzum.Database.GeneralSQLFunctions;
+import io.github.fatsquirrels.deuzum.Database.WhereAST;
 
 /**
  * Funciones comunes para la gestion de usuarios
@@ -52,6 +52,7 @@ public class ServerUserFunctionality {
 	 */
 	public static void crerateUserInfC(JSONObject data) {
 		Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost/deuzumdb", "root", "");
+		
 		createUserInf(conn, new String[] {data.getString("nombre"), data.getString("apellido"), data.getString("telefono"), 
 				data.getString("email"), data.getString("direccion"), data.getString("fecha_nacimiento"), data.getString("sexo")});	
 	}
@@ -74,6 +75,9 @@ public class ServerUserFunctionality {
 		}
 	}
 	
+	
+	
+	
 	/**
 	 * Actualiza los datos de un usuario elegido por el administrador mediante su ID
 	 * @param connection Conexion de SQL
@@ -84,7 +88,8 @@ public class ServerUserFunctionality {
 		String[] columnNamesUsuarios = {"usuario","contrase�a","preg_seguridad","resp_seguridad", "permisos"};
 		APair<String[],String[]> reducedInfo = getReducedArrayString(columnNamesUsuarios, data);
 		try {
-			GeneralSQLFunctions.updateEntryFromDatabase(connection, "usuario", reducedInfo.getIndex(), reducedInfo.getValue(), " WHERE user_id='"+userID+"'");
+			WhereAST where = new WhereAST().addValue("id='"+userID+"'");
+			GeneralSQLFunctions.updateEntryFromDatabase(connection, "usuario", reducedInfo.getIndex(), reducedInfo.getValue(), where);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -99,9 +104,9 @@ public class ServerUserFunctionality {
 	 */
 	public static void updateUserInf(Connection conn, String userID, String[] data) {
 		String[] columnNamesUserInf = {"nombre", "apellidos", "telefono", "email", "direccion", "fecha_nacimiento", "sexo"};
-		
+		WhereAST where = new WhereAST().addValue("id='"+userID+"'");
 		try {
-			GeneralSQLFunctions.updateEntryFromDatabase(conn, "usuario", columnNamesUserInf, data, " WHERE user_id='"+userID+"'");
+			GeneralSQLFunctions.updateEntryFromDatabase(conn, "usuario", columnNamesUserInf, data, where);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -120,7 +125,10 @@ public class ServerUserFunctionality {
 		String pass = data.getString("pass");
 		try {
 			realPass = GeneralSQLFunctions.getEntryFromDatabase(conn, "usuarios",  "pass", 
-					CommandBuilder.getWhereEqualsClause(new String[] {"user"}, new String[] {user}));
+					new WhereAST().addColumValueLO(
+							new String[]{"usuario"}, new String[]{user}, 
+							WhereAST.logicOP.AND, WhereAST.ariOP.EQ).pack());
+					
 		} catch (SQLException e) {
 			System.err.println("Ha habido un problema al intentar recopilar la verdadera password");
 			return false;
@@ -134,7 +142,7 @@ public class ServerUserFunctionality {
 	
 	
 	/**
-	 * 
+	 * Realiza una transaccion entre dos usuarios.
 	 * @param connection
 	 * @param userID_A
 	 * @param userID_B
@@ -152,13 +160,13 @@ public class ServerUserFunctionality {
 				return "No hay dinero suficinete como para realizar la transacci�n";
 			
 			int actdinero_A = Integer.valueOf(dinero_A)-value;
+			WhereAST whereA = new WhereAST().addValue("user_id='"+userID_A+"'");
 			GeneralSQLFunctions.updateEntryFromDatabase(connection, "cuentas", 
-					new String[] {"dinero"}, new String[] {Integer.toString(actdinero_A)},
-					" WHERE user_id='"+userID_A+"'");
+					new String[] {"dinero"}, new String[] {Integer.toString(actdinero_A)},whereA);
 			int actdinero_B = Integer.valueOf(dinero_B)+value;
+			WhereAST whereB = new WhereAST().addValue("user_id='"+userID_B+"'");
 			GeneralSQLFunctions.updateEntryFromDatabase(connection, "cuentas", 
-					new String[] {"dinero"}, new String[] {Integer.toString(actdinero_B)},
-					" WHERE user_id='"+userID_B+"'");
+					new String[] {"dinero"}, new String[] {Integer.toString(actdinero_B)},whereB);
 			String[] columns = {"source","destino","dinero"};
 			
 			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "transaccion", columns, new String[]{userID_A, userID_B,String.valueOf(value)});
@@ -172,7 +180,8 @@ public class ServerUserFunctionality {
 	
 	public static void deleteUser(Connection connection, String userID) {
 		try {
-			GeneralSQLFunctions.deleteEntryFromDatabase(connection, "usuario", " WHERE id='" + userID + "'");
+			WhereAST where = new WhereAST().addValue("id='"+userID+"'");
+			GeneralSQLFunctions.deleteEntryFromDatabase(connection, "usuario", where);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -211,7 +220,8 @@ public class ServerUserFunctionality {
 	public static void updateAccountInfo(Connection connection, String userID, String[] columns, String[] data) {
 		// TODO a�adir las funciones de verificacion de userId, accountName
 		try {
-			GeneralSQLFunctions.updateEntryFromDatabase(connection, "cuenta", columns, data, " WHERE user_id='"+userID+"'");
+			WhereAST where = new WhereAST().addValue("id='"+userID+"'");
+			GeneralSQLFunctions.updateEntryFromDatabase(connection, "cuenta", columns, data, where);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

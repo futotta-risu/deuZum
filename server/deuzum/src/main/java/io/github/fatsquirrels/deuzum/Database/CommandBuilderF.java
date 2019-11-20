@@ -111,7 +111,7 @@ public class CommandBuilderF {
 	private WhereAST where;
 	private ArrayList<String> group;
 	private String expression = "";
-	private Order order;
+	private Order order = null;
 	private int limit = -1;
 	
 	
@@ -261,7 +261,6 @@ public class CommandBuilderF {
 			try {
 				Method tempMethod = this.getClass().getMethod(String.valueOf(i.getValue()));
 				String tempVal = String.valueOf(tempMethod.invoke(this));
-				if(tempVal.isEmpty()) continue;
 				result = result.replace(String.valueOf(i.getIndex()), tempVal);
 			}catch(Exception e) {
 				System.err.println(i.index);

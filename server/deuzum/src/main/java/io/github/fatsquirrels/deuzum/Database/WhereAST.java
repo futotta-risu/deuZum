@@ -5,31 +5,34 @@ import java.util.List;
 
 import io.github.fatsquirrels.deuzum.Algorithms.TextFunctions;
 
-enum logicOP{
-	AND("AND"), OR("OR");
-	
-	public String value;
-	
-	private logicOP(String value) {
-		this.value = value;
-	}
-}
 
-enum ariOP{
-	EQ("="), GE(">"), LE("<") , LIKE("LIKE");
-	
-	public String value;
-	
-	private ariOP(String value) {
-		this.value = value;
-	}
-}
-
-enum nodeType{
-	TOKEN, LIST
-}
 
 public class WhereAST {
+	
+	public static enum logicOP{
+		AND("AND"), OR("OR");
+		
+		public String value;
+		
+		private logicOP(String value) {
+			this.value = value;
+		}
+	}
+
+	public static enum ariOP{
+		EQ("="), GE(">"), LE("<") , LIKE("LIKE");
+		
+		public String value;
+		
+		private ariOP(String value) {
+			this.value = value;
+		}
+	}
+
+	public static enum nodeType{
+		TOKEN, LIST
+	}
+	
 	/**new WhereTree().addP()
 	 * 					.addExpr(logicG.AND).addColumValueO(columns,values,op.EQ,logc.AND)
 	 * 										 .addColumValueO(columns,values,op.EQ,logC.OR).backP()

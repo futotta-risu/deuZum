@@ -15,7 +15,13 @@ public class WhereASTTest {
 	public void testOneCommand() {
 		WhereAST newWhere = new WhereAST()
 				.addColumValueLO(new String[]{"ej1","ej2"}, 
-						new String[]{"e1j1","ej12"}, logicOP.AND, ariOP.EQ);
+						new String[]{"e1j1","ej12"}, WhereAST.logicOP.AND, WhereAST.ariOP.EQ);
+		System.out.println(newWhere.pack());
+	}
+	
+	@Test
+	public void testOneCommandNulled() {
+		WhereAST newWhere = new WhereAST().addValue("id='2'");
 		System.out.println(newWhere.pack());
 	}
 	

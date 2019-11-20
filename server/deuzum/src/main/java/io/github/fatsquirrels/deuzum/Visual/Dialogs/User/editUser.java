@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
-
+//TODO testear la clase
 public class editUser extends JDialog{
 
 	private static final long serialVersionUID = 1L;

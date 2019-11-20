@@ -19,6 +19,13 @@ import io.github.fatsquirrels.deuzum.Visual.Style.Components.Buttons.FlatButton;
 import java.awt.Color;
 import java.awt.Font;
 
+
+
+// Clase Testeada
+/**
+ * Dialogo encargado de eliminar usuarios de la base de datos
+ *
+ */
 public class deleteUser extends JDialog {
 
 

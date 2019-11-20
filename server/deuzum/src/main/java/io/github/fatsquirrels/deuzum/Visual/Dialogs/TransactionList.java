@@ -7,6 +7,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.MatteBorder;
 
 import io.github.fatsquirrels.deuzum.Database.GeneralSQLFunctions;
+import io.github.fatsquirrels.deuzum.Database.WhereAST;
 import io.github.fatsquirrels.deuzum.Visual.Dialogs.Transactions.Transacion;
 import io.github.fatsquirrels.deuzum.Visual.Dialogs.User.Usuario;
 
@@ -108,7 +109,8 @@ public class TransactionList extends JDialog{
 				}
 				try {
 					//TODO Actualizar sql statement
-					GeneralSQLFunctions.deleteEntryFromDatabase(c, "transacion", ids+"");
+					WhereAST where = new WhereAST().addValue("user_id='"+ids+"'");
+					GeneralSQLFunctions.deleteEntryFromDatabase(c, "transacion", where);
 				} catch (SQLException e1) {
 					JOptionPane.showMessageDialog(null, "ERROR", "Ha habido un error al eliminar la transacion", 0);
 				}
