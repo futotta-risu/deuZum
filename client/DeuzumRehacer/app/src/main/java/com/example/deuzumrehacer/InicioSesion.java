@@ -7,8 +7,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 public class InicioSesion extends AppCompatActivity {
+
+    private ImageView lDeuzum;
     private EditText nUsuario;
     private EditText cUsuario;
     private Button bIni;
@@ -19,10 +22,11 @@ public class InicioSesion extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio_sesion);
 
-        nUsuario = (EditText)findViewById(R.id.nomUsuario);
-        cUsuario = (EditText)findViewById(R.id.contrUsuario);
-        bIni = (Button)findViewById(R.id.botonIni);
-        bReg = (Button)findViewById(R.id.botonRegis);
+        lDeuzum = findViewById(R.id.iconoDeuzum);
+        nUsuario = findViewById(R.id.nomUsuario);
+        cUsuario = findViewById(R.id.contrUsuario);
+        bIni = findViewById(R.id.botonIni);
+        bReg = findViewById(R.id.botonRegis);
 
         bIni.setOnClickListener(new View.OnClickListener() {
             @Override
