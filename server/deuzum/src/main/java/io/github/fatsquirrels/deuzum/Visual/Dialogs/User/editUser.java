@@ -11,12 +11,15 @@ import io.github.fatsquirrels.deuzum.Algorithms.ObjectMapper;
 import io.github.fatsquirrels.deuzum.Algorithms.TextFunctions;
 import io.github.fatsquirrels.deuzum.Algorithms.TextTypes;
 import io.github.fatsquirrels.deuzum.Algorithms.Math.APair;
+import io.github.fatsquirrels.deuzum.Database.GeneralSQLFunctions;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.awt.Color;
 import java.awt.Component;
@@ -54,7 +57,7 @@ public class editUser extends JDialog{
 	private JButton btnBuscarUsuario;
 	private JButton btnGuardarCambios;
 	
-	private int userID;
+	private String userID;
 	private HashMap<String,Component> componentMap;
 	
 	/**
@@ -181,8 +184,27 @@ public class editUser extends JDialog{
 		btnBuscarUsuario = new JButton("Buscar Usuario");
 		btnBuscarUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				userID = Integer.parseInt(txtIDUser.getText());
-				//GeneralSQLFunctions.getEntryFromDatabase(connection, "usuario", column, conditions)
+				userID = txtIDUser.getText();
+				ResultSet result = null;
+				try {
+					result = GeneralSQLFunctions.getResultSetEntryFromDatabase(conn, "usuario", "ID = '" + userID + "'" );
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				
+				try {
+					while(result.next()) {
+						txtUser.setText(result.getString("usuario")); 
+						//comboPregSeg.setSelectedIndex(result.getString("preg_seguridad"));
+						txtUser.setText(result.getString("usuario")); 
+						txtUser.setText(result.getString("usuario")); 
+					}
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		btnBuscarUsuario.setBounds(377, 14, 117, 29);
@@ -240,7 +262,7 @@ public class editUser extends JDialog{
 				// Si no hay errores lo enviamos
 				if(nError==0) {
 					// TODO añadir preg segu bien y permisos
-					ServerUserFunctionality.createUser(conn, new String[] 
+					ServerUserFunctionality.updateUser(conn, userID, new String[] 
 							{txtUser.getText(), txtPass.getText(), "6", txtRespuesta.getText()
 							});
 					dispose();

@@ -388,14 +388,15 @@ public class createUser extends JDialog{
 		// Si no hay errores lo enviamos
 		if(nError==0) {
 			// TODO añadir preg segu bien y permisos
+			
 			ServerUserFunctionality.createUser(conn, new String[] 
-					{tFUser.getText(), tFPass.getText(), "6", tFRes.getText()
-					});
-			dispose();
-			// TODO cambiar lo del sexo
-			/*ServerUserFunctionality.createUserInf(conn, new String[]
+				{tFUser.getText(), tFPass.getText(), "6", tFRes.getText(), "1"
+				});
+			
+	
+			ServerUserFunctionality.createUserInf(conn, new String[]
 					{txtNombre.getText(), txtApellidos.getText(), txtTelefono.getText(), txtEmail.getText(),
-					txtDireccion.getText(), "F"});*/
+					txtDireccion.getText(), comboSexo.getSelectedItem().toString()});
 			JOptionPane.showMessageDialog(null, "Usuario registrado con exito", "REGISTRADO", 1);
 		}
 		

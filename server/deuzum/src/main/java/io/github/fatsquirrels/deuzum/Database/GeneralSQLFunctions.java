@@ -31,6 +31,14 @@ public final class GeneralSQLFunctions {
 		return connection.createStatement().executeQuery(query);
 	}
 	
+	
+	public static final ResultSet getResultSetEntryFromDatabase(Connection connection, String table, String conditions) throws SQLException {
+		
+		ResultSet result = getExecQuery(connection, "SELECT * FROM `"+table+"` "+conditions);
+		return result;
+		
+	}
+
 	public static final String getEntryFromDatabase(Connection connection, String table, String column, String conditions) throws SQLException {
 		
 		ResultSet result = getExecQuery(connection, "SELECT * FROM `"+table+"` "+conditions);
