@@ -101,7 +101,7 @@ public class CommandBuilderF {
 			new APair<String,String>("{VALUES}","getColumnValues"),
 			new APair<String,String>("{WHERE}","getWhere"), 
 			new APair<String,String>("{GROUP}","getGroup"),
-			new APair<String,String>("{EXPRESSION}","getColumnValues"), 
+			new APair<String,String>("{EXPRESSION}","getExpression"), 
 			new APair<String,String>("{ORDER}","getOrder"), 
 			new APair<String,String>("{LIMIT}","getLimit")}; 
 	
@@ -184,6 +184,20 @@ public class CommandBuilderF {
 	}
 	public CommandBuilderF addColumn(String column, String value) {
 		this.columns.put(column, value);
+		return this;
+	}
+	
+	public CommandBuilderF addExpression(String column, String expression) {
+		if(!this.expression.isEmpty()) this.expression +=",";
+		this.expression = column + "=" + expression;
+		return this;
+	}
+	public CommandBuilderF addExpression(String[] column, String[] expression) {
+		if(column.length != expression.length) return this;
+		for(int i = 0; i < column.length; i++) {
+			if(!this.expression.isEmpty()) this.expression +=",";
+			this.expression = column[i] + "=" + expression[i];
+		}
 		return this;
 	}
 	

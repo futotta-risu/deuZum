@@ -10,6 +10,7 @@ import java.sql.Connection;
 import static io.github.fatsquirrels.deuzum.Algorithms.ArrayFunctions.getReducedArrayString;
 
 import io.github.fatsquirrels.deuzum.Algorithms.Math.APair;
+import io.github.fatsquirrels.deuzum.Annotations.Tested;
 import io.github.fatsquirrels.deuzum.Database.GeneralSQLFunctions;
 import io.github.fatsquirrels.deuzum.Database.WhereAST;
 
@@ -29,14 +30,16 @@ public class ServerUserFunctionality {
 		Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost/deuzumdb", "root", "");
 		createUser(conn, new String[] {data.getString("user"), data.getString("pass"), data.getString("pregSegu"),data.getString("resp"),"3"});
 	}
+	
+	
 	/**
 	 * Crea un usuario dentro de la base de datos dada en la conexion. Tabla usuario.
 	 * @param connection Conexi�n de SQL
 	 * @param data Array que contiene la informaci�n de creacion del usuario (User, Pass, Pregunta Seguridad, Respuesta)
 	 */
+	@Tested(tested=true)
 	public static void createUser(Connection connection, String[] data){
 		String[] columnNamesUsuarios = {"usuario","contraseña","preg_seguridad","resp_seguridad"};
-		// Create User
 		try {
 			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "usuario", columnNamesUsuarios, data);
 		} catch (SQLException e) {
@@ -149,24 +152,25 @@ public class ServerUserFunctionality {
 	 * @param value
 	 * @return
 	 */
+	@Tested(tested=true)
 	public static String createTransaction(Connection connection, String userID_A, String userID_B, int value) {
 		// TODO Hacer las comprobaciones de SQL
 		String dinero_A, dinero_B;
 		try {
-			dinero_A = GeneralSQLFunctions.getEntryFromDatabase(connection, "cuentas", "dinero", " WHERE user_id='"+userID_A+"'");
-			dinero_B = GeneralSQLFunctions.getEntryFromDatabase(connection, "cuentas", "dinero", " WHERE user_id='"+userID_B+"'");
+			dinero_A = GeneralSQLFunctions.getEntryFromDatabase(connection, "cuenta", "dinero", " WHERE id_usuario='"+userID_A+"'");
+			dinero_B = GeneralSQLFunctions.getEntryFromDatabase(connection, "cuenta", "dinero", " WHERE id_usuario='"+userID_B+"'");
 			
 			if(Integer.valueOf(dinero_A)<value) 
 				return "No hay dinero suficinete como para realizar la transacci�n";
 			
 			int actdinero_A = Integer.valueOf(dinero_A)-value;
-			WhereAST whereA = new WhereAST().addValue("user_id='"+userID_A+"'");
-			GeneralSQLFunctions.updateEntryFromDatabase(connection, "cuentas", 
-					new String[] {"dinero"}, new String[] {Integer.toString(actdinero_A)},whereA);
+			WhereAST whereA = new WhereAST().addValue("id_usuario='"+userID_A+"'");
+			GeneralSQLFunctions.updateEntryFromDatabase(connection, "cuenta", 
+					new String[] {"dinero"}, new String[] {"'"+Integer.toString(actdinero_A)+"'"},whereA);
 			int actdinero_B = Integer.valueOf(dinero_B)+value;
-			WhereAST whereB = new WhereAST().addValue("user_id='"+userID_B+"'");
-			GeneralSQLFunctions.updateEntryFromDatabase(connection, "cuentas", 
-					new String[] {"dinero"}, new String[] {Integer.toString(actdinero_B)},whereB);
+			WhereAST whereB = new WhereAST().addValue("id_usuario='"+userID_B+"'");
+			GeneralSQLFunctions.updateEntryFromDatabase(connection, "cuenta", 
+					new String[] {"dinero"}, new String[] {"'"+Integer.toString(actdinero_B)+"'"},whereB);
 			String[] columns = {"source","destino","dinero"};
 			
 			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "transaccion", columns, new String[]{userID_A, userID_B,String.valueOf(value)});
@@ -211,7 +215,7 @@ public class ServerUserFunctionality {
 	public static void createAccount(Connection connection, String userID, String accountName) {
 		// TODO a�adir las funciones de verificacion de userId, accountName
 		try {
-			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "cuentas", new String[] {"id_usuario", "numeroCuenta","permisos"},new String[] {userID, accountName, "3"} );
+			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "cuenta", new String[] {"id_usuario", "numeroCuenta","permisos"},new String[] {userID, accountName, "3"} );
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

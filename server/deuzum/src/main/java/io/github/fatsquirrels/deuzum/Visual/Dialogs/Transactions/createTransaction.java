@@ -36,11 +36,9 @@ public class createTransaction extends JDialog{
 	private JTextField txtOrigen;
 	private JTextField txtDestino;
 	private JTextField txtCantidad;
-	private JTextField txtFecha;
 	private JLabel lblIdCuentaOrigen;
 	private JLabel lblIdCuentaDestino;
 	private JLabel lblCantidad;
-	private JLabel lblFecha;
 	private JButton btnCrearTransaccion;
 	private JPanel panel;
 	
@@ -86,6 +84,7 @@ public class createTransaction extends JDialog{
 		panel.add(lblIdCuentaOrigen, gbc_lblIdCuentaOrigen);
 		
 		txtOrigen = new JTextField();
+		txtOrigen.setName("txtOrigen");
 		GridBagConstraints gbc_txtOrigen = new GridBagConstraints();
 		gbc_txtOrigen.fill = GridBagConstraints.BOTH;
 		gbc_txtOrigen.insets = new Insets(0, 0, 5, 0);
@@ -106,6 +105,7 @@ public class createTransaction extends JDialog{
 		panel.add(lblIdCuentaDestino, gbc_lblIdCuentaDestino);
 		
 		txtDestino = new JTextField();
+		txtDestino.setName("txtDestino");
 		GridBagConstraints gbc_txtDestino = new GridBagConstraints();
 		gbc_txtDestino.fill = GridBagConstraints.BOTH;
 		gbc_txtDestino.insets = new Insets(0, 0, 5, 0);
@@ -127,6 +127,7 @@ public class createTransaction extends JDialog{
 		panel.add(lblCantidad, gbc_lblCantidad);
 		
 		txtCantidad = new JTextField();
+		txtCantidad.setName("txtCantidad");
 		GridBagConstraints gbc_txtCantidad = new GridBagConstraints();
 		gbc_txtCantidad.fill = GridBagConstraints.BOTH;
 		gbc_txtCantidad.insets = new Insets(0, 0, 5, 0);
@@ -136,59 +137,25 @@ public class createTransaction extends JDialog{
 		panel.add(txtCantidad, gbc_txtCantidad);
 		txtCantidad.setColumns(10);
 		
-		lblFecha = new JLabel("Fecha:");
-		lblFecha.setHorizontalAlignment(SwingConstants.CENTER);
-		GridBagConstraints gbc_lblFecha = new GridBagConstraints();
-		gbc_lblFecha.fill = GridBagConstraints.BOTH;
-		gbc_lblFecha.insets = new Insets(0, 0, 0, 5);
-		gbc_lblFecha.gridx = 0;
-		gbc_lblFecha.gridy = 3;
-		panel.add(lblFecha, gbc_lblFecha);
-		
-		txtFecha = new JTextField();
-		GridBagConstraints gbc_txtFecha = new GridBagConstraints();
-		gbc_txtFecha.fill = GridBagConstraints.BOTH;
-		gbc_txtFecha.gridx = 1;
-		gbc_txtFecha.gridwidth = 2;
-		gbc_txtFecha.gridy = 3;
-		panel.add(txtFecha, gbc_txtFecha);
-		txtFecha.setColumns(10);
+		componentMap = ObjectMapper.createComponentMap(panel);
 		
 	}
 	
 	public void crearTransacion(Connection connection) {
 		
 		//Comprobamos campos vacios
-				APair[] compulsoryVars = {
-						new APair("txtOrigen","Origen"),new APair("txtDestino","Destino"), new APair("txtCantidad","Cantidad"),
-						new APair("txtFecha", "Fecha")
+				APair<?,?>[] compulsoryVars = {
+						new APair<String,String>("txtOrigen","Origen"),
+						new APair<String,String>("txtDestino","Destino"), 
+						new APair<String,String>("txtCantidad","Cantidad")
 						};
 				int nError = 0;
-				for(APair i :compulsoryVars){
+				for(APair<?,?> i :compulsoryVars){
 					JTextField tempC = (JTextField) ObjectMapper.getComponentByName(String.valueOf(i.getIndex()), componentMap);
 					System.out.println(i.getIndex());
 					if(tempC.getText().isEmpty()) 
 						System.out.println("Error " + String.valueOf(++nError) + ": No ha indicado ninguna respuesta en " + String.valueOf(i.getValue()));
 					
-				}
-		
-		// Comprobamos Fecha
-		JTextField dateT = (JTextField) ObjectMapper.getComponentByName("txtFecha", componentMap);
-		if(!dateT.getText().isEmpty() && !TextFunctions.dateChecker(dateT.getText()))
-			System.out.println("Error " + String.valueOf(++nError) + ": No ha indicado ninguna respuesta en Fecha de Nacimiento");
-		
-		// Comprobamos Formato y longitud
-				APair[] formatVars = {
-						new APair("txtOrigen", new ConcreteText("Email",TextTypes.NAME)),
-						new APair("txtDestino", new ConcreteText("Nombre",TextTypes.NAME)),
-						new APair("txtCantidad", new ConcreteText("Apellido",TextTypes.PHONE)),
-					};
-				for(APair i : formatVars) {
-					JTextField tempC = (JTextField) ObjectMapper.getComponentByName(String.valueOf(i.getIndex()), componentMap);
-					String tempText = tempC.getText();
-					if(!tempText.isEmpty() && !ConcreteText.isValid(tempText, ((ConcreteText) i.getValue()).getTextType())) 
-						System.out.println("Error " + String.valueOf(++nError) + ": No ha indicado ninguna respuesta en " + String.valueOf(i.getValue()));
-
 				}
 				
 		// Si no hay errores lo enviamos
@@ -197,7 +164,7 @@ public class createTransaction extends JDialog{
 					txtDestino.getText(), Integer.valueOf(txtCantidad.getText()));
 			dispose();
 			
-			JOptionPane.showMessageDialog(null, "Usuario registrado con exito", "REGISTRADO", 1);
+			JOptionPane.showMessageDialog(null, "Transaccion realizada con exito", "Realizada", 1);
 		}		
 			
 	}

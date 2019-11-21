@@ -60,7 +60,7 @@ public final class GeneralSQLFunctions {
 		
 		if(columnNames.length != values.length || columnNames.length == 0)
 			return;
-		String updateQ = (new CommandBuilderF(StatementType.UPDATE).setTable(table).addColumns(columnNames,values).addWhere(where)).pack();
+		String updateQ = (new CommandBuilderF(StatementType.UPDATE).setTable(table).addExpression(columnNames,values).addWhere(where)).pack();
 		GeneralSQLFunctions.execUpdate(connection, updateQ);
 	}
 	
