@@ -10,6 +10,7 @@ import io.github.fatsquirrels.deuzum.Visual.Style.Components.Buttons.FlatButton;
 import io.github.fatsquirrels.deuzum.Algorithms.TextFunctions;
 import io.github.fatsquirrels.deuzum.Algorithms.TextTypes;
 import io.github.fatsquirrels.deuzum.Algorithms.Math.APair;
+import io.github.fatsquirrels.deuzum.Database.GeneralSQLFunctions;
 import io.github.fatsquirrels.deuzum.Algorithms.ConcreteText;
 
 import javax.swing.JButton;
@@ -17,6 +18,8 @@ import javax.swing.JComboBox;
 
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.awt.event.ActionEvent;
@@ -31,6 +34,12 @@ import java.awt.Insets;
 
 import io.github.fatsquirrels.deuzum.Algorithms.ObjectMapper;
 
+
+//Clase Testeada
+/**
+* Dialogo encargado de crear usuarios a la base de datos
+*
+*/
 public class createUser extends JDialog{
 
 	
@@ -81,7 +90,7 @@ public class createUser extends JDialog{
 		setSize(540,350);
 		
 		initialize(conn);
-		ObjectMapper.createComponentMap(userData);
+		this.componentMap = ObjectMapper.createComponentMap(userData);
 	}
 	public void initialize(Connection conn) {
 		
@@ -351,15 +360,14 @@ public class createUser extends JDialog{
 		int nError = 0;
 		for(APair<String,String> i :compulsoryVars){
 			JTextField tempC = (JTextField) ObjectMapper.getComponentByName(i.getIndex(), componentMap);
-			System.out.println(i.getIndex());
 			if(tempC.getText().isEmpty()) 
-				System.out.println("Error " + String.valueOf(++nError) + ": No ha indicado ninguna respuesta en " + i.getValue());
+				System.err.println("Error " + String.valueOf(++nError) + ": No ha indicado ninguna respuesta en " + i.getValue());
 			
 		}
 		// Comprobamos Fecha
 		JTextField dateT = (JTextField) ObjectMapper.getComponentByName("txtF_Nacimiento", componentMap);
-		if(!dateT.getText().isEmpty() && !TextFunctions.dateChecker(dateT.getText()))
-			System.out.println("Error " + String.valueOf(++nError) + ": No ha indicado ninguna respuesta en Fecha de Nacimiento");
+		if(dateT.getText().isEmpty() && !TextFunctions.dateChecker(dateT.getText()))
+			System.err.println("Error " + String.valueOf(++nError) + ": No ha indicado ninguna respuesta en Fecha de Nacimiento");
 		
 		
 		// Comprobamos Formato y longitud
@@ -375,23 +383,40 @@ public class createUser extends JDialog{
 		for(APair<String,ConcreteText> i : formatVars) {
 			JTextField tempC = (JTextField) ObjectMapper.getComponentByName(i.getIndex(), componentMap);
 			String tempText = tempC.getText();
-			if(!tempText.isEmpty() && !ConcreteText.isValid(tempText,  i.getValue().getTextType())) 
-				System.out.println("Error " + String.valueOf(++nError) + ": No ha indicado ninguna respuesta en " + i.getValue());
+			if(tempText.isEmpty() && !ConcreteText.isValid(tempText,  i.getValue().getTextType())) 
+				System.err.println("Error " + String.valueOf(++nError) + ": No ha indicado ninguna respuesta en " + i.getValue());
 
 		}
 		
 		// Si no hay errores lo enviamos
 		if(nError==0) {
-			// TODO añadir preg segu bien y permisos
+						
+			//Añadimos informacion a la tabla Usuario
 			ServerUserFunctionality.createUser(conn, new String[] 
-					{tFUser.getText(), tFPass.getText(), "6", tFRes.getText()
-					});
-			dispose();
-			// TODO cambiar lo del sexo
-			/*ServerUserFunctionality.createUserInf(conn, new String[]
-					{txtNombre.getText(), txtApellidos.getText(), txtTelefono.getText(), txtEmail.getText(),
-					txtDireccion.getText(), "F"});*/
+				{tFUser.getText(), tFPass.getText(), "6", tFRes.getText(), "1"
+				});
+			
+			
+			//Buscamos el usuario para conseguir su ID generala por la BD
+			ResultSet result = null;
+			String idUser = "";
+			try {
+				result = GeneralSQLFunctions.getResultSetEntryFromDatabase(conn, "usuario", "usuario = '" + tFUser.getText() + "'");
+				while(result.next()) {
+					idUser = result.getString("id");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			
+			//Añadimos la informacion de usuario a la tabla InfoUsuario con el ID obtenido
+			ServerUserFunctionality.createUserInf(conn, new String[]
+					{idUser+"", txtNombre.getText(), txtApellidos.getText(), txtTelefono.getText(), txtEmail.getText(),
+					txtDireccion.getText(), comboSexo.getSelectedItem().toString()});
 			JOptionPane.showMessageDialog(null, "Usuario registrado con exito", "REGISTRADO", 1);
+			
+			//dispose();
 		}
 		
 		// TODO Añadir ventana de error

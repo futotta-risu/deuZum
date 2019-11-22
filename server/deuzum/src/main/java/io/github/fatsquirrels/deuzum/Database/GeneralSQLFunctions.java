@@ -31,6 +31,14 @@ public final class GeneralSQLFunctions {
 		return connection.createStatement().executeQuery(query);
 	}
 	
+	
+	public static final ResultSet getResultSetEntryFromDatabase(Connection connection, String table, String conditions) throws SQLException {
+		
+		ResultSet result = getExecQuery(connection, "SELECT * FROM `"+table+"` "+conditions);
+		return result;
+		
+	}
+
 	public static final String getEntryFromDatabase(Connection connection, String table, String column, String conditions) throws SQLException {
 		
 		ResultSet result = getExecQuery(connection, "SELECT * FROM `"+table+"` "+conditions);
@@ -42,23 +50,24 @@ public final class GeneralSQLFunctions {
 	public static final void insertEntryIntoDatabase(Connection connection, String table, String[] columnNames, String[] values) throws SQLException {
 		if(columnNames.length != values.length || columnNames.length == 0)
 			return;
+		String insertQ = (new CommandBuilderF(StatementType.INSERT).setTable(table).addColumns(columnNames, values)).pack();
 		// TODO check if table exist
-		GeneralSQLFunctions.execUpdate(connection, 
-				CommandBuilder.getInsertQuery(table, columnNames, values));
+		GeneralSQLFunctions.execUpdate(connection, insertQ);
 		
 	}
 	
-	public static final void updateEntryFromDatabase(Connection connection, String table, String[] columnNames, String[] values, String conditions) throws SQLException {
+	public static final void updateEntryFromDatabase(Connection connection, String table, String[] columnNames, String[] values, WhereAST where) throws SQLException {
 		
 		if(columnNames.length != values.length || columnNames.length == 0)
 			return;
-		GeneralSQLFunctions.execUpdate(connection, 
-				CommandBuilder.getUpdateQuery(table, columnNames, values, conditions));
+		String updateQ = (new CommandBuilderF(StatementType.UPDATE).setTable(table).addExpression(columnNames,values).addWhere(where)).pack();
+		GeneralSQLFunctions.execUpdate(connection, updateQ);
 	}
 	
-	public static final void deleteEntryFromDatabase(Connection connection, String table, String conditions) throws SQLException {
-		GeneralSQLFunctions.execUpdate(connection, 
-					CommandBuilder.getDeleteQuery(table, conditions));
+	public static final void deleteEntryFromDatabase(Connection connection, String table, WhereAST where) throws SQLException {
+		String deleteQ = (new CommandBuilderF(StatementType.DELETE).setTable(table).addWhere(where)).pack();
+		
+		GeneralSQLFunctions.execUpdate(connection, deleteQ);
 		
 	}
 	

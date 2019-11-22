@@ -27,9 +27,33 @@ public class CommandBuilderFTest {
 				.setGroupBy(new String[] { "comando"}).setLimit(3)
 				.addWhere(new WhereAST().addP()
 						.addColumValueLO(new String[] {"pantilla","comando"}, 
-								new String[] {"ej1","ej2"}, logicOP.AND, ariOP.EQ)
+								new String[] {"ej1","ej2"}, WhereAST.logicOP.AND, WhereAST.ariOP.EQ)
 						.backP()
 						);
+		String commando = newCommand.pack();
+		System.out.println(commando);
+		//assertEquals("INSERT INTO HOSPITAL (ejemplo1,plantilla,comando) VALUES ('ejepmlo2','plantilla','comando')" ,commando);
+	}
+	
+	@Test
+	void testDelete() {
+		
+		WhereAST where = new WhereAST().addValue("id='2'");
+		CommandBuilderF newCommand = new CommandBuilderF(StatementType.DELETE)
+				.setTable("tabla2").addWhere(where);
+		
+		String commando = newCommand.pack();
+		System.out.println(commando);
+		//assertEquals("INSERT INTO HOSPITAL (ejemplo1,plantilla,comando) VALUES ('ejepmlo2','plantilla','comando')" ,commando);
+	}
+	@Test
+	void testComposedWhere() {
+		WhereAST where2 = new WhereAST().addValue("id='2'");
+		WhereAST where = new WhereAST().addP().addValue(new CommandBuilderF(StatementType.DELETE)
+				.setTable("tabla2").addWhere(where2).pack()).backP();
+		CommandBuilderF newCommand = new CommandBuilderF(StatementType.DELETE)
+				.setTable("tabla2").addWhere(where);
+		
 		String commando = newCommand.pack();
 		System.out.println(commando);
 		//assertEquals("INSERT INTO HOSPITAL (ejemplo1,plantilla,comando) VALUES ('ejepmlo2','plantilla','comando')" ,commando);

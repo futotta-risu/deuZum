@@ -721,7 +721,7 @@ public class ServerHandlerFrame  extends JFrame{
 			panel_Lateral_Info.add(lblNewLabel_1);
 			
 			JPanel panel_Home_Lateral_Help = new JPanel();
-			panel_Home_Lateral_Help.setPreferredSize(new Dimension(200,600));
+			panel_Home_Lateral_Help.setPreferredSize(new Dimension(200, 300));
 			panel_Home_Lateral.add(panel_Home_Lateral_Help);
 			panel_Home_Lateral_Help.setBackground(CustomColors.mBBlueGrayL);
 			

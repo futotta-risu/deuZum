@@ -11,17 +11,20 @@ import io.github.fatsquirrels.deuzum.Algorithms.ObjectMapper;
 import io.github.fatsquirrels.deuzum.Algorithms.TextFunctions;
 import io.github.fatsquirrels.deuzum.Algorithms.TextTypes;
 import io.github.fatsquirrels.deuzum.Algorithms.Math.APair;
+import io.github.fatsquirrels.deuzum.Database.GeneralSQLFunctions;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
-
+//TODO testear la clase
 public class editUser extends JDialog{
 
 	private static final long serialVersionUID = 1L;
@@ -54,7 +57,7 @@ public class editUser extends JDialog{
 	private JButton btnBuscarUsuario;
 	private JButton btnGuardarCambios;
 	
-	private int userID;
+	private String userID;
 	private HashMap<String,Component> componentMap;
 	
 	/**
@@ -77,6 +80,16 @@ public class editUser extends JDialog{
 		txtIDUser.setBounds(208, 14, 130, 26);
 		getContentPane().add(txtIDUser);
 		txtIDUser.setColumns(10);
+		
+		txtDireccion = new JTextField();
+		txtDireccion.setBounds(365, 57, 130, 26);
+		getContentPane().add(txtDireccion);
+		txtApellidos.setColumns(10);
+		
+		lblDireccion = new JLabel("Direccion");
+		lblDireccion.setSize(61, 20);
+		lblDireccion.setLocation(277, 60);
+		getContentPane().add(lblDireccion);
 		
 		
 		lblUsuario = new JLabel("User");
@@ -181,8 +194,31 @@ public class editUser extends JDialog{
 		btnBuscarUsuario = new JButton("Buscar Usuario");
 		btnBuscarUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				userID = Integer.parseInt(txtIDUser.getText());
-				//GeneralSQLFunctions.getEntryFromDatabase(connection, "usuario", column, conditions)
+				userID = txtIDUser.getText();
+				ResultSet resultUser = null;
+				ResultSet resultUserInf = null;
+				try {
+					resultUser = GeneralSQLFunctions.getResultSetEntryFromDatabase(conn, "usuario", "ID = '" + userID + "'" );
+					resultUserInf = GeneralSQLFunctions.getResultSetEntryFromDatabase(conn, "infoUsuario" , "ID = '" + userID + "'");
+					while(resultUser.next()) {
+						txtUser.setText(resultUser.getString("usuario")); 
+						comboPregSeg.setSelectedItem(resultUser.getString("preg_seguridad"));
+						txtRespuesta.setText((resultUser.getString("resp_seguridad")));
+					}
+					while(resultUserInf.next()) {
+						txtNombre.setText(resultUserInf.getString("nombre")); 
+						txtApellidos.setText(resultUserInf.getString("apellido")); 
+						txtTelefono.setText(resultUserInf.getString("telefono")); 
+						txtEmail.setText(resultUserInf.getString("email"));
+						txtDireccion.setText(resultUserInf.getString("direccion"));
+						txtF_Nacimiento.setText(resultUserInf.getString("fecha_nacimiento"));
+						comboSexo.setSelectedItem(resultUserInf.getString("sexo"));				
+					}
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+				
+				
 			}
 		});
 		btnBuscarUsuario.setBounds(377, 14, 117, 29);
@@ -203,7 +239,7 @@ public class editUser extends JDialog{
 	public void editarUsuario(Connection conn) {
 		//Comprobamos campos vacios
 				APair[] compulsoryVars = {
-						new APair("tFUser","Usuario"),new APair("tFPass","Contraseña"), new APair("tFRes","Respuesta")
+						new APair<String, String>("tFUser","Usuario"),new APair<String, String>("tFPass","Contraseña"), new APair<String, String>("tFRes","Respuesta")
 						};
 				int nError = 0;
 				for(APair i :compulsoryVars){
@@ -221,13 +257,13 @@ public class editUser extends JDialog{
 				
 				// Comprobamos Formato y longitud
 				APair[] formatVars = {
-						new APair("txtEmail", new ConcreteText("Email",TextTypes.EMAIL)),
-						new APair("txtNombre", new ConcreteText("Nombre",TextTypes.NAME)),
-						new APair("txtApellidos", new ConcreteText("Apellido",TextTypes.NAME)),
-						new APair("tFPass", new ConcreteText("Contraseña",TextTypes.PASSWORD)),
-						new APair("tFRes", new ConcreteText("Respuesta",TextTypes.NAME)),
-						new APair("txtTelefono", new ConcreteText("Telefono",TextTypes.PHONE)),
-						new APair("txtDireccion", new ConcreteText("Dirección",TextTypes.NAME)),
+						new APair<String, ConcreteText>("txtEmail", new ConcreteText("Email",TextTypes.EMAIL)),
+						new APair<String, ConcreteText>("txtNombre", new ConcreteText("Nombre",TextTypes.NAME)),
+						new APair<String, ConcreteText>("txtApellidos", new ConcreteText("Apellido",TextTypes.NAME)),
+						new APair<String, ConcreteText>("tFPass", new ConcreteText("Contraseña",TextTypes.PASSWORD)),
+						new APair<String, ConcreteText>("tFRes", new ConcreteText("Respuesta",TextTypes.NAME)),
+						new APair<String, ConcreteText>("txtTelefono", new ConcreteText("Telefono",TextTypes.PHONE)),
+						new APair<String, ConcreteText>("txtDireccion", new ConcreteText("Dirección",TextTypes.NAME)),
 					};
 				for(APair i : formatVars) {
 					JTextField tempC = (JTextField) ObjectMapper.getComponentByName(String.valueOf(i.getIndex()), componentMap);
@@ -239,16 +275,16 @@ public class editUser extends JDialog{
 				
 				// Si no hay errores lo enviamos
 				if(nError==0) {
-					// TODO añadir preg segu bien y permisos
-					ServerUserFunctionality.createUser(conn, new String[] 
-							{txtUser.getText(), txtPass.getText(), "6", txtRespuesta.getText()
+				
+					ServerUserFunctionality.updateUser(conn, userID, new String[] 
+							{txtUser.getText(), txtPass.getText(), "6", txtRespuesta.getText(), "1"
 							});
-					dispose();
-					// TODO cambiar lo del sexo
-					/*ServerUserFunctionality.createUserInf(conn, new String[]
+					
+					
+					ServerUserFunctionality.createUserInf(conn, new String[]
 							{txtNombre.getText(), txtApellidos.getText(), txtTelefono.getText(), txtEmail.getText(),
-							txtDireccion.getText(), "F"});*/
-					JOptionPane.showMessageDialog(null, "Usuario registrado con exito", "REGISTRADO", 1);
+							txtDireccion.getText(), txtF_Nacimiento.getText(), comboSexo.getSelectedItem().toString()});
+					JOptionPane.showMessageDialog(null, "Usuario actualizado con exito", "ACTUALIZADO", 1);
 				}
 				
 				// TODO Añadir ventana de error
