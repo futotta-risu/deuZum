@@ -51,9 +51,9 @@ public class UserList extends JDialog{
 		comboFiltrar.addItem("Nombre");
 		comboFiltrar.addItem("Username");
 		comboFiltrar.addItem("Fecha de Nacimineto");
-		comboFiltrar.addItem("Permisos");
-		comboFiltrar.addItem("Categoria");
-		comboFiltrar.addItem("Sexo");
+		//comboFiltrar.addItem("Permisos");
+		//comboFiltrar.addItem("Categoria");
+		//comboFiltrar.addItem("Sexo");
 		
 		txtFiltrar = new JTextField();
 		txtFiltrar.setBounds(225, 29, 170, 26);
@@ -73,10 +73,10 @@ public class UserList extends JDialog{
 				String conditions ="";
 				try {
 					//TODO Actualizar sql statement
-					String query = GeneralSQLFunctions.getEntryFromDatabase(c, "usuario", comboFiltrar.getItemAt(comboFiltrar.getSelectedIndex()), conditions);
-					ResultSet resultados = GeneralSQLFunctions.getExecQuery(c, query);
-					while(resultados.next()) {
+					
+					ResultSet resultados = GeneralSQLFunctions.getResultSetEntryFromDatabase(c, "usuario", " " + comboFiltrar.getItemAt(comboFiltrar.getSelectedIndex()) + "= '" + txtFiltrar.getText()+ "'" );
 						// retrieve and print the values for the current row
+						while(resultados.next()) {
 						String id = resultados.getString("id");
 						String usuario = resultados.getString("usuario");
 						String pass = resultados.getString("contraseña");
@@ -105,17 +105,18 @@ public class UserList extends JDialog{
 		setVisible(true);
 		btnEliminarUsuarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String conditions ="";
+				
 				List<Usuario> listaBorrar = listaUsuarios.getSelectedValuesList();
 				ArrayList<String> ids = new ArrayList<String>();
 				for (Usuario user : listaBorrar) {
 					ids.add(user.getId());
 				}
 				try {
-					//TODO Actualizar sql statement
-					WhereAST where = new WhereAST().addValue("user_id='"+ids+"'");
-					GeneralSQLFunctions.deleteEntryFromDatabase(c, "usuario", where);
-				} catch (SQLException e1) {
+					for (String id : ids) {
+						WhereAST where = new WhereAST().addValue("user_id='"+id+"'");
+						GeneralSQLFunctions.deleteEntryFromDatabase(c, "usuario", where);
+					}
+				}catch (SQLException e1) {
 					JOptionPane.showMessageDialog(null, "ERROR", "Ha habido un error al eliminar el usuario", 0);
 				}
 			}

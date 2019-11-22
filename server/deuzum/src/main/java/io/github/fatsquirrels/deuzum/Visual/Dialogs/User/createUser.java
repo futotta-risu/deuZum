@@ -366,7 +366,7 @@ public class createUser extends JDialog{
 		}
 		// Comprobamos Fecha
 		JTextField dateT = (JTextField) ObjectMapper.getComponentByName("txtF_Nacimiento", componentMap);
-		if(!dateT.getText().isEmpty() && !TextFunctions.dateChecker(dateT.getText()))
+		if(dateT.getText().isEmpty() && !TextFunctions.dateChecker(dateT.getText()))
 			System.err.println("Error " + String.valueOf(++nError) + ": No ha indicado ninguna respuesta en Fecha de Nacimiento");
 		
 		
@@ -383,7 +383,7 @@ public class createUser extends JDialog{
 		for(APair<String,ConcreteText> i : formatVars) {
 			JTextField tempC = (JTextField) ObjectMapper.getComponentByName(i.getIndex(), componentMap);
 			String tempText = tempC.getText();
-			if(!tempText.isEmpty() && !ConcreteText.isValid(tempText,  i.getValue().getTextType())) 
+			if(tempText.isEmpty() && !ConcreteText.isValid(tempText,  i.getValue().getTextType())) 
 				System.err.println("Error " + String.valueOf(++nError) + ": No ha indicado ninguna respuesta en " + i.getValue());
 
 		}
@@ -401,7 +401,7 @@ public class createUser extends JDialog{
 			ResultSet result = null;
 			String idUser = "";
 			try {
-				result = GeneralSQLFunctions.getResultSetEntryFromDatabase(conn, "usuario", "usuario = " + tFUser.getText() + "");
+				result = GeneralSQLFunctions.getResultSetEntryFromDatabase(conn, "usuario", "usuario = '" + tFUser.getText() + "'");
 				while(result.next()) {
 					idUser = result.getString("id");
 				}

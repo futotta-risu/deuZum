@@ -101,14 +101,12 @@ public class TransactionList extends JDialog{
 		getContentPane().add(btnEliminar);
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String conditions ="";
 				List<Transacion> listaBorrar = listaTransacciones.getSelectedValuesList();
 				ArrayList<String> ids = new ArrayList<String>();
 				for (Transacion t : listaBorrar) {
 					ids.add(t.getCodigo());
 				}
 				try {
-					//TODO Actualizar sql statement
 					WhereAST where = new WhereAST().addValue("user_id='"+ids+"'");
 					GeneralSQLFunctions.deleteEntryFromDatabase(c, "transacion", where);
 				} catch (SQLException e1) {
