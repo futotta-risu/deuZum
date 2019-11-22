@@ -10,6 +10,7 @@ import io.github.fatsquirrels.deuzum.Visual.Style.Components.Buttons.FlatButton;
 import io.github.fatsquirrels.deuzum.Algorithms.TextFunctions;
 import io.github.fatsquirrels.deuzum.Algorithms.TextTypes;
 import io.github.fatsquirrels.deuzum.Algorithms.Math.APair;
+import io.github.fatsquirrels.deuzum.Database.GeneralSQLFunctions;
 import io.github.fatsquirrels.deuzum.Algorithms.ConcreteText;
 
 import javax.swing.JButton;
@@ -17,6 +18,8 @@ import javax.swing.JComboBox;
 
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.awt.event.ActionEvent;
@@ -387,17 +390,33 @@ public class createUser extends JDialog{
 		
 		// Si no hay errores lo enviamos
 		if(nError==0) {
-			// TODO añadir preg segu bien y permisos
-			
+						
+			//Añadimos informacion a la tabla Usuario
 			ServerUserFunctionality.createUser(conn, new String[] 
 				{tFUser.getText(), tFPass.getText(), "6", tFRes.getText(), "1"
 				});
 			
-	
+			
+			//Buscamos el usuario para conseguir su ID generala por la BD
+			ResultSet result = null;
+			String idUser = "";
+			try {
+				result = GeneralSQLFunctions.getResultSetEntryFromDatabase(conn, "usuario", "usuario = " + tFUser.getText() + "");
+				while(result.next()) {
+					idUser = result.getString("id");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			
+			//Añadimos la informacion de usuario a la tabla InfoUsuario con el ID obtenido
 			ServerUserFunctionality.createUserInf(conn, new String[]
-					{txtNombre.getText(), txtApellidos.getText(), txtTelefono.getText(), txtEmail.getText(),
+					{idUser+"", txtNombre.getText(), txtApellidos.getText(), txtTelefono.getText(), txtEmail.getText(),
 					txtDireccion.getText(), comboSexo.getSelectedItem().toString()});
 			JOptionPane.showMessageDialog(null, "Usuario registrado con exito", "REGISTRADO", 1);
+			
+			//dispose();
 		}
 		
 		// TODO Añadir ventana de error

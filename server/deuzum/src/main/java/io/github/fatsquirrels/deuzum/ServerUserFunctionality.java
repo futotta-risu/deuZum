@@ -67,7 +67,7 @@ public class ServerUserFunctionality {
 	 */	
 	public static void createUserInf(Connection connection, String[] data) {
 		// TODO esto deberia obtenerse pidiendoselo a la base de datos para hacerlo automatico y que el cambiar la db no afecte
-		String[] columnNamesUserInf = {"nombre", "apellido", "telefono", "email", "direccion", "sexo"};
+		String[] columnNamesUserInf = {"id","nombre", "apellido", "telefono", "email", "direccion", "sexo"};
 		// Create UserInf
 		APair<String[],String[]> reducedInfo = getReducedArrayString(columnNamesUserInf, data);
 		try {
@@ -88,7 +88,7 @@ public class ServerUserFunctionality {
 	 * @param data Array que contiene los datos del usuario (Usuario, Contraseña, Pregunta de Seguridad, Respuesta, Permisos)
 	 */
 	public static void updateUser(Connection connection, String userID, String[] data) {
-		String[] columnNamesUsuarios = {"usuario","contrase�a","preg_seguridad","resp_seguridad", "permisos"};
+		String[] columnNamesUsuarios = {"usuario","contraseña","preg_seguridad","resp_seguridad", "permisos"};
 		APair<String[],String[]> reducedInfo = getReducedArrayString(columnNamesUsuarios, data);
 		try {
 			WhereAST where = new WhereAST().addValue("id='"+userID+"'");
