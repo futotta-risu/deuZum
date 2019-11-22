@@ -53,6 +53,7 @@ import javax.swing.JScrollPane;
 
 import net.miginfocom.swing.MigLayout;
 import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
@@ -109,6 +110,8 @@ public class ServerHandlerFrame  extends JFrame{
 	}
 	
 	public void configLayout() {
+		
+		  
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		/*
@@ -722,6 +725,27 @@ public class ServerHandlerFrame  extends JFrame{
 			panel_Home_Lateral.add(panel_Home_Lateral_Help);
 			panel_Home_Lateral_Help.setBackground(CustomColors.mBBlueGrayL);
 			
+			setDefaultLookAndFeelDecorated(true);
+			try {
+				//UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+				//UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+				UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+				//UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
+
+			} catch (ClassNotFoundException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			} catch (InstantiationException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			} catch (IllegalAccessException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			} catch (UnsupportedLookAndFeelException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+			
 			JScrollPane scrollPanel_Lateral = new JScrollPane(panel_Home_Lateral,
 					JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 		            JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -732,7 +756,6 @@ public class ServerHandlerFrame  extends JFrame{
 					new GroupList(server.getConnection());
 				}
 			});
-			
 			
 
 	}
