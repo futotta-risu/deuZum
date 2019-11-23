@@ -15,8 +15,10 @@ public class ArrayFunctions {
 	public static APair<String[],String[]> getReducedArrayString(String[] names, String[] data){
 		if(names.length != data.length) return null;
 		int totalEmpty = 0;
-		for(int i = 0; i < data.length; i++)
-			if(!data[i].isEmpty()) totalEmpty++;
+		for(int i = 0; i < data.length; i++) {
+			System.out.println(names[i]);
+			if(data[i].isEmpty()) totalEmpty++;
+		}
 		
 		String[] tempN = new String[names.length-totalEmpty];
 		String[] tempD= new String[names.length-totalEmpty];
