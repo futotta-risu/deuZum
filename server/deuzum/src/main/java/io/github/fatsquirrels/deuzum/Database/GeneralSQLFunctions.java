@@ -24,6 +24,7 @@ public final class GeneralSQLFunctions {
 	}
 	
 	public static final void execUpdate(Connection connection, String query) throws SQLException {
+		System.out.println(query);
 		connection.createStatement().executeUpdate(query);
 	}
 	
@@ -34,7 +35,7 @@ public final class GeneralSQLFunctions {
 	
 	public static final ResultSet getResultSetEntryFromDatabase(Connection connection, String table, String conditions) throws SQLException {
 		
-		ResultSet result = getExecQuery(connection, "SELECT * FROM `"+table+"` WHERE "+conditions);
+		ResultSet result = getExecQuery(connection, "SELECT * FROM '"+table+"' WHERE "+conditions);
 		return result;
 		
 	}
@@ -51,8 +52,9 @@ public final class GeneralSQLFunctions {
 	
 	public static final void insertEntryIntoDatabase(Connection connection, String table, String[] columnNames, String[] values) throws SQLException {
 		if(columnNames.length != values.length || columnNames.length == 0)
-			return;
+			return;	
 		String insertQ = (new CommandBuilderF(StatementType.INSERT).setTable(table).addColumns(columnNames, values)).pack();
+		System.out.println(insertQ);
 		// TODO check if table exist
 		GeneralSQLFunctions.execUpdate(connection, insertQ);
 		

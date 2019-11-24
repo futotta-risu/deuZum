@@ -60,9 +60,12 @@ public class UserList extends JDialog{
 		getContentPane().add(txtFiltrar);
 		txtFiltrar.setColumns(10);
 		
-		
-		
 		DefaultListModel<Usuario> model = new DefaultListModel<>();
+		listaUsuarios = new JList<>(model);
+		listaUsuarios.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+		listaUsuarios.setBounds(48, 85, 381, 287);
+		listaUsuarios.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		
 		getContentPane().add(listaUsuarios);
 		
 		btnFiltrar = new JButton("Filtrar");
@@ -92,10 +95,7 @@ public class UserList extends JDialog{
 				} catch (SQLException e1) {
 					JOptionPane.showMessageDialog(null, "ERROR", "No se ha podido realizar la consulta", 0);
 				}
-				listaUsuarios = new JList<>(model);
-				listaUsuarios.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-				listaUsuarios.setBounds(48, 85, 381, 287);
-				listaUsuarios.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+			
 			}
 		});
 		
