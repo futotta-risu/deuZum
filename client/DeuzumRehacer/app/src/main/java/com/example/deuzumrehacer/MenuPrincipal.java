@@ -2,6 +2,7 @@ package com.example.deuzumrehacer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,11 +11,11 @@ import android.widget.TextView;
 public class MenuPrincipal extends AppCompatActivity {
 
     private TextView cQQH;
-    private Button hTransaccion;
+    private Button eDinero;
     private Button vUsuario;
-    private Button mCuentas;
-    private Button ayudaFAQ;
-    private Button bAtras;
+    private Button gTarjetas;
+    private Button actividad;
+    private Button ajustes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,16 +23,18 @@ public class MenuPrincipal extends AppCompatActivity {
         setContentView(R.layout.activity_menu_principal);
 
         cQQH = findViewById(R.id.textoQQH);
-        hTransaccion = findViewById(R.id.botonEnviarDinero);
+        eDinero = findViewById(R.id.botonEnviarDinero);
         vUsuario = findViewById(R.id.botonVerUsuario);
-        mCuentas = findViewById(R.id.botonGestionarTarjetas);
-        ayudaFAQ = findViewById(R.id.botonAyudaFAQ);
-        bAtras = findViewById(R.id.botonAtrasMP);
+        gTarjetas = findViewById(R.id.botonGestionarTarjetas);
+        actividad = findViewById(R.id.botonActividad);
+        ajustes = findViewById(R.id.botonAjustes);
 
-        hTransaccion.setOnClickListener(new View.OnClickListener() {
+
+        /*
+        eDinero.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                abrirHacerTransaccion();
+                abrirEnviarDinero();
             }
         });
 
@@ -42,30 +45,19 @@ public class MenuPrincipal extends AppCompatActivity {
             }
         });
 
-        mCuentas.setOnClickListener(new View.OnClickListener() {
+        gTarjetas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                abrirMisCuentas();
+                abrirGestionarTarjetas();
             }
         });
 
-        ayudaFAQ.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                abrirAyudaFAQ();
-            }
-        });
-
-        bAtras.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                abrirInicioSesion();
-            }
-        });
+         */
 
     }
 
-    public void abrirHacerTransaccion() {
+    /*
+    public void abrirEnviarDinero() {
         Intent i = new Intent(this, HacerTransaccion.class);
         startActivity(i);
     }
@@ -75,19 +67,11 @@ public class MenuPrincipal extends AppCompatActivity {
         startActivity(i);
     }
 
-    public void abrirMisCuentas() {
+    public void abrirGestionarTarjetas() {
         Intent i = new Intent(this, MiCuenta.class);
         startActivity(i);
     }
+     */
 
-    public void abrirAyudaFAQ() {
-        Intent i = new Intent(this, AyudaFAQ.class);
-        startActivity(i);
-    }
-
-    public void abrirInicioSesion() {
-        Intent i = new Intent(this, InicioSesion.class);
-        startActivity(i);
-    }
 }
 
