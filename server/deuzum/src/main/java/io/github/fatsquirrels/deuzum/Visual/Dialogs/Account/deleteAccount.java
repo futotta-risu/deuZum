@@ -14,16 +14,23 @@ import io.github.fatsquirrels.deuzum.ServerUserFunctionality;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+
+/**
+* Dialogo encargado de eliminar cuentas en la base de datos
+*/
 public class deleteAccount extends JDialog{
 	
-	
-	
+
+	private static final long serialVersionUID = 1L;
 	private JButton btnEliminarCuenta;
 	private JLabel lblIdCuenta;
 	private Connection conn;
 	private JTextField txtIdCuenta;
 
-	
+	/**
+	 * Crea un objeto de deleteAccount que contiene un Dialogo que permite eliminar una cuenta.
+	 * @param Connection
+	 */
 	public deleteAccount(Connection conn) {
 		this.conn= conn;
 		setSize(300,120);

@@ -17,6 +17,9 @@ import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
 
 import io.github.fatsquirrels.deuzum.Visual.Dialogs.*;
+import io.github.fatsquirrels.deuzum.Visual.Dialogs.Account.createAccount;
+import io.github.fatsquirrels.deuzum.Visual.Dialogs.Account.deleteAccount;
+import io.github.fatsquirrels.deuzum.Visual.Dialogs.Account.editAccount;
 import io.github.fatsquirrels.deuzum.Visual.Dialogs.Group.*;
 import io.github.fatsquirrels.deuzum.Visual.Dialogs.Project.*;
 import io.github.fatsquirrels.deuzum.Visual.Dialogs.Transactions.*;
@@ -73,6 +76,7 @@ public class ServerHandlerFrame  extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private JPanel panel_Home;
 	private JPanel panel_Usuario;
+	private JPanel panel_Cuenta;
 	private JPanel panel_Transaccion;
 	private JPanel panel_Config_G;
 	private JPanel panel_Proyectos;
@@ -211,6 +215,7 @@ public class ServerHandlerFrame  extends JFrame{
 		
 		JButton btnHome = new MenuButton("Menu Principal");
 		JButton btnUsuario = new MenuButton("Usuarios");
+		JButton btnCuenta = new MenuButton("Cuentas");
 		JButton btnTransaccion = new MenuButton("Transacciones");
 		JButton btnProyectos = new MenuButton("Proyectos");
 		JButton btnGrupos = new MenuButton("Grupos");
@@ -238,6 +243,12 @@ public class ServerHandlerFrame  extends JFrame{
 				switchPanel(panel_Grupos);
 			}
 		});
+		
+		btnCuenta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				switchPanel(panel_Cuenta);
+			}
+		});
 		btnProyectos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchPanel(panel_Proyectos);
@@ -256,6 +267,7 @@ public class ServerHandlerFrame  extends JFrame{
 		
 		central_Direction_Menu_Panel.add(btnHome);
 		central_Direction_Menu_Panel.add(btnUsuario);
+		central_Direction_Menu_Panel.add(btnCuenta);
 		central_Direction_Menu_Panel.add(btnTransaccion);
 		central_Direction_Menu_Panel.add(btnProyectos);
 		central_Direction_Menu_Panel.add(btnGrupos);
@@ -307,6 +319,42 @@ public class ServerHandlerFrame  extends JFrame{
 				}
 			});
 			
+			panel_Cuenta = new MenuPanel();
+			central_Mutable_Panel.add(panel_Cuenta);
+			
+			//	BOTONES CUENTA
+			
+			JButton btnCrearCuenta = new FlatButton("Crear Cuenta");
+			panel_Cuenta.add(btnCrearCuenta, "cell 0 0,growx");
+			btnCrearCuenta.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					new createAccount(server.getConnection());
+				}
+			});
+			
+			JButton btnEditarCuenta = new FlatButton("Editar Cuenta");
+			panel_Cuenta.add(btnEditarCuenta, "cell 0 1,growx");
+			btnEditarCuenta.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					new editAccount(server.getConnection());
+				}
+			});
+			
+			JButton btnEliminarCuenta = new FlatButton("Eliminar Cuenta");
+			panel_Cuenta.add(btnEliminarCuenta, "cell 0 2,growx");
+			btnEliminarCuenta.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					new deleteAccount(server.getConnection());
+				}
+			});
+			
+			JButton btnVerCuenta = new FlatButton("Ver Cuentas");
+			panel_Cuenta.add(btnVerCuenta, "cell 0 3,growx");
+			btnVerCuenta.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					new AccountList(server.getConnection());
+				}
+			});
 			
 			//        PANELES MUTABLE
 			

@@ -24,11 +24,12 @@ import io.github.fatsquirrels.deuzum.Algorithms.TextTypes;
 import io.github.fatsquirrels.deuzum.Algorithms.Math.APair;
 import io.github.fatsquirrels.deuzum.Database.GeneralSQLFunctions;
 
+/**
+* Dialogo encargado de editar cuentas de la base de datos
+*/
 public class editAccount extends JDialog{
 	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private JTextField txtNumCuenta;
 	private JTextField txtIdUsuario;
@@ -60,7 +61,10 @@ public class editAccount extends JDialog{
 
 	
 	
-	
+	/**
+	 * Crea un objeto de editAccount que contiene un Dialogo que permite editar una cuenta.
+	 * @param Connection
+	 */
 	public editAccount(Connection conn) {
 		this.conn =conn;
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -174,7 +178,9 @@ public class editAccount extends JDialog{
 
 	}
 	
-	
+	/**
+	 * Metodo encargado de buscar una cuenta en la BD a traves de su ID y rellenar el Dialogo con la informacion de la cuenta seleccionada
+	 */
 	public void buscarCuenta() {
 		accountID = txtBuscarCuenta.getText();
 		ResultSet resultAccount = null;
@@ -196,6 +202,9 @@ public class editAccount extends JDialog{
 		
 	}
 	
+	/**
+	 * Metodo encargado de comprobar la informacion introducida y actualizar los datos en la Base de Datos
+	 */
 	public void editarCuenta() {
 		//Comprobamos campos vacios
 				ArrayList<APair<String,String>> compulsoryVars = new ArrayList<>();

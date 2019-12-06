@@ -34,8 +34,8 @@ public class AccountList extends JDialog{
 	
 
 	/**
-	 * Crea un objeto de UserList, el cual contiene un Dialogo que muestra la lista
-	 * de todos los usuarios y permite hacer busquedas filtradas para eliminar usuarios.
+	 * Crea un objeto de AccountList, el cual contiene un Dialogo que muestra la lista
+	 * de todos las cuentas y permite hacer busquedas filtradas para eliminar cuentas.
 	 */
 	public AccountList(Connection c) {
 		setSize(600,450);

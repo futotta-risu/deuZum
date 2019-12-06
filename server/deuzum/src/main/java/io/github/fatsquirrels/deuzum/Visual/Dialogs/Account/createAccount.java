@@ -22,11 +22,12 @@ import io.github.fatsquirrels.deuzum.Algorithms.Math.APair;
 
 import javax.swing.JButton;
 
+/**
+* Dialogo encargado de crear cuentas en la base de datos
+*/
 public class createAccount extends JDialog{
 	
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private JTextField txtNumCuenta;
 	private JTextField txtIdUsuario;
@@ -53,7 +54,10 @@ public class createAccount extends JDialog{
 
 	
 	
-	
+	/**
+	 * Crea un objeto de createAccount que contiene un Dialogo que permite crear una cuenta.
+	 * @param Connection
+	 */
 	public createAccount(Connection conn) {
 		this.conn =conn;
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -147,6 +151,9 @@ public class createAccount extends JDialog{
 
 	}
 	
+	/**
+	 *  Metodo encargado de comprobar los datos introducidos y añadir la Cuenta a la Base de Datos
+	 */
 	public void crearCuenta() {
 		//Comprobamos campos vacios
 				ArrayList<APair<String,String>> compulsoryVars = new ArrayList<>();

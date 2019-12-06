@@ -37,7 +37,7 @@ import io.github.fatsquirrels.deuzum.Algorithms.ObjectMapper;
 
 //Clase Testeada
 /**
-* Dialogo encargado de crear usuarios a la base de datos
+* Dialogo encargado de crear usuarios en la base de datos
 *
 */
 public class createUser extends JDialog{

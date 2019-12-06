@@ -1,5 +1,7 @@
 package io.github.fatsquirrels.deuzum.Visual.Dialogs.Account;
 
+
+
 public class Cuenta {
 	private String idCuenta;
 	private String numCuenta;
