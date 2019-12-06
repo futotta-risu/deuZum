@@ -16,7 +16,17 @@ import javax.crypto.NoSuchPaddingException;
 
 public class Moderno {
 
-
+/**
+ * Este metodo devuelve un texto Encriptado con el algoritmo de RSA
+ * @param text Texto a encriptar
+ * @param pKey Llave privada para encriptar el texto
+ * @return Texto encriptado con RSA
+ * @throws NoSuchAlgorithmException
+ * @throws NoSuchPaddingException
+ * @throws InvalidKeyException
+ * @throws IllegalBlockSizeException
+ * @throws BadPaddingException
+ */
 public static String RSAE(String text, PublicKey pKey) throws
 NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException,
 IllegalBlockSizeException, BadPaddingException {
@@ -28,13 +38,27 @@ IllegalBlockSizeException, BadPaddingException {
 
 }
 
-public String RSAD(String result, PrivateKey privateStr) throws NoSuchAlgorithmException,
+/**
+ * Este metodo devuelve un texto Desencriptado, previamente encriptado con el Algoritmo de RSAE
+ * @see #RSAE
+ * @see #bytesToString
+ * @see #strinToBytes
+ * @param text Texto a desencriptar
+ * @param privateStr Llave privada para desencriptar el texto
+ * @return Texto desencriptado con RSA
+ * @throws NoSuchAlgorithmException
+ * @throws NoSuchPaddingException
+ * @throws InvalidKeyException
+ * @throws IllegalBlockSizeException
+ * @throws BadPaddingException
+ */
+public String RSAD(String text, PrivateKey privateStr) throws NoSuchAlgorithmException,
    NoSuchPaddingException, InvalidKeyException,
    IllegalBlockSizeException, BadPaddingException {
 
 Cipher cipher = Cipher.getInstance("RSA");
 cipher.init(Cipher.DECRYPT_MODE, privateStr);
-return bytesToString(cipher.doFinal(stringToBytes(result)));
+return bytesToString(cipher.doFinal(stringToBytes(text)));
 
 }
 
