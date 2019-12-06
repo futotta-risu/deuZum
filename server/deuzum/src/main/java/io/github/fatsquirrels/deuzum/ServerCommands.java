@@ -63,7 +63,11 @@ public class ServerCommands {
 						try {
 							Class<?> temp = Class.forName(fileLineSplit[1]);
 							
-							Method method = temp.getMethod(fileLineSplit[2], fileLineSplit.getClass());
+							Method method = temp.getMethod(fileLineSplit[2], (new JSONObject()).getClass());
+							System.out.println(method.getName());
+							System.out.println(temp.getName());
+							for(Class a : method.getParameterTypes())
+								System.out.println(a.getName());
 							return (String) method.invoke(null, new Object[] {data});
 							
 							// TODO cambiar los errores para algo m�s util
@@ -76,6 +80,7 @@ public class ServerCommands {
 						} catch (IllegalAccessException e) {
 							e.printStackTrace();
 						} catch (IllegalArgumentException e) {
+							System.err.println(data.getClass().getName());
 							e.printStackTrace();
 						} catch (InvocationTargetException e) {
 							e.printStackTrace();

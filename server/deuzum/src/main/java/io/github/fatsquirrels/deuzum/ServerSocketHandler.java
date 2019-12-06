@@ -26,6 +26,7 @@ public class ServerSocketHandler extends Thread{
 	 * @param Connection conn
 	 */
 	public ServerSocketHandler(Socket socket, Connection conn) {
+		System.out.println("Conectado");
 		this.socket = socket;
 	}
 	
@@ -41,6 +42,7 @@ public class ServerSocketHandler extends Thread{
 	        
 	        // Dechiper the Command
 	        JSONObject data = new JSONObject(in.readLine());
+	        System.out.println(data.toString());
 	        out.println(ServerCommands.serverCommands.get(command).runCommand(data));
 	        
 

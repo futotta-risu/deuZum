@@ -25,4 +25,4 @@ addUser	deustoZumServer.ServerUserFunctionality createUserC
 # addTransaction
 
 # Security Commands
-hash deustoZumServer.Security.hashFunctions hashNumber
+hash io.github.fatsquirrels.deuzum.Security.hashFunctions hashNumber
