@@ -212,19 +212,31 @@ public class ServerUserFunctionality {
 		}
 	}
 	
-	public static void createAccount(Connection connection, String userID, String accountName) {
+	public static void createAccount(Connection connection, String[] data) {
 		// TODO a�adir las funciones de verificacion de userId, accountName
 		try {
-			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "cuenta", new String[] {"id_usuario", "numeroCuenta","permisos"},new String[] {userID, accountName, "3"} );
+			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "cuenta", 
+					new String[] {"numeroCuenta", "id_usuario","dinero","tipo_cuenta", "descripcion", "estado", "categoria"},
+					data);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	public static void updateAccountInfo(Connection connection, String userID, String[] columns, String[] data) {
+	
+	public static void deleteAccount(Connection connection, String accountID) {
+		try {
+			WhereAST where = new WhereAST().addValue("id='"+accountID+"'");
+			GeneralSQLFunctions.deleteEntryFromDatabase(connection, "cuenta", where);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public static void updateAccount(Connection connection, String accountID, String[] columns, String[] data) {
 		// TODO a�adir las funciones de verificacion de userId, accountName
 		try {
-			WhereAST where = new WhereAST().addValue("id='"+userID+"'");
+			WhereAST where = new WhereAST().addValue("id='"+accountID+"'");
 			GeneralSQLFunctions.updateEntryFromDatabase(connection, "cuenta", columns, data, where);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

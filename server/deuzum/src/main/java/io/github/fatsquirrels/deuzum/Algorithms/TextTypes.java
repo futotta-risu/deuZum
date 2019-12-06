@@ -10,7 +10,15 @@ public enum TextTypes {
 	NAME("[a-zA-Z]{3,32}"),
 	PASSWORD("[a-zA-Z0-9._%+-]{6,32}"),
 	PHONE("[0-9]{0,9}"),
-	USER("[a-zA-Z0-9]{4,32}");
+	USER("[a-zA-Z0-9]{4,32}"), 
+	
+	ACCOUNT("[0-9]{0,11}"),
+	ID("[0-9]{0,11}"),
+	MONEY("[0-9]{0,11}"),
+	ACCOUNT_TYPE("[a-zA-Z0-9._]{0,15}"),
+	DESCRIPTION("[a-zA-Z0-9._]{0,256}"),
+	STATUS("[0-9]{0,11}"),
+	CATEGORY("[a-zA-Z0-9._]{0,20}");
 	
 	/**
 	 * Contiene el formato del tipo.
