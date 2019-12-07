@@ -12,11 +12,16 @@ import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import javax.swing.JTable;
 import javax.swing.JLabel;
+import javax.swing.ButtonGroup;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JTextPane;
+import javax.swing.JRadioButton;
 
 public class VentanaZum {
-
+	private JPanel panelGeneral;
 	private JFrame frame;
-
+	private ButtonGroup botones= new ButtonGroup();
 	/**
 	 * Launch the application.
 	 */
@@ -89,65 +94,114 @@ public class VentanaZum {
 		});
 		panel.add(configuración);
 		
-		JPanel panelUsuario = new JPanel();
-		panelUsuario.setBounds(135, 0, 299, 261);
+		JPanel panelGeneral = new JPanel();
+		panelGeneral.setBounds(135, 0, 299, 261);
+		frame.getContentPane().add(panelGeneral);
+		panelGeneral.setLayout(null);
 		
-		frame.getContentPane().add(panelUsuario);
-		panelUsuario.setLayout(null);
+		JPanel panelUsuario = new JPanel();
+		panelUsuario.setBounds(1, 0, 296, 261);
+		panelGeneral.add(panelUsuario);
 		
 		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setBounds(21, 11, 46, 19);
-		panelUsuario.add(lblNombre);
+		lblNombre.setBounds(21, 11, 74, 19);
 		
-		JButton btnNewButton = new JButton("New button");
+		JButton btnNewButton = new JButton("Guardar");
+		btnNewButton.setBounds(207, 219, 82, 31);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnNewButton.setBounds(207, 219, 82, 31);
-		panelUsuario.add(btnNewButton);
 		
 		JLabel lblApellidos = new JLabel("Apellidos:");
-		lblApellidos.setBounds(21, 40, 46, 14);
-		panelUsuario.add(lblApellidos);
+		lblApellidos.setBounds(21, 46, 74, 14);
 		
 		JLabel lblTelfono = new JLabel("Tel\u00E9fono:");
-		lblTelfono.setBounds(21, 65, 46, 14);
-		panelUsuario.add(lblTelfono);
+		lblTelfono.setBounds(21, 82, 74, 14);
 		
 		JLabel lblEmail = new JLabel("Email:");
-		lblEmail.setBounds(21, 93, 46, 14);
-		panelUsuario.add(lblEmail);
+		lblEmail.setBounds(21, 107, 46, 14);
 		
 		JLabel lblDireccion = new JLabel("Direcci\u00F3n:");
-		lblDireccion.setBounds(21, 118, 56, 14);
-		panelUsuario.add(lblDireccion);
+		lblDireccion.setBounds(21, 132, 74, 14);
 		
 		JLabel lblFecha_Nacimiento = new JLabel("Fecha de nacimiento:");
-		lblFecha_Nacimiento.setBounds(21, 147, 102, 14);
-		panelUsuario.add(lblFecha_Nacimiento);
+		lblFecha_Nacimiento.setBounds(21, 157, 142, 14);
 		
 		JLabel lblSexo = new JLabel("Sexo:");
-		lblSexo.setBounds(21, 179, 46, 14);
+		lblSexo.setBounds(21, 194, 46, 14);
+		panelUsuario.setLayout(null);
+		panelUsuario.add(lblNombre);
+		panelUsuario.add(btnNewButton);
+		panelUsuario.add(lblApellidos);
+		panelUsuario.add(lblTelfono);
+		panelUsuario.add(lblEmail);
+		panelUsuario.add(lblDireccion);
+		panelUsuario.add(lblFecha_Nacimiento);
 		panelUsuario.add(lblSexo);
 		
-		JPanel panelMisCuentas = new JPanel();
-		panelMisCuentas.setBounds(135, 0, 299, 261);
-		frame.getContentPane().add(panelMisCuentas);
+		JTextPane txtpnApellidos = new JTextPane();
+		txtpnApellidos.setBounds(96, 40, 177, 20);
+		panelUsuario.add(txtpnApellidos);
 		
-		JPanel panelMisGrupos = new JPanel();
-		panelMisGrupos.setBounds(135, 0, 299, 261);
-		frame.getContentPane().add(panelMisGrupos);
+		JTextPane textPaneNombre = new JTextPane();
+		textPaneNombre.setBounds(96, 10, 177, 20);
+		panelUsuario.add(textPaneNombre);
 		
-		JPanel panelTrasacciones = new JPanel();
-		panelTrasacciones.setBounds(135, 0, 299, 261);
-		frame.getContentPane().add(panelTrasacciones);
+		JTextPane textPaneTelefono = new JTextPane();
+		textPaneTelefono.setBounds(96, 76, 175, 20);
+		panelUsuario.add(textPaneTelefono);
+		
+		JTextPane textPaneEmail = new JTextPane();
+		textPaneEmail.setBounds(96, 101, 177, 20);
+		panelUsuario.add(textPaneEmail);
+		
+		JTextPane textPaneDireccion = new JTextPane();
+		textPaneDireccion.setBounds(96, 126, 177, 20);
+		panelUsuario.add(textPaneDireccion);
+		
+		JTextPane textPanefecha = new JTextPane();
+		textPanefecha.setBounds(158, 151, 113, 20);
+		panelUsuario.add(textPanefecha);
+		
+		JRadioButton rdbtnNewRadioButtonF = new JRadioButton("Femenino");
+		rdbtnNewRadioButtonF.setBounds(96, 190, 67, 23);
+		panelUsuario.add(rdbtnNewRadioButtonF);
+		
+		JRadioButton rdbtnNewRadioButtonM = new JRadioButton("Masculino");
+		rdbtnNewRadioButtonM.setBounds(199, 189, 74, 23);
+		panelUsuario.add(rdbtnNewRadioButtonM);
+		
+		botones.add(rdbtnNewRadioButtonM);
+		botones.add(rdbtnNewRadioButtonF);
 		
 		JPanel panelConfiguracion = new JPanel();
-		panelConfiguracion.setBounds(135, 0, 299, 261);
-		frame.getContentPane().add(panelConfiguracion);
+		panelConfiguracion.setBounds(1, 0, 296, 260);
+		panelGeneral.add(panelConfiguracion);
+		panelConfiguracion.setLayout(null);
+		
+		JPanel panelTrasacciones = new JPanel();
+		panelTrasacciones.setBounds(1, 0, 296, 260);
+		panelGeneral.add(panelTrasacciones);
+		panelTrasacciones.setLayout(null);
+		
+		JPanel panelMisGrupos = new JPanel();
+		panelMisGrupos.setBounds(1, 0, 296, 260);
+		panelGeneral.add(panelMisGrupos);
+		panelMisGrupos.setLayout(null);
+		
+		JPanel panelMisCuentas = new JPanel();
+		panelMisCuentas.setBounds(1, 0, 296, 260);
+		panelGeneral.add(panelMisCuentas);
+		panelMisCuentas.setLayout(null);
 		
 		
+	}
+	public void switchPanel ( JPanel panelUsuario ){
+		panelGeneral.removeAll();
+		panelGeneral.add(panelUsuario);
+		panelGeneral.validate();
+		panelGeneral.repaint();
 	}
 	}
 

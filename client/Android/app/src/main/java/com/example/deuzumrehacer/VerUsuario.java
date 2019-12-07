@@ -2,7 +2,9 @@ package com.example.deuzumrehacer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -27,6 +29,28 @@ public class VerUsuario extends AppCompatActivity {
         tNombreUsuario = findViewById(R.id.textoNombreUsuario);
         tTelefono = findViewById(R.id.textoTelefono);
         tEmail = findViewById(R.id.textoEmail);
+        tDireccion = findViewById(R.id.textoDireccion);
+        cContrasenya = findViewById(R.id.editarContrasenya);
+        bGuardarCambios = findViewById(R.id.botonGuardarCambios);
+        bAtras = findViewById(R.id.botonAtrasVU);
 
+        bAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                abrirMenuPrincipal();
+            }
+        });
+
+        bGuardarCambios.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                abrirMenuPrincipal();
+            }
+        });
+
+    }
+    public void abrirMenuPrincipal() {
+        Intent i = new Intent(this, MenuPrincipal.class);
+        startActivity(i);
     }
 }
