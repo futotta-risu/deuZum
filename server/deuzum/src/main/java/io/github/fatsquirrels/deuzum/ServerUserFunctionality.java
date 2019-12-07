@@ -215,8 +215,9 @@ public class ServerUserFunctionality {
 	public static void createAccount(Connection connection, String[] data) {
 		// TODO a�adir las funciones de verificacion de userId, accountName
 		try {
+			// TODO cambiar esto entero para que meta mediante mapas
 			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "cuenta", 
-					new String[] {"numeroCuenta", "id_usuario","dinero","tipo_cuenta", "descripcion", "estado", "categoria"},
+					new String[] {"numero_cuenta", "id_usuario","dinero"},
 					data);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -226,7 +227,7 @@ public class ServerUserFunctionality {
 	
 	public static void deleteAccount(Connection connection, String accountID) {
 		try {
-			WhereAST where = new WhereAST().addValue("id='"+accountID+"'");
+			WhereAST where = new WhereAST().addValue("numero_cuenta='"+accountID+"'");
 			GeneralSQLFunctions.deleteEntryFromDatabase(connection, "cuenta", where);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

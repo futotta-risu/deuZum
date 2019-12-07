@@ -83,18 +83,25 @@ public class createAccount extends JDialog{
 		
 		
 		txtNumCuenta = new JTextField();
+		txtNumCuenta.setName("txtNumCuenta");
 		txtNumCuenta.setBounds(168, 32, 474, 40);
 		txtIdUsuario = new JTextField();
+		txtIdUsuario.setName("txtIdUsuario");
 		txtIdUsuario.setBounds(168, 96, 127, 40);
 		txtDinero = new JTextField();
+		txtDinero.setName("txtDinero");
 		txtDinero.setBounds(168, 164, 127, 40);
 		txtTipoCuenta = new JTextField();
+		txtTipoCuenta.setName("txtTipoCuenta");
 		txtTipoCuenta.setBounds(168, 232, 127, 40);
 		txtDescripcion = new JTextField();
+		txtDescripcion.setName("txtDescripcion");
 		txtDescripcion.setBounds(515, 96, 127, 40);
 		txtEstado = new JTextField();
+		txtEstado.setName("txtEstado");
 		txtEstado.setBounds(515, 164, 127, 40);
 		txtCategoria = new JTextField();
+		txtCategoria.setName("txtCategoria");
 		txtCategoria.setBounds(515, 232, 127, 40);
 		
 		lblNumCuenta = new JLabel("Numero de Cuenta");
@@ -161,9 +168,6 @@ public class createAccount extends JDialog{
 				compulsoryVars.add(new APair<String,String>("txtIdUsuario","ID Usuario"));
 				compulsoryVars.add(new APair<String,String>("txtDinero","Dinero"));
 				compulsoryVars.add(new APair<String,String>("txtTipoCuenta","Tipo de Cuenta"));
-				compulsoryVars.add(new APair<String,String>("txtDescripcion","Descripcion"));
-				compulsoryVars.add(new APair<String,String>("txtEstado","Estado de la Cuenta"));
-				compulsoryVars.add(new APair<String,String>("txtCategoria","Categoria"));
 
 
 				int nError = 0;
@@ -198,8 +202,7 @@ public class createAccount extends JDialog{
 								
 					//Añadimos informacion a la tabla Cuenta
 					ServerUserFunctionality.createAccount(conn, new String[]{txtNumCuenta.getText(), txtIdUsuario.getText(),
-							txtDinero.getText(), txtTipoCuenta.getText(), txtDescripcion.getText(),
-							txtEstado.getText(), txtCategoria.getText()});;
+							txtDinero.getText()});;
 					
 					
 				}

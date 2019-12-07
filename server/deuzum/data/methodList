@@ -21,7 +21,7 @@
 
 # Database Commands
 
-addUser	deustoZumServer.ServerUserFunctionality createUserC
+addUser	io.github.fatsquirrels.deuzum.ServerUserFunctionality createUserC
 # addTransaction
 
 # Security Commands

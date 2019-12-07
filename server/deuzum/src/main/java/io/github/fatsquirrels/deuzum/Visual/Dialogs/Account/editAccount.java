@@ -185,7 +185,7 @@ public class editAccount extends JDialog{
 		accountID = txtBuscarCuenta.getText();
 		ResultSet resultAccount = null;
 		try {
-			resultAccount = GeneralSQLFunctions.getResultSetEntryFromDatabase(conn, "cuenta", "ID = '" + accountID + "'" );
+			resultAccount = GeneralSQLFunctions.getResultSetEntryFromDatabase(conn, "cuenta", "numero_cuenta = " + accountID  );
 			while(resultAccount.next()) {
 				txtNumCuenta.setText(resultAccount.getString("numero_cuenta")); 
 				txtIdUsuario.setText(resultAccount.getString("id_usuario"));
