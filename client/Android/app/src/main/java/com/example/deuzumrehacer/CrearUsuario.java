@@ -58,7 +58,7 @@ public class CrearUsuario extends AppCompatActivity {
         bSiguiente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                crearUsuario();
+                send();
             }
         });
 
@@ -70,9 +70,21 @@ public class CrearUsuario extends AppCompatActivity {
         });
     }
 
-    public void crearUsuario(){
+    public void send(){
         SendM sm = new SendM();
-        sm.execute();
+        sm.execute(tCorreo.getText().toString());
+        sm.execute(tNombre.getText().toString());
+        sm.execute(tApellido.getText().toString());
+        sm.execute(tTelefono.getText().toString());
+        sm.execute(tDireccion.getText().toString());
+        sm.execute(dFechaNacimiento.getText().toString());
+        sm.execute(sGenero.getSelectedItem().toString());
+        sm.execute(nUsuario.getText().toString());
+        sm.execute(cUsuario.getText().toString());
+        sm.execute(sPreguntaSeguridad.getSelectedItem().toString());
+        sm.execute(tRespuestaSeguridad.getText().toString());
+
+
     }
     public void abrirInicioSesion() {
         Intent i = new Intent(this, InicioSesion.class);

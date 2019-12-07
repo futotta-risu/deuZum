@@ -10,31 +10,24 @@ import android.os.AsyncTask;
 
 public class SendM {
 
-    public class sendM extends AsyncTask<Void, Void, Void> {
+    public class sendM extends AsyncTask<String, Void, Void> {
 
-        String dstAddress;
-        int dstPort;
-
+        Socket s;
         DataOutputStream dos;
         PrintWriter pw;
 
-        sendM(){
-            dstAddress = "10.0.2.2";
-            dstPort = 50337;
-        }
-
         @Override
-        protected Void doInBackground(Void... arg0) {
+        protected Void doInBackground(String... voids) {
 
-            Socket socket = null;
+            String message = voids[0];
 
             try {
-                socket = new Socket(dstAddress, dstPort);
-                pw = new PrintWriter(socket.getOutputStream());
-                pw.write("hash\n{}");
+                s = new Socket("10.0.2.2",50337);
+                pw = new PrintWriter(s.getOutputStream());
+                pw.write(message);
                 pw.flush();
                 pw.close();
-                socket.close();
+                s.close();
 
             } catch (IOException e) {
                 // TODO Auto-generated catch block
