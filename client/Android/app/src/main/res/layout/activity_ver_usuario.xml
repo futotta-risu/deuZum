@@ -20,6 +20,7 @@
         android:id="@+id/cajaVerUsuario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:text="Ver usuario"
         android:textColor="#2196F3"
         android:textSize="30sp"
@@ -32,10 +33,12 @@
         android:id="@+id/editText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="30dp"
         android:ems="10"
         android:hint="Nombre de usuario"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cajaVerUsuario" />
 
@@ -43,10 +46,12 @@
         android:id="@+id/textoTelefono"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="30dp"
         android:ems="10"
         android:hint="Telefono"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText" />
 
@@ -54,39 +59,51 @@
         android:id="@+id/textoEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="30dp"
         android:ems="10"
         android:hint="Correo electrónico"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textoTelefono" />
 
     <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
+        android:id="@+id/botonAtrasVU"
+        android:layout_width="110dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="60dp"
+        android:text="Atras"
+        android:textColor="#2196F3"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editarContrasenya" />
 
     <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
+        android:id="@+id/botonGuardarCambios"
+        android:layout_width="110dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginRight="60dp"
+        android:textColor="#2196F3"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editarContrasenya" />
+        app:layout_constraintTop_toBottomOf="@+id/editarContrasenya"
+        tools:text="Guardar cambios" />
 
     <EditText
         android:id="@+id/textoDireccion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="30dp"
         android:ems="10"
         android:hint="Dirección"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textoEmail" />
 
@@ -94,10 +111,13 @@
         android:id="@+id/editarContrasenya"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="36dp"
         android:ems="10"
         android:hint="Contraseña"
         android:inputType="textPassword"
-        app:layout_constraintTop_toBottomOf="@+id/textoDireccion"
-        tools:layout_editor_absoluteX="94dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textoDireccion" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

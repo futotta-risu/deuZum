@@ -14,7 +14,6 @@ public class MenuPrincipal extends AppCompatActivity {
     private Button eDinero;
     private Button vUsuario;
     private Button gTarjetas;
-    private Button actividad;
     private Button cerrarSesion;
 
     @Override
@@ -26,7 +25,6 @@ public class MenuPrincipal extends AppCompatActivity {
         eDinero = findViewById(R.id.botonEnviarDinero);
         vUsuario = findViewById(R.id.botonVerUsuario);
         gTarjetas = findViewById(R.id.botonGestionarTarjetas);
-        actividad = findViewById(R.id.botonActividad);
         cerrarSesion = findViewById(R.id.botonCerrarSesion);
 
 
@@ -48,13 +46,6 @@ public class MenuPrincipal extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 abrirGestionarTarjetas();
-            }
-        });
-
-        actividad.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                abrirActividad();
             }
         });
 */
@@ -79,11 +70,6 @@ public class MenuPrincipal extends AppCompatActivity {
 /*
     public void abrirGestionarTarjetas() {
         Intent i = new Intent(this, GestionarTarjetas.class);
-        startActivity(i);
-    }
-
-    public void abrirActividad() {
-        Intent i = new Intent(this, Actividad.class);
         startActivity(i);
     }
 */
