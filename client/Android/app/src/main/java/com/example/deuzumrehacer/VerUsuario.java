@@ -44,11 +44,24 @@ public class VerUsuario extends AppCompatActivity {
         bGuardarCambios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                abrirMenuPrincipal();
+                guardarCambios();
             }
         });
 
     }
+
+    public void guardarCambios() {
+        SendM sm = new SendM();
+        sm.execute(tNombreUsuario.getText().toString());
+        sm.execute(tTelefono.getText().toString());
+        sm.execute(tEmail.getText().toString());
+        sm.execute(tDireccion.getText().toString());
+        sm.execute(cContrasenya.getText().toString());
+
+        Intent i = new Intent(this, MenuPrincipal.class);
+        startActivity(i);
+    }
+
     public void abrirMenuPrincipal() {
         Intent i = new Intent(this, MenuPrincipal.class);
         startActivity(i);
