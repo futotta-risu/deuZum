@@ -1,5 +1,8 @@
 package io.github.fatsquirrels.deuzum.Algorithms;
 
+import io.github.fatsquirrels.deuzum.Annotations.Tested;
+
+@Tested(tested = true)
 /**
  * Estrucura de Datos que combina un String junto con una lista de formatos posibles.
  * 

@@ -58,4 +58,16 @@ public class CommandBuilderFTest {
 		System.out.println(commando);
 		//assertEquals("INSERT INTO HOSPITAL (ejemplo1,plantilla,comando) VALUES ('ejepmlo2','plantilla','comando')" ,commando);
 	}
+	
+	
+	@Test
+	void testUpdate() {
+		WhereAST where = new WhereAST().addValue("id='2'");
+		CommandBuilderF newCommand = new CommandBuilderF(StatementType.UPDATE)
+				.setTable("tabla2").addExpression("name","Jose").addWhere(where);
+		
+		String comando = newCommand.pack();
+		System.out.println(comando);
+		//assertEquals("UPDATE tabla2 SET name=Jose WHERE id='2'", comando);
+	}
 }

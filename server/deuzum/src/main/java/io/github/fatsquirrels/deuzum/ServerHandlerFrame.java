@@ -176,8 +176,8 @@ public class ServerHandlerFrame  extends JFrame{
 						
 						server = new Server();
 						server.setDBName(ServerHandlerFrame.properties.getProperty("server.dbName"));
-						server.setBotCount(Integer.valueOf(ServerHandlerFrame.properties.getProperty("server.port")));
-						server.setPort(Integer.valueOf(ServerHandlerFrame.properties.getProperty("server.botCount")));
+						server.setBotCount(Integer.valueOf(ServerHandlerFrame.properties.getProperty("server.botCount")));
+						server.setPort(Integer.valueOf(ServerHandlerFrame.properties.getProperty("server.port")));
 						server.runServer();
 						server.start();
 						
@@ -833,6 +833,7 @@ public class ServerHandlerFrame  extends JFrame{
 		ServerHandlerFrame.properties = new Properties();
 		try(FileInputStream f = new FileInputStream("./data/server.properties")){
 			properties.load(f);
+			properties.toString();
 			
 		}catch(FileNotFoundException e1) {
 			System.err.println("El archivo no se encuentra en el lugar indicado.");

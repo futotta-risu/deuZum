@@ -15,17 +15,17 @@ class userManipulation {
 
 	@Test
 	void userCreationTest() {
-		int nError =1;
 		String tempText = "erik@gmail.cm";
-		if(ConcreteText.isValid(tempText,  TextTypes.EMAIL)) 
-			System.err.println("Error " + String.valueOf(++nError) + ": No ha indicado ninguna respuesta en " + tempText);
+		assertEquals(true, ConcreteText.isValid(tempText,  TextTypes.EMAIL));
 		
 	}
 	@Test
+	
 	void userCreateUser() {
 		Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost/deuzumdb", "root", "");
 		ServerUserFunctionality.createUser(conn, new String[] 
 				{"erikberter22", "erikberter2", "6", "erikberter2", "1"});
 		
 	}
+	 
 }

@@ -5,6 +5,11 @@ import java.util.HashMap;
 
 import javax.swing.JPanel;
 
+import io.github.fatsquirrels.deuzum.Annotations.Tested;
+
+
+@Tested(tested = true)
+
 /**
  * Contiene las funciones para trabajar con mapas de componentes
  * @author erik.terres.es
