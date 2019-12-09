@@ -34,6 +34,9 @@ public class VerUsuario extends AppCompatActivity {
         bGuardarCambios = findViewById(R.id.botonGuardarCambios);
         bAtras = findViewById(R.id.botonAtrasVU);
 
+        Thread myThread = new Thread(new MyServerThread());
+        myThread.start();
+
         bAtras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,11 +47,24 @@ public class VerUsuario extends AppCompatActivity {
         bGuardarCambios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                abrirMenuPrincipal();
+                guardarCambios();
             }
         });
 
     }
+
+    public void guardarCambios() {
+        MessageSender ms = new MessageSender();
+        ms.execute(tNombreUsuario.getText().toString());
+        ms.execute(tTelefono.getText().toString());
+        ms.execute(tEmail.getText().toString());
+        ms.execute(tDireccion.getText().toString());
+        ms.execute(cContrasenya.getText().toString());
+
+        Intent i = new Intent(this, MenuPrincipal.class);
+        startActivity(i);
+    }
+
     public void abrirMenuPrincipal() {
         Intent i = new Intent(this, MenuPrincipal.class);
         startActivity(i);

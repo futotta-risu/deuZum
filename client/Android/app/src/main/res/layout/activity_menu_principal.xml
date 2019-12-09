@@ -60,7 +60,7 @@
         app:layout_constraintTop_toBottomOf="@+id/botonEnviarDinero" />
 
     <Button
-        android:id="@+id/botonGestionarTarjetas"
+        android:id="@+id/botonGestionarTarjeta"
         android:layout_width="320dp"
         android:layout_height="90dp"
         android:layout_marginTop="40dp"
@@ -87,5 +87,5 @@
         android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/botonGestionarTarjetas" />
+        app:layout_constraintTop_toBottomOf="@+id/botonGestionarTarjeta" />
 </androidx.constraintlayout.widget.ConstraintLayout>

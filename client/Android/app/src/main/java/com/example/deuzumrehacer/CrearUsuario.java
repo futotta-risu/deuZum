@@ -55,10 +55,11 @@ public class CrearUsuario extends AppCompatActivity {
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, opciones2);
         sPreguntaSeguridad.setAdapter(adapter2);
 
+
         bSiguiente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                send();
+                crearUsuario();
             }
         });
 
@@ -70,20 +71,22 @@ public class CrearUsuario extends AppCompatActivity {
         });
     }
 
-    public void send(){
-        SendM sm = new SendM();
-        sm.execute(tCorreo.getText().toString());
-        sm.execute(tNombre.getText().toString());
-        sm.execute(tApellido.getText().toString());
-        sm.execute(tTelefono.getText().toString());
-        sm.execute(tDireccion.getText().toString());
-        sm.execute(dFechaNacimiento.getText().toString());
-        sm.execute(sGenero.getSelectedItem().toString());
-        sm.execute(nUsuario.getText().toString());
-        sm.execute(cUsuario.getText().toString());
-        sm.execute(sPreguntaSeguridad.getSelectedItem().toString());
-        sm.execute(tRespuestaSeguridad.getText().toString());
+    public void crearUsuario(){
+        MessageSender ms = new MessageSender();
+        ms.execute(tCorreo.getText().toString());
+        ms.execute(tNombre.getText().toString());
+        ms.execute(tApellido.getText().toString());
+        ms.execute(tTelefono.getText().toString());
+        ms.execute(tDireccion.getText().toString());
+        ms.execute(dFechaNacimiento.getText().toString());
+        ms.execute(sGenero.getSelectedItem().toString());
+        ms.execute(nUsuario.getText().toString());
+        ms.execute(cUsuario.getText().toString());
+        ms.execute(sPreguntaSeguridad.getSelectedItem().toString());
+        ms.execute(tRespuestaSeguridad.getText().toString());
 
+        Intent i = new Intent(this, MenuPrincipal.class);
+        startActivity(i);
 
     }
     public void abrirInicioSesion() {

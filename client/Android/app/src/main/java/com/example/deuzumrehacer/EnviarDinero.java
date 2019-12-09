@@ -33,7 +33,7 @@ public class EnviarDinero extends AppCompatActivity {
         bFinalizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                abrirMenuPrincipal();
+                enviarDinero();
             }
         });
 
@@ -43,6 +43,13 @@ public class EnviarDinero extends AppCompatActivity {
                 abrirMenuPrincipal();
             }
         });
+    }
+
+    public void enviarDinero(){
+        MessageSender ms = new MessageSender();
+        ms.execute(tUsuarioDestinatario.getText().toString());
+        ms.execute(tImporte.getText().toString());
+        ms.execute(tConcepto.getText().toString());
     }
 
     public void abrirMenuPrincipal() {

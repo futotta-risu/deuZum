@@ -13,7 +13,7 @@ public class MenuPrincipal extends AppCompatActivity {
     private TextView cQQH;
     private Button eDinero;
     private Button vUsuario;
-    private Button gTarjetas;
+    private Button gTarjeta;
     private Button cerrarSesion;
 
     @Override
@@ -24,7 +24,7 @@ public class MenuPrincipal extends AppCompatActivity {
         cQQH = findViewById(R.id.cajaQQH);
         eDinero = findViewById(R.id.botonEnviarDinero);
         vUsuario = findViewById(R.id.botonVerUsuario);
-        gTarjetas = findViewById(R.id.botonGestionarTarjetas);
+        gTarjeta = findViewById(R.id.botonGestionarTarjeta);
         cerrarSesion = findViewById(R.id.botonCerrarSesion);
 
 
@@ -41,14 +41,14 @@ public class MenuPrincipal extends AppCompatActivity {
                 abrirVerUsuario();
             }
         });
-/*
-        gTarjetas.setOnClickListener(new View.OnClickListener() {
+
+        gTarjeta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 abrirGestionarTarjetas();
             }
         });
-*/
+
         cerrarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,12 +67,12 @@ public class MenuPrincipal extends AppCompatActivity {
         Intent i = new Intent(this, VerUsuario.class);
         startActivity(i);
     }
-/*
+
     public void abrirGestionarTarjetas() {
         Intent i = new Intent(this, GestionarTarjetas.class);
         startActivity(i);
     }
-*/
+
     public void abrirInicioSesion() {
         Intent i = new Intent(this, InicioSesion.class);
         startActivity(i);

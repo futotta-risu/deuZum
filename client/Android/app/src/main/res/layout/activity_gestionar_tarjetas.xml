@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GestionarTarjetas">
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/icono" />
+
+    <TextView
+        android:id="@+id/cajaGestionarTarjeta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="Gestionar Tarjeta"
+        android:textColor="#2196F3"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+
+    <EditText
+        android:id="@+id/textoNumeroTarjeta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginLeft="36dp"
+        android:layout_marginTop="80dp"
+        android:ems="10"
+        android:hint="Nº de tarjeta"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cajaGestionarTarjeta" />
+
+    <EditText
+        android:id="@+id/textoFechaCaducidad"
+        android:layout_width="168dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginLeft="36dp"
+        android:layout_marginTop="44dp"
+        android:ems="10"
+        android:hint="Fecha de caducidad"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textoNumeroTarjeta" />
+
+    <Button
+        android:id="@+id/botonGuardar"
+        android:layout_width="95dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="56dp"
+        android:layout_marginRight="56dp"
+        android:text="Guardar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textoFechaCaducidad" />
+
+    <EditText
+        android:id="@+id/contrasenyaCVV"
+        android:layout_width="106dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="80dp"
+        android:ems="10"
+        android:hint="CVV"
+        android:inputType="numberPassword"
+        app:layout_constraintStart_toEndOf="@+id/textoNumeroTarjeta"
+        app:layout_constraintTop_toBottomOf="@+id/cajaGestionarTarjeta" />
+
+    <Button
+        android:id="@+id/botonAtrasGT"
+        android:layout_width="95dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginLeft="36dp"
+        android:layout_marginTop="80dp"
+        android:text="Atras"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textoFechaCaducidad" />
+</androidx.constraintlayout.widget.ConstraintLayout>

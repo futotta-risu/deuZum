@@ -202,6 +202,18 @@ public class ServerUserFunctionality {
 		}
 	}
 	
+	public static void updateGroup(Connection conn, String groupID, String[] columns, String[] data) {
+		// TODO anyadir las funciones de verificacion de groupID, groupName
+				try {
+					WhereAST where = new WhereAST().addValue("id='"+groupID+"'");
+					GeneralSQLFunctions.updateEntryFromDatabase(conn, "grupo", columns, data, where);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		
+	}
+	
 	public static void createGroup(Connection connection, String groupName) {
 		// TODO a�adir las funciones de verificacion de groupName
 		try {
@@ -211,6 +223,17 @@ public class ServerUserFunctionality {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void deleteGroup(Connection connection, String groupId) {
+		//Borramos de la base de datos el grupo que nos ha pedido el cliente que borremos
+		try {
+			WhereAST where = new WhereAST().addValue("id=" + groupId + "'");
+			GeneralSQLFunctions.deleteEntryFromDatabase(connection, "grupo", where);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	
 	public static void createAccount(Connection connection, String[] data) {
 		// TODO a�adir las funciones de verificacion de userId, accountName
