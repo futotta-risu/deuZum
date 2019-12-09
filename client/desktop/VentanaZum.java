@@ -4,6 +4,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.GridBagLayout;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.GridLayout;
@@ -17,11 +19,21 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JTextPane;
 import javax.swing.JRadioButton;
+import java.awt.GridBagConstraints;
 
 public class VentanaZum {
 	private JPanel panelGeneral;
 	private JFrame frame;
 	private ButtonGroup botones= new ButtonGroup();
+	private JPanel panelConfiguracion;
+	private JPanel panelUsuario;
+	private JPanel panelMisCuentas;
+	private JPanel panelMisGrupos;
+	private JPanel panelTrasacciones;
+
+
+
+
 	/**
 	 * Launch the application.
 	 */
@@ -88,23 +100,21 @@ public class VentanaZum {
 		panel.add(Transacciones);
 		
 		JButton configuración = new JButton("Configuración");
-		configuración.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		
 		panel.add(configuración);
 		
-		JPanel panelGeneral = new JPanel();
+		panelGeneral = new JPanel();
 		panelGeneral.setBounds(135, 0, 299, 261);
 		frame.getContentPane().add(panelGeneral);
 		panelGeneral.setLayout(null);
 		
-		JPanel panelUsuario = new JPanel();
+		panelUsuario = new JPanel();
 		panelUsuario.setBounds(1, 0, 296, 261);
 		panelGeneral.add(panelUsuario);
 		
+		
 		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setBounds(21, 11, 74, 19);
+		lblNombre.setBounds(21, 10, 74, 19);
 		
 		JButton btnNewButton = new JButton("Guardar");
 		btnNewButton.setBounds(207, 219, 82, 31);
@@ -175,31 +185,85 @@ public class VentanaZum {
 		botones.add(rdbtnNewRadioButtonM);
 		botones.add(rdbtnNewRadioButtonF);
 		
-		JPanel panelConfiguracion = new JPanel();
+		panelConfiguracion = new JPanel();
 		panelConfiguracion.setBounds(1, 0, 296, 260);
-		panelGeneral.add(panelConfiguracion);
 		panelConfiguracion.setLayout(null);
+		panelConfiguracion.setVisible(true);
+		panelGeneral.add(panelConfiguracion);
+		
+		JButton btn = new JButton("Boton");
+		panelConfiguracion.add(btn);
 		
 		JPanel panelTrasacciones = new JPanel();
 		panelTrasacciones.setBounds(1, 0, 296, 260);
-		panelGeneral.add(panelTrasacciones);
+		//panelGeneral.add(panelTrasacciones);
 		panelTrasacciones.setLayout(null);
+		
+		JLabel lblNombredestin = new JLabel("Nombre destinatario:");
+		lblNombredestin.setBounds(21, 10, 74, 19);
 		
 		JPanel panelMisGrupos = new JPanel();
 		panelMisGrupos.setBounds(1, 0, 296, 260);
-		panelGeneral.add(panelMisGrupos);
+		//panelGeneral.add(panelMisGrupos);
 		panelMisGrupos.setLayout(null);
 		
 		JPanel panelMisCuentas = new JPanel();
 		panelMisCuentas.setBounds(1, 0, 296, 260);
-		panelGeneral.add(panelMisCuentas);
+		//panelGeneral.add(panelMisCuentas);
 		panelMisCuentas.setLayout(null);
 		
 		
+		usuario.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				switchPanel(panelUsuario);
+				
+			}
+		});
+		
+		misCuentas.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				switchPanel(panelMisCuentas);
+				
+			}
+		});
+
+		
+		misGrupos.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				switchPanel(panelMisGrupos);
+				
+			}
+		});
+
+		
+		Transacciones.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				switchPanel(panelTrasacciones);
+				
+			}
+		});
+
+		
+		configuración.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				switchPanel(panelConfiguracion);
+				
+			}
+		});
 	}
-	public void switchPanel ( JPanel panelUsuario ){
+	public void switchPanel ( JPanel panel ){
 		panelGeneral.removeAll();
-		panelGeneral.add(panelUsuario);
+		panelGeneral.add(panel);
 		panelGeneral.validate();
 		panelGeneral.repaint();
 	}
