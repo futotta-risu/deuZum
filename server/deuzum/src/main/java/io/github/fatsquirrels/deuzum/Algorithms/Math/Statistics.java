@@ -5,9 +5,21 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+
+/**
+ * Clase Estadistica
+ * La utilidad de esta clase es obtener diferentes tipos de Modas
+ * @see #getModa
+ * @see #getCategorizedMode
+ * @see #getMode
+ */
 public final class Statistics {
 
-	// O(n^2)
+	/**
+	 * Este metodo calcula la moda de un array en un tiempo O(n^2)
+	 * @param muestras Array de INTs para el calculo
+	 * @return Moda del vector recibido.
+	 */
 	public static int getModa(int[] muestras) {
 
 	    int maximoNumRepeticiones= 0;
@@ -32,8 +44,13 @@ public final class Statistics {
 	   return moda;
 	}   
 	
-	//O(n) (Since k<n, O(n+k)=O(n))
-	// Categories debe contener numeros no negativos y categorySize debe ser >= max(categories)+1
+	
+	/**
+	 * Metodo que calcula la moda de un Array en un tiempo O(n)=O(n+k), siempre que k < n
+	 * @param categories Array de INTs, debe contener numeros no negativos
+	 * @param categorySize >= max( categories ) +1
+	 * @return Moda del vector recibido
+	 */
 	public static final int getCategorizedMode(int[] categories, int categorySize) {
 		int[] totalAparition = new int[categorySize];
 		for(int i : categories) 
@@ -47,7 +64,14 @@ public final class Statistics {
 			}
 		return maxIndice;
 	}
+	
+	
 	//O(n) although technically is O(nlogn) since hashmap doesn't always work O(1)
+	/**
+	 * Metodo que calcula la moda de un Array de Objects en un tiempo O(nlogn)
+	 * @param objets Array de Objects para el calculo de la moda
+	 * @return Devuelve el objeto mas frecuente del array
+	 */
 	public static final Object getMode(Object[] objets) {
 		Map<Object, Integer> count = new HashMap<Object, Integer>();
 		

@@ -2,7 +2,8 @@ package io.github.fatsquirrels.deuzum.Algorithms;
 
 /**
  * Lista de los formatos de texto disponibles. Actualmente se encuentran impelmentados los siguientes;
- * <ul><li>EMAIL</li><li>NAME</li><li>PASSWORD</li><li>PHONE</li></ul>
+ * <ul><li>EMAIL</li><li>NAME</li><li>PASSWORD</li><li>PHONE</li><li>USER</li>
+ * <li>ACCOUNT</li><li>ID</li><li>MONEY</li><li>ACCOUNT_TYPE</li><li>DESCRIPTION</li><li>STATUS</li><li>CATEGORY</li></ul>
  *	@see #regexCondition
  */
 public enum TextTypes {

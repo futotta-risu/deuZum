@@ -6,6 +6,17 @@ import java.text.SimpleDateFormat;
 
 
 //TODO Arreglar errores con referencias entre llamada y ejecucion en todas
+/**
+ * 
+ * Clase Funciones de Texto
+ * La utilidad de esta clase es facilitar varios metodos para realizar operaciones sobre textos
+ * @see #surroundText(String[] arr, String presuffix)
+ * @see #surroundText(String[] arr, String preffix, String suffix)
+ * @see #concatenateAlternative(String[] arr1, String[] arr2,String concat)
+ * @see #concatenateAlternative(String[] arr1, String[] arr2,String concat, String nullText)
+ * @see #concatenateAlternative(String[] arr1, String[] arr2,String concat, String nullText, String surroundText)
+ *
+ */
 public class TextFunctions {
 
 	
@@ -112,7 +123,13 @@ public class TextFunctions {
 		
 	}
 	
-	
+	/**
+	 * Metodo que comprueba si un String termina con formato @---.com, hemos sustituido la manera de hacer Regex sobre los datos
+	 * @param txtEmail String con el email a comprobar
+	 * @return booleano indicando si el email introducido es correcto
+	 * @see io.github.fatsquirrels.deuzum.Algorithms.TextTypes
+	 */
+	@Deprecated
 	public static final boolean endsWithMail(String txtEmail) {
 		if(txtEmail.endsWith("@gmail.com") || txtEmail.endsWith("@opendeusto.com") || txtEmail.endsWith("@hotmail.com") || txtEmail.endsWith("@deusto.com")) {
 			return true;
@@ -121,6 +138,11 @@ public class TextFunctions {
 		}
 	}
 	
+	/**
+	 * Metodo que comprueba si el String introducido tiene formato de fecha
+	 * @param txtDate String con la fecha a comprobar
+	 * @return booleano indicando si la fecha introducida es correcta
+	 */
 	public static final boolean dateChecker(String txtDate) {
 		DateFormat df = new SimpleDateFormat();
 		df.setLenient(false);
