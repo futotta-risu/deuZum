@@ -1,5 +1,12 @@
 package Paneles;
 
-public class PanelCuentas {
+import javax.swing.JPanel;
 
+public class PanelCuentas extends JPanel {
+	
+	
+	
+	public PanelCuentas() {
+		
+	}
 }

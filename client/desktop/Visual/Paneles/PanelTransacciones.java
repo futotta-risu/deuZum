@@ -1,5 +1,13 @@
 package Paneles;
 
-public class PanelTransacciones {
+import javax.swing.JPanel;
+
+public class PanelTransacciones extends JPanel {
+	
+	
+	
+	public PanelTransacciones() {
+		
+	}
 
 }

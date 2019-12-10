@@ -1,5 +1,13 @@
 package Paneles;
 
-public class PanelConfiguracion {
+import javax.swing.JPanel;
+
+public class PanelConfiguracion extends JPanel {
+	
+	
+	
+	public PanelConfiguracion() {
+		
+	}
 
 }

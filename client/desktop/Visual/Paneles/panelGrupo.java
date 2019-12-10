@@ -5,6 +5,8 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 
 public class panelGrupo extends JPanel {
+	
+	private static final long serialVersionUID = 1L;
 	private JLabel lblMisgrupos= new JLabel();
 	private JList listMisGrupos= new JList();
 
