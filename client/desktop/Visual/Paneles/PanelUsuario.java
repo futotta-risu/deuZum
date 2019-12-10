@@ -96,20 +96,124 @@ public class PanelUsuario extends JPanel{
 		botones.add(rdbtnFemenino);
 		botones.add(rdbtnMasculino);
 		
-		File file = new File("\"/ruta/filename.txt\"");
-        
-		try (FileWriter fw = new FileWriter(file);
-	            BufferedWriter bw = new BufferedWriter(fw)) {
-           // Si el archivo no existe es creado
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            bw.write(textPaneNombre.getText());
-            bw.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+		
     }
+
+	public ButtonGroup getBotones() {
+		return botones;
+	}
+
+	public void setBotones(ButtonGroup botones) {
+		this.botones = botones;
+	}
+
+	public JTextPane getTextPaneNombre() {
+		return textPaneNombre;
+	}
+
+	public void setTextPaneNombre(JTextPane textPaneNombre) {
+		this.textPaneNombre = textPaneNombre;
+	}
+
+	public JTextPane getTextPaneApellidos() {
+		return textPaneApellidos;
+	}
+
+	public void setTextPaneApellidos(JTextPane textPaneApellidos) {
+		this.textPaneApellidos = textPaneApellidos;
+	}
+
+	public JTextPane getTextPaneTelefono() {
+		return textPaneTelefono;
+	}
+
+	public void setTextPaneTelefono(JTextPane textPaneTelefono) {
+		this.textPaneTelefono = textPaneTelefono;
+	}
+
+	public JTextPane getTextPaneEmail() {
+		return textPaneEmail;
+	}
+
+	public void setTextPaneEmail(JTextPane textPaneEmail) {
+		this.textPaneEmail = textPaneEmail;
+	}
+
+	public JTextPane getTextPaneDireccion() {
+		return textPaneDireccion;
+	}
+
+	public void setTextPaneDireccion(JTextPane textPaneDireccion) {
+		this.textPaneDireccion = textPaneDireccion;
+	}
+
+	public JLabel getLblNombre() {
+		return lblNombre;
+	}
+
+	public void setLblNombre(JLabel lblNombre) {
+		this.lblNombre = lblNombre;
+	}
+
+	public JLabel getLblApellidos() {
+		return lblApellidos;
+	}
+
+	public void setLblApellidos(JLabel lblApellidos) {
+		this.lblApellidos = lblApellidos;
+	}
+
+	public JLabel getLblTelfono() {
+		return lblTelfono;
+	}
+
+	public void setLblTelfono(JLabel lblTelfono) {
+		this.lblTelfono = lblTelfono;
+	}
+
+	public JLabel getLblEmail() {
+		return lblEmail;
+	}
+
+	public void setLblEmail(JLabel lblEmail) {
+		this.lblEmail = lblEmail;
+	}
+
+	public JLabel getLblDireccion() {
+		return lblDireccion;
+	}
+
+	public void setLblDireccion(JLabel lblDireccion) {
+		this.lblDireccion = lblDireccion;
+	}
+
+	public JLabel getLblSexo() {
+		return lblSexo;
+	}
+
+	public void setLblSexo(JLabel lblSexo) {
+		this.lblSexo = lblSexo;
+	}
+
+	public JRadioButton getRdbtnFemenino() {
+		return rdbtnFemenino;
+	}
+
+	public void setRdbtnFemenino(JRadioButton rdbtnFemenino) {
+		this.rdbtnFemenino = rdbtnFemenino;
+	}
+
+	public JRadioButton getRdbtnMasculino() {
+		return rdbtnMasculino;
+	}
+
+	public void setRdbtnMasculino(JRadioButton rdbtnMasculino) {
+		this.rdbtnMasculino = rdbtnMasculino;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
 		
 		
