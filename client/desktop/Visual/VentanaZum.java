@@ -14,7 +14,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 
 import Paneles.PanelUsuario;
-
+import Paneles.panelGrupo;
 
 import javax.swing.JTable;
 import javax.swing.JLabel;
@@ -25,7 +25,7 @@ import javax.swing.JTextPane;
 import javax.swing.JRadioButton;
 import java.awt.GridBagConstraints;
 
-public class VentanaZum {
+public class VentanaZum extends JFrame{
 	private JPanel panelGeneral;
 	private JFrame frame;
 	private ButtonGroup botones= new ButtonGroup();
@@ -58,7 +58,8 @@ public class VentanaZum {
 	 * Create the application.
 	 */
 	public VentanaZum() {
-		initialize();
+
+	initialize();
 	}
 
 	/**
@@ -240,7 +241,7 @@ public class VentanaZum {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				switchPanel(panelMisGrupos);
+				//switchPanel(new panelGrupo());
 				
 			}
 		});
