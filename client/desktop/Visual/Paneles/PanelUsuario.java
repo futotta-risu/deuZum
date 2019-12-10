@@ -14,9 +14,7 @@ public class PanelUsuario extends JPanel{
 	public PanelUsuario() {
 		
 		
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.setBounds(185, 32, 123, 53);
-		add(btnNewButton);
+		
 		
 		btn1 = new JButton("New button");
 		btn1.setBounds(51, 29, 72, 42);
