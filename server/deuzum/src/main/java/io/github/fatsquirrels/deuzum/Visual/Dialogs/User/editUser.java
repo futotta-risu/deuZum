@@ -244,7 +244,6 @@ public class editUser extends JDialog{
 				int nError = 0;
 				for(APair i :compulsoryVars){
 					JTextField tempC = (JTextField) ObjectMapper.getComponentByName(String.valueOf(i.getIndex()), componentMap);
-					System.out.println(i.getIndex());
 					if(tempC.getText().isEmpty()) 
 						System.out.println("Error " + String.valueOf(++nError) + ": No ha indicado ninguna respuesta en " + String.valueOf(i.getValue()));
 					

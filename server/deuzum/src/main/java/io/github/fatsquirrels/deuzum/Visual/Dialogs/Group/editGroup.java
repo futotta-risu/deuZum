@@ -3,9 +3,21 @@ package io.github.fatsquirrels.deuzum.Visual.Dialogs.Group;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import io.github.fatsquirrels.deuzum.Algorithms.ObjectMapper;
+import io.github.fatsquirrels.deuzum.Algorithms.Math.APair;
+import io.github.fatsquirrels.deuzum.Database.GeneralSQLFunctions;
+
 import javax.swing.JComboBox;
 
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.JButton;
 
@@ -41,7 +53,10 @@ public class editGroup extends JDialog{
 	private JComboBox<String> comboPermiso8;
 	private JButton btnGuardarCambio;
 	private JLabel lblIntroducirIdGrupo;
-	private JButton btnBuscar;
+	private JButton btonBuscarGrupo;
+	private String groupID;
+	private HashMap<String,Component> componentMap;
+	private Connection conn;
 
 	/**
 	 * Crea un objeto de editGroup, el cual contiene un Dialogo que permite buscar un grupo por su
@@ -191,9 +206,70 @@ public class editGroup extends JDialog{
 		getContentPane().add(txtIdGrupo);
 		txtIdGrupo.setColumns(10);
 		
-		btnBuscar = new JButton("Buscar Grupo");
-		btnBuscar.setBounds(337, 48, 117, 29);
-		getContentPane().add(btnBuscar);
+		btonBuscarGrupo= new JButton("Buscar Grupo");
+		btonBuscarGrupo.setBounds(337, 48, 117, 29);
+		getContentPane().add(btonBuscarGrupo);
+		
+		btonBuscarGrupo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Thread hiloBuscar = new Thread(new Runnable() {
+					
+					@Override
+					public void run() {
+
+						groupID = txtIdGrupo.getText();
+						ResultSet resultGroup = null;
+						ResultSet resultGroupMiembros = null;
+						try {
+							resultGroup = GeneralSQLFunctions.getResultSetEntryFromDatabase(conn, "grupo", "ID = '" + groupID + "'" );
+							resultGroupMiembros = GeneralSQLFunctions.getResultSetEntryFromDatabase(conn, "grupomiembro" , "ID = '" + groupID + "'");
+							while(resultGroup.next()) {
+								txtNombreGrupo.setText(resultGroup.getString("grupo")); 
+							}
+							while(resultGroupMiembros.next()) {
+								ArrayList<String> idTemp = new ArrayList<String>();
+								idTemp.add((resultGroupMiembros.getString("id_miembro")));
+								ArrayList<String> username = new ArrayList<String>();
+								username.add(GeneralSQLFunctions.getEntryFromDatabase(conn, "usuario", "usuario", "ID = '" + idTemp + "'"));
+								
+							}
+						} catch (SQLException e1) {
+							e1.printStackTrace();
+						}
+						
+						
+					}
+				});
+						
+				}
+			
+		});
+		btnGuardarCambio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				editarGrupo(conn);
+			}
+			
+		});
+	}
+	
+	public void editarGrupo(Connection conn) {
+		//Comprobar campos vacios
+		APair [] compulsaryVars = {
+				new APair<String, String> ("txtNombreGrupo","Nombre del grupo"), new APair<String, String> ("txtMiembro1", "Nombre de usuario del miembro 1"), 
+				new APair<String,String>("txtMiembro2","Nombre de usuario del miembro 2")};
+		int nError = 0;
+		for (APair i : compulsaryVars) {
+			JTextField tempC = (JTextField) ObjectMapper.getComponentByName(String.valueOf(i.getIndex()),componentMap);
+			if(tempC != null) {
+				
+				
+			}
+				
+				
+			}
+			
+			
+		}
 	}
 	
 }
