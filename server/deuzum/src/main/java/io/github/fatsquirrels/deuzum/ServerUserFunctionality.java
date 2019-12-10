@@ -211,8 +211,20 @@ public class ServerUserFunctionality {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-		
 	}
+	
+	public static void updateGroupMiembros(Connection conn, String groupID, String[] userId, String[] comboPermisos) {
+		WhereAST where = new WhereAST().addValue("id='"+ groupID +"'");
+		try {
+			for (int i = 0; i < userId.length; i++) {
+				GeneralSQLFunctions.updateEntryFromDatabase(conn, "grupomiembro", new String[] {"id_grupo","id_miembro", "permisos"}, new String[] {groupID, userId[i], comboPermisos[i]}, where);
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	
 	public static void createGroup(Connection connection, String groupName) {
 		// TODO a�adir las funciones de verificacion de groupName
@@ -234,6 +246,34 @@ public class ServerUserFunctionality {
 		}
 	}
 	
+	public static void createProyect(Connection connection, String[] data) {
+		try {
+			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "proyecto",
+					new String[] {"id_grupo", "nombre", "descripcion"}, data);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void deleteProyect(Connection connection, String proyectID) {
+		try {
+			WhereAST where = new WhereAST().addValue("id='"+proyectID+"'");
+			GeneralSQLFunctions.deleteEntryFromDatabase(connection, "proyecto", where);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void updateProyect(Connection connection, String proyectID, String[] data) {
+		try {
+			WhereAST where = new WhereAST().addValue("id='"+proyectID+"'");
+			GeneralSQLFunctions.updateEntryFromDatabase(connection, "proyecto", new String[] { "id_grupo", "nombre" },data, where);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	public static void createAccount(Connection connection, String[] data) {
 		// TODO a�adir las funciones de verificacion de userId, accountName

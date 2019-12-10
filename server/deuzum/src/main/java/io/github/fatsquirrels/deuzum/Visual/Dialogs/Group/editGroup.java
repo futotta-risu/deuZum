@@ -2,9 +2,13 @@ package io.github.fatsquirrels.deuzum.Visual.Dialogs.Group;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import io.github.fatsquirrels.deuzum.ServerUserFunctionality;
+import io.github.fatsquirrels.deuzum.Algorithms.ConcreteText;
 import io.github.fatsquirrels.deuzum.Algorithms.ObjectMapper;
+import io.github.fatsquirrels.deuzum.Algorithms.TextTypes;
 import io.github.fatsquirrels.deuzum.Algorithms.Math.APair;
 import io.github.fatsquirrels.deuzum.Database.GeneralSQLFunctions;
 
@@ -261,15 +265,59 @@ public class editGroup extends JDialog{
 		for (APair i : compulsaryVars) {
 			JTextField tempC = (JTextField) ObjectMapper.getComponentByName(String.valueOf(i.getIndex()),componentMap);
 			if(tempC != null) {
-				
-				
+				if(tempC.getText().isEmpty()) {
+					System.err.println("Error " + String.valueOf(++nError) + ": No ha indicado ninguna respuesta en " + i.getValue());
+				}
 			}
-				
-				
-			}
-			
-			
 		}
+		
+		APair [] formatVars = {
+			new APair<String, ConcreteText>("txtNombreGrupo", new ConcreteText("Nombre del Grupo",TextTypes.NAME)),
+			new APair<String, ConcreteText>("txtMiembro1", new ConcreteText("Nombre de usuario del miembro 1",TextTypes.USER)),
+			new APair<String, ConcreteText>("txtMiembro2", new ConcreteText("Nombre de usuario del miembro 2",TextTypes.USER)),
+			new APair<String, ConcreteText>("txtMiembro3", new ConcreteText("Nombre de usuario del miembro 3",TextTypes.USER)),
+			new APair<String, ConcreteText>("txtMiembro4", new ConcreteText("Nombre de usuario del miembro 4",TextTypes.USER)),
+			new APair<String, ConcreteText>("txtMiembro5", new ConcreteText("Nombre de usuario del miembro 5",TextTypes.USER)),
+			new APair<String, ConcreteText>("txtMiembro6", new ConcreteText("Nombre de usuario del miembro 6",TextTypes.USER)),
+			new APair<String, ConcreteText>("txtMiembro7", new ConcreteText("Nombre de usuario del miembro 7",TextTypes.USER)),
+			new APair<String, ConcreteText>("txtMiembro8", new ConcreteText("Nombre de usuario del miembro 8",TextTypes.USER))};
+			
+		int txtFieldRelleno = 0;
+		ArrayList<String> usernames= new ArrayList<String>();
+				for (APair<String, ConcreteText> i : formatVars) {
+					JTextField tempC = (JTextField) ObjectMapper.getComponentByName(i.getIndex(), componentMap);
+					if(tempC!=null) {
+						txtFieldRelleno++;
+						usernames.add(tempC.getText());
+					if(tempC.getText().isEmpty() && !ConcreteText.isValid(tempC.getText(), i.getValue().getTextType())) {
+						System.err.println("Error " + String.valueOf(++nError) + ": No ha indicado ninguna respuesta en " + i.getValue());				
+					}
+					}
+				}
+				
+				//Si no hay errores lo enviamos
+				if(nError == 0 ) {
+					ServerUserFunctionality.updateGroup(conn, groupID, new String [] {txtNombreGrupo.getText()});
+					
+					String[] userId = new String[7];
+					for (int i = 0; i < userId.length; i++) {					
+					try {
+						userId[i] = GeneralSQLFunctions.getEntryFromDatabase(conn, "usuario", "id", "usuario= '" + usernames.get(i) + "'");
+					} catch (SQLException e) {
+
+						e.printStackTrace();
+					}
+					}
+				
+					
+					String[] comboPermisos = {comboPermiso1.getSelectedItem().toString(),comboPermiso2.getSelectedItem().toString(),comboPermiso3.getSelectedItem().toString(),
+							comboPermiso4.getSelectedItem().toString(),comboPermiso5.getSelectedItem().toString(),comboPermiso6.getSelectedItem().toString(),
+							comboPermiso7.getSelectedItem().toString(),comboPermiso8.getSelectedItem().toString()};
+					
+						ServerUserFunctionality.updateGroupMiembros(conn, groupID, userId , comboPermisos);
+					
+					JOptionPane.showMessageDialog(null, "Grupo actualizado con exito", "ACTUALIZADO", 1);
+				}
 	}
 	
 }
