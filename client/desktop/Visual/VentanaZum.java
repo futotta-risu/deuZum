@@ -12,6 +12,9 @@ import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
+
+import Paneles.PanelUsuario;
+
 import javax.swing.JTable;
 import javax.swing.JLabel;
 import javax.swing.ButtonGroup;
@@ -116,9 +119,9 @@ public class VentanaZum {
 		JLabel lblNombre = new JLabel("Nombre:");
 		lblNombre.setBounds(21, 10, 74, 19);
 		
-		JButton btnNewButton = new JButton("Guardar");
-		btnNewButton.setBounds(207, 219, 82, 31);
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnGuardar = new JButton("Guardar");
+		btnGuardar.setBounds(207, 219, 82, 31);
+		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
@@ -142,7 +145,7 @@ public class VentanaZum {
 		lblSexo.setBounds(21, 194, 46, 14);
 		panelUsuario.setLayout(null);
 		panelUsuario.add(lblNombre);
-		panelUsuario.add(btnNewButton);
+		panelUsuario.add(btnGuardar);
 		panelUsuario.add(lblApellidos);
 		panelUsuario.add(lblTelfono);
 		panelUsuario.add(lblEmail);
@@ -217,7 +220,7 @@ public class VentanaZum {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				switchPanel(panelUsuario);
+				switchPanel(new PanelUsuario());
 				
 			}
 		});
@@ -226,7 +229,7 @@ public class VentanaZum {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				switchPanel(panelMisCuentas);
+				//switchPanel());
 				
 			}
 		});
