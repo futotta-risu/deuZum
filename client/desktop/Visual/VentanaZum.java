@@ -13,6 +13,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 
+import Paneles.PanelConfiguracion;
+import Paneles.PanelCuentas;
+import Paneles.PanelTransacciones;
 import Paneles.PanelUsuario;
 import Paneles.panelGrupo;
 
@@ -129,7 +132,7 @@ public class VentanaZum extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//switchPanel());
+				switchPanel(new PanelCuentas());
 				
 			}
 		});
@@ -149,7 +152,7 @@ public class VentanaZum extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				switchPanel(panelTrasacciones);
+				switchPanel(new PanelTransacciones());
 				
 			}
 		});
@@ -159,7 +162,7 @@ public class VentanaZum extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				switchPanel(panelConfiguracion);
+				switchPanel(new PanelConfiguracion());
 				
 			}
 		});
