@@ -202,11 +202,11 @@ public class ServerUserFunctionality {
 		}
 	}
 	
-	public static void updateGroup(Connection conn, String groupID, String[] columns, String[] data) {
+	public static void updateGroup(Connection conn, String groupID, String[] data) {
 		// TODO anyadir las funciones de verificacion de groupID, groupName
 				try {
 					WhereAST where = new WhereAST().addValue("id='"+groupID+"'");
-					GeneralSQLFunctions.updateEntryFromDatabase(conn, "grupo", columns, data, where);
+					GeneralSQLFunctions.updateEntryFromDatabase(conn, "grupo", new String[] { "nombre" },data, where);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

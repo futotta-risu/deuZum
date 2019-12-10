@@ -4,28 +4,19 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 
 import io.github.fatsquirrels.deuzum.ServerUserFunctionality;
 import io.github.fatsquirrels.deuzum.Algorithms.ConcreteText;
 import io.github.fatsquirrels.deuzum.Algorithms.ObjectMapper;
-import io.github.fatsquirrels.deuzum.Algorithms.TextFunctions;
 import io.github.fatsquirrels.deuzum.Algorithms.TextTypes;
 import io.github.fatsquirrels.deuzum.Algorithms.Math.APair;
 import io.github.fatsquirrels.deuzum.Database.GeneralSQLFunctions;
-import io.github.fatsquirrels.deuzum.Visual.Style.Components.Buttons.FlatButton;
 
 import javax.swing.JComboBox;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -172,46 +163,77 @@ public class createGroup extends JDialog{
 		txtMiembro9.setBounds(183, 368, 130, 26);
 		groupData.add(txtMiembro9);
 		txtMiembro9.setColumns(10);
+
+		//Permiso administrador es el que va a poder añadir a mas gente en el grupo, puede crear proyectos dentro del grupo
+		String permisoAd = "administrador";
+		//Permiso participante es el que esta en el grupo
+		String permisoPar = "participante";
 		
 		comboPermiso1 = new JComboBox<String>();
 		comboPermiso1.setToolTipText("Permiso");
 		comboPermiso1.setBounds(38, 188, 126, 27);
 		groupData.add(comboPermiso1);
 		
+		comboPermiso1.addItem(permisoAd);
+		comboPermiso1.addItem(permisoPar);
+	
+		
 		comboPermiso2 = new JComboBox<String>();
 		comboPermiso2.setToolTipText("Permiso");
 		comboPermiso2.setBounds(176, 188, 126, 27);
-		groupData.add(comboPermiso2);
+		groupData.add(comboPermiso2);	
 		
+		comboPermiso2.addItem(permisoAd);
+		comboPermiso2.addItem(permisoPar);
+	
 		comboPermiso3 = new JComboBox<String>();
 		comboPermiso3.setToolTipText("Permiso");
 		comboPermiso3.setBounds(316, 188, 126, 27);
 		groupData.add(comboPermiso3);
+		
+		comboPermiso3.addItem(permisoAd);
+		comboPermiso3.addItem(permisoPar);
+	
 		
 		comboPermiso4 = new JComboBox<String>();
 		comboPermiso4.setToolTipText("Permiso");
 		comboPermiso4.setBounds(38, 283, 126, 27);
 		groupData.add(comboPermiso4);
 		
+		comboPermiso4.addItem(permisoAd);
+		comboPermiso4.addItem(permisoPar);
+		
 		comboPermiso5 = new JComboBox<String>();
 		comboPermiso5.setToolTipText("Permiso");
 		comboPermiso5.setBounds(183, 283, 126, 27);
 		groupData.add(comboPermiso5);
+		
+		comboPermiso5.addItem(permisoAd);
+		comboPermiso5.addItem(permisoPar);
 		
 		comboPermiso6 = new JComboBox<String>();
 		comboPermiso6.setToolTipText("Permiso");
 		comboPermiso6.setBounds(322, 283, 126, 27);
 		groupData.add(comboPermiso6);
 		
+		comboPermiso6.addItem(permisoAd);
+		comboPermiso6.addItem(permisoPar);
+	
 		comboPermiso7 = new JComboBox<String>();
 		comboPermiso7.setToolTipText("Permiso");
 		comboPermiso7.setBounds(38, 400, 126, 27);
 		groupData.add(comboPermiso7);
 		
+		comboPermiso7.addItem(permisoAd);
+		comboPermiso7.addItem(permisoPar);
+	
 		comboPermiso8 = new JComboBox<String>();
 		comboPermiso8.setToolTipText("Permiso");
 		comboPermiso8.setBounds(183, 400, 126, 27);
 		groupData.add(comboPermiso8);
+		
+		comboPermiso8.addItem(permisoAd);
+		comboPermiso8.addItem(permisoPar);
 		
 		txtNombreGrupo = new JTextField();
 		txtNombreGrupo.setBounds(111, 58, 130, 26);
@@ -222,6 +244,7 @@ public class createGroup extends JDialog{
 		btnCrearGrupo.setBounds(337, 381, 117, 29);
 		getContentPane().add(btnCrearGrupo);
 		
+		cp.add(groupData);	
 
 		btnCrearGrupo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -238,14 +261,16 @@ public class createGroup extends JDialog{
 		ArrayList<APair<String, String>>  compulsoryVars = new ArrayList<>();
 		compulsoryVars.add((new APair<String,String>("txtNombreGrupo","Nombre del grupo")));
 		compulsoryVars.add((new APair<String,String>("txtMiembro1","Nombre de usuario del miembro 1")));
-		compulsoryVars.add((new APair<String,String>("txtMiembro3","Nombre de usuario del miembro 2")));
+		compulsoryVars.add((new APair<String,String>("txtMiembro2","Nombre de usuario del miembro 2")));
 		
 		int nError = 0;
 		for (APair<String, String> i : compulsoryVars) {
 			JTextField tempC = (JTextField) ObjectMapper.getComponentByName(i.getIndex(), componentMap);
+			if(tempC != null) {
 			if(tempC.getText().isEmpty()) {
 				System.err.println("Error " + String.valueOf(++nError) + ": No ha indicado ninguna respuesta en " + i.getValue());
 			}
+		}
 		}
 		
 		//Para comprobar si el formato usado es el correcto
@@ -262,8 +287,10 @@ public class createGroup extends JDialog{
 		
 		for (APair<String, ConcreteText> i : formatVars) {
 			JTextField tempC = (JTextField) ObjectMapper.getComponentByName(i.getIndex(), componentMap);
+			if(tempC!=null) {
 			if(tempC.getText().isEmpty() && !ConcreteText.isValid(tempC.getText(), i.getValue().getTextType())) {
 				System.err.println("Error " + String.valueOf(++nError) + ": No ha indicado ninguna respuesta en " + i.getValue());				
+			}
 			}
 		}
 		
@@ -285,15 +312,9 @@ public class createGroup extends JDialog{
 			System.out.println(groupID);
 			
 			//Buscamos el id de los usuarios que van a formar parte del grupo
-			String userID;
-			try {
-				userID = GeneralSQLFunctions.getEntryFromDatabase(conn, "usuario", "id", "usuario = '" + txtMiembro1.getText() + "'");
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 			
 			try {
-			String[] txtMiembros = null;
+			String[] txtMiembros = new String[7];
 			txtMiembros[0] = txtMiembro1.getText();
 			txtMiembros[1] = txtMiembro2.getText();
 			txtMiembros[2] = txtMiembro3.getText();
@@ -303,7 +324,7 @@ public class createGroup extends JDialog{
 			txtMiembros[6] = txtMiembro7.getText();
 			txtMiembros[7] = txtMiembro9.getText();
 			
-			String userId[] = null;
+			String userId[] = new String[7];
 			
 			for (int i = 0; i < txtMiembros.length; i++) {
 				if(!(txtMiembros[i].isEmpty())) {
@@ -311,14 +332,14 @@ public class createGroup extends JDialog{
 				}
 			}
 			
-			String[] groupId = null;
+			String groupId;
 			for (int i = 0; i < txtMiembros.length; i++) {
-				if(!(txtMiembros[i].isEmpty())) {
-				groupId[i] = GeneralSQLFunctions.getEntryFromDatabase(conn, "grupo", "id", "usuario= '" + txtMiembros[i] + "'");
+				if(txtMiembros[i]!=null) {
+				groupId = GeneralSQLFunctions.getEntryFromDatabase(conn, "grupo", "id", "usuario= '" + txtMiembros[i] + "'");
 				System.out.println(groupId);
 				}
 			}
-			String permisos[] = null;
+			String permisos[] = new String[7];
 				permisos[0] = (String) comboPermiso1.getSelectedItem();
 				permisos[1] = (String) comboPermiso2.getSelectedItem();
 				permisos[2] = (String) comboPermiso3.getSelectedItem();
@@ -337,6 +358,8 @@ public class createGroup extends JDialog{
 			}
 		}
 		
+		JOptionPane.showMessageDialog(null, "Grupo registrado con exito", "REGISTRADO", 1);
+		dispose();
 		
 	}
 	
