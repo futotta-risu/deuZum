@@ -3,11 +3,16 @@ package Paneles;
 import javax.swing.JPanel;
 
 import java.awt.Container;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextPane;
+
+
 import javax.swing.JRadioButton;
 
 public class PanelUsuario extends JPanel{
@@ -91,6 +96,23 @@ public class PanelUsuario extends JPanel{
 		botones.add(rdbtnFemenino);
 		botones.add(rdbtnMasculino);
 		
+		File file = new File("\"/ruta/filename.txt\"");
+        
+		try (FileWriter fw = new FileWriter(file);
+	            BufferedWriter bw = new BufferedWriter(fw)) {
+           // Si el archivo no existe es creado
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            bw.write(textPaneNombre.getText());
+            bw.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+		
+		
 		
 	}
-}
+
