@@ -8,6 +8,7 @@ import java.util.Map.Entry;
 
 import io.github.fatsquirrels.deuzum.Algorithms.TextFunctions;
 import io.github.fatsquirrels.deuzum.Algorithms.Math.APair;
+import io.github.fatsquirrels.deuzum.Annotations.Tested;
 
 /**
  * Enumera la lista de comandos posibles dentro de la clase CommandBuilderF.
@@ -44,6 +45,7 @@ enum OrderType{
  * @version 1.0.0 
  * @see StatementType
  */
+@Tested(tested=true)
 public class CommandBuilderF {
 	
 	private StatementType SQLType;
@@ -144,6 +146,11 @@ public class CommandBuilderF {
 		return this;
 	}
 	
+	/**
+	 * Añade la funcion de INNER JOIN para la union de tablas
+	 * @param table Tabla a añadir
+	 * @return Devuelve el objeto CommandBuilderF modificado
+	 */
 	public CommandBuilderF addInnerJoin(String table) {
 		// TODO Check what to do in case of empty table. Maybe tell the constructor.
 		if(!this.table.isEmpty()) 
@@ -157,6 +164,7 @@ public class CommandBuilderF {
 		return this;
 	}
 	
+
 	public CommandBuilderF addColumns(String[] columns) {
 		// TODO do something on error
 		for(int i= 0; i < columns.length; i++)

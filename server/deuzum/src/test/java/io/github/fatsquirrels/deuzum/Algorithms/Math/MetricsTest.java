@@ -11,8 +11,6 @@ import static io.github.fatsquirrels.deuzum.Algorithms.Math.Metrics.euclideanDis
 public class MetricsTest {
 
 	
-	
-	
 	@Test
 	public void testEuclideanDistance() {
 		double[] arr1 = {0.1, 0.2, 0.3};

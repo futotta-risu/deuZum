@@ -1,6 +1,5 @@
 package io.github.fatsquirrels.deuzum.Algorithms.Math;
 
-import java.util.Collections;
 
 public class APair<I,V> {
 	

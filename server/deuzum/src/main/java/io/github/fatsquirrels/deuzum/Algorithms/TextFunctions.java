@@ -4,10 +4,11 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import io.github.fatsquirrels.deuzum.Annotations.Tested;
+
 
 //TODO Arreglar errores con referencias entre llamada y ejecucion en todas
 /**
- * 
  * Clase Funciones de Texto
  * La utilidad de esta clase es facilitar varios metodos para realizar operaciones sobre textos
  * @see #surroundText(String[] arr, String presuffix)
@@ -15,8 +16,8 @@ import java.text.SimpleDateFormat;
  * @see #concatenateAlternative(String[] arr1, String[] arr2,String concat)
  * @see #concatenateAlternative(String[] arr1, String[] arr2,String concat, String nullText)
  * @see #concatenateAlternative(String[] arr1, String[] arr2,String concat, String nullText, String surroundText)
- *
  */
+@Tested(tested=true) //FALTA TESTEAR DATECHECKER()
 public class TextFunctions {
 
 	

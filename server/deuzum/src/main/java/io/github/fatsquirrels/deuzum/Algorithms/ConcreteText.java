@@ -1,17 +1,13 @@
 package io.github.fatsquirrels.deuzum.Algorithms;
 
-
-//TODO Al poner @Tested No sale la documentacion de la clase
-//@Tested(tested = true)
+import io.github.fatsquirrels.deuzum.Annotations.Tested;
 
 /**
- * 
  * Estrucura de Datos que combina un String junto con una lista de formatos posibles.
- * 
  * @see #isValid()
  * @see io.github.fatsquirrels.deuzum.Algorithms.TextTypes
- * 
  */
+@Tested(tested = true)
 public class ConcreteText {
 
 	private TextTypes type;

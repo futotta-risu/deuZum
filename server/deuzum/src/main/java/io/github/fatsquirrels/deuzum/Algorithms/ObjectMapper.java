@@ -8,13 +8,15 @@ import javax.swing.JPanel;
 import io.github.fatsquirrels.deuzum.Annotations.Tested;
 
 
-@Tested(tested = true)
 
 /**
  * Contiene las funciones para trabajar con mapas de componentes
+ * @see #createComponentMap
+ * @see #getComponentByName
  * @author erik.terres.es
  *
  */
+@Tested(tested = true)
 public class ObjectMapper {
 	
 	/**

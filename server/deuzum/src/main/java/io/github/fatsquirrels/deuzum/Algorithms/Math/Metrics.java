@@ -3,6 +3,16 @@ package io.github.fatsquirrels.deuzum.Algorithms.Math;
 import java.util.Arrays;
 import java.util.stream.IntStream;
 
+import io.github.fatsquirrels.deuzum.Annotations.Tested;
+
+/**
+ * Clase Metricas
+ * Esta clase proporciona varios metodos para calculos metricos
+ * @see #euclideanDistance
+ * @see #flatKernel
+ * @see #getMinimumDistancePoint
+ */
+@Tested(tested = true)
 public class Metrics {
 
 
@@ -27,7 +37,6 @@ public class Metrics {
 		return Math.sqrt(dist);
 	}
 	
-	
 	/**
 	 * Calcula el flat kernel de un punto(p) respecto a un centro(c) y un radio(r).
 	 * El flat kernel devuelve 1 si {|p-c|<=r} y devuelve 0 en cualquier otro caso. Se puede ver como que la funcion devuelve uno si el nuevo punto se encuentra dentro de la n-esfera de centro c y radio r.
@@ -35,7 +44,7 @@ public class Metrics {
 	 * @param c Centro
 	 * @param r Radio
 	 * @param p Punto a calcular
-	 * @return
+	 * @return Double que contiene el flat kernel
 	 */
 	public static final double flatKernel(double[] c, double r, double[] p) {
 		if(c.length != p.length || r <= 0) return -1;

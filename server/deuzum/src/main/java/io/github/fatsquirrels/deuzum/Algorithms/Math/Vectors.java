@@ -2,6 +2,8 @@ package io.github.fatsquirrels.deuzum.Algorithms.Math;
 
 import java.util.Arrays;
 
+import io.github.fatsquirrels.deuzum.Annotations.Tested;
+
 /**
  * Clase Vectores
  * La funcion de esta clase es obtener diferentes calculos entre Vectores
@@ -14,6 +16,7 @@ import java.util.Arrays;
  * @see #isZero
  * @see #isEqual
  */
+@Tested(tested = true)
 public class Vectors {
 	
 	/**

@@ -1,11 +1,14 @@
 package io.github.fatsquirrels.deuzum.Algorithms.Math;
 
+import io.github.fatsquirrels.deuzum.Annotations.Tested;
+
 /**
  * Clase pareja.
  * La clase pareja se puede ver como un valor double indexado.
  * Esta clase busca su utilidad en poder ordenar arrays de Pair y despuer de haberlos ordenado por su value, seguir sabiendo la posición del index antes del ordenamiento.
  *
  */
+@Tested(tested = true)
 public class Pair implements Comparable<Pair>{
 	
 	public final int index;

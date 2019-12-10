@@ -14,6 +14,13 @@ import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
+
+/**
+ * Clase Moderno
+ * Contiene los Algoritmos para encriptacion y desencriptacion en RSA
+ * @see #RSAE
+ * @see #RSAD
+ */
 public class Moderno {
 
 /**
@@ -42,7 +49,7 @@ IllegalBlockSizeException, BadPaddingException {
  * Este metodo devuelve un texto Desencriptado, previamente encriptado con el Algoritmo de RSAE
  * @see #RSAE
  * @see #bytesToString
- * @see #strinToBytes
+ * @see #stringToBytes
  * @param text Texto a desencriptar
  * @param privateStr Llave privada para desencriptar el texto
  * @return Texto desencriptado con RSA

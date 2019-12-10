@@ -2,10 +2,17 @@ package io.github.fatsquirrels.deuzum.Algorithms;
 
 
 import io.github.fatsquirrels.deuzum.Algorithms.Math.APair;
+import io.github.fatsquirrels.deuzum.Annotations.Tested;
 
+
+/**
+ * Clase Funciones de Array
+ * Esta clase proporciona metodos para realizar operaciones sobre varrios Arrays
+ * @see #getReducedArrayString
+ */
+@Tested(tested = false)
 public class ArrayFunctions {
-	
-	
+		
 	/**
 	 * Dados dos arrays, uno de nombres y uno de valores, devuelve una pareja de arrays las cuales contienen los valores de names y data tales que los valores correspondientes de data no esten en blanco.
 	 * @param names
