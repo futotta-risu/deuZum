@@ -325,8 +325,8 @@ public class createUser extends JDialog{
 		userData.add(lblSexo, gbc_lblSexo);
 		
 		comboSexo = new JComboBox<String>();
-		comboSexo.addItem("Femenino");
-		comboSexo.addItem("Masculino");
+		comboSexo.addItem("F");
+		comboSexo.addItem("M");
 		comboSexo.addItem("Otro");
 		GridBagConstraints gbc_comboSexo = new GridBagConstraints();
 		gbc_comboSexo.insets = new Insets(0, 0, 5, 0);

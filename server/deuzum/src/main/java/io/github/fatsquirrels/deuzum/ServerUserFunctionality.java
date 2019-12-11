@@ -53,7 +53,7 @@ public class ServerUserFunctionality {
 	 * @param data JSON que contiene informacion detallada de usuario.
 	 * @see {@link #createUserInf(Connection connection, String[] data)}
 	 */
-	public static void crerateUserInfC(JSONObject data) {
+	public static void createUserInfC(JSONObject data) {
 		Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost/deuzumdb", "root", "");
 		
 		createUserInf(conn, new String[] {data.getString("nombre"), data.getString("apellido"), data.getString("telefono"), 
@@ -79,7 +79,15 @@ public class ServerUserFunctionality {
 	}
 	
 	
-	
+	/**
+	 * Genera una conexion el servidor SQL y ordena la informacion en un array para llamar a la funcion updateUser
+	 * @param data JSON que contiene la informaci�n de usuario
+	 * @see #updateUser
+	 */
+	public static void updateUserC(JSONObject data) {
+		Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost/deuzumdb", "root", "");
+		updateUser(conn,data.getString("id") ,new String[] {data.getString("user"), data.getString("pass"), data.getString("pregSegu"),data.getString("resp"),"3"});
+	}
 	
 	/**
 	 * Actualiza los datos de un usuario elegido por el administrador mediante su ID
@@ -100,10 +108,22 @@ public class ServerUserFunctionality {
 	}
 	
 	/**
-	 * Actualiza la informacion de un usuario elegido por el administrador mediate su ID
-	 * @param conn
-	 * @param userID
-	 * @param data
+	 * Genera una conexión con el servidor SQL y ordena la informacion en un array para llamar a la funcion updateUserInf.
+	 * @param data JSON que contiene informacion detallada de usuario.
+	 * @see #updateUserInf
+	 */
+	public static void updateUserInfC(JSONObject data) {
+		Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost/deuzumdb", "root", "");
+		
+		updateUserInf(conn,data.getString("id"), new String[] {data.getString("nombre"), data.getString("apellido"), data.getString("telefono"), 
+				data.getString("email"), data.getString("direccion"), data.getString("fecha_nacimiento"), data.getString("sexo")});	
+	}
+	
+	/**
+	 * Actualiza la informacion de un usuario en la Base de datos mediate su ID
+	 * @param conn Conexion con el servidor
+	 * @param userID ID del usuario que se modifica
+	 * @param data Parametros recibidos para la actualizacion
 	 */
 	public static void updateUserInf(Connection conn, String userID, String[] data) {
 		String[] columnNamesUserInf = {"nombre", "apellidos", "telefono", "email", "direccion", "fecha_nacimiento", "sexo"};
@@ -116,8 +136,12 @@ public class ServerUserFunctionality {
 	}
 	
 	
+	
+	
 	/**
 	 * Devuelve un booleano que indica si se ha introducido una combinacion de usuario/clave correcta
+	 * @param data JSONObject con la informacion de log
+	 * @return boolean Cierto si la informacion es correcta
 	 */
 	public static boolean logUser(JSONObject data) {
 		
