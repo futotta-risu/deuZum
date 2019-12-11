@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.*;
 
@@ -328,6 +330,14 @@ public class VentanaLogin extends JFrame{
 	
 	
 	public static void main(String[] args) {
+		
+		// Creamos el logger
+		Logger logger = Logger.getLogger(VentanaLogin.class.getName()); 
+
+		// Mensajes log utilizando log(Level level, String msg)
+		logger.log(Level.INFO, "Mensage 1"); 
+		logger.log(Level.WARNING, "Mensage 2"); 
+    
 		SwingUtilities.invokeLater(new Runnable() {
 
 			@Override
