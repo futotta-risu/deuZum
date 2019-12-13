@@ -1,4 +1,4 @@
-package io.github.fatsquirrels.deuzum.Visual.Dialogs.Transactions;
+package io.github.fatsquirrels.deuzum.visual.Dialogs.Transactions;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -16,13 +16,13 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.SwingConstants;
 
-import io.github.fatsquirrels.deuzum.ServerUserFunctionality;
-import io.github.fatsquirrels.deuzum.Algorithms.ConcreteText;
-import io.github.fatsquirrels.deuzum.Algorithms.ObjectMapper;
-import io.github.fatsquirrels.deuzum.Algorithms.TextFunctions;
-import io.github.fatsquirrels.deuzum.Algorithms.TextTypes;
-import io.github.fatsquirrels.deuzum.Algorithms.Math.APair;
-import io.github.fatsquirrels.deuzum.Visual.Style.Components.Buttons.FlatButton;
+import io.github.fatsquirrels.deuzum.net.ServerUserFunctionality;
+import io.github.fatsquirrels.deuzum.utils.ObjectMapper;
+import io.github.fatsquirrels.deuzum.utils.math.APair;
+import io.github.fatsquirrels.deuzum.utils.text.ConcreteText;
+import io.github.fatsquirrels.deuzum.utils.text.TextFunctions;
+import io.github.fatsquirrels.deuzum.utils.text.TextTypes;
+import io.github.fatsquirrels.deuzum.visual.components.buttons.FlatButton;
 
 import java.awt.event.ActionListener;
 import java.sql.Connection;

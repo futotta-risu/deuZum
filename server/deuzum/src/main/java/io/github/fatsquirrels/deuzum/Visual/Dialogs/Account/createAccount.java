@@ -1,4 +1,4 @@
-package io.github.fatsquirrels.deuzum.Visual.Dialogs.Account;
+package io.github.fatsquirrels.deuzum.visual.Dialogs.Account;
 
 import java.awt.Component;
 import java.awt.Container;
@@ -14,11 +14,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import io.github.fatsquirrels.deuzum.ServerUserFunctionality;
-import io.github.fatsquirrels.deuzum.Algorithms.ConcreteText;
-import io.github.fatsquirrels.deuzum.Algorithms.ObjectMapper;
-import io.github.fatsquirrels.deuzum.Algorithms.TextTypes;
-import io.github.fatsquirrels.deuzum.Algorithms.Math.APair;
+import io.github.fatsquirrels.deuzum.net.ServerUserFunctionality;
+import io.github.fatsquirrels.deuzum.utils.ObjectMapper;
+import io.github.fatsquirrels.deuzum.utils.math.APair;
+import io.github.fatsquirrels.deuzum.utils.text.ConcreteText;
+import io.github.fatsquirrels.deuzum.utils.text.TextTypes;
 
 import javax.swing.JButton;
 

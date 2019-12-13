@@ -1,4 +1,4 @@
-package io.github.fatsquirrels.deuzum.Visual.Dialogs.User;
+package io.github.fatsquirrels.deuzum.visual.Dialogs.User;
 
 import javax.swing.JDialog;
 
@@ -13,8 +13,8 @@ import java.sql.Connection;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
-import io.github.fatsquirrels.deuzum.ServerUserFunctionality;
-import io.github.fatsquirrels.deuzum.Visual.Style.Components.Buttons.FlatButton;
+import io.github.fatsquirrels.deuzum.net.ServerUserFunctionality;
+import io.github.fatsquirrels.deuzum.visual.components.buttons.FlatButton;
 
 import java.awt.Color;
 import java.awt.Font;

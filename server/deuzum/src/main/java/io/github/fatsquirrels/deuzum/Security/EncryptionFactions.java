@@ -1,7 +1,7 @@
-package io.github.fatsquirrels.deuzum.Security;
+package io.github.fatsquirrels.deuzum.security;
 
-import io.github.fatsquirrels.deuzum.Security.Encryption.Clasica;
-import io.github.fatsquirrels.deuzum.Security.Encryption.EncryptionTypes;
+import io.github.fatsquirrels.deuzum.security.encryption.Clasica;
+import io.github.fatsquirrels.deuzum.security.encryption.EncryptionTypes;
 
 public class EncryptionFactions {
 

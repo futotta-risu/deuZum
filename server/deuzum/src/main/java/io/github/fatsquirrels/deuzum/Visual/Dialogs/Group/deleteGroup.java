@@ -1,11 +1,11 @@
-package io.github.fatsquirrels.deuzum.Visual.Dialogs.Group;
+package io.github.fatsquirrels.deuzum.visual.Dialogs.Group;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import io.github.fatsquirrels.deuzum.ServerUserFunctionality;
+import io.github.fatsquirrels.deuzum.net.ServerUserFunctionality;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

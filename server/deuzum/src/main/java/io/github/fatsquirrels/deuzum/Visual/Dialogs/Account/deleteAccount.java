@@ -1,4 +1,4 @@
-package io.github.fatsquirrels.deuzum.Visual.Dialogs.Account;
+package io.github.fatsquirrels.deuzum.visual.Dialogs.Account;
 
 import java.awt.Container;
 import java.awt.event.ActionEvent;
@@ -9,7 +9,7 @@ import javax.swing.JDialog;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
-import io.github.fatsquirrels.deuzum.ServerUserFunctionality;
+import io.github.fatsquirrels.deuzum.net.ServerUserFunctionality;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;

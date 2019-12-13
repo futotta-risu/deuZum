@@ -1,4 +1,4 @@
-package io.github.fatsquirrels.deuzum.Visual.Style;
+package io.github.fatsquirrels.deuzum.visual.Style;
 
 import java.awt.Color;
 

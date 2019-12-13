@@ -1,4 +1,4 @@
-package io.github.fatsquirrels.deuzum.Visual.Style.Layout;
+package io.github.fatsquirrels.deuzum.visual.Style.Layout;
 
 
 import java.awt.Component;

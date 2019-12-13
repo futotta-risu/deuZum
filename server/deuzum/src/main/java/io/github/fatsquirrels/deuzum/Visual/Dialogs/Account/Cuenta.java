@@ -1,4 +1,4 @@
-package io.github.fatsquirrels.deuzum.Visual.Dialogs.Account;
+package io.github.fatsquirrels.deuzum.visual.Dialogs.Account;
 
 
 /**

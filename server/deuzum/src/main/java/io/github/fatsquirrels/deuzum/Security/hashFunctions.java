@@ -1,4 +1,4 @@
-package io.github.fatsquirrels.deuzum.Security;
+package io.github.fatsquirrels.deuzum.security;
 
 import org.json.JSONObject;
 

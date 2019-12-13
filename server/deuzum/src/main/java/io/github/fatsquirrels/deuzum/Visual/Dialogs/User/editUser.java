@@ -1,17 +1,17 @@
-package io.github.fatsquirrels.deuzum.Visual.Dialogs.User;
+package io.github.fatsquirrels.deuzum.visual.Dialogs.User;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import io.github.fatsquirrels.deuzum.ServerUserFunctionality;
-import io.github.fatsquirrels.deuzum.Algorithms.ConcreteText;
-import io.github.fatsquirrels.deuzum.Algorithms.ObjectMapper;
-import io.github.fatsquirrels.deuzum.Algorithms.TextFunctions;
-import io.github.fatsquirrels.deuzum.Algorithms.TextTypes;
-import io.github.fatsquirrels.deuzum.Algorithms.Math.APair;
-import io.github.fatsquirrels.deuzum.Database.GeneralSQLFunctions;
+import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
+import io.github.fatsquirrels.deuzum.net.ServerUserFunctionality;
+import io.github.fatsquirrels.deuzum.utils.ObjectMapper;
+import io.github.fatsquirrels.deuzum.utils.math.APair;
+import io.github.fatsquirrels.deuzum.utils.text.ConcreteText;
+import io.github.fatsquirrels.deuzum.utils.text.TextFunctions;
+import io.github.fatsquirrels.deuzum.utils.text.TextTypes;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;

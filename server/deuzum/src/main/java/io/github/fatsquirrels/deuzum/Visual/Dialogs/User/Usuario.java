@@ -1,4 +1,4 @@
-package io.github.fatsquirrels.deuzum.Visual.Dialogs.User;
+package io.github.fatsquirrels.deuzum.visual.Dialogs.User;
 
 public class Usuario {
 	private String id;

@@ -1,4 +1,4 @@
-package io.github.fatsquirrels.deuzum.Visual.Dialogs.Group;
+package io.github.fatsquirrels.deuzum.visual.Dialogs.Group;
 
 public class Grupo {
 	private String idGrupo;

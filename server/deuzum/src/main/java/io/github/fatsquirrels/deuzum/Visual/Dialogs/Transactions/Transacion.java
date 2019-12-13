@@ -1,4 +1,4 @@
-package io.github.fatsquirrels.deuzum.Visual.Dialogs.Transactions;
+package io.github.fatsquirrels.deuzum.visual.Dialogs.Transactions;
 
 public class Transacion {
 	private String codigo;

@@ -1,12 +1,12 @@
-package io.github.fatsquirrels.deuzum.Visual.Dialogs.Transactions;
+package io.github.fatsquirrels.deuzum.visual.Dialogs.Transactions;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import io.github.fatsquirrels.deuzum.Database.GeneralSQLFunctions;
-import io.github.fatsquirrels.deuzum.Database.WhereAST;
+import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
+import io.github.fatsquirrels.deuzum.database.WhereAST;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
