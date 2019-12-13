@@ -31,6 +31,11 @@ public class ServerUserFunctionality {
 		createUser(conn, new String[] {data.getString("user"), data.getString("pass"), data.getString("pregSegu"),data.getString("resp"),"3"});
 	}
 	
+	public static void createGroupC(JSONObject data) {
+		Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost/deuzumdb", "rood", "");
+		createGroup(conn, new String[] {data.getString("nombre"), data.getString("descripcion")});
+	}
+	
 	
 	/**
 	 * Crea un usuario dentro de la base de datos dada en la conexion. Tabla usuario.
@@ -250,10 +255,10 @@ public class ServerUserFunctionality {
 	}
 	
 	
-	public static void createGroup(Connection connection, String groupName) {
+	public static void createGroup(Connection connection, String[] data) {
 		// TODO a�adir las funciones de verificacion de groupName
 		try {
-			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "grupo", new String[] {"nombre"},new String[] {groupName} );
+			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "grupo", new String[] {"nombre", "descripcion"}, data);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
