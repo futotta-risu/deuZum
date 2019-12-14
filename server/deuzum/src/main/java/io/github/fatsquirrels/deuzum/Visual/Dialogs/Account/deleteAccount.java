@@ -24,7 +24,6 @@ public class deleteAccount extends JDialog{
 	private static final long serialVersionUID = 1L;
 	private JButton btnEliminarCuenta;
 	private JLabel lblIdCuenta;
-	private Connection conn;
 	private JTextField txtIdCuenta;
 
 	/**
@@ -32,7 +31,6 @@ public class deleteAccount extends JDialog{
 	 * @param Connection
 	 */
 	public deleteAccount(Connection conn) {
-		this.conn= conn;
 		setSize(300,120);
 		setTitle("Eliminar cuenta");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);

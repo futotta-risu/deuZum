@@ -6,10 +6,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Properties;
+
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -23,12 +20,16 @@ import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.SpinnerNumberModel;
 
-import io.github.fatsquirrels.deuzum.net.Server;
 import io.github.fatsquirrels.deuzum.visual.ServerHandlerFrame;
 import io.github.fatsquirrels.deuzum.visual.components.buttons.FlatButton;
 
 public class ConfigPanel extends JPanel{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -227031561056288280L;
+
 	public ConfigPanel() {
 		
 		setLayout(new BorderLayout(0, 0));

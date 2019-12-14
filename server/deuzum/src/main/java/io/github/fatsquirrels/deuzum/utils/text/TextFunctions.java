@@ -81,7 +81,7 @@ public class TextFunctions {
 		String[] arr3 = new String[size];
 		
 		for(int i = 0; i < size; i++) 
-			arr1[i] = arr1[i]+concat+arr2[i];
+			arr3[i] = arr1[i]+concat+arr2[i];
 		
 		String concatNull = concat+nullText;
 		if(arr1.length > size)

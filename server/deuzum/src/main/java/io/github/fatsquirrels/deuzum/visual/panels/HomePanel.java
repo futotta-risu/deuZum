@@ -1,4 +1,4 @@
-package io.github.fatsquirrels.deuzum.visual.panels.global;
+package io.github.fatsquirrels.deuzum.visual.panels;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -17,11 +17,12 @@ import io.github.fatsquirrels.deuzum.utils.webpageConnection;
 import io.github.fatsquirrels.deuzum.visual.Style.CustomColors;
 import io.github.fatsquirrels.deuzum.visual.Style.Layout.VerticalFlowLayout;
 import io.github.fatsquirrels.deuzum.visual.components.textAreaNoWrite;
+import io.github.fatsquirrels.deuzum.visual.components.buttons.FlatButton;
 import net.miginfocom.swing.MigLayout;
 
 
 
-public class homePanel extends JPanel{
+public class HomePanel extends JPanel{
 
 	private static final long serialVersionUID = -2649734373790386687L;
 
@@ -32,7 +33,7 @@ public class homePanel extends JPanel{
 	
 	public JLabel serverLabel;
 	
-	public homePanel(String titulo, String texto_central) {
+	public HomePanel(String titulo, String texto_central) {
 		initializeProperties();
 		initializeComponents(titulo, texto_central);
 		
@@ -81,12 +82,12 @@ public class homePanel extends JPanel{
 		JPanel panel_Home_Info_Botones = new JPanel();
 		panel_Home_Info_Botones.setBackground(Color.WHITE);
 		
-		JButton btn_FAQ = new JButton("Documentacion");
+		JButton btn_FAQ = new FlatButton("Documentacion");
 		btn_FAQ.addActionListener( e -> webpageConnection.openWebpage(FAQ_URL));
 		
 		
 		
-		JButton btn_About_Us = new JButton("Sobre Nosotros");
+		JButton btn_About_Us = new FlatButton("Sobre Nosotros");
 		btn_About_Us.addActionListener(e -> webpageConnection.openWebpage(ABOUT_US_URL));
 		
 		panel_Home_Info_Botones.add(btn_FAQ);

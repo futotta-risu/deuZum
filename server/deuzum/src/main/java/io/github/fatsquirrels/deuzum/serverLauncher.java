@@ -4,9 +4,9 @@ import io.github.fatsquirrels.deuzum.visual.ServerHandlerFrame;
 
 public class serverLauncher {
 
-public static void main(String[] args) {
+/*public static void main(String[] args) {
 		
 		new ServerHandlerFrame();
-	}
+	}*/
 	
 }

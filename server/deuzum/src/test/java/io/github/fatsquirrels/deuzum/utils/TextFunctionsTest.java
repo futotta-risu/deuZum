@@ -15,7 +15,7 @@ public class TextFunctionsTest {
 		String presuffix = "#";
 		String[] result = TextFunctions.surroundText(arr, presuffix);
 		String[] expected = {"#hola#", "#adios#"};
-		//assertEquals(expected, result);
+		assertArrayEquals(expected, result);
 	}
 	
 	@Test
@@ -25,7 +25,7 @@ public class TextFunctionsTest {
 		String suffix = "?";
 		String[] result = TextFunctions.surroundText(arr, preffix, suffix);
 		String[] expected = {"#hola?", "#adios?"};
-		//assertEquals(expected, result);
+		assertArrayEquals(expected, result);
 	}
 	
 	@Test
@@ -35,7 +35,7 @@ public class TextFunctionsTest {
 		String concat = "=";
 		String[] result = TextFunctions.concatenateAlternative(arr1, arr2, concat);
 		String[] expected = {"hola=kaixo", "adios=agur"};
-		//assertEquals(expected, result);
+		assertArrayEquals(expected, result);
 	}
 	
 	@Test
@@ -46,7 +46,7 @@ public class TextFunctionsTest {
 		String nullText = "";
 		String[] result = TextFunctions.concatenateAlternative(arr1, arr2, concat, nullText);
 		String[] expected = {"hola=kaixo", "adios=agur"};
-		//assertEquals(expected, result);
+		assertArrayEquals(expected, result);
 	}
 
 	@Test
@@ -55,9 +55,9 @@ public class TextFunctionsTest {
 		String[] arr2 = {"kaixo", "agur"};
 		String concat = "=";
 		String nullText = "";
-		String surroundText = "k";
-		String[] result = TextFunctions.concatenateAlternative(arr1, arr2, concat, nullText);
-		String[] expected = {"hola=kaixo", "adios=agur"};
-		//assertEquals(expected, result);
+		String surround = "#";
+		String[] result = TextFunctions.concatenateAlternative(arr1, arr2, concat, nullText,surround);
+		String[] expected = {"#hola=kaixo#", "#adios=agur#"};
+		assertArrayEquals(expected, result);
 	}
 }

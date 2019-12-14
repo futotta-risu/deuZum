@@ -2,6 +2,9 @@ package io.github.fatsquirrels.deuzum.database;
 
 import java.sql.SQLException;
 
+import io.github.fatsquirrels.deuzum.utils.ArrayFunctions;
+import io.github.fatsquirrels.deuzum.utils.math.APair;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -50,7 +53,6 @@ public final class GeneralSQLFunctions {
 	 * @throws SQLException Puede lanzar una Exception SQL
 	 */
 	public static final void execUpdate(Connection connection, String query) throws SQLException {
-		System.out.println(query);
 		connection.createStatement().executeUpdate(query);
 	}
 	
@@ -90,8 +92,6 @@ public final class GeneralSQLFunctions {
 	 * @throws SQLException Puede lanzar una Exception SQL
 	 */
 	public static final String getEntryFromDatabase(Connection connection, String table, String column, String conditions) throws SQLException {
-		
-		System.out.println("SELECT * FROM `"+table+"` "+conditions);
 		ResultSet result = getExecQuery(connection, "SELECT * FROM `"+table+"` WHERE "+conditions);
 		
 		if(result.next()) return result.getString(column);
@@ -111,7 +111,8 @@ public final class GeneralSQLFunctions {
 	public static final void insertEntryIntoDatabase(Connection connection, String table, String[] columnNames, String[] values) throws SQLException {
 		if(columnNames.length != values.length || columnNames.length == 0)
 			return;	
-		String insertQ = (new CommandBuilderF(StatementType.INSERT).setTable(table).addColumns(columnNames, values)).pack();
+		APair<String[],String[]> tempArrs = ArrayFunctions.getReducedArrayString(columnNames, values);
+		String insertQ = (new CommandBuilderF(StatementType.INSERT).setTable(table).addColumns(tempArrs.getIndex(), tempArrs.getValue())).pack();
 		System.out.println(insertQ);
 		// TODO check if table exist
 		GeneralSQLFunctions.execUpdate(connection, insertQ);
@@ -132,7 +133,8 @@ public final class GeneralSQLFunctions {
 		
 		if(columnNames.length != values.length || columnNames.length == 0)
 			return;
-		String updateQ = (new CommandBuilderF(StatementType.UPDATE).setTable(table).addExpression(columnNames,values).addWhere(where)).pack();
+		APair<String[],String[]> tempArrs = ArrayFunctions.getReducedArrayString(columnNames, values);
+		String updateQ = (new CommandBuilderF(StatementType.UPDATE).setTable(table).addExpression(tempArrs.getIndex(),tempArrs.getValue()).addWhere(where)).pack();
 		GeneralSQLFunctions.execUpdate(connection, updateQ);
 	}
 	

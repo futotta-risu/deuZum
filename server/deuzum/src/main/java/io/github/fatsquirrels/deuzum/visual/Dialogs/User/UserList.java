@@ -72,7 +72,6 @@ public class UserList extends JDialog{
 		getContentPane().add(btnFiltrar);
 		btnFiltrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String conditions ="";
 				try {
 					//TODO Actualizar sql statement
 					

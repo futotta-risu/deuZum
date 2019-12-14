@@ -258,11 +258,11 @@ public class editGroup extends JDialog{
 	
 	public void editarGrupo(Connection conn) {
 		//Comprobar campos vacios
-		APair [] compulsaryVars = {
+		APair<?,?> [] compulsaryVars = {
 				new APair<String, String> ("txtNombreGrupo","Nombre del grupo"), new APair<String, String> ("txtMiembro1", "Nombre de usuario del miembro 1"), 
 				new APair<String,String>("txtMiembro2","Nombre de usuario del miembro 2")};
 		int nError = 0;
-		for (APair i : compulsaryVars) {
+		for (APair<?,?> i : compulsaryVars) {
 			JTextField tempC = (JTextField) ObjectMapper.getComponentByName(String.valueOf(i.getIndex()),componentMap);
 			if(tempC != null) {
 				if(tempC.getText().isEmpty()) {

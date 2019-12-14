@@ -20,8 +20,8 @@ import io.github.fatsquirrels.deuzum.visual.panels.ConfigPanel;
 import io.github.fatsquirrels.deuzum.visual.panels.FunctionalityPanel;
 import io.github.fatsquirrels.deuzum.visual.panels.MenuBar;
 import io.github.fatsquirrels.deuzum.visual.panels.MenuPanel;
+import io.github.fatsquirrels.deuzum.visual.panels.HomePanel;
 import io.github.fatsquirrels.deuzum.visual.panels.MenuPanel.MenuType;
-import io.github.fatsquirrels.deuzum.visual.panels.global.homePanel;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -49,7 +49,7 @@ public class ServerHandlerFrame  extends JFrame{
 	public static Properties properties;
 	
 	private static final long serialVersionUID = 1L;
-	private homePanel panel_Home;
+	private HomePanel panel_Home;
 	private JPanel panel_Config_G;
 	private JPanel central_Mutable_Panel;
 	private JTabbedPane panel_Funcionality;
@@ -73,7 +73,6 @@ public class ServerHandlerFrame  extends JFrame{
 		// Icono de la Aplicacion
 		setIconImage(new ImageIcon("data/img/iconoP.png").getImage());
 		
-		
 		setSize(new Dimension(900, 500));
 		setMinimumSize(new Dimension(600, 400));
 		setVisible(true);
@@ -92,8 +91,6 @@ public class ServerHandlerFrame  extends JFrame{
 		
 		// Configuracion del Panel
 		MenuBar status_Bar = new MenuBar();
-		
-		
 	
 		status_Bar.addLeft(new JLabel(new ImageIcon("data/img/logo.png")));
 		
@@ -114,7 +111,6 @@ public class ServerHandlerFrame  extends JFrame{
 		/*
 		 *      PANEL CENTRAL
 		 */
-		
 		
 		JPanel central_Panel = new JPanel();
 		getContentPane().add(central_Panel);
@@ -154,7 +150,7 @@ public class ServerHandlerFrame  extends JFrame{
 		
 		
 		// TODO implementarlo
-		panel_Home = new homePanel("Bienvenido","Texto de muestra");
+		panel_Home = new HomePanel("Bienvenido","Texto de muestra");
 		JPanel panel_Usuario = new MenuPanel(MenuType.USUARIO);
 		JPanel panel_Cuenta = new MenuPanel(MenuType.CUENTA);
 		JPanel panel_Proyectos = new MenuPanel(MenuType.PROYECTO);
@@ -252,6 +248,5 @@ public class ServerHandlerFrame  extends JFrame{
 		if(server != null)  server.stop();
 		dispose();	
 	}
-	
 	
 }
