@@ -187,14 +187,14 @@ public class CommandBuilderF {
 	
 	public CommandBuilderF addExpression(String column, String expression) {
 		if(!this.expression.isEmpty()) this.expression +=",";
-		this.expression = column + "=" + expression;
+		this.expression += column + "=\"" + expression +"\"";
 		return this;
 	}
 	public CommandBuilderF addExpression(String[] column, String[] expression) {
 		if(column.length != expression.length) return this;
 		for(int i = 0; i < column.length; i++) {
 			if(!this.expression.isEmpty()) this.expression +=",";
-			this.expression = column[i] + "=" + expression[i];
+			this.expression += column[i] + "=\"" + expression[i] +"\"";
 		}
 		return this;
 	}

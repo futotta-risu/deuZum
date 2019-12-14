@@ -202,7 +202,7 @@ public class createAccount extends JDialog{
 								
 					//Añadimos informacion a la tabla Cuenta
 					ServerUserFunctionality.createAccount(conn, new String[]{txtNumCuenta.getText(), txtIdUsuario.getText(),
-							txtDinero.getText()});;
+							txtDinero.getText()});
 					
 					
 				}

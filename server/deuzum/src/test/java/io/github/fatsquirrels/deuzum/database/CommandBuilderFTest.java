@@ -69,7 +69,7 @@ public class CommandBuilderFTest {
 	void testUpdate() {
 		WhereAST where = new WhereAST().addValue("id='2'");
 		CommandBuilderF newCommand = new CommandBuilderF(StatementType.UPDATE)
-				.setTable("tabla2").addExpression("name","Jose").addWhere(where);
+				.setTable("tabla2").addExpression("name","Jose").addExpression("name2","Jose2").addWhere(where);
 		
 		String comando = newCommand.pack();
 		System.out.println(comando);

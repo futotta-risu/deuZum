@@ -27,46 +27,9 @@ public class ListPanel extends JScrollPane{
 	
 	private tableName panelType;
 	
-	public ListPanel(tableName panelType) {
-		Connection conn = Server.createConnection();
+	
+	public ListPanel() {
 		
-		this.panelType = panelType;
-		
-		ArrayList<APair<String,Integer>> columnNameTypes = GeneralSQLFunctions.getColumnNameType(conn, this.panelType);
-		int columnSize = panelType.getVals();
-		String[] columnNames = new String[columnSize];
-		for(int i = 0 ; i < columnSize;i++)
-			columnNames[i] =columnNameTypes.get(i).getIndex();
-		
-		
-		
-		CommandBuilderF cmdb = new CommandBuilderF().setSQLType(StatementType.SELECT)
-				.setTable(panelType.getName()).addColumns(columnNames);
-		ResultSet dataRS, rowCountRS;
-		int rowCountI;
-		String[][] tableData = null;
-		try {
-			
-			rowCountRS = GeneralSQLFunctions.getExecQuery(conn,"SELECT COUNT(*) FROM " + panelType.getName());
-			rowCountRS.next();
-			rowCountI = rowCountRS.getInt(1);
-			tableData = new String[rowCountI][columnSize];
-			
-			dataRS = GeneralSQLFunctions.getExecQuery(conn,cmdb.pack());
-			int actColumn = 0;
-			while(dataRS.next()) {
-				for(int i = 0; i < columnSize; i++)
-					tableData[actColumn][columnSize-i-1] = dataRS.getString(i+1);
-				actColumn++;
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		DefaultTableModel dtb = new DefaultTableModel(tableData,columnNames);
-		JTable list = new JTable(dtb) ;
-		setViewportView(list);
 	}
 	
 }
