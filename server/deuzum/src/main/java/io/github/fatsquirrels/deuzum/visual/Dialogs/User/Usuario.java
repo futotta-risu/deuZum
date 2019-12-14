@@ -3,7 +3,7 @@ package io.github.fatsquirrels.deuzum.visual.Dialogs.User;
 public class Usuario {
 	private String id;
 	private String usuario;
-	private String contraseña;
+	private String contrasena;
 	private String fecha_creacion;
 	private String preg_seguridad;
 	private String resp_seguridad;
@@ -22,11 +22,11 @@ public class Usuario {
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
 	}
-	public String getContraseña() {
-		return contraseña;
+	public String getContrasena() {
+		return contrasena;
 	}
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
+	public void setContrasena(String contrasena) {
+		this.contrasena = contrasena;
 	}
 	public String getFecha_creacion() {
 		return fecha_creacion;
@@ -59,12 +59,12 @@ public class Usuario {
 		this.categoria = categoria;
 	}
 	
-	public Usuario(String id, String usuario, String contraseña, String fecha_creacion, String preg_seguridad,
+	public Usuario(String id, String usuario, String contrasena, String fecha_creacion, String preg_seguridad,
 			String resp_seguridad, String permisos, String categoria) {
 		super();
 		this.id = id;
 		this.usuario = usuario;
-		this.contraseña = contraseña;
+		this.contrasena = contrasena;
 		this.fecha_creacion = fecha_creacion;
 		this.preg_seguridad = preg_seguridad;
 		this.resp_seguridad = resp_seguridad;
@@ -73,7 +73,7 @@ public class Usuario {
 	}
 	@Override
 	public String toString() {
-		return "id = " + id + ", usuario = " + usuario + ", contraseña = " + contraseña + ", fecha_creacion = "
+		return "id = " + id + ", usuario = " + usuario + ", contraseña = " + contrasena + ", fecha_creacion = "
 				+ fecha_creacion + ", Pregunta seguridad = " + preg_seguridad + ", Respuesta seguridad = " + resp_seguridad
 				+ ", Permisos = " + permisos + ", Categoria = " + categoria ;
 	}
