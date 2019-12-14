@@ -1,11 +1,9 @@
 package io.github.fatsquirrels.deuzum.visual.Dialogs.general;
 
 import java.awt.BorderLayout;
-import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,7 +20,6 @@ import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
 import io.github.fatsquirrels.deuzum.database.StatementType;
 import io.github.fatsquirrels.deuzum.database.WhereAST;
 import io.github.fatsquirrels.deuzum.database.tableName;
-import io.github.fatsquirrels.deuzum.net.ServerUserFunctionality;
 import io.github.fatsquirrels.deuzum.utils.math.APair;
 import io.github.fatsquirrels.deuzum.visual.Style.Layout.VerticalFlowLayout;
 import io.github.fatsquirrels.deuzum.visual.components.buttons.FlatButton;
