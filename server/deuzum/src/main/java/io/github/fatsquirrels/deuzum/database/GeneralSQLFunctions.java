@@ -1,6 +1,7 @@
 package io.github.fatsquirrels.deuzum.database;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import io.github.fatsquirrels.deuzum.utils.ArrayFunctions;
 import io.github.fatsquirrels.deuzum.utils.math.APair;
@@ -8,6 +9,7 @@ import io.github.fatsquirrels.deuzum.utils.math.APair;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 
 /**
  * Clase Funciones Generales SQL
@@ -44,6 +46,24 @@ public final class GeneralSQLFunctions {
 			e.printStackTrace();
 		}
 		return conn;
+	}
+	
+	public static  ArrayList<APair<String,Integer>> getColumnNameType(Connection conn, tableName ttp ){
+		
+		ArrayList<APair<String,Integer>> result = new  ArrayList<APair<String,Integer>>();
+		String getSQLSTMT = "SELECT * FROM "+ ttp.getName()+ " LIMIT 1";
+		
+		try {
+			ResultSet rs = GeneralSQLFunctions.getExecQuery(conn, getSQLSTMT);
+			ResultSetMetaData rsmd = rs.getMetaData();
+			for(int i = 1; i <= rsmd.getColumnCount(); i++) 
+				result.add(new APair<String, Integer>(rsmd.getColumnName(i), rsmd.getColumnType(i)));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.err.println("Error al crear un dialogo general.");
+		}
+		return result;
 	}
 	
 	/**

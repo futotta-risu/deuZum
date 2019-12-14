@@ -7,12 +7,17 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
 import javax.swing.JPanel;
 
+import io.github.fatsquirrels.deuzum.database.tableName;
 import io.github.fatsquirrels.deuzum.net.Server;
+import io.github.fatsquirrels.deuzum.utils.math.APair;
 import io.github.fatsquirrels.deuzum.visual.Style.CustomColors;
 import io.github.fatsquirrels.deuzum.visual.components.buttons.IconizedButton;
 import io.github.fatsquirrels.deuzum.visual.components.buttons.MenuButton;
@@ -21,7 +26,7 @@ import io.github.fatsquirrels.deuzum.visual.panels.FunctionalityPanel;
 import io.github.fatsquirrels.deuzum.visual.panels.MenuBar;
 import io.github.fatsquirrels.deuzum.visual.panels.MenuPanel;
 import io.github.fatsquirrels.deuzum.visual.panels.HomePanel;
-import io.github.fatsquirrels.deuzum.visual.panels.MenuPanel.MenuType;
+import io.github.fatsquirrels.deuzum.visual.panels.HomePanel.StatusType;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -43,18 +48,34 @@ import javax.swing.JComponent;
  */
 public class ServerHandlerFrame  extends JFrame{
 	
+	// Constantes
+	
+	final List<APair<String,Boolean>> menu_button_Names =  Collections.unmodifiableList(
+		    Arrays.asList(new APair<String,Boolean>("Menu Principal",true),
+					new APair<String,Boolean>("Usuarios",false),
+					new APair<String,Boolean>("Cuentas",false),
+					new APair<String,Boolean>("Transacciones",false),
+					new APair<String,Boolean>("Grupos",false),
+					new APair<String,Boolean>("Proyectos",false),
+					new APair<String,Boolean>("Funcionalidades",true),
+					new APair<String,Boolean>("Configuracion",true)));
+	
 	private Server server = null;
 	
 
+	
 	public static Properties properties;
 	
 	private static final long serialVersionUID = 1L;
 	private HomePanel panel_Home;
 	private JPanel panel_Config_G;
 	private JPanel central_Mutable_Panel;
+	private JPanel panel_Usuario;
+	private JPanel panel_Cuenta;
+	private JPanel panel_Proyectos;
+	private JPanel panel_Grupos, panel_Transaccion, central_Direction_Menu_Panel, central_Direction_Panel;
 	private JTabbedPane panel_Funcionality;
-	
-	JLabel serverLabel;
+	private List<JButton> menu_Buttons;
 	/**
 	 * Crea un objeto de ServerHandlerFrame, el cual contiene un frame que controla una instancia de Server.
 	 */
@@ -77,60 +98,50 @@ public class ServerHandlerFrame  extends JFrame{
 		setMinimumSize(new Dimension(600, 400));
 		setVisible(true);
 		setTitle("DeuZum Servidor");
+		setLayout(new BorderLayout(0, 0));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	
 	public void configLayout() {
 		
 		  
-		getContentPane().setLayout(new BorderLayout(0, 0));
 		
-		/*
-		 * 			STATUS BAR
-		 */
-		
-		// Configuracion del Panel
+		// Top Bar 
 		MenuBar status_Bar = new MenuBar();
 	
 		status_Bar.addLeft(new JLabel(new ImageIcon("data/img/logo.png")));
-		
-		JButton btnStartServer = new IconizedButton("symbol","play",35,40);
-		JButton btnStopServer = new IconizedButton("symbol","stop",35,40);
-		JButton btnExit = new IconizedButton("symbol","pause",35,40);
+		status_Bar.addRight(new JComponent[]{
+				new IconizedButton("symbol","play",35,40,e -> runServer()),
+				new IconizedButton("symbol","stop",35,40,e -> stopServer()),
+				new IconizedButton("symbol","pause",35,40,e -> pauseServer())
+			});
 
-				
+		add(status_Bar, BorderLayout.NORTH);
 		
-		btnExit.addActionListener(e -> pauseServer());
-		btnStopServer.addActionListener(e -> stopServer());
-		btnStartServer.addActionListener(e -> runServer());
-		
-		status_Bar.addRight(new JComponent[]{btnStartServer,btnStopServer,btnExit});
-
-		getContentPane().add(status_Bar, BorderLayout.NORTH);
 		
 		/*
 		 *      PANEL CENTRAL
 		 */
 		
 		JPanel central_Panel = new JPanel();
-		getContentPane().add(central_Panel);
+		add(central_Panel);
 		central_Panel.setLayout(new BorderLayout(0, 0));
 		
 		//        DIRECTION
 		
-		JPanel central_Direction_Panel = new JPanel();
+		central_Direction_Panel = new JPanel();
 		central_Panel.add(central_Direction_Panel, BorderLayout.WEST);
 		central_Direction_Panel.setBackground(CustomColors.mBBlue);
 		central_Direction_Panel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		
-		JPanel central_Direction_Menu_Panel = new JPanel();
+		central_Direction_Menu_Panel = new JPanel();
 		central_Direction_Menu_Panel.setBackground(CustomColors.mBBlue);
 		central_Direction_Menu_Panel.setPreferredSize(new Dimension(180,280));
 		central_Direction_Menu_Panel.setLayout(new GridLayout(0, 1, 0, 0));
 		central_Direction_Panel.add(central_Direction_Menu_Panel);
 		//       BOTONES DIRECTION
 		
-		List<JButton> menu_Buttons = new LinkedList<JButton>();
+		
 		
 		
 		//         MUTABLE TABLE
@@ -144,36 +155,25 @@ public class ServerHandlerFrame  extends JFrame{
 		
 		
 		panel_Config_G = new ConfigPanel();
-		central_Mutable_Panel.add(panel_Config_G);
-		
 		
 		
 		
 		// TODO implementarlo
 		panel_Home = new HomePanel("Bienvenido","Texto de muestra");
-		JPanel panel_Usuario = new MenuPanel(MenuType.USUARIO);
-		JPanel panel_Cuenta = new MenuPanel(MenuType.CUENTA);
-		JPanel panel_Proyectos = new MenuPanel(MenuType.PROYECTO);
-		JPanel panel_Grupos = new MenuPanel(MenuType.GRUPO);
-		JPanel panel_Transaccion = new MenuPanel(MenuType.TRANSACCION);
 		
 		
-		String[] menu_button_Names = {
-				"Menu Principal","Usuarios","Cuentas","Transacciones","Grupos","Proyectos","Funcionalidades","Configuracion"};
-		JComponent[] menu_Panels = {
-				panel_Home,panel_Usuario,panel_Cuenta,panel_Transaccion,panel_Grupos,panel_Proyectos,panel_Funcionality,panel_Config_G};
+		
+		panel_Usuario = null;
+		panel_Cuenta = null;
+		panel_Proyectos = null;
+		panel_Grupos = null;
+		panel_Transaccion = null;
 		
 		
 		
 		
+		createMenuPanels();
 		
-		for(int i = 0; i < menu_button_Names.length; i++) {
-			final int a = i;
-			menu_Buttons.add(new MenuButton(menu_button_Names[i]));
-			menu_Buttons.get(i).addActionListener(e->switchPanel(menu_Panels[a]));
-			central_Direction_Menu_Panel.add(menu_Buttons.get(a));
-			central_Mutable_Panel.add(menu_Panels[i]);
-		}
 	}
 
 	/**
@@ -217,6 +217,49 @@ public class ServerHandlerFrame  extends JFrame{
 		}
 	}
 	
+	/*-------------------
+	 *  MENU BUTTONS DISABLE
+	 --------------------*/
+	
+	public void changeButtonActivation(boolean var) {
+		for(int i = 0; i <  menu_Buttons.size(); i++) 
+			menu_Buttons.get(i).setEnabled(var || menu_button_Names.get(i).getValue());
+		
+	}
+	
+	public void loadMenuPanels() {
+		panel_Usuario = new MenuPanel(tableName.USUARIO);
+		panel_Cuenta = new MenuPanel(tableName.CUENTA);
+		panel_Proyectos = new MenuPanel(tableName.PROYECTO);
+		panel_Grupos = new MenuPanel(tableName.GRUPO);
+		panel_Transaccion = new MenuPanel(tableName.TRANSACCION);
+	}
+	
+	public void createMenuPanels() {
+		JComponent[] menu_Panels = {
+				panel_Home,panel_Usuario,panel_Cuenta,panel_Transaccion,panel_Grupos,panel_Proyectos,panel_Funcionality,panel_Config_G};
+		
+		menu_Buttons = new ArrayList<JButton>();
+		central_Mutable_Panel.removeAll();
+		central_Direction_Menu_Panel.removeAll();
+		for(int i = 0; i < menu_button_Names.size(); i++) {
+			final int a = i;
+			menu_Buttons.add(new MenuButton(menu_button_Names.get(i).getIndex()));
+			menu_Buttons.get(i).addActionListener(e->switchPanel(menu_Panels[a]));
+			// If i is not home or config
+			menu_Buttons.get(i).setEnabled(menu_button_Names.get(i).getValue());
+			central_Direction_Menu_Panel.add(menu_Buttons.get(a));
+			if(menu_Panels[i]!=null)
+				central_Mutable_Panel.add(menu_Panels[i]);
+		}
+		
+		
+		revalidate();
+	}
+	
+	/* -----------------
+	 * 	SERVER RUNNING FUNCTIONS
+	  ---------------- */
 	public void runServer() {
 		Thread hiloStart = new Thread() {
 			@Override
@@ -236,13 +279,23 @@ public class ServerHandlerFrame  extends JFrame{
 		};
 		
 		hiloStart.start();
-		serverLabel.setText("Server: Running");
+		
+		panel_Home.changeServerStatus(StatusType.on);
+		loadMenuPanels();
+		createMenuPanels();
+		
+		changeButtonActivation(true);
+		revalidate();
 	}
 	
 	public void stopServer() {
 		server.stop();
-		serverLabel.setText("Server: off");
+		
+		// TODO if in panel which should be disabled, move to home
+		changeButtonActivation(false);
+		panel_Home.changeServerStatus(StatusType.off);
 	}
+	
 	
 	public void pauseServer() {
 		if(server != null)  server.stop();

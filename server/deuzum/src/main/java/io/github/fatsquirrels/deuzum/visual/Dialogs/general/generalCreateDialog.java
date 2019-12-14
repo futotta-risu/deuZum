@@ -1,5 +1,6 @@
 package io.github.fatsquirrels.deuzum.visual.Dialogs.general;
 
+import java.awt.BorderLayout;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -8,65 +9,69 @@ import java.util.ArrayList;
 
 import javax.swing.JComponent;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
+import io.github.fatsquirrels.deuzum.database.tableName;
+import io.github.fatsquirrels.deuzum.utils.math.APair;
 import io.github.fatsquirrels.deuzum.visual.Style.Layout.VerticalFlowLayout;
 
 public class generalCreateDialog extends JDialog{
 
-	public enum tableName{
-		usuario("usuario");
-		
-		public String name;
-		
-		tableName(String name) {
-			this.name = name;
-		}
-	};
+	private static final long serialVersionUID = 2211943195848294043L;
+
+	private ArrayList<APair<String,Integer>> columnVars;
+	
+	private int numberOfColumns = 0;
+	
+	public generalCreateDialog(Connection conn, tableName table, int id) {
+		initialize(conn, table,true, id);
+	}
 	
 	/**
-	 * 
+	 * Crea una ventana derivada de una tabla para la creacion de valores
 	 * @param conn
 	 * @param table
-	 * @param openType 1- Create, 2- Edit
 	 */
-	public generalCreateDialog(Connection conn, tableName table, int openType) {
-		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setSize(540,350);
-		setLayout(new VerticalFlowLayout(10,10,10));
-		ArrayList<String> columnNames = new ArrayList<String>();
-		ArrayList<Integer> columnTypes = new ArrayList<Integer>();
-		try {
-			ResultSet rs = GeneralSQLFunctions.getExecQuery(conn, "SELECT * FROM "+ table.name+ " LIMIT 1");
-			ResultSetMetaData rsmd = rs.getMetaData();
-			for(int i = 1; i <= rsmd.getColumnCount(); i++) {
-				columnNames.add(rsmd.getColumnName(i));
-				columnTypes.add(rsmd.getColumnType(i));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.err.println("Error al crear un dialogo general.");
-			dispose();
-		}
-		for(int i =0 ; i < columnNames.size(); i++) {
-			JPanel temp = new JPanel();
-			temp.add(new JLabel(columnNames.get(i)));
-			temp.add(getComponentByType(columnTypes.get(i)));
-			add(temp);
-		}
-		setVisible(true);
+	public generalCreateDialog(Connection conn, tableName table) {
+		
+		initialize(conn,  table, false, -1);
 			
 	}
 	
-	public JComponent getComponentByType(int type) {
+	public void initialize(Connection conn, tableName table,boolean isEdit, int id) {
+		ArrayList<String> columnVarVals = new ArrayList<String>();
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setLayout(new VerticalFlowLayout(10,10,10));
+		columnVars = GeneralSQLFunctions.getColumnNameType(conn, table);
+		
+		
+		numberOfColumns = columnVars.size();
+		for(int i =0 ; i < numberOfColumns; i++) {
+			JPanel temp = new JPanel();
+			temp.setLayout(new BorderLayout());
+			temp.setSize(300,30);
+			temp.add(new JLabel(columnVars.get(i).getIndex()), BorderLayout.WEST);
+			temp.add(getComponentByType(columnVars.get(i).getValue(), isEdit, columnVarVals.get(i)), BorderLayout.EAST);
+			add(temp);
+		}
+		
+		// TODO Add Save and cancel buttons
+		
+		setSize(320,35*numberOfColumns);
+		setVisible(true);
+	}
+	
+	
+	public JComponent getComponentByType(int type, boolean isEdit, String id) {
 		switch(type) {
 		case 4:
 		case 12:
-			return new JTextField(10);
+			JTextField txt = new JTextField(10);
+			if(isEdit) txt.setText(id);
+			return txt;
 		case 93:
 			return new JLabel("Tiempo");
 		default:

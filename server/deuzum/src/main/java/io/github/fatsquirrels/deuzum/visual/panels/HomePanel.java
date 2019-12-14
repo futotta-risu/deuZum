@@ -31,9 +31,24 @@ public class HomePanel extends JPanel{
 	private final String ABOUT_US_URL = "https://github.com/futotta-risu/deuZum/graphs/contributors";
 	
 	
+	public enum StatusType{
+		on("Running"), off("Off");
+		
+		private String status;
+		StatusType(String status) {
+			this.status = status;
+		}
+		public String getStatus() {
+			return this.status;
+		}
+	}
+	private StatusType stType;
+	
 	public JLabel serverLabel;
 	
 	public HomePanel(String titulo, String texto_central) {
+		
+		stType = StatusType.off;
 		initializeProperties();
 		initializeComponents(titulo, texto_central);
 		
@@ -100,6 +115,7 @@ public class HomePanel extends JPanel{
 		panel_Home_Lateral.add(panel_Home_Lateral_Status);
 		panel_Home_Lateral_Status.setBackground(CustomColors.mBOrangeL);
 		panel_Home_Lateral_Status.setLayout(new VerticalFlowLayout(0,10,10));
+		
 		serverLabel = new JLabel("Status: Off");
 		serverLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_Home_Lateral_Status.add(serverLabel);
@@ -139,5 +155,13 @@ public class HomePanel extends JPanel{
 		add(panel_Home_Center, "cell 0 0,grow");
 		
 	}
+	
+	public void changeServerStatus(StatusType s) {
+		this.stType = s;
+		serverLabel.setText("Status: " + stType.getStatus());
+		revalidate();
+	}
+	
+	
 	
 }

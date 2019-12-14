@@ -73,6 +73,9 @@ public class Server implements Runnable{
 		Server.dbName = dbName;
 	}
 	
+	public static Connection getDefaultServerConnection() {
+		return GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost:3306/"+Server.dbName, "root", "");
+	}
 	
 	// Server Execution Functions
 	

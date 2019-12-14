@@ -10,24 +10,7 @@ import io.github.fatsquirrels.deuzum.utils.math.APair;
 import io.github.fatsquirrels.deuzum.utils.meta.anotations.Tested;
 import io.github.fatsquirrels.deuzum.utils.text.TextFunctions;
 
-/**
- * Enumera la lista de comandos posibles dentro de la clase CommandBuilderF.
- * Actualmente se encuentran las siguientes opciones:
- * <ul><li>Insert</li><li>Select</li><li>Update</li><li>Delete</li></ul>
- */
-enum StatementType{
-	// Remember table contains INNER JOIN
-	INSERT("INSERT INTO {TABLE} ({COLUMNS}) VALUES ({VALUES})"), 
-	SELECT("SELECT {COLUMNS} FROM {TABLE} {WHERE} {GROUP} {ORDER} {LIMIT}"), 
-	UPDATE("UPDATE {TABLE} SET {EXPRESSION} {WHERE} {ORDER} {LIMIT}"), 
-	DELETE("DELETE FROM {TABLE} {WHERE} {ORDER} {LIMIT}");
-	
-	public String CommandFormat;
-	
-	private StatementType(String CommandFormat) {
-		this.CommandFormat = CommandFormat;
-	}
-}
+
 
 /**
  * Lista de Tipos de ordenes de los comandos de SQL. Actualmente se encuentran las siguientes opciones:
@@ -169,6 +152,13 @@ public class CommandBuilderF {
 		// TODO do something on error
 		for(int i= 0; i < columns.length; i++)
 			this.columns.put(columns[i], "NULL");
+		return this;
+	}
+	
+	public CommandBuilderF addColumns(ArrayList<String> columns) {
+		// TODO do something on error
+		for(int i= 0; i < columns.size(); i++)
+			this.columns.put(columns.get(i), "NULL");
 		return this;
 	}
 	

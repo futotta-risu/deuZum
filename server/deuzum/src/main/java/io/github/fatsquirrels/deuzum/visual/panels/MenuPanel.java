@@ -1,103 +1,86 @@
 package io.github.fatsquirrels.deuzum.visual.panels;
 
+import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.sql.Connection;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
+import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
+import io.github.fatsquirrels.deuzum.database.tableName;
 import io.github.fatsquirrels.deuzum.net.Server;
 import io.github.fatsquirrels.deuzum.visual.Dialogs.Account.*;
 import io.github.fatsquirrels.deuzum.visual.Dialogs.Group.*;
 import io.github.fatsquirrels.deuzum.visual.Dialogs.Project.*;
 import io.github.fatsquirrels.deuzum.visual.Dialogs.Transactions.*;
 import io.github.fatsquirrels.deuzum.visual.Dialogs.User.*;
-
+import io.github.fatsquirrels.deuzum.visual.Dialogs.general.ListPanel;
+import io.github.fatsquirrels.deuzum.visual.Dialogs.general.generalCreateDialog;
+import io.github.fatsquirrels.deuzum.visual.Style.Layout.VerticalFlowLayout;
 import io.github.fatsquirrels.deuzum.visual.components.buttons.FlatButton;
+import io.github.fatsquirrels.deuzum.visual.Dialogs.general.generalCreateDialog;
+
+
 
 public class MenuPanel extends JPanel{
 
 	private static final long serialVersionUID = 3963889402535275585L;
 	
-	public enum MenuType{
-		USUARIO("usuario"),CUENTA("cuenta"),GRUPO("grupo"),PROYECTO("proyecto"),TRANSACCION("transaccion");
-		
-		private String valor;
-		
-		MenuType(String valor){
-			this.valor = valor;
-		}};
-	private MenuType panelType;
 	
+	private tableName panelType;
+	ListPanel leftList;
+
+
+	private JPanel rightMenu;
 	
 
 	
 	
-	public MenuPanel(MenuType type) {
+	public MenuPanel(tableName type) {
 		this.panelType = type;
-		setLayout(new FlowLayout());
+		setLayout(new BorderLayout());
+		leftList = new ListPanel(type);
+		add(leftList, BorderLayout.CENTER);
+		rightMenu = new JPanel();
+		rightMenu.setLayout(new VerticalFlowLayout(10,10,10));
 		//Create
-		JButton create = new FlatButton("Crear " + type.valor);
-		create.addActionListener(e->createDialog());
-		add(create);
+		JButton create = new FlatButton("Crear " + type.getName());
+		create.addActionListener(e->new generalCreateDialog(Server.createConnection(),panelType));
+		rightMenu.add(create);
 		
 		// Edit
-		
-		JButton editar = new FlatButton("Editar " + type.valor);
-		editar.addActionListener(e->editDialog());
-		add(editar);
-		
+		if(type!=tableName.TRANSACCION) {
+			JButton editar = new FlatButton("Editar " + type.getName());
+			
+			editar.addActionListener(e->editDialog());
+			rightMenu.add(editar);
+		}
 		// See
 		
-		JButton see = new FlatButton("Lista de " + type.valor);
-		see.addActionListener(e->seeDialog());
-		add(see);
+		JButton see = new FlatButton("Lista de " + type.getName());
+		see.addActionListener(e->new ListPanel( this.panelType));
+		rightMenu.add(see);
 		
 		// Delete
 		
-		JButton delete = new FlatButton("Editar " + type.valor);
+		JButton delete = new FlatButton("Editar " + type.getName());
 		delete.addActionListener(e->deleteDialog());
-		add(delete);
+		rightMenu.add(delete);
+		add(rightMenu, BorderLayout.EAST);
 	}
 	
-	private void createDialog() {
-		switch(this.panelType) {
-		case USUARIO:
-			new createUser(Server.createConnection());
-			break;
-		case CUENTA:
-			new createAccount(Server.createConnection());
-			break;
-		case GRUPO:
-			new createGroup(Server.createConnection());
-			break;
-		case PROYECTO:
-			new createProyect(Server.createConnection());
-			break;
-		case TRANSACCION:
-			new createTransaction(Server.createConnection());
-			break;
-		default:
-		}
-	}
 	
 	private void editDialog() {
-		switch(this.panelType) {
-		case USUARIO:
-			new editUser(Server.createConnection());
-			break;
-		case CUENTA:
-			new editAccount(Server.createConnection());
-			break;
-		case GRUPO:
-			new editGroup(Server.createConnection());
-			break;
-		case PROYECTO:
-			new editProyect(Server.createConnection());
-			break;
-		default:
-		}
+		int ans = Integer.parseInt( JOptionPane.showInputDialog(
+		        "Primer numero"
+		        ));
+		new generalCreateDialog(Server.createConnection(), panelType, ans);
 	}
 	
+	// TODO Crear este delete
 	private void deleteDialog() {
 		switch(this.panelType) {
 		case USUARIO:
@@ -114,27 +97,6 @@ public class MenuPanel extends JPanel{
 			break;
 		case TRANSACCION:
 			new deleteTransaction(Server.createConnection());
-			break;
-		default:
-		}
-	}
-	
-	private void seeDialog() {
-		switch(this.panelType) {
-		case USUARIO:
-			new deleteUser(Server.createConnection());
-			break;
-		case CUENTA:
-			new AccountList(Server.createConnection());
-			break;
-		case GRUPO:
-			new GroupList(Server.createConnection());
-			break;
-		case PROYECTO:
-			new ProyectList(Server.createConnection());
-			break;
-		case TRANSACCION:
-			new TransactionList(Server.createConnection());
 			break;
 		default:
 		}
