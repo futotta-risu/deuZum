@@ -9,10 +9,10 @@ import java.util.Random;
 import java.util.Set;
 import java.util.stream.IntStream;
 
-import io.github.fatsquirrels.deuzum.Algorithms.Math.Metrics;
-import io.github.fatsquirrels.deuzum.Algorithms.Math.Pair;
-import io.github.fatsquirrels.deuzum.Algorithms.Math.Statistics;
-import io.github.fatsquirrels.deuzum.Algorithms.Math.Vectors;
+import io.github.fatsquirrels.deuzum.utils.math.Metrics;
+import io.github.fatsquirrels.deuzum.utils.math.Pair;
+import io.github.fatsquirrels.deuzum.utils.math.Statistics;
+import io.github.fatsquirrels.deuzum.utils.math.Vectors;
 
 
 /**
