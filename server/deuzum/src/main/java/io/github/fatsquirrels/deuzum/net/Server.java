@@ -23,6 +23,8 @@ public class Server implements Runnable{
 	 */
 	
 	public static boolean isRunning = false;
+	public static boolean serverLoadFailed = false;
+	
 	
 	/**
 	 * Array que contiene los bots del servidor.
@@ -83,6 +85,7 @@ public class Server implements Runnable{
 	 * Inicia el ServerSocket y activa hilos con cada conexi�n de un Socket.
 	 */
     public void start() {
+    	isRunning = true;
         try {
         	InetAddress addr = InetAddress.getByName("127.0.0.1");
 
@@ -97,6 +100,7 @@ public class Server implements Runnable{
 				new ServerSocketHandler(serverSocket.accept(), connection).start();
 	            
 		} catch (IOException e) {
+			isRunning = false;
 			System.err.println("The Server was closed");
 			//e.printStackTrace();
 		}
@@ -107,7 +111,16 @@ public class Server implements Runnable{
      * Para el servidor.
      */
     public void stop() {
-    	shutdown();  
+    	serverLoadFailed = false;
+    	isRunning = false;
+		this.connection = null;
+		this.bots.clear();
+		ServerCommands.serverCommands.clear();
+		try{
+			this.serverSocket.close();
+		}catch(IOException e) {
+			System.err.println("Se ha cerrado la conexion con uno o varios sockets");
+		} 
     }
     
     // Server Bot Functionality
@@ -144,6 +157,7 @@ public class Server implements Runnable{
 	 * Para el servidor y resetea las variables.
 	 */
 	public void shutdown() {
+		serverLoadFailed = true;
 		isRunning = false;
 		this.connection = null;
 		this.bots.clear();
@@ -167,7 +181,7 @@ public class Server implements Runnable{
 		// El servidor tiene que tener una base de datos hosteando el estado de los usuarios
 		// activos e inactivos
 		
-		isRunning = true;
+		
 	}
 	
 	/**

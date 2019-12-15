@@ -2,6 +2,7 @@ package io.github.fatsquirrels.deuzum.visual;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -16,6 +17,7 @@ import javax.swing.JPanel;
 
 import io.github.fatsquirrels.deuzum.database.tableName;
 import io.github.fatsquirrels.deuzum.net.Server;
+import io.github.fatsquirrels.deuzum.net.ServerThread;
 import io.github.fatsquirrels.deuzum.utils.math.APair;
 import io.github.fatsquirrels.deuzum.visual.Style.CustomColors;
 import io.github.fatsquirrels.deuzum.visual.components.buttons.IconizedButton;
@@ -59,9 +61,7 @@ public class ServerHandlerFrame  extends JFrame{
 					new APair<String,Boolean>("Funcionalidades",true),
 					new APair<String,Boolean>("Configuracion",true)));
 	
-	private Server server = null;
-	
-
+	private ServerThread hiloStart;
 	
 	public static Properties properties;
 	
@@ -111,8 +111,7 @@ public class ServerHandlerFrame  extends JFrame{
 		status_Bar.addLeft(new JLabel(new ImageIcon("data/img/logo.png")));
 		status_Bar.addRight(new JComponent[]{
 				new IconizedButton("symbol","play",35,40,e -> runServer()),
-				new IconizedButton("symbol","stop",35,40,e -> stopServer()),
-				new IconizedButton("symbol","pause",35,40,e -> pauseServer())
+				new IconizedButton("symbol","stop",35,40,e -> stopServer())
 			});
 
 		add(status_Bar, BorderLayout.NORTH);
@@ -260,45 +259,52 @@ public class ServerHandlerFrame  extends JFrame{
 	 * 	SERVER RUNNING FUNCTIONS
 	  ---------------- */
 	public void runServer() {
-		Thread hiloStart = new Thread() {
-			@Override
-			public void run() {
-				// Checks if the server is alredy running
-				if(Server.isRunning) 
-					return;
-				
-				server = new Server();
-				server.setDBName(ServerHandlerFrame.properties.getProperty("server.dbName"));
-				server.setBotCount(Integer.valueOf(ServerHandlerFrame.properties.getProperty("server.botCount")));
-				server.setPort(Integer.valueOf(ServerHandlerFrame.properties.getProperty("server.port")));
-				server.runServer();
-				server.start();
-				
-			}
-		};
+		 
+		int timeOut = 0;
 		
+		// Crear el hilo
+		hiloStart = new ServerThread();
 		hiloStart.start();
 		
-		panel_Home.changeServerStatus(StatusType.on);
-		loadMenuPanels();
-		createMenuPanels();
 		
-		changeButtonActivation(true);
-		revalidate();
+		while(!Server.serverLoadFailed && !Server.isRunning) {
+			try {
+				Thread.sleep(50);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}		
+			timeOut++;
+			if(timeOut>=40) break;
+		}
+		
+		if(Server.isRunning) {
+			panel_Home.changeServerStatus(StatusType.on);
+			loadMenuPanels();
+			createMenuPanels();
+			
+			changeButtonActivation(true);
+			revalidate();
+		}else if(timeOut ==40) {
+			hiloStart.interrupt();
+		}else JOptionPane.showMessageDialog(null,"Parece que ha habido algun tipo de error al ejecutar el servidor","Error al activar el Server",1);
+
+			
+		
+		
+		
+		
+
+		
 	}
 	
 	public void stopServer() {
-		server.stop();
-		
+		hiloStart.stopServer();
 		// TODO if in panel which should be disabled, move to home
 		changeButtonActivation(false);
 		panel_Home.changeServerStatus(StatusType.off);
 	}
 	
 	
-	public void pauseServer() {
-		if(server != null)  server.stop();
-		dispose();	
-	}
 	
 }

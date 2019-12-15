@@ -1,8 +1,6 @@
 package io.github.fatsquirrels.deuzum.visual.panels;
 
 import java.awt.BorderLayout;
-import java.awt.Dialog.ModalityType;
-import java.awt.FlowLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
@@ -12,12 +10,9 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import io.github.fatsquirrels.deuzum.database.CommandBuilderF;
@@ -27,16 +22,9 @@ import io.github.fatsquirrels.deuzum.database.WhereAST;
 import io.github.fatsquirrels.deuzum.database.tableName;
 import io.github.fatsquirrels.deuzum.net.Server;
 import io.github.fatsquirrels.deuzum.utils.math.APair;
-import io.github.fatsquirrels.deuzum.visual.Dialogs.Account.*;
-import io.github.fatsquirrels.deuzum.visual.Dialogs.Group.*;
-import io.github.fatsquirrels.deuzum.visual.Dialogs.Project.*;
-import io.github.fatsquirrels.deuzum.visual.Dialogs.Transactions.*;
-import io.github.fatsquirrels.deuzum.visual.Dialogs.User.*;
-import io.github.fatsquirrels.deuzum.visual.Dialogs.general.ListPanel;
 import io.github.fatsquirrels.deuzum.visual.Dialogs.general.generalCreateDialog;
 import io.github.fatsquirrels.deuzum.visual.Style.Layout.VerticalFlowLayout;
 import io.github.fatsquirrels.deuzum.visual.components.buttons.FlatButton;
-import io.github.fatsquirrels.deuzum.visual.Dialogs.general.generalCreateDialog;
 
 
 
