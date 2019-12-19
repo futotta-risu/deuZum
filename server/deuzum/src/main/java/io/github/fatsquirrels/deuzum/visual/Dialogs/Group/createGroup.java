@@ -297,6 +297,7 @@ public class createGroup extends JDialog{
 		//Si no hay ningun error lo enviamos
 		
 		if(nError==0) {
+			JLabel txtDescripcion = null;
 			//Añadir nombre del grupo a la tabla grupo
 			ServerUserFunctionality.createGroup(conn, new String[] {txtNombreGrupo.getText(), txtDescripcion.getText()});
 			
