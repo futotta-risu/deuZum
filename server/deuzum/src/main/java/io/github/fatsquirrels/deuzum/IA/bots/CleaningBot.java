@@ -15,7 +15,7 @@ public class CleaningBot extends BotBase {
 	}
 
 	@Override
-	public void stop() {
+	public void stop(long time) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -35,7 +35,7 @@ public abstract class BotBase {
 	}
 	
 	public abstract void execute();
-	public abstract void stop();
+	public abstract void stop(long tiempo);
 	public abstract void kill();
 	
 }
