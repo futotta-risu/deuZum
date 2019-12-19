@@ -114,7 +114,6 @@ public class WhereAST {
 	 * @param ariOp Operacion de los monomios
 	 */
 	public WhereAST addColumValueLO(String[] columnNames,String[] data, logicOP logiOp,ariOP ariOp ) {
-		// TODO add error case
 		if(this.root.nodeT == nodeType.LIST && this.root.children.size()>0) return this;
 		if(columnNames.length != data.length || columnNames.length==0) return this;
 		this.root.nodeT = nodeType.TOKEN;

@@ -105,7 +105,6 @@ public class generalCreateDialog extends JDialog{
 	}
 	
 	public void guardarCambios(Connection conn, tableName table,boolean isEdit, int id) {
-		// TODO lo de añadir
 		CommandBuilderF cmbf = new CommandBuilderF().setTable(table.getName());
 		
 		if(isEdit) cmbf.addWhere(new WhereAST().addValue(table.getID() + "='" + String.valueOf(id)+"'"));

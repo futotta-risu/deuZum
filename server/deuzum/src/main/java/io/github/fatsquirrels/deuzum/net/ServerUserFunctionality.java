@@ -65,7 +65,8 @@ public class ServerUserFunctionality {
 	 * @param data Array que contiene la informaciÃ³n de usuario (Nombre, Apellidos, Telefono, Email, Direccion, F_Nacimiento, Sexo).
 	 */	
 	public static void createUserInf(Connection connection, String[] data) {
-		// TODO esto deberia obtenerse pidiendoselo a la base de datos para hacerlo automatico y que el cambiar la db no afecte
+		// INFO Esta función no se llega a usar durante el codigo.
+		// TODO Repasar la utilidad de esta funcion
 		String[] columnNamesUserInf = {"id","nombre", "apellido", "telefono", "email", "direccion", "sexo"};
 		// Create UserInf
 		APair<String[],String[]> reducedInfo = getReducedArrayString(columnNamesUserInf, data);

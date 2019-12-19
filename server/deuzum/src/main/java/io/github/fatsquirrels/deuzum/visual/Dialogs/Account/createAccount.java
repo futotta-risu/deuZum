@@ -207,7 +207,7 @@ public class createAccount extends JDialog{
 					
 				}
 				
-				// TODO Añadir ventana de error
+				// TODO Deprecated : Añadir ventana de error
 	}
 	
 

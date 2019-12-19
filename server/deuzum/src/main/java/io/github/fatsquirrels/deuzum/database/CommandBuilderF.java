@@ -149,14 +149,12 @@ public class CommandBuilderF {
 	
 
 	public CommandBuilderF addColumns(String[] columns) {
-		// TODO do something on error
 		for(int i= 0; i < columns.length; i++)
 			this.columns.put(columns[i], "NULL");
 		return this;
 	}
 	
 	public CommandBuilderF addColumns(ArrayList<String> columns) {
-		// TODO do something on error
 		for(int i= 0; i < columns.size(); i++)
 			this.columns.put(columns.get(i), "NULL");
 		return this;

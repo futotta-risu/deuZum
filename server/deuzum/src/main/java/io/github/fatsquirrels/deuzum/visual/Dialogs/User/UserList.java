@@ -73,7 +73,7 @@ public class UserList extends JDialog{
 		btnFiltrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					//TODO Actualizar sql statement
+					//TODO Deprecated : Actualizar sql statement
 					
 					ResultSet resultados = GeneralSQLFunctions.getResultSetEntryFromDatabase(c, "usuario", " " + comboFiltrar.getItemAt(comboFiltrar.getSelectedIndex()) + "= '" + txtFiltrar.getText()+ "'" );
 						// retrieve and print the values for the current row

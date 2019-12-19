@@ -13,7 +13,7 @@ import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import io.github.fatsquirrels.deuzum.utils.webpageConnection;
+import io.github.fatsquirrels.deuzum.utils.WebpageConnection;
 import io.github.fatsquirrels.deuzum.visual.Style.CustomColors;
 import io.github.fatsquirrels.deuzum.visual.Style.Layout.VerticalFlowLayout;
 import io.github.fatsquirrels.deuzum.visual.components.textAreaNoWrite;
@@ -98,12 +98,12 @@ public class HomePanel extends JPanel{
 		panel_Home_Info_Botones.setBackground(Color.WHITE);
 		
 		JButton btn_FAQ = new FlatButton("Documentacion");
-		btn_FAQ.addActionListener( e -> webpageConnection.openWebpage(FAQ_URL));
+		btn_FAQ.addActionListener( e -> WebpageConnection.openWebpage(FAQ_URL));
 		
 		
 		
 		JButton btn_About_Us = new FlatButton("Sobre Nosotros");
-		btn_About_Us.addActionListener(e -> webpageConnection.openWebpage(ABOUT_US_URL));
+		btn_About_Us.addActionListener(e -> WebpageConnection.openWebpage(ABOUT_US_URL));
 		
 		panel_Home_Info_Botones.add(btn_FAQ);
 		panel_Home_Info_Botones.add(btn_About_Us);

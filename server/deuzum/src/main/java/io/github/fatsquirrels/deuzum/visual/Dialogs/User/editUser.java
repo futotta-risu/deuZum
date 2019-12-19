@@ -286,7 +286,7 @@ public class editUser extends JDialog{
 					JOptionPane.showMessageDialog(null, "Usuario actualizado con exito", "ACTUALIZADO", 1);
 				}
 				
-				// TODO Añadir ventana de error
+				// TODO Deprecated : Añadir ventana de error
 		
 	}
 }

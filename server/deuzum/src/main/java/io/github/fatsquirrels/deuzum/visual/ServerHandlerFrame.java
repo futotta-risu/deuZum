@@ -299,6 +299,7 @@ public class ServerHandlerFrame  extends JFrame{
 	}
 	
 	public void stopServer() {
+		if(hiloStart == null) return;
 		hiloStart.stopServer();
 		// TODO if in panel which should be disabled, move to home
 		changeButtonActivation(false);

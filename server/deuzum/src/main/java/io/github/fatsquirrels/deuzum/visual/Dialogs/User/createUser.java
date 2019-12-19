@@ -416,7 +416,7 @@ public class createUser extends JDialog{
 			dispose();
 		}
 		
-		// TODO Añadir ventana de error
+		// TODO Deprecated : Añadir ventana de error
 		
 	}
 	
