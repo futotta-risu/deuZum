@@ -298,7 +298,7 @@ public class createGroup extends JDialog{
 		
 		if(nError==0) {
 			//Añadir nombre del grupo a la tabla grupo
-			ServerUserFunctionality.createGroup(conn, txtNombreGrupo.getText());
+			ServerUserFunctionality.createGroup(conn, new String[] {txtNombreGrupo.getText(), txtDescripcion.getText()});
 			
 			//Buscamos el grupo creado para encontrar el id que se ha generado
 			String groupID = null;
