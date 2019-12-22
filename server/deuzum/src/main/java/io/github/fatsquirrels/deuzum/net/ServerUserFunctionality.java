@@ -179,25 +179,25 @@ public class ServerUserFunctionality {
 	 * @param userID_A
 	 * @param userID_B
 	 * @param value
-	 * @return
+	 * @return int of the error (0-correct, 1- SQL Error, 2-Not enought Money)
 	 */
 	@Tested(tested=true)
-	public static String createTransaction(Connection connection, String userID_A, String userID_B, int value) {
+	public static int createTransaction(Connection connection, String userID_A, String userID_B, int value) {
 		// TODO Hacer las comprobaciones de SQL
 		String dinero_A, dinero_B;
 		try {
-			dinero_A = GeneralSQLFunctions.getEntryFromDatabase(connection, "cuenta", "dinero", " WHERE id_usuario='"+userID_A+"'");
-			dinero_B = GeneralSQLFunctions.getEntryFromDatabase(connection, "cuenta", "dinero", " WHERE id_usuario='"+userID_B+"'");
+			dinero_A = GeneralSQLFunctions.getEntryFromDatabase(connection, "cuenta", "dinero", " numero_cuenta='"+userID_A+"'");
+			dinero_B = GeneralSQLFunctions.getEntryFromDatabase(connection, "cuenta", "dinero", " numero_cuenta='"+userID_B+"'");
 			
 			if(Integer.valueOf(dinero_A)<value) 
-				return "No hay dinero suficinete como para realizar la transacciï¿½n";
+				return 2;
 			
 			int actdinero_A = Integer.valueOf(dinero_A)-value;
-			WhereAST whereA = new WhereAST().addValue("id_usuario='"+userID_A+"'");
+			WhereAST whereA = new WhereAST().addValue("numero_cuenta='"+userID_A+"'");
 			GeneralSQLFunctions.updateEntryFromDatabase(connection, "cuenta", 
 					new String[] {"dinero"}, new String[] {"'"+Integer.toString(actdinero_A)+"'"},whereA);
 			int actdinero_B = Integer.valueOf(dinero_B)+value;
-			WhereAST whereB = new WhereAST().addValue("id_usuario='"+userID_B+"'");
+			WhereAST whereB = new WhereAST().addValue("numero_cuenta='"+userID_B+"'");
 			GeneralSQLFunctions.updateEntryFromDatabase(connection, "cuenta", 
 					new String[] {"dinero"}, new String[] {"'"+Integer.toString(actdinero_B)+"'"},whereB);
 			String[] columns = {"source","destino","dinero"};
@@ -206,9 +206,61 @@ public class ServerUserFunctionality {
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
-			return "Fallo en el SQL";
+			return 1;
 		}
-		return "Operacion realizada con exito";
+		return 0;
+	}
+	
+	/**
+	 * Comprueba si el usuario podría realizar la transacción
+	 * @param userID_A
+	 * @param userID_B
+	 * @param value
+	 * @return Codigo de error.
+	 */
+	public static int checkTransaction(Connection connection, String userID_A, String userID_B, int value) {
+		String dinero_A;
+		try {
+			dinero_A = GeneralSQLFunctions.getEntryFromDatabase(connection, "cuenta", "dinero", " numero_cuenta='"+userID_A+"'");
+			if(Integer.valueOf(dinero_A)<value) 
+				return 2;
+		} catch (SQLException e) {
+			System.err.println("Error A");
+			e.printStackTrace();
+			return 1;
+		}
+		return 0;
+	}
+	
+	/**
+	 * Aplica la transacción sobre sus cuentas. No crea un registro.
+	 * @param connection
+	 * @param userID_A
+	 * @param userID_B
+	 * @param value
+	 * @return Codigo de error.
+	 */
+	public static int applyTransacction(Connection connection, String userID_A, String userID_B, int value) {
+		String dinero_A, dinero_B;
+		try {
+			dinero_A = GeneralSQLFunctions.getEntryFromDatabase(connection, "cuenta", "dinero", " numero_cuenta='"+userID_A+"'");
+			dinero_B = GeneralSQLFunctions.getEntryFromDatabase(connection, "cuenta", "dinero", " numero_cuenta='"+userID_B+"'");
+			
+			int actdinero_A = Integer.valueOf(dinero_A)-value;
+			WhereAST whereA = new WhereAST().addValue("numero_cuenta='"+userID_A+"'");
+			GeneralSQLFunctions.updateEntryFromDatabase(connection, "cuenta", 
+					new String[] {"dinero"}, new String[] {Integer.toString(actdinero_A)},whereA);
+			int actdinero_B = Integer.valueOf(dinero_B)+value;
+			WhereAST whereB = new WhereAST().addValue("numero_cuenta='"+userID_B+"'");
+			GeneralSQLFunctions.updateEntryFromDatabase(connection, "cuenta", 
+					new String[] {"dinero"}, new String[] {Integer.toString(actdinero_B)},whereB);
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+			return 1;
+		}
+		return 0;
 	}
 	
 	public static void deleteUser(Connection connection, String userID) {

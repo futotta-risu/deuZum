@@ -50,7 +50,7 @@ public class MenuPanel extends JPanel{
 		table = crearTabla(type);
 		
 		leftList.setViewportView(table);
-		table.getSelectionModel().addListSelectionListener(e-> setButtonAble(true));
+		
 		
 		add(leftList, BorderLayout.CENTER);
 		
@@ -84,6 +84,7 @@ public class MenuPanel extends JPanel{
 		refresh.addActionListener(e-> refreshTable(panelType));
 		rightMenu.add(refresh);
 		add(rightMenu, BorderLayout.EAST);
+		table.getSelectionModel().addListSelectionListener(e-> setButtonAble(true));
 		setButtonAble(false);
 	}
 	
