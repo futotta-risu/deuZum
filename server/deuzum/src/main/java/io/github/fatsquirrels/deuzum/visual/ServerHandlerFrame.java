@@ -171,7 +171,7 @@ public class ServerHandlerFrame  extends JFrame{
 		
 		
 		createMenuPanels();
-		
+		switchPanel(panel_Home);
 	}
 
 	/**

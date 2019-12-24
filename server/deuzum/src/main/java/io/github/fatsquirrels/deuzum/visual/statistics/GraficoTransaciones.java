@@ -75,9 +75,9 @@ public class GraficoTransaciones extends JFrame {
 		
 	}
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		GraficoTransaciones gt = new GraficoTransaciones(new int[] {1,1,1,1,2,2,2,3,3,4});
 		gt.setVisible(true);
-	}
+	}-*/
 	
 }
