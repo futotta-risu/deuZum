@@ -11,6 +11,9 @@ public class CustomColors {
 	
 	public static Color mBGreyL = new Color(244,244,244);
 	
+	public static Color mBRedLight = new Color(255,114,114);
+	public static Color mBGreenLight = new Color(122,255,162);
+	
 	
 	public static Color mBOrangeL = new Color(255,239,217);
 	public static Color mBBlueGrayL = new Color(244,247,248);

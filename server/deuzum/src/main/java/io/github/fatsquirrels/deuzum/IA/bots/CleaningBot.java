@@ -19,7 +19,7 @@ public class CleaningBot extends BotBase{
 	
 	public CleaningBot(String name, Connection conn) {
 		this.name = name;
-		this.conn = conn;
+		this.conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost:3306/deuzumdb", "root", "");
 	}
 	
 	@Override

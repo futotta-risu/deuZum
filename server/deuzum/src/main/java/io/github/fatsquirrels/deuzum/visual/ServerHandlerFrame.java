@@ -93,7 +93,7 @@ public class ServerHandlerFrame  extends JFrame{
 		// Icono de la Aplicacion
 		setIconImage(new ImageIcon("data/img/iconoP.png").getImage());
 		
-		setSize(new Dimension(900, 500));
+		setSize(new Dimension(1280, 720));
 		setMinimumSize(new Dimension(600, 400));
 		setVisible(true);
 		setTitle("DeuZum Servidor");

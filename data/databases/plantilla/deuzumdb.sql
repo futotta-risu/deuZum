@@ -27,7 +27,8 @@ SET time_zone = "+00:00";
 --
 -- Estructura de tabla para la tabla `clientecategoria`
 --
-
+-- create database deuzumdb;
+-- use deuzumdb;
 CREATE TABLE `clientecategoria` (
   `nombre` varchar(15) NOT NULL,
   `descripcion` text NOT NULL
@@ -46,7 +47,10 @@ CREATE TABLE `cuenta` (
   `tipo_cuenta` varchar(15) NOT NULL,
   `descripcion` text DEFAULT NULL,
   `estado` int(11) NOT NULL,
-  `categoria` varchar(20) DEFAULT NULL
+  `categoria` varchar(20) DEFAULT NULL,
+  CHECK (numero_cuenta BETWEEN 0 and 99999999999),
+  CHECK (id_usuario BETWEEN 0 and 99999999999),
+  CHECK (estado BETWEEN 0 and 99999999999)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -69,7 +73,8 @@ CREATE TABLE `cuentacategoria` (
 CREATE TABLE `grupo` (
   `id` int(10) NOT NULL,
   `nombre` varchar(15) CHARACTER SET latin1 NOT NULL,
-  `descripcion` text DEFAULT NULL
+  `descripcion` text DEFAULT NULL,
+  CHECK (id BETWEEN 0 and 9999999999) 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -82,7 +87,10 @@ CREATE TABLE `grupomiembro` (
   `id` int(10) NOT NULL,
   `id_grupo` int(10) NOT NULL,
   `id_miembro` int(10) NOT NULL,
-  `permisos` int(10) NOT NULL
+  `permisos` int(10) NOT NULL,
+  CHECK (id BETWEEN 0 and 9999999999), 
+  CHECK (id_grupo BETWEEN 0 and 9999999999), 
+  CHECK (id_miembro BETWEEN 0 and 9999999999)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -94,7 +102,9 @@ CREATE TABLE `grupomiembro` (
 CREATE TABLE `grupopermiso` (
   `id` int(10) NOT NULL,
   `nombre` varchar(15) NOT NULL,
-  `poder` int(10) NOT NULL
+  `poder` int(10) NOT NULL,
+  CHECK (id BETWEEN 0 and 9999999999), 
+  CHECK (poder BETWEEN 0 and 9999999999)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -119,7 +129,8 @@ CREATE TABLE `infousuario` (
   `email` varchar(40) NOT NULL,
   `direccion` varchar(50) NOT NULL,
   `fecha_nacimiento` date NOT NULL DEFAULT current_timestamp(),
-  `sexo` enum('F','M','O') NOT NULL
+  `sexo` enum('F','M','O') NOT NULL DEFAULT 'O',
+  CHECK (id BETWEEN 0 and 9999999999)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -131,7 +142,8 @@ CREATE TABLE `infousuario` (
 CREATE TABLE `permisos` (
   `id` int(10) NOT NULL,
   `nombre` varchar(15) NOT NULL,
-  `poder` int(10) NOT NULL
+  `poder` int(10) NOT NULL,
+  CHECK (id BETWEEN 0 and 9999999999)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -151,7 +163,8 @@ INSERT INTO `permisos` (`id`, `nombre`, `poder`) VALUES
 
 CREATE TABLE `pregseguridad` (
   `id` int(10) NOT NULL,
-  `pregunta` text NOT NULL
+  `pregunta` text NOT NULL,
+  CHECK (id BETWEEN 0 and 9999999999)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -176,7 +189,10 @@ CREATE TABLE `proyecto` (
   `id_grupo` int(10) NOT NULL,
   `nombre` varchar(15) NOT NULL,
   `descripcion` text NOT NULL,
-  `deuda` int(11) DEFAULT NULL
+  `deuda` int(11) DEFAULT NULL,
+  CHECK (id BETWEEN 0 and 9999999999),
+  CHECK (id_grupo BETWEEN 0 and 9999999999), 
+  CHECK (id_deuda BETWEEN 0 and 99999999999)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -188,7 +204,10 @@ CREATE TABLE `proyecto` (
 CREATE TABLE `proyectomiembro` (
   `id` int(11) NOT NULL,
   `id_proyecto` int(11) NOT NULL,
-  `id_miembro` int(11) NOT NULL
+  `id_miembro` int(11) NOT NULL,
+  CHECK (id BETWEEN 0 and 99999999999), 
+  CHECK (id_proyecto BETWEEN 0 and 99999999999), 
+  CHECK (id_usuario BETWEEN 0 and 99999999999)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -204,7 +223,12 @@ CREATE TABLE `proyectotransaccion` (
   `tipo` tinyint(1) NOT NULL,
   `cantidad` int(11) NOT NULL,
   `razon` text NOT NULL,
-  `fecha` date NOT NULL DEFAULT current_timestamp()
+  `fecha` date NOT NULL DEFAULT current_timestamp(),
+  CHECK (id BETWEEN 0 and 99999999999),
+  CHECK (id_proyecto BETWEEN 0 and 99999999999),
+  CHECK (id_miembro BETWEEN 0 and 99999999999), 
+  CHECK (tipo BETWEEN 0 and 9), 
+  CHECK (cantidad BETWEEN 0 and 99999999999)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -216,7 +240,8 @@ CREATE TABLE `proyectotransaccion` (
 CREATE TABLE `sessionhandler` (
   `user_id` int(10) NOT NULL,
   `ip` varchar(15) CHARACTER SET utf8mb4 NOT NULL,
-  `hash` varchar(20) CHARACTER SET utf8mb4 NOT NULL
+  `hash` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
+  CHECK (user_id BETWEEN 0 and 9999999999)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -230,7 +255,11 @@ CREATE TABLE `transaccion` (
   `source` int(10) NOT NULL,
   `destino` int(10) NOT NULL,
   `dinero` int(10) NOT NULL,
-  `fecha` date NOT NULL DEFAULT current_timestamp()
+  `fecha` date NOT NULL DEFAULT current_timestamp(),
+  CHECK (codigo BETWEEN 0 and 9999999999), 
+  CHECK (source BETWEEN 0 and 9999999999), 
+  CHECK (destino BETWEEN 0 and 9999999999), 
+  CHECK (dinero BETWEEN 0 and 9999999999)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -247,7 +276,10 @@ CREATE TABLE `usuario` (
   `preg_seguridad` int(11) NOT NULL,
   `resp_seguridad` varchar(32) NOT NULL,
   `permisos` int(10) DEFAULT NULL,
-  `categoria` varchar(15) DEFAULT NULL
+  `categoria` varchar(15) DEFAULT NULL,
+  CHECK (id BETWEEN 0 and 99999999999), 
+  CHECK (preg_seguridad BETWEEN 0 and 99999999999), 
+  CHECK (permisos BETWEEN 0 and 99999999999)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -506,3 +538,4 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+ 

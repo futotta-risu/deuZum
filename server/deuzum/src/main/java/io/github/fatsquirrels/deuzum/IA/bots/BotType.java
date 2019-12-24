@@ -1,7 +1,8 @@
 package io.github.fatsquirrels.deuzum.IA.bots;
 
 public enum BotType {
-	CleaningBot(new CleaningBot());
+	CleaningBot(new CleaningBot()),
+	MailBot(new MailBot());
 	
 	private final BotBase botClass;
 	

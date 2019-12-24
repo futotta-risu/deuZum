@@ -20,6 +20,10 @@ public class MailBot extends BotBase{
 	private static String puertoEnvio = "465";
 	
 	
+	public MailBot() {
+	}
+	
+
 	//Utilizo un APair usando los asuntos de los mensajes como claves para obtener los mensajes
 	public MailBot(String name, APair<String, String> mensaje, List<String> destinatarios){
 		this.name = name;
@@ -34,10 +38,7 @@ public class MailBot extends BotBase{
 
 			public void run() {
 				for (String mail : destinatarios) {
-					for (int i = 0; i < 10; i++) {
-						enviaEmail(mail);
-					}
-					
+						enviaEmail(mail);		
 				}				
 			}
 		});
