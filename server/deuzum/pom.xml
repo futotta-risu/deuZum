@@ -54,6 +54,19 @@
 	    <artifactId>mysql-connector-java</artifactId>
 	    <version>8.0.18</version>
 	</dependency>
+	<!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
+	<dependency>
+    <groupId>javax.mail</groupId>
+    <artifactId>javax.mail-api</artifactId>
+    <version>1.6.0</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.jfree/jfreechart -->
+	<dependency>
+    <groupId>org.jfree</groupId>
+    <artifactId>jfreechart</artifactId>
+    <version>1.5.0</version>
+	</dependency>
+	
   </dependencies>
   
   <reporting>
