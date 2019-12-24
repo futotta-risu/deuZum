@@ -17,7 +17,7 @@ public class CleaningBot extends BotBase{
 
 	public CleaningBot() {}
 	
-	public CleaningBot(String name, Connection conn) {
+	public CleaningBot(String name) {
 		this.name = name;
 		this.conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost:3306/deuzumdb", "root", "");
 	}
@@ -31,7 +31,9 @@ public class CleaningBot extends BotBase{
 				ResultSet rs= null;
 				ResultSet rsTransacciones = null;
 				try {
-					rs = GeneralSQLFunctions.getExecQuery(conn, "SELECT * FROM usuario WHERE fecha_creacion < '2019-12-18 00:00:00'");
+					//TODO CAMBIAR ESTO
+					rs = GeneralSQLFunctions.getExecQuery(conn, "SELECT * FROM usuario");
+					
 					
 					while(rs.next()) {
 						String id = rs.getString("id");
@@ -40,7 +42,7 @@ public class CleaningBot extends BotBase{
 						int cantidad = rsTransacciones.getInt(1);
 						if(cantidad == 0) {
 							GeneralSQLFunctions.execUpdate(conn, "DELETE FROM usuario WHERE id='" + id + "'");
-							JOptionPane.showMessageDialog(null, "El usuario se ha eliminado correctamente");
+							JOptionPane.showMessageDialog(null, "El usuario " + id +" se ha eliminado correctamente");
 						}
 						}
 					}
@@ -67,10 +69,12 @@ public class CleaningBot extends BotBase{
 		hiloLimpieza.interrupt();
 	}
 	
+	/*
 	public static void main(String[] args) {
 		CleaningBot cb = new CleaningBot("CleaningBot1", GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost:3306/deuzumdb", "root", ""));
 		cb.execute();
 	}
+	*/
 
 	
 

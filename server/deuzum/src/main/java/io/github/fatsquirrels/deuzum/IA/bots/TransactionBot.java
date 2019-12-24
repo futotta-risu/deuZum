@@ -46,12 +46,13 @@ public class TransactionBot extends BotBase{
 						counter++;
 					}
 					for (int i = 0; i < cantidad; i++) {
+						int tempId = getLastId();
 						Random r = new Random(i);
 						String randomId1 = arrIds[r.nextInt(users)];
 						String randomId2 = arrIds[r.nextInt(users)];
-						String cantidad = Integer.toString(r.nextInt(9999));
-					GeneralSQLFunctions.insertEntryIntoDatabase(conn, "transaccion", new String[] {"source", "destino","dinero"},
-					new String[] {randomId1,randomId2, cantidad});
+						String cantidad = Integer.toString(r.nextInt(50));
+					GeneralSQLFunctions.insertEntryIntoDatabase(conn, "transaccion", new String[] {"codigo","source", "destino","dinero"},
+					new String[] {tempId+"",randomId1,randomId2, cantidad});
 					}
 						
 				} catch (SQLException e) {
@@ -74,6 +75,21 @@ public class TransactionBot extends BotBase{
 	@Override
 	public void kill() {
 		hiloTransactions.interrupt();
+	}
+	
+	public int getLastId() {
+		int result = 0;
+		try {
+			ResultSet rs = GeneralSQLFunctions.getExecQuery(conn, "SELECT codigo FROM transaccion ORDER BY codigo DESC");
+			if(rs.next()) {
+				result = Integer.parseInt(rs.getString("codigo"));
+				rs.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	
+		result = result +1;
+		return result;
 	}
 	
 	/*public static void main(String[] args) {

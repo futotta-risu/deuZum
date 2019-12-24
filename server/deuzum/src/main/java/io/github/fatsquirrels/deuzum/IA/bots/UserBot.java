@@ -71,7 +71,7 @@ public class UserBot extends BotBase{
 			e.printStackTrace();
 		}	
 		result = result +1;
-		return result +1;
+		return result;
 	}
 	
 	/*

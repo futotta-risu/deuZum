@@ -5,13 +5,23 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigInteger;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
+import io.github.fatsquirrels.deuzum.utils.math.APair;
 import io.github.fatsquirrels.deuzum.visual.components.buttons.FlatButton;
+import io.github.fatsquirrels.deuzum.visual.statistics.GraficoTransaciones;
+import io.github.fatsquirrels.deuzum.visual.statistics.GraficoTransacionesUsuario;
 
 public class FunctionalityPanel extends JTabbedPane {
 	
@@ -21,10 +31,69 @@ public class FunctionalityPanel extends JTabbedPane {
 	private static final long serialVersionUID = 4541688928942198726L;
 
 	public FunctionalityPanel() {
+		
+		JPanel panel_Funct_Visual = new JPanel();
+		addTab("Visualizacion de datos", null, panel_Funct_Visual, null);
+		
+		
+		
+		//		BOTONES FUNCIONALIDADES
+		
+		FlatButton btnVisualizarGraficoTransaciones = new FlatButton("Visualizar Grafico de Transaciones");
+		panel_Funct_Visual.add(btnVisualizarGraficoTransaciones);
+		
+		FlatButton btnVisualizarGraficoUsuario = new FlatButton("Visualizar Grafico de cantidades transferidas por usuario");
+		panel_Funct_Visual.add(btnVisualizarGraficoUsuario);
 		JPanel panel_Funct_Database = new JPanel();
 		addTab("Base de Datos", null, panel_Funct_Database, null);
 		
-		//		BOTONES FUNCIONALIDADES
+		
+		btnVisualizarGraficoUsuario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost:3306/deuzumdb", "root", "");
+				ArrayList<APair<Integer, Integer>> lista = new ArrayList<APair<Integer, Integer>>();
+				try {
+					ResultSet rs = GeneralSQLFunctions.getExecQuery(conn, "SELECT id FROM usuario ORDER BY id ASC");
+					while(rs.next()) {
+						int id = Integer.parseInt(rs.getString("id"));
+						ResultSet rs2 = GeneralSQLFunctions.getExecQuery(conn, "SELECT dinero FROM transaccion WHERE source = "+ id);
+						int cantidad = 0;
+						while(rs2.next()) {
+							System.out.println(rs2.getString("dinero"));
+							if(!rs2.getString("dinero").equals(null)) {
+								cantidad = cantidad + Integer.parseInt(rs2.getString("dinero"));	
+							}else {
+								cantidad = 0;
+							}
+							
+						}	
+						rs2.close();
+						lista.add(new APair<Integer,Integer>(id, cantidad));
+					}
+					rs.close();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+				new GraficoTransacionesUsuario(lista);
+			}
+		});
+		
+		btnVisualizarGraficoTransaciones.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost:3306/deuzumdb", "root", "");
+				List<Integer> cantidades = new ArrayList<Integer>();
+				try {
+					ResultSet rs = GeneralSQLFunctions.getExecQuery(conn, "SELECT dinero FROM transaccion ORDER BY dinero ASC");
+					while(rs.next()) {
+						cantidades.add(Integer.parseInt(rs.getString("dinero")));	
+					}
+					rs.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+				new GraficoTransaciones(cantidades);
+			}
+		});
 		
 		JButton btnRellenarBd = new FlatButton("Rellenar BD");
 		panel_Funct_Database.add(btnRellenarBd);

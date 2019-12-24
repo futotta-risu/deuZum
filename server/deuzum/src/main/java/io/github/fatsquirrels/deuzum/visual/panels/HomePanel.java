@@ -9,6 +9,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -28,6 +29,8 @@ import io.github.fatsquirrels.deuzum.IA.bots.BotGenerator;
 import io.github.fatsquirrels.deuzum.IA.bots.BotType;
 import io.github.fatsquirrels.deuzum.IA.bots.CleaningBot;
 import io.github.fatsquirrels.deuzum.IA.bots.MailBot;
+import io.github.fatsquirrels.deuzum.IA.bots.TransactionBot;
+import io.github.fatsquirrels.deuzum.IA.bots.UserBot;
 import io.github.fatsquirrels.deuzum.utils.WebpageConnection;
 import io.github.fatsquirrels.deuzum.utils.math.APair;
 import io.github.fatsquirrels.deuzum.visual.Style.CustomColors;
@@ -37,7 +40,6 @@ import io.github.fatsquirrels.deuzum.visual.components.buttons.ActivatedButton;
 import io.github.fatsquirrels.deuzum.visual.components.buttons.FlatButton;
 import io.github.fatsquirrels.deuzum.visual.components.buttons.IconizedButton;
 import net.miginfocom.swing.MigLayout;
-import javax.swing.JToggleButton;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
@@ -66,6 +68,11 @@ public class HomePanel extends JPanel{
 	private IconizedButton deleteMailIcon;
 	private IconizedButton deleteUserIcon;
 	private IconizedButton deleteTransactionIcon;
+	
+	private IconizedButton pauseCleaningIcon;
+	private IconizedButton pauseMailIcon;
+	private IconizedButton pauseUserIcon;
+	private IconizedButton pauseTransactionIcon;
 	
 	private ArrayList<BotBase> cleaningBots;
 	private ArrayList<BotBase> mailBots;
@@ -184,11 +191,11 @@ public class HomePanel extends JPanel{
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.LEFT);
 		panel_Lateral_Info.add(lblNewLabel_1);
 		
-		JPanel panel_Home_Lateral_Help = new JPanel();
-		panel_Home_Lateral.add(panel_Home_Lateral_Help);
-		panel_Home_Lateral_Help.setPreferredSize(new Dimension(200,500));
-		panel_Home_Lateral_Help.setBackground(CustomColors.mBBlueGrayL);
-		panel_Home_Lateral_Help.setLayout(null);
+		JPanel panel_Home_Lateral_Bots = new JPanel();
+		panel_Home_Lateral.add(panel_Home_Lateral_Bots);
+		panel_Home_Lateral_Bots.setPreferredSize(new Dimension(200,500));
+		panel_Home_Lateral_Bots.setBackground(CustomColors.mBBlueGrayL);
+		panel_Home_Lateral_Bots.setLayout(null);
 		
 		
 		
@@ -205,73 +212,93 @@ public class HomePanel extends JPanel{
 		///////////////////		CLEANING	//////////////////////
 		cleaningBotIcon = new IconizedButton("symbol","robot",35,40,e -> addCleaningBot());
 		cleaningBotIcon.setBounds(30, 42, 59, 47);
-		panel_Home_Lateral_Help.add(cleaningBotIcon);
+		panel_Home_Lateral_Bots.add(cleaningBotIcon);
 		cleaningBotIcon.setVisible(false);
 			
 		deleteCleaningIcon = new IconizedButton("symbol","borrar",35,40,e -> deleteCleaningBot());
-		deleteCleaningIcon.setBounds(99, 51, 72, 29);
-		panel_Home_Lateral_Help.add(deleteCleaningIcon);
+		deleteCleaningIcon.setBounds(77, 51, 72, 29);
+		panel_Home_Lateral_Bots.add(deleteCleaningIcon);
 		deleteCleaningIcon.setVisible(false);
-				
+		
+		pauseCleaningIcon = new IconizedButton("symbol","pauseBot",35,40,e -> pauseCleaningBot());
+		pauseCleaningIcon.setBounds(141, 46, 65, 38);
+		panel_Home_Lateral_Bots.add(pauseCleaningIcon);
+		pauseCleaningIcon.setVisible(false);
+					
 		lblNumBotsLimpieza = new JLabel("0");
 		lblNumBotsLimpieza.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNumBotsLimpieza.setBounds(202, 51, 41, 29);
-		panel_Home_Lateral_Help.add(lblNumBotsLimpieza);
+		lblNumBotsLimpieza.setBounds(202, 51, 41, 40);
+		panel_Home_Lateral_Bots.add(lblNumBotsLimpieza);
 		lblNumBotsLimpieza.setVisible(false);
 		
 		
 		///////////////////		MAIL	//////////////////////////
 		mailBotIcon = new IconizedButton("symbol","bot",35,40,e -> addMailBot());
 		mailBotIcon.setBounds(30, 120, 59, 47);
-		panel_Home_Lateral_Help.add(mailBotIcon);
+		panel_Home_Lateral_Bots.add(mailBotIcon);
 		mailBotIcon.setVisible(false);
 		
 		deleteMailIcon = new IconizedButton("symbol","borrar",35,40,e -> deleteMailBot());
-		deleteMailIcon.setBounds(99, 136, 72, 29);
-		panel_Home_Lateral_Help.add(deleteMailIcon);
+		deleteMailIcon.setBounds(77, 129, 72, 29);
+		panel_Home_Lateral_Bots.add(deleteMailIcon);
 		deleteMailIcon.setVisible(false);
 		deleteMailIcon.setVisible(false);
 		
+		pauseMailIcon = new IconizedButton("symbol","pauseBot",35,40,e -> pauseMailBot());
+		pauseMailIcon.setBounds(141, 124, 65, 38);
+		panel_Home_Lateral_Bots.add(pauseMailIcon);
+		pauseMailIcon.setVisible(false);
+		
 		lblNumBotsMail = new JLabel("0");
 		lblNumBotsMail.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNumBotsMail.setBounds(202, 136, 41, 22);
-		panel_Home_Lateral_Help.add(lblNumBotsMail);
+		lblNumBotsMail.setBounds(202, 129, 41, 29);
+		panel_Home_Lateral_Bots.add(lblNumBotsMail);
 		lblNumBotsMail.setVisible(false);
 		
 		
 		/////////////////// 	USER	////////////////////////////
 		userBotIcon = new IconizedButton("symbol","cyborg",35,40,e -> addUserBot());
-		userBotIcon.setBounds(30, 202, 59, 47);
-		panel_Home_Lateral_Help.add(userBotIcon);
+		userBotIcon.setBounds(30, 198, 59, 47);
+		panel_Home_Lateral_Bots.add(userBotIcon);
 		userBotIcon.setVisible(false);
 		
 		deleteUserIcon = new IconizedButton("symbol","borrar",35,40,e -> deleteUserBot());
-		deleteUserIcon.setBounds(99, 220, 72, 29);
-		panel_Home_Lateral_Help.add(deleteUserIcon);
+		deleteUserIcon.setBounds(77, 207, 72, 29);
+		panel_Home_Lateral_Bots.add(deleteUserIcon);
 		deleteUserIcon.setVisible(false);
+		
+		pauseUserIcon = new IconizedButton("symbol","pauseBot",35,40,e -> pauseUserBot());
+		pauseUserIcon.setBounds(141, 202, 65, 38);
+		panel_Home_Lateral_Bots.add(pauseUserIcon);
+		pauseUserIcon.setVisible(false);
 				
 		lblNumBotsUsuario = new JLabel("0");
 		lblNumBotsUsuario.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNumBotsUsuario.setBounds(202, 220, 41, 29);
-		panel_Home_Lateral_Help.add(lblNumBotsUsuario);
+		lblNumBotsUsuario.setBounds(202, 207, 41, 29);
+		panel_Home_Lateral_Bots.add(lblNumBotsUsuario);
 		lblNumBotsUsuario.setVisible(false);
 		
 		
 		///////////////////		TRANSACTION		/////////////////////
 		transactionBotIcon = new IconizedButton("symbol","moneyBot",35,40,e -> addTransactionBot());
-		transactionBotIcon.setBounds(30, 287, 59, 47);
-		panel_Home_Lateral_Help.add(transactionBotIcon);
+		transactionBotIcon.setBounds(30, 276, 59, 47);
+		panel_Home_Lateral_Bots.add(transactionBotIcon);
 		transactionBotIcon.setVisible(false);
 		
 		deleteTransactionIcon = new IconizedButton("symbol","borrar",35,40,e -> deleteTransactionBot());
-		deleteTransactionIcon.setBounds(99, 305, 72, 29);
-		panel_Home_Lateral_Help.add(deleteTransactionIcon);
+		deleteTransactionIcon.setBounds(77, 285, 72, 29);
+		panel_Home_Lateral_Bots.add(deleteTransactionIcon);
 		deleteTransactionIcon.setVisible(false);
+		
+		pauseTransactionIcon = new IconizedButton("symbol","pauseBot",35,40,e -> pauseTransactionBot());
+		pauseTransactionIcon.setBounds(141, 280, 65, 38);
+		panel_Home_Lateral_Bots.add(pauseTransactionIcon);
+		pauseTransactionIcon.setVisible(false);
 			
 		lblNumBotsTransacion = new JLabel("0");
 		lblNumBotsTransacion.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNumBotsTransacion.setBounds(202, 305, 41, 27);
-		panel_Home_Lateral_Help.add(lblNumBotsTransacion);
+		lblNumBotsTransacion.setBounds(202, 285, 41, 27);
+		panel_Home_Lateral_Bots.add(lblNumBotsTransacion);
 		lblNumBotsTransacion.setVisible(false);
 		
 		
@@ -284,8 +311,8 @@ public class HomePanel extends JPanel{
 			}
 		});
 		actButtonCleaning.setSize(223, 29);
-		actButtonCleaning.setLocation(20, 11);
-		panel_Home_Lateral_Help.add(actButtonCleaning);
+		actButtonCleaning.setLocation(20, 10);
+		panel_Home_Lateral_Bots.add(actButtonCleaning);
 		actButtonCleaning.setVisible(false);
 		
 		
@@ -296,8 +323,8 @@ public class HomePanel extends JPanel{
 			}
 		});
 		actButtonMail.setSize(223, 29);
-		actButtonMail.setLocation(20, 91);
-		panel_Home_Lateral_Help.add(actButtonMail);
+		actButtonMail.setLocation(20, 90);
+		panel_Home_Lateral_Bots.add(actButtonMail);
 		actButtonMail.setVisible(false);
 		
 		
@@ -308,8 +335,8 @@ public class HomePanel extends JPanel{
 			}
 		});
 		actButtonUsuario.setSize(223, 29);
-		actButtonUsuario.setLocation(20, 174);
-		panel_Home_Lateral_Help.add(actButtonUsuario);
+		actButtonUsuario.setLocation(20, 170);
+		panel_Home_Lateral_Bots.add(actButtonUsuario);
 		actButtonUsuario.setVisible(false);
 		
 		
@@ -320,8 +347,8 @@ public class HomePanel extends JPanel{
 			}
 		});
 		actButtonTransacion.setSize(223, 29);
-		actButtonTransacion.setLocation(20, 260);
-		panel_Home_Lateral_Help.add(actButtonTransacion);
+		actButtonTransacion.setLocation(20, 250);
+		panel_Home_Lateral_Bots.add(actButtonTransacion);
 		actButtonTransacion.setVisible(false);
 		
 		
@@ -344,16 +371,98 @@ public class HomePanel extends JPanel{
 		
 	}
 	
-	private void deleteTransactionBot() {
-		// TODO Auto-generated method stub
-		lblNumBotsTransacion.setText(0+"");
+	private void pauseTransactionBot() {
+		Thread hiloPauseTransaction = new Thread(new Runnable() {
 
+			public void run() {
+				if(transactionBots.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "No hay ningun bot de Transacion en ejecucion","ERROR" , 1);
+				}else {
+					int tiempo = Integer.parseInt(JOptionPane.showInputDialog("Introduce el tiempo de pausa:"));
+					for (BotBase botBase : transactionBots) {
+						botBase.stop(tiempo*1000);;
+					}	
+				}
+			}
+		});
+		hiloPauseTransaction.run();
+	}
+
+	private void pauseUserBot() {
+		Thread hiloPauseUser = new Thread(new Runnable() {
+
+			public void run() {
+				if(userBots.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "No hay ningun bot de Usuario en ejecucion","ERROR" , 1);
+				}else {
+					int tiempo = Integer.parseInt(JOptionPane.showInputDialog("Introduce el tiempo de pausa:"));
+					for (BotBase botBase : userBots) {
+						botBase.stop(tiempo*1000);;
+					}	
+				}
+			}
+		});
+		hiloPauseUser.run();	
+	}
+
+	private void pauseMailBot() {
+		Thread hiloPauseMail = new Thread(new Runnable() {
+
+			public void run() {
+				if(mailBots.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "No hay ningun bot de Mail en ejecucion","ERROR" , 1);
+				}else {
+					int tiempo = Integer.parseInt(JOptionPane.showInputDialog("Introduce el tiempo de pausa:"));
+					for (BotBase botBase : mailBots) {
+						botBase.stop(tiempo*1000);;
+					}
+				}
+			}
+		});
+		hiloPauseMail.run();	}
+
+	private void pauseCleaningBot() {
+		Thread hiloPauseCleaning = new Thread(new Runnable() {
+
+			public void run() {
+				if(cleaningBots.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "No hay ningun bot de Limpieza en ejecucion","ERROR" , 1);
+				}else {
+					int tiempo = Integer.parseInt(JOptionPane.showInputDialog("Introduce el tiempo de pausa:"));
+					for (BotBase botBase : cleaningBots) {
+						botBase.stop(tiempo*1000);;
+					}	
+				}
+			}
+		});
+		hiloPauseCleaning.run();	}
+
+	private void deleteTransactionBot() {
+		Thread hiloBorrarTransacion = new Thread(new Runnable() {
+			public void run() {
+				for (BotBase botBase : transactionBots) {
+					botBase.kill();
+					transactionBots.remove(botBase);
+				}
+				lblNumBotsTransacion.setText(0+"");				
+			}
+		});
+		hiloBorrarTransacion.run();
+		
 	}
 
 	private void deleteUserBot() {
-		// TODO Auto-generated method stub
-		lblNumBotsUsuario.setText(0+"");
-
+		Thread hiloBorrarUser = new Thread(new Runnable() {
+			public void run() {
+				for (BotBase botBase : userBots) {
+					botBase.kill();
+					userBots.remove(botBase);
+				}
+				lblNumBotsUsuario.setText(0+"");				
+			}
+		});
+		hiloBorrarUser.run();
+		
 	}
 
 	private void deleteMailBot() {
@@ -361,6 +470,7 @@ public class HomePanel extends JPanel{
 			public void run() {
 				for (BotBase botBase : mailBots) {
 					botBase.kill();
+					mailBots.remove(botBase);
 				}
 				lblNumBotsMail.setText(0+"");				
 			}
@@ -377,6 +487,7 @@ public class HomePanel extends JPanel{
 			public void run() {
 				for (BotBase botBase : cleaningBots) {
 					botBase.kill();
+					cleaningBots.remove(botBase);
 				}
 				lblNumBotsLimpieza.setText(0+"");				
 			}
@@ -386,25 +497,33 @@ public class HomePanel extends JPanel{
 
 	private void addTransactionBot() {
 		//TODO
+		int cantTransaciones = Integer.parseInt(JOptionPane.showInputDialog("Introduce la cantidad de Transaciones"));
 		int count = Integer.parseInt(lblNumBotsTransacion.getText());
+		TransactionBot tb = new TransactionBot("TransactionBot" + count, cantTransaciones);
+		transactionBots.add(tb);
 		count = count +1;
 		lblNumBotsTransacion.setText(count + "");
+		tb.execute();
 	}
 
 	private void addUserBot() {
-		//TODO
+		int cantUsuarios = Integer.parseInt(JOptionPane.showInputDialog("Introduce la cantidad de usuarios"));
 		int count = Integer.parseInt(lblNumBotsUsuario.getText());
+		UserBot ub = new UserBot(cantUsuarios);
+		userBots.add(ub);
 		count = count +1;
 		lblNumBotsUsuario.setText(count + "");
+		ub.execute();
 	}
 
 	private void addCleaningBot() {
 		int count = Integer.parseInt(lblNumBotsLimpieza.getText());
-		BotBase cb = BotGenerator.generateBot(BotType.CleaningBot, "Cleaning Bot " + count);
+		//BotBase cb = BotGenerator.generateBot(BotType.CleaningBot, "Cleaning Bot " + count);
+		CleaningBot cb = new CleaningBot("CleaninBot" + count);
 		cleaningBots.add(cb);
-		cb.execute();
 		count = count +1;
 		lblNumBotsLimpieza.setText(count + "");
+		cb.execute();
 	}
 
 	private void addMailBot() {
@@ -534,6 +653,7 @@ public class HomePanel extends JPanel{
 			actButtonCleaning.setBackground(CustomColors.mBGreenLight);
 			cleaningBotIcon.setVisible(true);
 			deleteCleaningIcon.setVisible(true);
+			pauseCleaningIcon.setVisible(true);
 			lblNumBotsLimpieza.setVisible(true);
 		}else {
 			actButtonCleaning.setText("Activar Bot Limpieza");
@@ -541,6 +661,7 @@ public class HomePanel extends JPanel{
 			lblNumBotsLimpieza.setText(0+"");
 			cleaningBotIcon.setVisible(false);
 			deleteCleaningIcon.setVisible(false);
+			pauseCleaningIcon.setVisible(false);
 			lblNumBotsLimpieza.setVisible(false);
 		}
 	}
@@ -551,6 +672,7 @@ public class HomePanel extends JPanel{
 			actButtonMail.setBackground(CustomColors.mBGreenLight);
 			mailBotIcon.setVisible(true);
 			deleteMailIcon.setVisible(true);
+			pauseMailIcon.setVisible(true);
 			lblNumBotsMail.setVisible(true);
 		}else {
 			actButtonMail.setText("Activar Bot Mail");
@@ -558,6 +680,7 @@ public class HomePanel extends JPanel{
 			lblNumBotsMail.setText(0+"");
 			mailBotIcon.setVisible(false);
 			deleteMailIcon.setVisible(false);
+			pauseMailIcon.setVisible(false);
 			lblNumBotsMail.setVisible(false);
 		}
 	}
@@ -568,6 +691,7 @@ public class HomePanel extends JPanel{
 			actButtonUsuario.setBackground(CustomColors.mBGreenLight);
 			userBotIcon.setVisible(true);
 			deleteUserIcon.setVisible(true);
+			pauseUserIcon.setVisible(true);
 			lblNumBotsUsuario.setVisible(true);
 		}else {
 			actButtonUsuario.setText("Activar Bot Usuario");
@@ -575,6 +699,7 @@ public class HomePanel extends JPanel{
 			lblNumBotsUsuario.setText(0+"");
 			userBotIcon.setVisible(false);
 			deleteUserIcon.setVisible(false);
+			pauseUserIcon.setVisible(false);
 			lblNumBotsUsuario.setVisible(false);
 		}
 	}
@@ -585,6 +710,7 @@ public class HomePanel extends JPanel{
 			actButtonTransacion.setBackground(CustomColors.mBGreenLight);
 			transactionBotIcon.setVisible(true);
 			deleteTransactionIcon.setVisible(true);
+			pauseTransactionIcon.setVisible(true);
 			lblNumBotsTransacion.setVisible(true);
 		}else {
 			actButtonTransacion.setText("Activar Bot Transacion");
@@ -592,6 +718,7 @@ public class HomePanel extends JPanel{
 			lblNumBotsTransacion.setText(0+"");
 			transactionBotIcon.setVisible(false);
 			deleteTransactionIcon.setVisible(false);
+			pauseTransactionIcon.setVisible(false);
 			lblNumBotsTransacion.setVisible(false);
 		}
 	}
