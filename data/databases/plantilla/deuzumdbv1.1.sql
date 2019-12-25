@@ -5,9 +5,9 @@
 -- 
 
 
---------------------------
+-- ------------------------
 -- Creacion de las tablas
---------------------------
+-- ------------------------
 
 -- Plantilla de la informacion de las tablas
 --
@@ -18,26 +18,24 @@
 -- Tabla		: 	Usuario
 -- Descripcion	:	Esta tabla contiene la informacion de los usuarios de la aplicacion
 CREATE TABLE `usuario` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `usuario` varchar(32) NOT NULL,
   `contraseña` varchar(32) NOT NULL,
   `fecha_creacion` timestamp NULL DEFAULT current_timestamp(),
   `preg_seguridad` int(11) NOT NULL,
   `resp_seguridad` varchar(32) NOT NULL,
   `permisos` int(10) DEFAULT NULL,
-  `categoria` varchar(15) DEFAULT NULL
+  `categoria` varchar(15) DEFAULT NULL,
+   PRIMARY KEY (`id`),
+   UNIQUE KEY `usuario` (`usuario`),
+   KEY `preg_seguridad` (`preg_seguridad`),
+   KEY `categoria` (`categoria`),
+   KEY `permisos` (`permisos`)
 );
 
-ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `usuario` (`usuario`),
-  ADD KEY `preg_seguridad` (`preg_seguridad`),
-  ADD KEY `categoria` (`categoria`),
-  ADD KEY `permisos` (`permisos`);
 
-
--- Tabla:		Permisos
--- Descripcion:	Permisos que pueden tener los usuarios de la aplicacion. 
+-- Tabla		:	Permisos
+-- Descripcion	:	Permisos que pueden tener los usuarios de la aplicacion. 
 --			En esta version se plantean 3 grados de poder:
 --				- Aministrador	: 	Poder total sobre el servidor.
 --				- Programador	:	Control sobre la base de datos y operaciones internas del servidor.
@@ -45,12 +43,11 @@ ALTER TABLE `usuario`
 CREATE TABLE `permisos` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(15) NOT NULL,
-  `poder` int(10) NOT NULL
+  `poder` int(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `nombre` (`nombre`)
 );
 
-ALTER TABLE `permisos`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `nombre` (`nombre`);
 
 -- Los permisos de usuario basicos
 INSERT INTO `permisos` (`nombre`, `poder`) VALUES
@@ -63,12 +60,10 @@ INSERT INTO `permisos` (`nombre`, `poder`) VALUES
 CREATE TABLE `clientecategoria` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(15) NOT NULL,
-  `descripcion` text NOT NULL
+  `descripcion` text NOT NULL,
+  PRIMARY KEY (`id`)
 );
 
-ALTER TABLE `clientecategoria`
-  ADD PRIMARY KEY (`nombre`);
-  
  
 -- Tabla		:	Informacion de Usuario
 -- Descripcion	:	Contiene la informacion de los usuarios. Dentro de esta tabla entra la informacion personal del usuario(nombre, apellido,...).
@@ -80,11 +75,10 @@ CREATE TABLE `infousuario` (
   `email` varchar(40) NOT NULL,
   `direccion` varchar(50) NOT NULL,
   `fecha_nacimiento` date NOT NULL DEFAULT current_timestamp(),
-  `sexo` enum('Femenino','Masculino','Otro') NOT NULL
+  `sexo` enum('Femenino','Masculino','Otro') NOT NULL,
+  PRIMARY KEY (`id`)
 );
 
-ALTER TABLE `infousuario`
-  ADD PRIMARY KEY (`id`);
   
 
 -- Tabla		:	Cuenta
@@ -95,22 +89,21 @@ CREATE TABLE `cuenta` (
   `dinero` int(11) NOT NULL,
   `tipo_cuenta` varchar(15) NOT NULL,
   `descripcion` text DEFAULT NULL,
-  `estado` int(11) NOT NULL
+  `estado` int(11) NOT NULL,
+  PRIMARY KEY (`numero_cuenta`),
+  KEY `id_usuario` (`id_usuario`)
 );
-ALTER TABLE `cuenta`
-  ADD PRIMARY KEY (`numero_cuenta`),
-  ADD KEY `id_usuario` (`id_usuario`),
-  ADD KEY `categoria` (`categoria`);
+
 
 -- Tabla		:	Grupo
 -- Descripcion	:	Grupos para los proyectos.
 CREATE TABLE `grupo` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(15) NOT NULL,
-  `descripcion` text DEFAULT NULL
+  `descripcion` text DEFAULT NULL,
+  PRIMARY KEY (`id`)
 );
-ALTER TABLE `grupo`
-  ADD PRIMARY KEY (`id`);
+
 
 -- Tabla		:	Grupo Miembro
 -- Descripcion	:	Tabla de los miembros de los grupos.
@@ -118,15 +111,12 @@ CREATE TABLE `grupomiembro` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `id_grupo` int(10) NOT NULL,
   `id_miembro` int(10) NOT NULL,
-  `permisos` int(10) NOT NULL
+  `permisos` int(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_grupo` (`id_grupo`),
+  UNIQUE KEY `permisos` (`permisos`),
+  UNIQUE KEY `miembro` (`id_miembro`)
 );
-
-ALTER TABLE `grupomiembro`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id_grupo` (`id_grupo`),
-  ADD UNIQUE KEY `permisos` (`permisos`),
-  ADD UNIQUE KEY `miembro` (`id_miembro`);
-
 
 
 -- Tabla		:	Grupo Permisos
@@ -135,12 +125,10 @@ ALTER TABLE `grupomiembro`
 CREATE TABLE `grupopermiso` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(15) NOT NULL,
-  `poder` int(10) NOT NULL
+  `poder` int(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `nombre` (`nombre`)
 );
-
-ALTER TABLE `grupopermiso`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `nombre` (`nombre`);
   
 -- Los elementos basicos de permiso de grupos
 INSERT INTO `grupopermiso` (`nombre`, `poder`) VALUES
@@ -151,18 +139,16 @@ INSERT INTO `grupopermiso` (`nombre`, `poder`) VALUES
 -- Descripcion	:	Conjunto de preguntas de seguridad con las que los clientes podrian recuperar la cuenta en caso de olvidar la contraseña
 CREATE TABLE `pregseguridad` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `pregunta` text NOT NULL
+  `pregunta` text NOT NULL,
+  PRIMARY KEY (`id`)
 );
-
-ALTER TABLE `pregseguridad`
-  ADD PRIMARY KEY (`id`);
 
 -- Preguntas iniciales
 INSERT INTO `pregseguridad` (`pregunta`) VALUES
 	('¿Dónde ha nacido?'),
 	('¿Quién es tu mejor amigo?'),
 	('¿Cómo se llama tu poeta favorito?'),
-	('¿Cada cuanto comes pizza?'),;
+	('¿Cada cuanto comes pizza?');
 
 
 CREATE TABLE `proyecto` (
@@ -170,22 +156,20 @@ CREATE TABLE `proyecto` (
   `id_grupo` int(10) NOT NULL,
   `nombre` varchar(15) NOT NULL,
   `descripcion` varchar(32) NOT NULL,
-  `deuda` int(10) DEFAULT NULL
+  `deuda` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 );
 
-ALTER TABLE `proyecto`
-  ADD PRIMARY KEY (`id`);
   
 CREATE TABLE `proyectomiembro` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `id_proyecto` int(10) NOT NULL,
-  `id_miembro` int(10) NOT NULL
+  `id_miembro` int(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_miembro` (`id_miembro`),
+  KEY `id_proyecto` (`id_proyecto`)
 );
 
-ALTER TABLE `proyectomiembro`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_miembro` (`id_miembro`),
-  ADD KEY `id_proyecto` (`id_proyecto`);
 
 CREATE TABLE `proyectotransaccion` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -194,36 +178,34 @@ CREATE TABLE `proyectotransaccion` (
   `tipo` int(1) NOT NULL,
   `cantidad` int(11) NOT NULL,
   `razon` varchar(50) NOT NULL,
-  `fecha` date NOT NULL DEFAULT current_timestamp()
+  `fecha` date NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `id_proyecto` (`id_proyecto`),
+  KEY `id_miembro` (`id_miembro`)
 );
 
-ALTER TABLE `proyectotransaccion`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_proyecto` (`id_proyecto`),
-  ADD KEY `id_miembro` (`id_miembro`);
+
 
 CREATE TABLE `sessionhandler` (
-  `user_id` int(10) NOT NULL AUTO_INCREMENT,
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) NOT NULL,
   `ip` varchar(15) NOT NULL,
-  `hash` varchar(32) NOT NULL
+  `hash_var` varchar(32) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `hash_var` (`hash_var`)
 );
 
-ALTER TABLE `sessionhandler`
-  ADD UNIQUE KEY `hash` (`hash`),
-  ADD UNIQUE KEY `ip` (`ip`),
-  ADD UNIQUE KEY `user_id` (`user_id`);
 
 CREATE TABLE `transaccion` (
   `codigo` int(10) NOT NULL AUTO_INCREMENT,
   `source` int(10) NOT NULL,
   `destino` int(10) NOT NULL,
   `dinero` int(10) NOT NULL,
-  `fecha` date NOT NULL DEFAULT current_timestamp()
+  `fecha` date NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`codigo`),
+  KEY `source` (`source`),
+  KEY `dest` (`destino`)
 );
-ALTER TABLE `transaccion`
-  ADD PRIMARY KEY (`codigo`),
-  ADD KEY `source` (`source`),
-  ADD KEY `dest` (`destino`);
 
 
 ALTER TABLE `infousuario`
@@ -232,8 +214,7 @@ ALTER TABLE `infousuario`
 
 
 ALTER TABLE `cuenta`
-  ADD CONSTRAINT `cuenta_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`),
-  ADD CONSTRAINT `cuenta_ibfk_2` FOREIGN KEY (`categoria`) REFERENCES `cuentacategoria` (`nombre`);
+  ADD CONSTRAINT `cuenta_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`);
 
 
 ALTER TABLE `grupomiembro`
@@ -272,8 +253,8 @@ ALTER TABLE `sessionhandler`
 -- Filtros para la tabla `transaccion`
 --
 ALTER TABLE `transaccion`
-  ADD CONSTRAINT `dest` FOREIGN KEY (`destino`) REFERENCES `cuentas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `source` FOREIGN KEY (`source`) REFERENCES `cuentas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `dest` FOREIGN KEY (`destino`) REFERENCES `cuenta` (`numero_cuenta``),
+  ADD CONSTRAINT `sour` FOREIGN KEY (`source`) REFERENCES `cuenta` (`numero_cuenta`),
   ADD CONSTRAINT `transaccion_ibfk_1` FOREIGN KEY (`source`) REFERENCES `usuario` (`id`),
   ADD CONSTRAINT `transaccion_ibfk_2` FOREIGN KEY (`destino`) REFERENCES `usuario` (`id`);
 
@@ -282,7 +263,7 @@ ALTER TABLE `transaccion`
 --
 ALTER TABLE `usuario`
   ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`preg_seguridad`) REFERENCES `pregseguridad` (`id`),
-  ADD CONSTRAINT `usuario_ibfk_2` FOREIGN KEY (`categoria`) REFERENCES `clientecategoria` (`nombre`),
+  ADD CONSTRAINT `usuario_ibfk_2` FOREIGN KEY (`categoria`) REFERENCES `clientecategoria` (`id`),
   ADD CONSTRAINT `usuario_ibfk_3` FOREIGN KEY (`permisos`) REFERENCES `permisos` (`id`);
 COMMIT;
 
