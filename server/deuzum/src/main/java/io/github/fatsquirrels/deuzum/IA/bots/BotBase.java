@@ -1,10 +1,15 @@
 package io.github.fatsquirrels.deuzum.IA.bots;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
+
 public abstract class BotBase {
 
 	int id;
-	String name;
-	
+	String name;	
 	boolean isActive;
 	
 	public BotBase() {
@@ -37,5 +42,7 @@ public abstract class BotBase {
 	public abstract void execute();
 	public abstract void stop(long tiempo);
 	public abstract void kill();
+	
+	
 	
 }

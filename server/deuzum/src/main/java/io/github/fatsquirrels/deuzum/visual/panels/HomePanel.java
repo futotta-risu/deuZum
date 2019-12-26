@@ -24,6 +24,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import io.github.fatsquirrels.deuzum.IA.bots.AccountBot;
 import io.github.fatsquirrels.deuzum.IA.bots.BotBase;
 import io.github.fatsquirrels.deuzum.IA.bots.BotGenerator;
 import io.github.fatsquirrels.deuzum.IA.bots.BotType;
@@ -58,21 +59,25 @@ public class HomePanel extends JPanel{
 	private JLabel lblNumBotsMail;
 	private JLabel lblNumBotsUsuario;
 	private JLabel lblNumBotsTransacion;
+	private JLabel lblNumBotsCuenta;
 		
 	private IconizedButton cleaningBotIcon;
 	private IconizedButton mailBotIcon;
 	private IconizedButton userBotIcon;
 	private IconizedButton transactionBotIcon;
+	private IconizedButton accountBotIcon;
 	
 	private IconizedButton deleteCleaningIcon;
 	private IconizedButton deleteMailIcon;
 	private IconizedButton deleteUserIcon;
 	private IconizedButton deleteTransactionIcon;
+	private IconizedButton deleteAccountIcon;
 	
 	private IconizedButton pauseCleaningIcon;
 	private IconizedButton pauseMailIcon;
 	private IconizedButton pauseUserIcon;
 	private IconizedButton pauseTransactionIcon;
+	private IconizedButton pauseAccountIcon;
 	
 	private ArrayList<BotBase> cleaningBots;
 	private ArrayList<BotBase> mailBots;
@@ -80,11 +85,13 @@ public class HomePanel extends JPanel{
 	private APair<String, String> mensaje;
 	private ArrayList<BotBase> userBots;
 	private ArrayList<BotBase> transactionBots;
+	private ArrayList<BotBase> accountBots;
 	
 	private ActivatedButton actButtonCleaning;
 	private ActivatedButton actButtonMail;
 	private ActivatedButton actButtonUsuario;
 	private ActivatedButton actButtonTransacion;
+	private ActivatedButton actButtonAccount;
 
 	
 	
@@ -302,6 +309,29 @@ public class HomePanel extends JPanel{
 		lblNumBotsTransacion.setVisible(false);
 		
 		
+		/////////////////////	 ACCOUNT 	/////////////////////////////
+		accountBotIcon = new IconizedButton("symbol","creditCard",35,40,e -> addAccountBot());
+		accountBotIcon.setBounds(30, 354, 59, 47);
+		panel_Home_Lateral_Bots.add(accountBotIcon);
+		accountBotIcon.setVisible(false);
+		
+		deleteAccountIcon = new IconizedButton("symbol","borrar",35,40,e -> deleteAccountBot());
+		deleteAccountIcon.setBounds(77, 363, 72, 29);
+		panel_Home_Lateral_Bots.add(deleteAccountIcon);
+		deleteAccountIcon.setVisible(false);
+		
+		pauseAccountIcon = new IconizedButton("symbol","pauseBot",35,40,e -> pauseAccountBot());
+		pauseAccountIcon.setBounds(141, 358, 65, 38);
+		panel_Home_Lateral_Bots.add(pauseAccountIcon);
+		pauseAccountIcon.setVisible(false);
+			
+		lblNumBotsCuenta = new JLabel("0");
+		lblNumBotsCuenta.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNumBotsCuenta.setBounds(202, 363, 41, 27);
+		panel_Home_Lateral_Bots.add(lblNumBotsCuenta);
+		lblNumBotsCuenta.setVisible(false);
+		
+		
 		/////////////////ACTIVATED BUTTONS////////////////////////////////		
 		
 		actButtonCleaning = new ActivatedButton("Activar Bot Limpieza");
@@ -351,6 +381,18 @@ public class HomePanel extends JPanel{
 		panel_Home_Lateral_Bots.add(actButtonTransacion);
 		actButtonTransacion.setVisible(false);
 		
+		actButtonAccount = new ActivatedButton("Activar Bot Cuenta");
+		actButtonAccount.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				refreshComponentsAccount();
+			}
+		});
+		actButtonAccount.setSize(223, 29);
+		actButtonAccount.setLocation(20, 330);
+		panel_Home_Lateral_Bots.add(actButtonAccount);
+		actButtonAccount.setVisible(false);
+		
+		
 		
 		JScrollPane scrollPanel_Lateral = new JScrollPane(panel_Home_Lateral,
 				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
@@ -370,6 +412,23 @@ public class HomePanel extends JPanel{
 		add(panel_Home_Center, "cell 0 0,grow");
 		
 	}
+	
+	private void pauseAccountBot() {
+		Thread hiloPauseAccount = new Thread(new Runnable() {
+
+			public void run() {
+				if(accountBots.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "No hay ningun bot de Cuenta en ejecucion","ERROR" , 1);
+				}else {
+					int tiempo = Integer.parseInt(JOptionPane.showInputDialog("Introduce el tiempo de pausa:"));
+					for (BotBase botBase : accountBots) {
+						botBase.stop(tiempo*1000);;
+					}	
+				}
+			}
+		});
+		hiloPauseAccount.run();	}
+
 	
 	private void pauseTransactionBot() {
 		Thread hiloPauseTransaction = new Thread(new Runnable() {
@@ -494,36 +553,77 @@ public class HomePanel extends JPanel{
 		});
 		hiloBorrarCleaning.run();
 	}
+	private void deleteAccountBot() {
+		Thread hiloBorrarCuenta = new Thread(new Runnable() {
+			public void run() {
+				for (BotBase botBase : accountBots) {
+					botBase.kill();
+					accountBots.remove(botBase);
+				}
+				lblNumBotsCuenta.setText(0+"");				
+			}
+		});
+		hiloBorrarCuenta.run();	}
+
+	private void addAccountBot() {
+		Thread hiloCuentas = new Thread(new Runnable() {
+			public void run() {
+				int cantCuentas = Integer.parseInt(JOptionPane.showInputDialog("Introduce la cantidad de Cuentas"));
+				int count = Integer.parseInt(lblNumBotsTransacion.getText());
+				AccountBot ab = new AccountBot("AccountBot" + count, cantCuentas);
+				transactionBots.add(ab);
+				count = count +1;
+				lblNumBotsCuenta.setText(count + "");
+				ab.execute();				
+			}
+		});
+		hiloCuentas.run();
+	}
 
 	private void addTransactionBot() {
-		//TODO
-		int cantTransaciones = Integer.parseInt(JOptionPane.showInputDialog("Introduce la cantidad de Transaciones"));
-		int count = Integer.parseInt(lblNumBotsTransacion.getText());
-		TransactionBot tb = new TransactionBot("TransactionBot" + count, cantTransaciones);
-		transactionBots.add(tb);
-		count = count +1;
-		lblNumBotsTransacion.setText(count + "");
-		tb.execute();
+		Thread hiloTransacion = new Thread(new Runnable() {
+			public void run() {
+				int cantTransaciones = Integer.parseInt(JOptionPane.showInputDialog("Introduce la cantidad de Transaciones"));
+				int count = Integer.parseInt(lblNumBotsTransacion.getText());
+				TransactionBot tb = new TransactionBot("TransactionBot" + count, cantTransaciones);
+				transactionBots.add(tb);
+				count = count +1;
+				lblNumBotsTransacion.setText(count + "");
+				tb.execute();				
+			}
+		});
+		hiloTransacion.run();	
 	}
 
 	private void addUserBot() {
-		int cantUsuarios = Integer.parseInt(JOptionPane.showInputDialog("Introduce la cantidad de usuarios"));
-		int count = Integer.parseInt(lblNumBotsUsuario.getText());
-		UserBot ub = new UserBot(cantUsuarios);
-		userBots.add(ub);
-		count = count +1;
-		lblNumBotsUsuario.setText(count + "");
-		ub.execute();
+		Thread hiloUser = new Thread(new Runnable() {
+			public void run() {
+				int cantUsuarios = Integer.parseInt(JOptionPane.showInputDialog("Introduce la cantidad de usuarios"));
+				int count = Integer.parseInt(lblNumBotsUsuario.getText());
+				UserBot ub = new UserBot(cantUsuarios);
+				userBots.add(ub);
+				count = count +1;
+				lblNumBotsUsuario.setText(count + "");
+				ub.execute();
+			}
+		});
+		hiloUser.run();
 	}
 
 	private void addCleaningBot() {
-		int count = Integer.parseInt(lblNumBotsLimpieza.getText());
-		//BotBase cb = BotGenerator.generateBot(BotType.CleaningBot, "Cleaning Bot " + count);
-		CleaningBot cb = new CleaningBot("CleaninBot" + count);
-		cleaningBots.add(cb);
-		count = count +1;
-		lblNumBotsLimpieza.setText(count + "");
-		cb.execute();
+		Thread hiloClean = new Thread(new Runnable() {
+			public void run() {
+				int count = Integer.parseInt(lblNumBotsLimpieza.getText());
+				//BotBase cb = BotGenerator.generateBot(BotType.CleaningBot, "Cleaning Bot " + count);
+				CleaningBot cb = new CleaningBot("CleaninBot" + count);
+				cleaningBots.add(cb);
+				count = count +1;
+				lblNumBotsLimpieza.setText(count + "");
+				cb.execute();
+			}
+		});
+		hiloClean.run();
+		
 	}
 
 	private void addMailBot() {
@@ -628,6 +728,7 @@ public class HomePanel extends JPanel{
 			actButtonMail.setVisible(true);
 			actButtonUsuario.setVisible(true);
 			actButtonTransacion.setVisible(true);
+			actButtonAccount.setVisible(true);
 		}else {
 			actButtonCleaning.setVisible(false);
 			actButtonCleaning.setSelected(false);
@@ -637,8 +738,12 @@ public class HomePanel extends JPanel{
 			actButtonUsuario.setSelected(false);
 			actButtonTransacion.setVisible(false);
 			actButtonTransacion.setSelected(false);
+			actButtonAccount.setVisible(false);
+			actButtonAccount.setSelected(false);
 			deleteCleaningBot();
 			deleteMailBot();
+			deleteUserBot();
+			deleteTransactionBot();
 			refreshComponentsCleaning();
 			refreshComponentsMail();
 			refreshComponentsUsuario();
@@ -720,6 +825,25 @@ public class HomePanel extends JPanel{
 			deleteTransactionIcon.setVisible(false);
 			pauseTransactionIcon.setVisible(false);
 			lblNumBotsTransacion.setVisible(false);
+		}
+	}
+	
+	public void refreshComponentsAccount() {
+		if(actButtonAccount.isSelected()) {
+			actButtonAccount.setText("Desactivar Bot Cuenta");
+			actButtonAccount.setBackground(CustomColors.mBGreenLight);
+			accountBotIcon.setVisible(true);
+			deleteAccountIcon.setVisible(true);
+			pauseAccountIcon.setVisible(true);
+			lblNumBotsCuenta.setVisible(true);
+		}else {
+			actButtonAccount.setText("Activar Bot Cuenta");
+			actButtonAccount.setBackground(CustomColors.mBRedLight);
+			lblNumBotsTransacion.setText(0+"");
+			accountBotIcon.setVisible(false);
+			deleteAccountIcon.setVisible(false);
+			pauseAccountIcon.setVisible(false);
+			lblNumBotsCuenta.setVisible(false);
 		}
 	}
 }

@@ -32,8 +32,8 @@ public class UserBot extends BotBase{
 				for (long i = 0; i < cantidad; i++) {
 					tempId = getLastId();
 					try {
-						GeneralSQLFunctions.insertEntryIntoDatabase(conn, "usuario", new String[] {"id","usuario", "contraseña", "preg_seguridad", "resp_seguridad"}, 
-							new String[] {tempId+"",name + tempId*7, tempId+"", "1", "respuesta" });
+						GeneralSQLFunctions.insertEntryIntoDatabase(conn, "usuario", new String[] {"id","usuario", "contraseña", "preg_seguridad", "resp_seguridad","permisos"}, 
+							new String[] {tempId+"",name + tempId*7, tempId+"", "1", "respuesta","1" });
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}

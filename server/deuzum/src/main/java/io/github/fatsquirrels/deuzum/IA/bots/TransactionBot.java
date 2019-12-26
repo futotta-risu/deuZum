@@ -31,17 +31,17 @@ public class TransactionBot extends BotBase{
 				String[] arrIds = null;
 				
 				try {
-					ResultSet ids = GeneralSQLFunctions.getExecQuery(conn, "SELECT id FROM usuario");
-					ResultSet userCount = GeneralSQLFunctions.getExecQuery(conn, "SELECT count(id) FROM usuario");
-					if(userCount.next()) {
-						users = userCount.getInt("count(id)");
+					ResultSet ids = GeneralSQLFunctions.getExecQuery(conn, "SELECT numero_cuenta FROM cuenta");
+					ResultSet accountCount = GeneralSQLFunctions.getExecQuery(conn, "SELECT count(numero_cuenta) FROM cuenta");
+					if(accountCount.next()) {
+						users = accountCount.getInt("count(numero_cuenta)");
 						arrIds = new String[users];
-						userCount.close();
+						accountCount.close();
 					}
 					//(int)Math.random()*(users-1)+1);
 					int counter = 0;
 					while(ids.next()){
-						String id = ids.getString("id");
+						String id = ids.getString("numero_cuenta");
 						arrIds[counter] = id;
 						counter++;
 					}
@@ -80,6 +80,7 @@ public class TransactionBot extends BotBase{
 	public int getLastId() {
 		int result = 0;
 		try {
+			Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost:3306/deuzumdb", "root", "");
 			ResultSet rs = GeneralSQLFunctions.getExecQuery(conn, "SELECT codigo FROM transaccion ORDER BY codigo DESC");
 			if(rs.next()) {
 				result = Integer.parseInt(rs.getString("codigo"));

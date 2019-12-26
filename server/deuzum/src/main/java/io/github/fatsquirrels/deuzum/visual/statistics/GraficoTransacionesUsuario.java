@@ -1,5 +1,6 @@
 package io.github.fatsquirrels.deuzum.visual.statistics;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,6 +11,7 @@ import javax.swing.JFrame;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
@@ -31,7 +33,7 @@ public class GraficoTransacionesUsuario extends JFrame{
 		setVisible(true);
 		setSize(500,500);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setTitle("Grafico Transaciones");
+		setTitle("Grafico cantidad transferida por usuario");
 	}
 
 	private ChartFrame crearGraficoBarrasUsuario(ArrayList<APair<Integer, Integer>> data) {
@@ -45,7 +47,10 @@ public class GraficoTransacionesUsuario extends JFrame{
 		
 		JFreeChart chart = ChartFactory.createBarChart("Cantidad de dinero transferida por usuario", null, 
 		null, dataset, PlotOrientation.VERTICAL, true, true, false);
-		  
+	
+		CategoryPlot plot = chart.getCategoryPlot();
+	    plot.getRenderer().setSeriesPaint(0, new Color(128, 0, 0));
+	    
 		ChartFrame frame = new ChartFrame("Grafico de cantidades de dinero transferidas por usuario", chart);
 		frame.pack();
 		frame.setVisible(true);

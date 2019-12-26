@@ -1,5 +1,6 @@
 package io.github.fatsquirrels.deuzum.visual.statistics;
 
+import java.awt.Color;
 import java.awt.Container;
 
 import java.util.HashMap;
@@ -11,6 +12,7 @@ import javax.swing.JFrame;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
@@ -26,7 +28,9 @@ public class GraficoTransaciones extends JFrame {
 		this.cantidades = data;
 		Container cp = this.getContentPane();
 		
+
 		cp.add(crearGraficoBarras(data));
+		
 		
 		setVisible(true);
 		setSize(500,500);
@@ -44,6 +48,9 @@ public class GraficoTransaciones extends JFrame {
 		
 		JFreeChart chart = ChartFactory.createBarChart("Repeticiones de cantidad transferida", null, 
 		null, dataset, PlotOrientation.VERTICAL, true, true, false);
+		
+		CategoryPlot plot = chart.getCategoryPlot();
+	    plot.getRenderer().setSeriesPaint(0, new Color(0, 0, 255));
 		  
 		ChartFrame frame = new ChartFrame("Grafico de repeticiones de cantidades de dinero transferidas", chart);
 		frame.pack();
