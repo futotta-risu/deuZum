@@ -32,20 +32,26 @@ public class CleaningBot extends BotBase{
 				ResultSet rsTransacciones = null;
 				try {
 					//TODO CAMBIAR ESTO
-					rs = GeneralSQLFunctions.getExecQuery(conn, "SELECT * FROM usuario");
-					
-					
+					rs = GeneralSQLFunctions.getExecQuery(conn, "SELECT * FROM usuario");	
 					while(rs.next()) {
 						String id = rs.getString("id");
-						rsTransacciones = GeneralSQLFunctions.getExecQuery(conn, "SELECT COUNT(source) FROM transaccion WHERE source='" + id + "'");
-						while(rsTransacciones.next()) {
-						int cantidad = rsTransacciones.getInt(1);
-						if(cantidad == 0) {
+						ResultSet rs2 = GeneralSQLFunctions.getExecQuery(conn, "SELECT numero_cuenta FROM cuenta WHERE id_usuario = " + id);
+						int acumulador = 0;
+						while(rs2.next()) {
+							String cuentaTemp = rs2.getString("numero_cuenta");
+							rsTransacciones = GeneralSQLFunctions.getExecQuery(conn, "SELECT COUNT(source) FROM transaccion WHERE source='" + cuentaTemp + "'");
+							if(rsTransacciones.next()) {
+								acumulador = acumulador + rsTransacciones.getInt(1);
+								rsTransacciones.close();
+							}
+						}
+						if(acumulador == 0) {
 							GeneralSQLFunctions.execUpdate(conn, "DELETE FROM usuario WHERE id='" + id + "'");
-							JOptionPane.showMessageDialog(null, "El usuario " + id +" se ha eliminado correctamente");
 						}
-						}
+						rs2.close();	
 					}
+					JOptionPane.showMessageDialog(null, "Los usuarios se han eliminado correctamente");
+					rs.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}				
