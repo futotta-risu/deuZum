@@ -28,7 +28,7 @@ import javax.swing.JTextPane;
 import javax.swing.JRadioButton;
 import java.awt.GridBagConstraints;
 
-public class VentanaZum extends JFrame{
+public class VentanaZum extends JFrame {
 	private JPanel panelGeneral;
 	private JFrame frame;
 	private ButtonGroup botones= new ButtonGroup();
@@ -79,11 +79,10 @@ public class VentanaZum extends JFrame{
 		frame.getContentPane().add(panel);
 		panel.setLayout(new GridLayout(5,1));
 		
+		
+		
 		JButton usuario = new JButton("Usuario");
-		usuario.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
+		usuario.addActionListener(null);
 		panel.add(usuario);
 		
 		JButton misCuentas = new JButton("Mis Cuentas");
@@ -96,6 +95,7 @@ public class VentanaZum extends JFrame{
 		JButton misGrupos = new JButton("Mis Grupos");
 		misGrupos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 			}
 		});
 		panel.add(misGrupos);
