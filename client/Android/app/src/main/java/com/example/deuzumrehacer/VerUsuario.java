@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.logging.Logger;
+
 public class VerUsuario extends AppCompatActivity {
 
     private TextView cVerUsuario;
@@ -33,6 +35,7 @@ public class VerUsuario extends AppCompatActivity {
         cContrasenya = findViewById(R.id.editarContrasenya);
         bGuardarCambios = findViewById(R.id.botonGuardarCambios);
         bAtras = findViewById(R.id.botonAtrasVU);
+
 
         Thread myThread = new Thread(new MyServerThread());
         myThread.start();
