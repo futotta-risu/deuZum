@@ -30,6 +30,7 @@ import io.github.fatsquirrels.deuzum.IA.bots.CleaningBot;
 import io.github.fatsquirrels.deuzum.IA.bots.GroupBot;
 import io.github.fatsquirrels.deuzum.IA.bots.MailBot;
 import io.github.fatsquirrels.deuzum.IA.bots.ProyectBot;
+import io.github.fatsquirrels.deuzum.IA.bots.ProyectTransactionBot;
 import io.github.fatsquirrels.deuzum.IA.bots.TransactionBot;
 import io.github.fatsquirrels.deuzum.IA.bots.UserBot;
 import io.github.fatsquirrels.deuzum.utils.WebpageConnection;
@@ -63,6 +64,8 @@ public class HomePanel extends JPanel{
 	private JLabel lblNumBotsCuenta;
 	private JLabel lblNumBotsGrupo;
 	private JLabel lblNumBotsProyecto;
+	private JLabel lblNumBotsTransacionProyecto;
+
 		
 	private IconizedButton cleaningBotIcon;
 	private IconizedButton mailBotIcon;
@@ -71,6 +74,9 @@ public class HomePanel extends JPanel{
 	private IconizedButton accountBotIcon;
 	private IconizedButton groupBotIcon;
 	private IconizedButton proyectBotIcon;
+	private IconizedButton proyectTransactionBotIcon;
+
+	
 
 	private IconizedButton deleteCleaningIcon;
 	private IconizedButton deleteMailIcon;
@@ -79,6 +85,8 @@ public class HomePanel extends JPanel{
 	private IconizedButton deleteAccountIcon;
 	private IconizedButton deleteGroupIcon;
 	private IconizedButton deleteProyectIcon;
+	private IconizedButton deleteProyectTransactionIcon;
+
 
 	private IconizedButton pauseCleaningIcon;
 	private IconizedButton pauseMailIcon;
@@ -87,6 +95,8 @@ public class HomePanel extends JPanel{
 	private IconizedButton pauseAccountIcon;
 	private IconizedButton pauseGroupIcon;
 	private IconizedButton pauseProyectIcon;
+	private IconizedButton pauseProyectTransactionIcon;
+
 	
 	private ArrayList<BotBase> cleaningBots;
 	private ArrayList<BotBase> mailBots;
@@ -97,6 +107,8 @@ public class HomePanel extends JPanel{
 	private ArrayList<BotBase> accountBots;
 	private ArrayList<BotBase> groupBots;
 	private ArrayList<BotBase> proyectBots;
+	private ArrayList<BotBase> proyectTransactionBots;
+
 
 	
 	private ActivatedButton actButtonCleaning;
@@ -106,6 +118,8 @@ public class HomePanel extends JPanel{
 	private ActivatedButton actButtonAccount;
 	private ActivatedButton actButtonGroup;
 	private ActivatedButton actButtonProyect;
+	private ActivatedButton actButtonProyectTransaction;
+
 
 
 	public enum StatusType{
@@ -213,7 +227,7 @@ public class HomePanel extends JPanel{
 		
 		JPanel panel_Home_Lateral_Bots = new JPanel();
 		panel_Home_Lateral.add(panel_Home_Lateral_Bots);
-		panel_Home_Lateral_Bots.setPreferredSize(new Dimension(200, 600));
+		panel_Home_Lateral_Bots.setPreferredSize(new Dimension(200, 675));
 		panel_Home_Lateral_Bots.setBackground(CustomColors.mBBlueGrayL);
 		panel_Home_Lateral_Bots.setLayout(null);
 		
@@ -393,6 +407,30 @@ public class HomePanel extends JPanel{
 		lblNumBotsProyecto.setVisible(false);
 		
 		
+		//////////////////    TRANSACION PROYECTO    ////////////////////////////
+		proyectTransactionBotIcon = new IconizedButton("symbol","proyectTransaction",35,40,e -> addProyectTransactionBot());
+		proyectTransactionBotIcon.setBounds(30, 602, 59, 47);
+		panel_Home_Lateral_Bots.add(proyectTransactionBotIcon);
+		proyectTransactionBotIcon.setVisible(false);
+		
+		deleteProyectTransactionIcon = new IconizedButton("symbol","borrar",35,40,e -> deleteProyectTransactionBot());
+		deleteProyectTransactionIcon.setBounds(77, 611, 72, 29);
+		panel_Home_Lateral_Bots.add(deleteProyectTransactionIcon);
+		deleteProyectTransactionIcon.setVisible(false);
+		
+		pauseProyectTransactionIcon = new IconizedButton("symbol","pauseBot",35,40,e -> pauseProyectTransactionBot());
+		pauseProyectTransactionIcon.setBounds(141, 606, 65, 38);
+		panel_Home_Lateral_Bots.add(pauseProyectTransactionIcon);
+		pauseProyectTransactionIcon.setVisible(false);
+			
+		lblNumBotsTransacionProyecto = new JLabel("0");
+		lblNumBotsTransacionProyecto.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNumBotsTransacionProyecto.setBounds(202, 611, 41, 27);
+		panel_Home_Lateral_Bots.add(lblNumBotsTransacionProyecto);
+		lblNumBotsTransacionProyecto.setVisible(false);
+		
+		
+		
 		
 		/////////////////ACTIVATED BUTTONS////////////////////////////////		
 		
@@ -479,6 +517,18 @@ public class HomePanel extends JPanel{
 		actButtonProyect.setVisible(false);
 		
 		
+		actButtonProyectTransaction = new ActivatedButton("Activar Bot Transacion Proyecto");
+		actButtonProyectTransaction.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				refreshComponentsTransacionProyecto();
+			}
+		});
+		actButtonProyectTransaction.setSize(223, 29);
+		actButtonProyectTransaction.setLocation(20, 570);
+		panel_Home_Lateral_Bots.add(actButtonProyectTransaction);
+		actButtonProyectTransaction.setVisible(false);
+		
+		
 		JScrollPane scrollPanel_Lateral = new JScrollPane(panel_Home_Lateral,
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
 	            ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -497,6 +547,15 @@ public class HomePanel extends JPanel{
 		add(panel_Home_Center, "cell 0 0,grow");
 		
 	}
+	
+	private void pauseProyectTransactionBot() {
+		// TODO Auto-generated method stub
+	}
+
+	private void deleteProyectTransactionBot() {
+		// TODO Auto-generated method stub
+	}
+
 	
 	private void pauseProyectBot() {
 		Thread hiloPauseProyect = new Thread(new Runnable() {
@@ -716,6 +775,21 @@ public class HomePanel extends JPanel{
 		hiloBorrarCuenta.run();	
 	}
 	
+	private void addProyectTransactionBot() {
+		Thread hiloProyectTransacyion = new Thread(new Runnable() {
+			public void run() {
+				int cantTransacionesProyecto = Integer.parseInt(JOptionPane.showInputDialog("Introduce la cantidad de Transaciones de Proyecto"));
+				int count = Integer.parseInt(lblNumBotsTransacionProyecto.getText());
+				ProyectTransactionBot ptb = new ProyectTransactionBot("ProyectTransactionBot" + count, cantTransacionesProyecto);
+				transactionBots.add(ptb);
+				count = count +1;
+				lblNumBotsTransacionProyecto.setText(count + "");
+				ptb.execute();				
+			}
+		});
+		hiloProyectTransacyion.run();	
+	}
+
 	
 	private void addProyectBot() {
 		Thread hiloProyecto = new Thread(new Runnable() {
@@ -913,6 +987,7 @@ public class HomePanel extends JPanel{
 			actButtonAccount.setVisible(true);
 			actButtonGroup.setVisible(true);
 			actButtonProyect.setVisible(true);
+			actButtonProyectTransaction.setVisible(true);
 		}else {
 			actButtonCleaning.setVisible(false);
 			actButtonCleaning.setSelected(false);
@@ -928,6 +1003,8 @@ public class HomePanel extends JPanel{
 			actButtonGroup.setSelected(false);
 			actButtonProyect.setVisible(false);
 			actButtonProyect.setSelected(false);
+			actButtonProyectTransaction.setVisible(false);
+			actButtonProyectTransaction.setSelected(false);
 			deleteCleaningBot();
 			deleteMailBot();
 			deleteUserBot();
@@ -935,6 +1012,7 @@ public class HomePanel extends JPanel{
 			deleteAccountBot();
 			deleteGroupBot();
 			deleteProyectBot();
+			deleteProyectTransactionBot();
 			refreshComponentsCleaning();
 			refreshComponentsMail();
 			refreshComponentsUsuario();
@@ -942,6 +1020,7 @@ public class HomePanel extends JPanel{
 			refreshComponentsAccount();
 			refreshComponentsGroup();
 			refreshComponentsProyect();
+			refreshComponentsTransacionProyecto();
 		}
 		
 	}
@@ -1078,4 +1157,24 @@ public class HomePanel extends JPanel{
 			lblNumBotsProyecto.setVisible(false);
 		}
 	}
+	
+	public void refreshComponentsTransacionProyecto() {
+		if(actButtonProyectTransaction.isSelected()) {
+			actButtonProyectTransaction.setText("Desactivar Bot Transacion Proyecto");
+			actButtonProyectTransaction.setBackground(CustomColors.mBGreenLight);
+			proyectTransactionBotIcon.setVisible(true);
+			deleteProyectTransactionIcon.setVisible(true);
+			pauseProyectTransactionIcon.setVisible(true);
+			lblNumBotsTransacionProyecto.setVisible(true);
+		}else {
+			actButtonProyectTransaction.setText("Activar Bot Transacion proyecto");
+			actButtonProyectTransaction.setBackground(CustomColors.mBRedLight);
+			lblNumBotsTransacionProyecto.setText(0+"");
+			proyectTransactionBotIcon.setVisible(false);
+			deleteProyectTransactionIcon.setVisible(false);
+			pauseProyectTransactionIcon.setVisible(false);
+			lblNumBotsTransacionProyecto.setVisible(false);
+		}
+	}
+	
 }
