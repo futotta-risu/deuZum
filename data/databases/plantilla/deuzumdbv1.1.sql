@@ -1,7 +1,7 @@
 -- Esta base de datos constituye la plantilla desde la que la aplicacion funciona.
 -- 
 -- Autor	: 	Fat Squirrels
--- Version	: 	1.1
+-- Version	: 	1.2
 -- 
 
 
@@ -18,14 +18,14 @@
 -- Tabla		: 	Usuario
 -- Descripcion	:	Esta tabla contiene la informacion de los usuarios de la aplicacion
 CREATE TABLE `usuario` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(10) NOT NULL AUTO_INCREMENT,
   `usuario` varchar(32) NOT NULL,
   `contraseña` varchar(32) NOT NULL,
   `fecha_creacion` timestamp NULL DEFAULT current_timestamp(),
-  `preg_seguridad` int(11) NOT NULL,
+  `preg_seguridad` int(10) NOT NULL,
   `resp_seguridad` varchar(32) NOT NULL,
   `permisos` int(10) DEFAULT NULL,
-  `categoria` varchar(15) DEFAULT NULL,
+  `categoria` int(10) DEFAULT NULL,
    PRIMARY KEY (`id`),
    UNIQUE KEY `usuario` (`usuario`),
    KEY `preg_seguridad` (`preg_seguridad`),
@@ -209,62 +209,65 @@ CREATE TABLE `transaccion` (
 
 
 ALTER TABLE `infousuario`
-  ADD CONSTRAINT `infousuario_usuario` FOREIGN KEY (`id`) REFERENCES `usuario` (`id`);
+  ADD CONSTRAINT `infousuario_usuario` FOREIGN KEY (`id`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 
 ALTER TABLE `cuenta`
-  ADD CONSTRAINT `cuenta_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`);
+  ADD CONSTRAINT `cuenta_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 ALTER TABLE `grupomiembro`
-  ADD CONSTRAINT `grupomiembro_ibfk_1` FOREIGN KEY (`id_miembro`) REFERENCES `usuario` (`id`),
-  ADD CONSTRAINT `grupomiembro_ibfk_2` FOREIGN KEY (`id_grupo`) REFERENCES `grupo` (`id`),
-  ADD CONSTRAINT `grupomiembro_ibfk_3` FOREIGN KEY (`permisos`) REFERENCES `grupopermiso` (`id`);
+  ADD CONSTRAINT `grupomiembro_ibfk_1` FOREIGN KEY (`id_miembro`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE ON DELETE CASCADE,
+  ADD CONSTRAINT `grupomiembro_ibfk_2` FOREIGN KEY (`id_grupo`) REFERENCES `grupo` (`id`) ON UPDATE CASCADE ON DELETE CASCADE,
+  ADD CONSTRAINT `grupomiembro_ibfk_3` FOREIGN KEY (`permisos`) REFERENCES `grupopermiso` (`id`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
 -- Filtros para la tabla `proyecto`
 --
 ALTER TABLE `proyecto`
-  ADD CONSTRAINT `proyecto_ibfk_1` FOREIGN KEY (`id_grupo`) REFERENCES `grupo` (`id`);
+  ADD CONSTRAINT `proyecto_ibfk_1` FOREIGN KEY (`id_grupo`) REFERENCES `grupo` (`id`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `proyectomiembro`
 --
 ALTER TABLE `proyectomiembro`
-  ADD CONSTRAINT `proyectomiembro_ibfk_1` FOREIGN KEY (`id_miembro`) REFERENCES `usuario` (`id`),
-  ADD CONSTRAINT `proyectomiembro_ibfk_2` FOREIGN KEY (`id_proyecto`) REFERENCES `proyecto` (`id`);
+  ADD CONSTRAINT `proyectomiembro_ibfk_1` FOREIGN KEY (`id_miembro`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE ON DELETE CASCADE,
+  ADD CONSTRAINT `proyectomiembro_ibfk_2` FOREIGN KEY (`id_proyecto`) REFERENCES `proyecto` (`id`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `proyectotransaccion`
 --
 ALTER TABLE `proyectotransaccion`
-  ADD CONSTRAINT `proyectotransaccion_ibfk_1` FOREIGN KEY (`id_proyecto`) REFERENCES `proyecto` (`id`),
-  ADD CONSTRAINT `proyectotransaccion_ibfk_2` FOREIGN KEY (`id_miembro`) REFERENCES `usuario` (`id`);
+  ADD CONSTRAINT `proyectotransaccion_ibfk_1` FOREIGN KEY (`id_proyecto`) REFERENCES `proyecto` (`id`) ON UPDATE CASCADE ON DELETE CASCADE,
+  ADD CONSTRAINT `proyectotransaccion_ibfk_2` FOREIGN KEY (`id_miembro`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `sessionhandler`
 --
 ALTER TABLE `sessionhandler`
-  ADD CONSTRAINT `sessionhandler_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `usuario` (`id`);
+  ADD CONSTRAINT `sessionhandler_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `transaccion`
 --
 ALTER TABLE `transaccion`
-  ADD CONSTRAINT `dest` FOREIGN KEY (`destino`) REFERENCES `cuenta` (`numero_cuenta``),
-  ADD CONSTRAINT `sour` FOREIGN KEY (`source`) REFERENCES `cuenta` (`numero_cuenta`),
-  ADD CONSTRAINT `transaccion_ibfk_1` FOREIGN KEY (`source`) REFERENCES `usuario` (`id`),
-  ADD CONSTRAINT `transaccion_ibfk_2` FOREIGN KEY (`destino`) REFERENCES `usuario` (`id`);
+  ADD CONSTRAINT `dest` FOREIGN KEY (`destino`) REFERENCES `cuenta` (`numero_cuenta`) ON UPDATE CASCADE ON DELETE CASCADE,
+  ADD CONSTRAINT `sour` FOREIGN KEY (`source`) REFERENCES `cuenta` (`numero_cuenta`) ON UPDATE CASCADE ON DELETE CASCADE,
+  ADD CONSTRAINT `transaccion_ibfk_1` FOREIGN KEY (`source`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE ON DELETE CASCADE,
+  ADD CONSTRAINT `transaccion_ibfk_2` FOREIGN KEY (`destino`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE ON DELETE CASCADE;
 
---
+-- 
 -- Filtros para la tabla `usuario`
 --
+
 ALTER TABLE `usuario`
-  ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`preg_seguridad`) REFERENCES `pregseguridad` (`id`),
-  ADD CONSTRAINT `usuario_ibfk_2` FOREIGN KEY (`categoria`) REFERENCES `clientecategoria` (`id`),
-  ADD CONSTRAINT `usuario_ibfk_3` FOREIGN KEY (`permisos`) REFERENCES `permisos` (`id`);
-COMMIT;
+  ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`preg_seguridad`) REFERENCES `pregseguridad` (`id`) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE `usuario`
+  ADD CONSTRAINT `usuario_ibfk_2` FOREIGN KEY (`categoria`) REFERENCES `clientecategoria` (`id`) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE `usuario`
+  ADD CONSTRAINT `usuario_ibfk_3` FOREIGN KEY (`permisos`) REFERENCES `permisos` (`id`) ON UPDATE CASCADE ON DELETE CASCADE;
+
 
 
