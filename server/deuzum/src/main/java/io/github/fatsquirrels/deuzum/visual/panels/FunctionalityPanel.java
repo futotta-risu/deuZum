@@ -23,6 +23,7 @@ import io.github.fatsquirrels.deuzum.visual.components.buttons.FlatButton;
 import io.github.fatsquirrels.deuzum.visual.statistics.GraficoPermisos;
 import io.github.fatsquirrels.deuzum.visual.statistics.GraficoTransaciones;
 import io.github.fatsquirrels.deuzum.visual.statistics.GraficoTransacionesUsuario;
+import io.github.fatsquirrels.deuzum.visual.statistics.GraficoUsuariosXTiempo;
 
 public class FunctionalityPanel extends JTabbedPane {
 	
@@ -48,8 +49,36 @@ public class FunctionalityPanel extends JTabbedPane {
 		
 		FlatButton btnVisualizarGraficoPermisos = new FlatButton("Visualizar Grafico de Permisos");
 		panel_Funct_Visual.add(btnVisualizarGraficoPermisos);
+		
+		FlatButton btnVisualizarGraficoUsuariosXTiempo = new FlatButton("Visualizar Grafico de Usuarios registrados en el tiempo");
+		panel_Funct_Visual.add(btnVisualizarGraficoUsuariosXTiempo);
+		
+
 		JPanel panel_Funct_Database = new JPanel();
 		addTab("Base de Datos", null, panel_Funct_Database, null);
+		
+		btnVisualizarGraficoUsuariosXTiempo.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost:3306/deuzumdb", "root", "");
+				ArrayList<APair<String, Integer>> lista = new ArrayList<APair<String, Integer>>();
+				
+				try {
+					ResultSet rs = GeneralSQLFunctions.getExecQuery(conn, "SELECT fecha_creacion FROM usuario ORDER BY fecha_creacion DESC");
+					while(rs.next()) {
+						String fecha = rs.getString("fecha_creacion");
+						String[] fecha2= fecha.split(" ");
+						lista.add(new APair<String, Integer>(fecha2[0], 1));
+					}
+					rs.close();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+				
+				new GraficoUsuariosXTiempo(lista);
+			}
+		});
 		
 		
 		btnVisualizarGraficoUsuario.addActionListener(new ActionListener() {
