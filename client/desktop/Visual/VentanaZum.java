@@ -2,16 +2,14 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
 
-import javax.swing.JTextField;
+
 import javax.swing.JButton;
+import javax.swing.JComponent;
+
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.SwingConstants;
 
 import Paneles.PanelConfiguracion;
 import Paneles.PanelCuentas;
@@ -19,17 +17,9 @@ import Paneles.PanelTransacciones;
 import Paneles.PanelUsuario;
 import Paneles.panelGrupo;
 
-import javax.swing.JTable;
-import javax.swing.JLabel;
 import javax.swing.ButtonGroup;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JTextPane;
-import javax.swing.JRadioButton;
-import java.awt.GridBagConstraints;
 
 public class VentanaZum extends JFrame  {
-	private JPanel panelGeneral;
 	private JFrame frame;
 	private ButtonGroup botones= new ButtonGroup();
 	private JPanel panelConfiguracion;
@@ -37,7 +27,7 @@ public class VentanaZum extends JFrame  {
 	private JPanel panelMisCuentas;
 	private JPanel panelMisGrupos;
 	private JPanel panelTrasacciones;
-
+    private JPanel panelGeneral;
 
 
 
@@ -61,7 +51,6 @@ public class VentanaZum extends JFrame  {
 	 * Create the application.
 	 */
 	public VentanaZum() {
-
 	initialize();
 	}
 
@@ -74,6 +63,10 @@ public class VentanaZum extends JFrame  {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
+		panelGeneral = new JPanel();
+		panelGeneral.setBounds(134, 0, 300, 261);
+		frame.getContentPane().add(panelGeneral);
+		
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 135, 261);
 		frame.getContentPane().add(panel);
@@ -84,7 +77,7 @@ public class VentanaZum extends JFrame  {
 		JButton usuario = new JButton("Usuario");
 		usuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				switchPanel(new PanelUsuario());
 			} 
 		});
 		panel.add(usuario);
@@ -92,6 +85,7 @@ public class VentanaZum extends JFrame  {
 		JButton misCuentas = new JButton("Mis Cuentas");
 		misCuentas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				switchPanel(new PanelCuentas());
 			}
 		});
 		panel.add(misCuentas);
@@ -99,7 +93,7 @@ public class VentanaZum extends JFrame  {
 		JButton misGrupos = new JButton("Mis Grupos");
 		misGrupos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				switchPanel(new panelGrupo());
 			}
 		});
 		panel.add(misGrupos);
@@ -107,71 +101,28 @@ public class VentanaZum extends JFrame  {
 		JButton Transacciones = new JButton("Trasacciones");
 		Transacciones.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				switchPanel(new PanelTransacciones());
 			}
 		});
 		panel.add(Transacciones);
 		
 		JButton configuración = new JButton("Configuración");
-		
-		panel.add(configuración);
-		
-		panelGeneral = new JPanel();
-		panelGeneral.setBounds(135, 0, 299, 261);
-		frame.getContentPane().add(panelGeneral);
-		panelGeneral.setLayout(null);
-		
-		
-		
-		
-		usuario.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				switchPanel(new PanelUsuario());
-				
-			}
-		});
-		
-		misCuentas.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				switchPanel(new PanelCuentas());
-				
-			}
-		});
-
-		
-		misGrupos.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				switchPanel(new panelGrupo());
-				
-			}
-		});
-
-		
-		Transacciones.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				switchPanel(new PanelTransacciones());
-				
-			}
-		});
-
-		
 		configuración.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				switchPanel(new PanelConfiguracion());
-				
 			}
 		});
+		
+		panel.add(configuración);
+		
+		
+		
+		
+		
 	}
-	public void switchPanel ( JPanel panel ){
+	public void switchPanel ( JComponent panel ){
 		panelGeneral.removeAll();
 		panelGeneral.add(panel);
 		panelGeneral.validate();

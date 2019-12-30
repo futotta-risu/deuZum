@@ -11,7 +11,7 @@ public class PanelCuentas extends JPanel {
 	private JList listCuentas = new JList();
 	
 	public PanelCuentas() {
-		setLayout(null);
+		
 		
 		lblEstasSonMis = new JLabel("Estas son mis cuentas:");
 		lblEstasSonMis.setBounds(30, 48, 109, 14);

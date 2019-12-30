@@ -18,7 +18,6 @@ public class PanelTransacciones extends JPanel {
 	private JButton btnFinalizar = new JButton();
 	
 	public PanelTransacciones() {
-		setLayout(null);
 		
 		lblNombreDest = new JLabel("Nombre del destinatario:");
 		lblNombreDest.setBounds(15, 28, 146, 14);
