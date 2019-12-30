@@ -2,9 +2,8 @@ package io.github.fatsquirrels.deuzum.visual.statistics;
 
 import java.awt.Color;
 import java.awt.Container;
-
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map.Entry;
 
 import javax.swing.JFrame;
@@ -16,16 +15,18 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
+import io.github.fatsquirrels.deuzum.utils.math.APair;
 
-public class GraficoTransaciones extends JFrame {
+public class GraficoAportacionesProyecto extends JFrame{
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static List<Integer> cantidades;
-		
-	public GraficoTransaciones(List<Integer> data) {
-		GraficoTransaciones.cantidades = data;
+	private static ArrayList<APair<Integer,Integer>> cantidades;
+	
+	public GraficoAportacionesProyecto(ArrayList<APair<Integer,Integer>> data) {
+		GraficoAportacionesProyecto.cantidades = data;
 		Container cp = this.getContentPane();
 		
 
@@ -35,8 +36,9 @@ public class GraficoTransaciones extends JFrame {
 		setVisible(true);
 		setSize(500,500);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setTitle("Grafico Transaciones");
+		setTitle("Grafico Aportaciones en Proyecto");
 	}
+
 	private static ChartFrame crearGraficoBarras() {
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		
@@ -46,38 +48,37 @@ public class GraficoTransaciones extends JFrame {
 			dataset.setValue(entry.getValue(), ""+2019, entry.getKey());
 		}		
 		
-		JFreeChart chart = ChartFactory.createBarChart("Repeticiones de cantidad transferida", null, 
+		JFreeChart chart = ChartFactory.createBarChart("Aportaciones por Usuario", null, 
 		null, dataset, PlotOrientation.VERTICAL, true, true, false);
 		
 		CategoryPlot plot = chart.getCategoryPlot();
 	    plot.getRenderer().setSeriesPaint(0, new Color(0, 0, 255));
 		  
-		ChartFrame frame = new ChartFrame("Grafico de repeticiones de cantidades de dinero transferidas", chart);
+		ChartFrame frame = new ChartFrame("Grafico de aportaciones por Usuario", chart);
 		frame.pack();
 		frame.setVisible(true);
 	    
 		return frame;
 	}
 	
-	
 	public static HashMap<Integer, Integer> contarRepeticiones() {
 		
 		HashMap<Integer, Integer > mapaNumeros = new HashMap<Integer, Integer>();
-		for (Integer integer : cantidades) {		
+		for(APair<Integer,Integer> pareja : cantidades) {		
 			
 			if(mapaNumeros.isEmpty()) {
-				mapaNumeros.put(integer, 1);
+				mapaNumeros.put(pareja.getIndex(), pareja.getValue());
 			}else {
 				boolean existe = false;
 				for (Entry<Integer, Integer> entry : mapaNumeros.entrySet()) {			
-					if(integer == entry.getKey()) { 
-						entry.setValue(entry.getValue()+1);
+					if(pareja.getIndex() == entry.getKey()) { 
+						mapaNumeros.replace(pareja.getIndex(), entry.getValue() + pareja.getValue());
 						existe = true;
 						break;
 					}
 				}
 				if(!existe) {
-					mapaNumeros.put(integer, 1);
+					mapaNumeros.put(pareja.getIndex(), pareja.getValue());
 				}
 			}
 		}
@@ -86,6 +87,5 @@ public class GraficoTransaciones extends JFrame {
 		
 	}
 	
-	
-	
+
 }

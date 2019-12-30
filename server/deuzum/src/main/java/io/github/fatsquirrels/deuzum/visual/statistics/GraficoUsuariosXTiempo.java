@@ -1,7 +1,6 @@
 package io.github.fatsquirrels.deuzum.visual.statistics;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Container;
 import java.util.ArrayList;
 import java.util.HashMap;
