@@ -35,11 +35,8 @@ public class PanelUsuario extends JPanel{
 	
 	public PanelUsuario() {
 		
-		
-		
 		//this.setSize(500, 200);
 		this.setVisible(true);
-		setLayout(null);
 		
 		lblNombre = new JLabel("Nombre:");
 		lblNombre.setBounds(23, 31, 46, 14);

@@ -13,7 +13,7 @@ public class panelGrupo extends JPanel {
 	public panelGrupo() {
 		//this.setSize(500, 200);
 		this.setVisible(true);
-		setLayout(null);
+		
 		
 		lblMisgrupos = new JLabel("Estos son mis grupos:");
 		lblMisgrupos.setBounds(26, 45, 112, 14);
