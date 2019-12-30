@@ -50,9 +50,7 @@ public class GestionarTarjetas extends AppCompatActivity {
 
     public void guardar() {
         MessageSender ms = new MessageSender();
-        ms.execute(tNumeroTarjeta.getText().toString());
-        ms.execute(cCVV.getText().toString());
-        ms.execute(tFechaCaducidad.getText().toString());
+        ms.execute(tNumeroTarjeta.getText().toString(), cCVV.getText().toString(), tFechaCaducidad.getText().toString());
 
         Intent i = new Intent(this, MenuPrincipal.class);
         startActivity(i);

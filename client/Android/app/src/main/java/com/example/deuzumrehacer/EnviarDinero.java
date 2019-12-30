@@ -47,9 +47,10 @@ public class EnviarDinero extends AppCompatActivity {
 
     public void enviarDinero(){
         MessageSender ms = new MessageSender();
-        ms.execute(tUsuarioDestinatario.getText().toString());
-        ms.execute(tImporte.getText().toString());
-        ms.execute(tConcepto.getText().toString());
+        ms.execute(tUsuarioDestinatario.getText().toString(), tImporte.getText().toString(), tConcepto.getText().toString());
+
+        Intent i = new Intent(this, MenuPrincipal.class);
+        startActivity(i);
     }
 
     public void abrirMenuPrincipal() {

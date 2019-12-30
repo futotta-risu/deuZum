@@ -51,6 +51,8 @@ public class InicioSesion extends AppCompatActivity {
     }
 
     public void abrirMenuPrincipal() {
+        MessageSender ms = new MessageSender();
+        ms.execute(nUsuario.getText().toString(), cUsuario.getText().toString());
         Intent i = new Intent(this, MenuPrincipal.class);
         startActivity(i);
     }

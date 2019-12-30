@@ -73,17 +73,9 @@ public class CrearUsuario extends AppCompatActivity {
 
     public void crearUsuario(){
         MessageSender ms = new MessageSender();
-        ms.execute(tCorreo.getText().toString());
-        ms.execute(tNombre.getText().toString());
-        ms.execute(tApellido.getText().toString());
-        ms.execute(tTelefono.getText().toString());
-        ms.execute(tDireccion.getText().toString());
-        ms.execute(dFechaNacimiento.getText().toString());
-        ms.execute(sGenero.getSelectedItem().toString());
-        ms.execute(nUsuario.getText().toString());
-        ms.execute(cUsuario.getText().toString());
-        ms.execute(sPreguntaSeguridad.getSelectedItem().toString());
-        ms.execute(tRespuestaSeguridad.getText().toString());
+        ms.execute(tCorreo.getText().toString(), tNombre.getText().toString(), tApellido.getText().toString(), tTelefono.getText().toString(),
+                tDireccion.getText().toString(), dFechaNacimiento.getText().toString(), sGenero.getSelectedItem().toString(), nUsuario.getText().toString(),
+                cUsuario.getText().toString(), sPreguntaSeguridad.getSelectedItem().toString(), tRespuestaSeguridad.getText().toString());
 
         Intent i = new Intent(this, MenuPrincipal.class);
         startActivity(i);

@@ -58,11 +58,8 @@ public class VerUsuario extends AppCompatActivity {
 
     public void guardarCambios() {
         MessageSender ms = new MessageSender();
-        ms.execute(tNombreUsuario.getText().toString());
-        ms.execute(tTelefono.getText().toString());
-        ms.execute(tEmail.getText().toString());
-        ms.execute(tDireccion.getText().toString());
-        ms.execute(cContrasenya.getText().toString());
+        ms.execute(tNombreUsuario.getText().toString(), tTelefono.getText().toString(), tEmail.getText().toString(), tDireccion.getText().toString(),
+                cContrasenya.getText().toString());
 
         Intent i = new Intent(this, MenuPrincipal.class);
         startActivity(i);
