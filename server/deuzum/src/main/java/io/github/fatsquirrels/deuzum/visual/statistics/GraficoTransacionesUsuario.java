@@ -28,7 +28,7 @@ public class GraficoTransacionesUsuario extends JFrame{
 		this.cantidades = data;
 		Container cp = this.getContentPane();
 		
-		cp.add(crearGraficoBarrasUsuario(data));
+		cp.add(crearGraficoBarrasUsuario());
 		
 		setVisible(true);
 		setSize(500,500);
@@ -36,10 +36,10 @@ public class GraficoTransacionesUsuario extends JFrame{
 		setTitle("Grafico cantidad transferida por usuario");
 	}
 
-	private ChartFrame crearGraficoBarrasUsuario(ArrayList<APair<Integer, Integer>> data) {
+	private ChartFrame crearGraficoBarrasUsuario() {
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		
-		HashMap<Integer, Integer > mapaNumeros = contarRepeticionesUsuario(data);
+		HashMap<Integer, Integer > mapaNumeros = contarRepeticionesUsuario();
 		
 		for (Entry<Integer, Integer> entry : mapaNumeros.entrySet()) {
 			dataset.setValue(entry.getValue(), ""+2019, entry.getKey());
@@ -58,10 +58,10 @@ public class GraficoTransacionesUsuario extends JFrame{
 		return frame;
 	}
 
-	private HashMap<Integer, Integer> contarRepeticionesUsuario(ArrayList<APair<Integer, Integer>> data) {
+	private HashMap<Integer, Integer> contarRepeticionesUsuario() {
 		
 		HashMap<Integer, Integer> mapaResult = new HashMap<Integer,Integer>();
-		for (APair<Integer, Integer> pareja : data) {
+		for (APair<Integer, Integer> pareja : cantidades) {
 			if(mapaResult.isEmpty()) {
 				mapaResult.put(pareja.getIndex(), pareja.getValue());
 			}else {

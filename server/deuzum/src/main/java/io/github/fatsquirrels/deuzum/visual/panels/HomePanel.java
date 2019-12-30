@@ -243,6 +243,7 @@ public class HomePanel extends JPanel{
 		transactionBots = new ArrayList<BotBase>();
 		accountBots = new ArrayList<BotBase>();
 		groupBots = new ArrayList<BotBase>();
+		proyectTransactionBots = new ArrayList<BotBase>();
 
 		
 		///////////////////		CLEANING	//////////////////////
@@ -548,12 +549,23 @@ public class HomePanel extends JPanel{
 		
 	}
 	
-	private void pauseProyectTransactionBot() {
-		// TODO Auto-generated method stub
-	}
+	
 
-	private void deleteProyectTransactionBot() {
-		// TODO Auto-generated method stub
+	private void pauseProyectTransactionBot() {
+		Thread hiloPauseProyectTransaction = new Thread(new Runnable() {
+
+			public void run() {
+				if(proyectTransactionBots.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "No hay ningun bot de Proyecto en ejecucion","ERROR" , 1);
+				}else {
+					int tiempo = Integer.parseInt(JOptionPane.showInputDialog("Introduce el tiempo de pausa:"));
+					for (BotBase botBase : proyectTransactionBots) {
+						botBase.stop(tiempo*1000);;
+					}	
+				}
+			}
+		});
+		hiloPauseProyectTransaction.run();		
 	}
 
 	
@@ -690,6 +702,21 @@ public class HomePanel extends JPanel{
 		});
 		hiloBorrarProyecto.run();	}
 
+	
+	
+
+	private void deleteProyectTransactionBot() {
+		Thread hiloBorrarTransacionProyecto = new Thread(new Runnable() {
+			public void run() {
+				for (BotBase botBase : proyectTransactionBots) {
+					botBase.kill();
+					proyectTransactionBots.remove(botBase);
+				}
+				lblNumBotsGrupo.setText(0+"");				
+			}
+		});
+		hiloBorrarTransacionProyecto.run();	}
+	
 	
 	private void deleteGroupBot() {
 		Thread hiloBorrarGrupo = new Thread(new Runnable() {

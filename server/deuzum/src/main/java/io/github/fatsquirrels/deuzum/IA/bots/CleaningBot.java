@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
-import io.github.fatsquirrels.deuzum.net.Server;
+
 
 public class CleaningBot extends BotBase{
 	
