@@ -9,6 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class InicioSesion extends AppCompatActivity {
 
     private ImageView lDeuzum;
@@ -27,6 +30,10 @@ public class InicioSesion extends AppCompatActivity {
         cUsuario = findViewById(R.id.contrUsuario);
         bIni = findViewById(R.id.botonIni);
         bReg = findViewById(R.id.botonRegis);
+
+        Logger logger = Logger.getLogger(InicioSesion.class.getName());
+        logger.log(Level.INFO, "1");
+        logger.log(Level.WARNING, "2");
 
         bIni.setOnClickListener(new View.OnClickListener() {
             @Override
