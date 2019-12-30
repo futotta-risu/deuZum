@@ -13,7 +13,9 @@ public class PanelConfiguracion extends JPanel {
 	private JLabel lblRepetirContrasea = new JLabel();
 	
 	public PanelConfiguracion() {
+		setVisible(true);
 		setLayout(null);
+		
 		
 		passwordField = new JPasswordField();
 		passwordField.setBounds(191, 60, 109, 20);
