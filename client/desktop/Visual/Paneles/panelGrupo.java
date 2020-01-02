@@ -11,16 +11,14 @@ public class panelGrupo extends JPanel {
 	private JList listMisGrupos= new JList();
 
 	public panelGrupo() {
-		//this.setSize(500, 200);
-		this.setVisible(true);
+		setLayout(new VerticalFlowLayout(10,10,10));
+
 		
 		
 		lblMisgrupos = new JLabel("Estos son mis grupos:");
-		lblMisgrupos.setBounds(26, 45, 112, 14);
 		add(lblMisgrupos);
 		
 		listMisGrupos = new JList();
-		listMisGrupos.setBounds(154, 77, 262, 132);
 		add(listMisGrupos);
 				
 		

@@ -35,59 +35,48 @@ public class PanelUsuario extends JPanel{
 	
 	public PanelUsuario() {
 		
-		//this.setSize(500, 200);
-		this.setVisible(true);
+		
+		setLayout(new VerticalFlowLayout(10,10,10));
+
 		
 		lblNombre = new JLabel("Nombre:");
-		lblNombre.setBounds(23, 31, 46, 14);
 		add(lblNombre);
 		
-		lblApellidos = new JLabel("Apellidos:");
-		lblApellidos.setBounds(23, 65, 46, 14);
-		add(lblApellidos);
-		
 		textPaneNombre = new JTextPane();
-		textPaneNombre.setBounds(134, 25, 181, 20);
 		add(textPaneNombre);
 		
+		lblApellidos = new JLabel("Apellidos:");
+		add(lblApellidos);
+			
+		
 		textPaneApellidos = new JTextPane();
-		textPaneApellidos.setBounds(134, 59, 181, 20);
 		add(textPaneApellidos);
 		
 		lblTelfono = new JLabel("Tel\u00E9fono:");
-		lblTelfono.setBounds(23, 103, 46, 14);
 		add(lblTelfono);
 		
 		textPaneTelefono = new JTextPane();
-		textPaneTelefono.setBounds(134, 97, 181, 20);
 		add(textPaneTelefono);
 		
 		lblEmail = new JLabel("Email:");
-		lblEmail.setBounds(23, 141, 46, 14);
 		add(lblEmail);
 		
 		textPaneEmail = new JTextPane();
-		textPaneEmail.setBounds(134, 135, 181, 20);
 		add(textPaneEmail);
 		
 		lblDireccion = new JLabel("Direccion:");
-		lblDireccion.setBounds(23, 180, 64, 14);
 		add(lblDireccion);
 		
 		textPaneDireccion = new JTextPane();
-		textPaneDireccion.setBounds(134, 174, 181, 20);
 		add(textPaneDireccion);
 		
 		lblSexo = new JLabel("Sexo:");
-		lblSexo.setBounds(23, 232, 46, 14);
 		add(lblSexo);
 		
 		rdbtnFemenino = new JRadioButton("Femenino");
-		rdbtnFemenino.setBounds(131, 228, 109, 23);
 		add(rdbtnFemenino);
 		
 		rdbtnMasculino = new JRadioButton("Masculino");
-		rdbtnMasculino.setBounds(257, 228, 109, 23);
 		add(rdbtnMasculino);
 		
 		botones.add(rdbtnFemenino);

@@ -1,9 +1,9 @@
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
-
+import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 
@@ -28,6 +28,8 @@ public class VentanaZum extends JFrame  {
 	private JPanel panelMisGrupos;
 	private JPanel panelTrasacciones;
     private JPanel panelGeneral;
+    private static final long serialVersionUID = 7048969902214333603L;
+  
 
 
 
@@ -61,17 +63,18 @@ public class VentanaZum extends JFrame  {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		
-		panelGeneral = new JPanel();
-		panelGeneral.setBounds(134, 0, 300, 261);
-		frame.getContentPane().add(panelGeneral);
-		
-		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 135, 261);
-		frame.getContentPane().add(panel);
-		panel.setLayout(new GridLayout(5,1));
-		
+		 frame.setLayout(new BorderLayout());
+	   	 
+	   	 panelGeneral = new JPanel();
+	   	 panelGeneral.setLayout(new BorderLayout());
+	   	 
+	   	 
+	   	 
+	   	 
+	   	 JPanel panel = new JPanel();
+	   	 panel.setLayout(new GridLayout(5,1));
+	   	 
+
 		
 		
 		JButton usuario = new JButton("Usuario");
@@ -118,15 +121,23 @@ public class VentanaZum extends JFrame  {
 		panel.add(configuración);
 		
 		
-		
+		 
+	   	 frame.add(panel, BorderLayout.WEST);
+	   	 frame.add(panelGeneral, BorderLayout.CENTER);
+	   	 
+
 		
 		
 	}
 	public void switchPanel ( JComponent panel ){
-		panelGeneral.removeAll();
-		panelGeneral.add(panel);
-		panelGeneral.validate();
-		panelGeneral.repaint();
+		 panelGeneral.removeAll();
+
+	   	 JScrollPane scrolledPane = new JScrollPane();
+	   	 scrolledPane.setViewportView(panel);
+	   	 panelGeneral.add(scrolledPane, BorderLayout.CENTER);
+	   	 panelGeneral.validate();
+	   	 panelGeneral.repaint();
+
 	}
 	}
 
