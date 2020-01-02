@@ -61,6 +61,8 @@ public class VerUsuario extends AppCompatActivity {
         ms.execute(tNombreUsuario.getText().toString(), tTelefono.getText().toString(), tEmail.getText().toString(), tDireccion.getText().toString(),
                 cContrasenya.getText().toString());
 
+
+
         Intent i = new Intent(this, MenuPrincipal.class);
         startActivity(i);
     }

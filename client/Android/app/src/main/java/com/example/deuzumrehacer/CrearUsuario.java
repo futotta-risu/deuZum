@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import java.io.IOException;
+
 public class CrearUsuario extends AppCompatActivity {
 
     private EditText tCorreo;
@@ -55,6 +57,13 @@ public class CrearUsuario extends AppCompatActivity {
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, opciones2);
         sPreguntaSeguridad.setAdapter(adapter2);
 
+        try {
+            tNombre.setText(Util.getProperty("nombre",getApplicationContext()));
+            tApellido.setText(Util.getProperty("apellido",getApplicationContext()));
+            bSiguiente.setText(Util.getProperty("siguiente",getApplicationContext()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         bSiguiente.setOnClickListener(new View.OnClickListener() {
             @Override
