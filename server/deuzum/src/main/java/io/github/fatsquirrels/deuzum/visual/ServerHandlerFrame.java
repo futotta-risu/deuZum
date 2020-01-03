@@ -13,12 +13,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
-import java.util.logging.Level;
-
 import javax.swing.JPanel;
 
 import io.github.fatsquirrels.deuzum.database.tableName;
-import io.github.fatsquirrels.deuzum.log.archivoLog;
 import io.github.fatsquirrels.deuzum.net.Server;
 import io.github.fatsquirrels.deuzum.net.ServerThread;
 import io.github.fatsquirrels.deuzum.utils.math.APair;
@@ -198,8 +195,6 @@ public class ServerHandlerFrame  extends JFrame{
 			properties.load(f);
 			properties.toString();
 			
-		logServerHandlerFrame("Prueba");	
-			
 		}catch(FileNotFoundException e1) {
 			System.err.println("El archivo no se encuentra en el lugar indicado.");
 		}catch (IOException e) {
@@ -293,7 +288,14 @@ public class ServerHandlerFrame  extends JFrame{
 		}else if(timeOut ==40) {
 			hiloStart.interrupt();
 		}else JOptionPane.showMessageDialog(null,"Parece que ha habido algun tipo de error al ejecutar el servidor","Error al activar el Server",1);
-	
+
+			
+		
+		
+		
+		
+
+		
 	}
 	
 	public void stopServer() {
@@ -304,9 +306,6 @@ public class ServerHandlerFrame  extends JFrame{
 		panel_Home.changeServerStatus(StatusType.off);
 	}
 	
-	public static void logServerHandlerFrame(String message) {
-		archivoLog log = new archivoLog("logServerHandlerFrame");
-		log.addLine(Level.INFO, message);
-	}
+	
 	
 }

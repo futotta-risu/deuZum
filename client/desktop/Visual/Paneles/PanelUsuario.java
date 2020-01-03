@@ -36,8 +36,15 @@ public class PanelUsuario extends JPanel{
 	public PanelUsuario() {
 		
 		
+<<<<<<< HEAD
 		setLayout(new VerticalFlowLayout(10,10,10));
 
+=======
+		
+		//this.setSize(500, 200);
+		this.setVisible(true);
+		setLayout(null);
+>>>>>>> parent of 0c786a1... Merge branch 'master' of https://github.com/futotta-risu/deuZum
 		
 		lblNombre = new JLabel("Nombre:");
 		add(lblNombre);

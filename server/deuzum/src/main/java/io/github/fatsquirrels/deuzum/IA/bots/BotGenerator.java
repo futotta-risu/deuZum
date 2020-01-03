@@ -1,6 +1,8 @@
 package io.github.fatsquirrels.deuzum.IA.bots;
 
+import java.util.List;
 
+import io.github.fatsquirrels.deuzum.utils.math.APair;
 
 public class BotGenerator {
 

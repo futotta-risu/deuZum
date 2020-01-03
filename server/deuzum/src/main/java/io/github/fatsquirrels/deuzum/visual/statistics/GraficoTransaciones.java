@@ -22,14 +22,14 @@ public class GraficoTransaciones extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static List<Integer> cantidades;
+	private List<Integer> cantidades;
 		
 	public GraficoTransaciones(List<Integer> data) {
-		GraficoTransaciones.cantidades = data;
+		this.cantidades = data;
 		Container cp = this.getContentPane();
 		
 
-		cp.add(crearGraficoBarras());
+		cp.add(crearGraficoBarras(data));
 		
 		
 		setVisible(true);
@@ -37,10 +37,10 @@ public class GraficoTransaciones extends JFrame {
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setTitle("Grafico Transaciones");
 	}
-	private static ChartFrame crearGraficoBarras() {
+	private static ChartFrame crearGraficoBarras(List<Integer> array) {
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		
-		HashMap<Integer, Integer > mapaNumeros = contarRepeticiones();
+		HashMap<Integer, Integer > mapaNumeros = contarRepeticiones(array);
 		
 		for (Entry<Integer, Integer> entry : mapaNumeros.entrySet()) {
 			dataset.setValue(entry.getValue(), ""+2019, entry.getKey());
@@ -60,10 +60,10 @@ public class GraficoTransaciones extends JFrame {
 	}
 	
 	
-	public static HashMap<Integer, Integer> contarRepeticiones() {
+	public static HashMap<Integer, Integer> contarRepeticiones(List<Integer> array) {
 		
 		HashMap<Integer, Integer > mapaNumeros = new HashMap<Integer, Integer>();
-		for (Integer integer : cantidades) {		
+		for (Integer integer : array) {		
 			
 			if(mapaNumeros.isEmpty()) {
 				mapaNumeros.put(integer, 1);

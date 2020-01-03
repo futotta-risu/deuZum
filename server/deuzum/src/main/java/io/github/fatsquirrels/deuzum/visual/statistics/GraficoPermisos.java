@@ -1,5 +1,6 @@
 package io.github.fatsquirrels.deuzum.visual.statistics;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,23 +11,20 @@ import javax.swing.JFrame;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
 
 import org.jfree.data.general.DefaultPieDataset;
 
 import io.github.fatsquirrels.deuzum.utils.math.APair;
 
 public class GraficoPermisos extends JFrame{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private ArrayList<APair<String, Integer>> cantidades;
 	
 	public GraficoPermisos(ArrayList<APair<String, Integer>> data) {
 		this.cantidades = data;
 		Container cp = this.getContentPane();
 		
-		cp.add(crearGraficoPermisosUsuario());
+		cp.add(crearGraficoPermisosUsuario(data));
 		
 		setVisible(true);
 		setSize(500,500);
@@ -34,10 +32,10 @@ public class GraficoPermisos extends JFrame{
 		setTitle("Grafico Permisos de usuario");
 	}
 
-	private ChartFrame crearGraficoPermisosUsuario() {
+	private ChartFrame crearGraficoPermisosUsuario(ArrayList<APair<String, Integer>> data) {
 		DefaultPieDataset dataset = new DefaultPieDataset();
 		
-		HashMap<String, Integer > mapaNumeros = contarRepeticiones();
+		HashMap<String, Integer > mapaNumeros = contarRepeticiones(data);
 		
 		for (Entry<String, Integer> entry : mapaNumeros.entrySet()) {
 			dataset.setValue(entry.getKey(), entry.getValue());
@@ -53,10 +51,10 @@ public class GraficoPermisos extends JFrame{
 		return frame;
 	}
 
-	private HashMap<String, Integer> contarRepeticiones() {
+	private HashMap<String, Integer> contarRepeticiones(ArrayList<APair<String, Integer>> data) {
 		HashMap<String, Integer > mapaNumeros = new HashMap<String, Integer>();
 		
-		for (APair<String, Integer> pareja : cantidades) {	
+		for (APair<String, Integer> pareja : data) {	
 			if(mapaNumeros.isEmpty()) {
 				mapaNumeros.put(pareja.getIndex(), 1);
 			}else {
