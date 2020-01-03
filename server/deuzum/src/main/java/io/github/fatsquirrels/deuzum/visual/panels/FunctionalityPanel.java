@@ -5,7 +5,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,12 +13,14 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
 import io.github.fatsquirrels.deuzum.utils.math.APair;
 import io.github.fatsquirrels.deuzum.visual.components.buttons.FlatButton;
+import io.github.fatsquirrels.deuzum.visual.statistics.GraficoAportacionesProyecto;
 import io.github.fatsquirrels.deuzum.visual.statistics.GraficoPermisos;
 import io.github.fatsquirrels.deuzum.visual.statistics.GraficoTransaciones;
 import io.github.fatsquirrels.deuzum.visual.statistics.GraficoTransacionesUsuario;
@@ -53,9 +54,35 @@ public class FunctionalityPanel extends JTabbedPane {
 		FlatButton btnVisualizarGraficoUsuariosXTiempo = new FlatButton("Visualizar Grafico de Usuarios registrados en el tiempo");
 		panel_Funct_Visual.add(btnVisualizarGraficoUsuariosXTiempo);
 		
+		FlatButton btnVisualizarGraficoAportaciones = new FlatButton("Visualizar Grafico de Aportaciones en Proyecto");
+		panel_Funct_Visual.add(btnVisualizarGraficoAportaciones);
+		
 
 		JPanel panel_Funct_Database = new JPanel();
 		addTab("Base de Datos", null, panel_Funct_Database, null);
+		
+		btnVisualizarGraficoAportaciones.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost:3306/deuzumdb", "root", "");
+				ArrayList<APair<Integer, Integer>> lista = new ArrayList<APair<Integer, Integer>>();
+				
+				int proyectId = Integer.parseInt(JOptionPane.showInputDialog("Introducir ID Proyecto"));
+				try {
+					ResultSet rs = GeneralSQLFunctions.getExecQuery(conn, "SELECT id_miembro,cantidad FROM proyectotransaccion WHERE id_proyecto = " + proyectId);
+					while(rs.next()) {
+						lista.add(new APair<Integer, Integer>(rs.getInt("id_miembro"), rs.getInt("cantidad")));
+						System.out.println(rs.getInt("id_miembro") + "  " + rs.getInt("cantidad"));
+					}
+					rs.close();
+				}catch(Exception ex) {
+					ex.printStackTrace();
+				}
+				
+				new GraficoAportacionesProyecto(lista);
+
+			}
+		});
 		
 		btnVisualizarGraficoUsuariosXTiempo.addActionListener(new ActionListener() {
 			

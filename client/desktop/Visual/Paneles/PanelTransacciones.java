@@ -18,13 +18,8 @@ public class PanelTransacciones extends JPanel {
 	private JButton btnFinalizar = new JButton();
 	
 	public PanelTransacciones() {
-<<<<<<< HEAD
 		setLayout(new VerticalFlowLayout(10,10,10));
 
-=======
-		setLayout(null);
-		
->>>>>>> parent of 0c786a1... Merge branch 'master' of https://github.com/futotta-risu/deuZum
 		lblNombreDest = new JLabel("Nombre del destinatario:");
 		add(lblNombreDest);
 		

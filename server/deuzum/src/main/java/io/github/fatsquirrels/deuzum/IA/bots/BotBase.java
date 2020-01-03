@@ -1,10 +1,5 @@
 package io.github.fatsquirrels.deuzum.IA.bots;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
 
 public abstract class BotBase {
 

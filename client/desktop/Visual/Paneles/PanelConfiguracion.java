@@ -15,7 +15,6 @@ public class PanelConfiguracion extends JPanel {
 	private JLabel lblRepetirContrasea = new JLabel();
 	
 	public PanelConfiguracion() {
-<<<<<<< HEAD
 		
 		
 		setLayout(new VerticalFlowLayout(10,10,10));
@@ -32,24 +31,6 @@ public class PanelConfiguracion extends JPanel {
 		add(lblRepetirContrasea, BorderLayout.NORTH);
 		
 		passwordField_1 = new JPasswordField();
-=======
-		setLayout(null);
-		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(191, 60, 109, 20);
-		add(passwordField);
-		
-		lblCambiarContrasea = new JLabel("Cambiar contrase\u00F1a:");
-		lblCambiarContrasea.setBounds(26, 63, 100, 14);
-		add(lblCambiarContrasea);
-		
-		lblRepetirContrasea = new JLabel("Repetir contrase\u00F1a:");
-		lblRepetirContrasea.setBounds(26, 98, 100, 14);
-		add(lblRepetirContrasea);
-		
-		passwordField_1 = new JPasswordField();
-		passwordField_1.setBounds(191, 95, 109, 20);
->>>>>>> parent of 0c786a1... Merge branch 'master' of https://github.com/futotta-risu/deuZum
 		add(passwordField_1);
 		
 		
