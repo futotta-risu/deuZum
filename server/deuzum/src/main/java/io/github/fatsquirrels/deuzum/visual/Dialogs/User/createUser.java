@@ -9,6 +9,7 @@ import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
 import io.github.fatsquirrels.deuzum.net.ServerUserFunctionality;
 import io.github.fatsquirrels.deuzum.utils.ObjectMapper;
 import io.github.fatsquirrels.deuzum.utils.math.APair;
+import io.github.fatsquirrels.deuzum.utils.meta.anotations.Tested;
 import io.github.fatsquirrels.deuzum.utils.text.ConcreteText;
 import io.github.fatsquirrels.deuzum.utils.text.TextFunctions;
 import io.github.fatsquirrels.deuzum.utils.text.TextTypes;
@@ -34,11 +35,12 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
 
-//Clase Testeada
+@Tested(tested = true)
 /**
 * Dialogo encargado de crear usuarios en la base de datos
 *
 */
+@Deprecated
 public class createUser extends JDialog{
 
 	

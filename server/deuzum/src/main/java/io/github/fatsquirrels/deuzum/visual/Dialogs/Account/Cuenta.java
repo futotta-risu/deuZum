@@ -5,6 +5,7 @@ package io.github.fatsquirrels.deuzum.visual.Dialogs.Account;
  * Clase que crea objetos de una cuenta de usuario
  *
  */
+@Deprecated
 public class Cuenta {
 	private String idCuenta;
 	private String numCuenta;

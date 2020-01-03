@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 /**
 * Dialogo encargado de eliminar cuentas en la base de datos
 */
+@Deprecated
 public class deleteAccount extends JDialog{
 	
 

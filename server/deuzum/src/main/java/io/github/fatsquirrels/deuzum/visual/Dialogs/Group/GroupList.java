@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.awt.event.ActionEvent;
 
+@Deprecated
 public class GroupList extends JDialog{
 
 	

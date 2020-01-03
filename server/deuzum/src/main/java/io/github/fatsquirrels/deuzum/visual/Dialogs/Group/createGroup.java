@@ -26,6 +26,7 @@ import java.util.HashMap;
 
 import javax.swing.JButton;
 
+@Deprecated
 public class createGroup extends JDialog{
 
 	private static final long serialVersionUID = 1L;

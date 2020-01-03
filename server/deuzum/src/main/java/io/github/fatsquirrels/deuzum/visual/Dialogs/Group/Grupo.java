@@ -1,5 +1,6 @@
 package io.github.fatsquirrels.deuzum.visual.Dialogs.Group;
 
+@Deprecated
 public class Grupo {
 	private String idGrupo;
 	private String nombreGrupo;

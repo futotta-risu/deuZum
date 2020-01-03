@@ -15,6 +15,7 @@ import java.sql.SQLException;
 
 import javax.swing.JButton;
 
+@Deprecated
 public class deleteTransaction extends JDialog{
 
 	

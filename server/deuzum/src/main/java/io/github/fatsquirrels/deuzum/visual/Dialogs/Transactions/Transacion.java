@@ -1,5 +1,6 @@
 package io.github.fatsquirrels.deuzum.visual.Dialogs.Transactions;
 
+@Deprecated
 public class Transacion {
 	private String codigo;
 	private String idOrigen;

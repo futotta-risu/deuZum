@@ -27,6 +27,7 @@ import io.github.fatsquirrels.deuzum.utils.text.TextTypes;
 /**
 * Dialogo encargado de editar cuentas de la base de datos
 */
+@Deprecated
 public class editAccount extends JDialog{
 	
 

@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
 import io.github.fatsquirrels.deuzum.net.ServerUserFunctionality;
+import io.github.fatsquirrels.deuzum.utils.meta.anotations.Tested;
 import io.github.fatsquirrels.deuzum.visual.components.buttons.FlatButton;
 
 import java.awt.Color;
@@ -21,11 +22,12 @@ import java.awt.Font;
 
 
 
-// Clase Testeada
+@Tested(tested = true)
 /**
  * Dialogo encargado de eliminar usuarios de la base de datos
  *
  */
+@Deprecated
 public class deleteUser extends JDialog {
 
 

@@ -23,6 +23,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
+@Deprecated
 public class UserList extends JDialog{
 	
 	private static final long serialVersionUID = 1L;

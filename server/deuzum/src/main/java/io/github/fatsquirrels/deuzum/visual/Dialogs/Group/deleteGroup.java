@@ -13,6 +13,7 @@ import java.sql.Connection;
 
 import javax.swing.JButton;
 
+@Deprecated
 public class deleteGroup extends JDialog{
 
 	

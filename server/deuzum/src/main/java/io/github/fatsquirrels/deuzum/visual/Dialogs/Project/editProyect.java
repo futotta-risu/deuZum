@@ -26,6 +26,7 @@ import java.util.HashMap;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 
+@Deprecated
 public class editProyect extends JDialog{
 
 	

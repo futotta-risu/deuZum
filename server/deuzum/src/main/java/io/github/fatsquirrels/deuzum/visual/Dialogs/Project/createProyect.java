@@ -23,6 +23,7 @@ import java.util.HashMap;
 
 import javax.swing.JButton;
 
+@Deprecated
 public class createProyect extends JDialog{
 
 	

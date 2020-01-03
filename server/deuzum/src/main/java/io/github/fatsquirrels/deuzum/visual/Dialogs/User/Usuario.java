@@ -1,5 +1,7 @@
 package io.github.fatsquirrels.deuzum.visual.Dialogs.User;
 
+
+@Deprecated
 public class Usuario {
 	private String id;
 	private String usuario;

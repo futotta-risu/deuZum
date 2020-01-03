@@ -24,6 +24,7 @@ import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 
+@Deprecated
 public class TransactionList extends JDialog{
 
 	

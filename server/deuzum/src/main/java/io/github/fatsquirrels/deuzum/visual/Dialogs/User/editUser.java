@@ -21,10 +21,10 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
-//TODO testear la clase
+
+@Deprecated
 public class editUser extends JDialog{
 
 	private static final long serialVersionUID = 1L;
@@ -236,6 +236,7 @@ public class editUser extends JDialog{
 	}
 	
 	
+	@SuppressWarnings("rawtypes")
 	public void editarUsuario(Connection conn) {
 		//Comprobamos campos vacios
 				APair[] compulsoryVars = {
@@ -286,7 +287,6 @@ public class editUser extends JDialog{
 					JOptionPane.showMessageDialog(null, "Usuario actualizado con exito", "ACTUALIZADO", 1);
 				}
 				
-				// TODO Deprecated : Añadir ventana de error
 		
 	}
 }

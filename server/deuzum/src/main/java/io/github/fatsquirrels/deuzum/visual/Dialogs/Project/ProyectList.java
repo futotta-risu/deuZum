@@ -9,6 +9,7 @@ import java.sql.Connection;
 import javax.swing.JButton;
 import javax.swing.JList;
 
+@Deprecated
 public class ProyectList extends JDialog{
 
 	

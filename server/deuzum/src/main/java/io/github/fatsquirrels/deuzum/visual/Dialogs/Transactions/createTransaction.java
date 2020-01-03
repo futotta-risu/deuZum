@@ -29,6 +29,7 @@ import java.sql.Connection;
 import java.util.HashMap;
 import java.awt.event.ActionEvent;
 
+@Deprecated
 public class createTransaction extends JDialog{
 
 	
