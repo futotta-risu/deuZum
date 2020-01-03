@@ -11,12 +11,8 @@ public class PanelCuentas extends JPanel {
 	private JList listCuentas = new JList();
 	
 	public PanelCuentas() {
-<<<<<<< HEAD
 		setLayout(new VerticalFlowLayout(10,10,10));
 
-=======
-		setLayout(null);
->>>>>>> parent of 0c786a1... Merge branch 'master' of https://github.com/futotta-risu/deuZum
 		
 		lblEstasSonMis = new JLabel("Estas son mis cuentas:");
 		add(lblEstasSonMis);
