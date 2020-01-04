@@ -50,7 +50,7 @@ public class ProyectBot extends BotBase{
 						Random r = new Random(i);
 						String randomId = arrIds[r.nextInt(groups)];
 						String cantidad = Integer.toString(r.nextInt(999));
-						GeneralSQLFunctions.insertEntryIntoDatabase(conn, "proyecto", new String[] {"id","id_grupo", "nombre","descripcion", "id_deuda"},
+						GeneralSQLFunctions.insertEntryIntoDatabase(conn, "proyecto", new String[] {"id","id_grupo", "nombre","descripcion", "deuda"},
 								new String[] {tempId+"",randomId, "Proyecto " + tempId, "Proyecto creado por un bot", cantidad+""});
 						ResultSet rs = GeneralSQLFunctions.getExecQuery(conn, "SELECT id_miembro FROM grupomiembro WHERE id_grupo = " + randomId);
 						while(rs.next()) {

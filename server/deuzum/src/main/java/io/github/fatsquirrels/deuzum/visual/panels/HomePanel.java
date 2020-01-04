@@ -24,15 +24,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-import io.github.fatsquirrels.deuzum.IA.bots.AccountBot;
-import io.github.fatsquirrels.deuzum.IA.bots.BotBase;
-import io.github.fatsquirrels.deuzum.IA.bots.CleaningBot;
-import io.github.fatsquirrels.deuzum.IA.bots.GroupBot;
-import io.github.fatsquirrels.deuzum.IA.bots.MailBot;
-import io.github.fatsquirrels.deuzum.IA.bots.ProyectBot;
-import io.github.fatsquirrels.deuzum.IA.bots.ProyectTransactionBot;
-import io.github.fatsquirrels.deuzum.IA.bots.TransactionBot;
-import io.github.fatsquirrels.deuzum.IA.bots.UserBot;
+import io.github.fatsquirrels.deuzum.IA.bots.*;
 import io.github.fatsquirrels.deuzum.utils.WebpageConnection;
 import io.github.fatsquirrels.deuzum.utils.math.APair;
 import io.github.fatsquirrels.deuzum.visual.Style.CustomColors;
@@ -103,11 +95,11 @@ public class HomePanel extends JPanel{
 	private List<String> destinatarios;
 	private APair<String, String> mensaje;
 	private ArrayList<BotBase> userBots;
-	private ArrayList<BotBase> transactionBots;
+	private ArrayList<BotBase> transactionBots ;
 	private ArrayList<BotBase> accountBots;
 	private ArrayList<BotBase> groupBots;
 	private ArrayList<BotBase> proyectBots;
-	private ArrayList<BotBase> proyectTransactionBots;
+	private ArrayList<BotBase> proyectTransactionBots; 
 
 
 	
@@ -237,13 +229,17 @@ public class HomePanel extends JPanel{
 		//						   BOTS						    //
 		//////////////////////////////////////////////////////////
 		
+		
 		cleaningBots = new ArrayList<BotBase>();
 		mailBots = new ArrayList<BotBase>();
 		userBots = new ArrayList<BotBase>();
 		transactionBots = new ArrayList<BotBase>();
 		accountBots = new ArrayList<BotBase>();
 		groupBots = new ArrayList<BotBase>();
+		proyectBots = new ArrayList<BotBase>();
 		proyectTransactionBots = new ArrayList<BotBase>();
+		
+		
 
 		
 		///////////////////		CLEANING	//////////////////////
@@ -693,11 +689,13 @@ public class HomePanel extends JPanel{
 	private void deleteProyectBot() {
 		Thread hiloBorrarProyecto = new Thread(new Runnable() {
 			public void run() {
+				if(!proyectBots.isEmpty()) {
 				for (BotBase botBase : proyectBots) {
 					botBase.kill();
 					proyectBots.remove(botBase);
 				}
-				lblNumBotsGrupo.setText(0+"");				
+				lblNumBotsGrupo.setText(0+"");	
+				}
 			}
 		});
 		hiloBorrarProyecto.run();	}

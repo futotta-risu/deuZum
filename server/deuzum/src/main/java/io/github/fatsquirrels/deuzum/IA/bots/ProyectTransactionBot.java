@@ -48,32 +48,35 @@ public class ProyectTransactionBot extends BotBase{
 					for (int i = 0; i < cantidad; i++) {
 						int tempId = getLastId();
 						Random r = new Random(i);
-						String randomId = arrIdsProyecto[r.nextInt(proyects)];
-						
-						//Obtener el id aleatorio de un participante
 						int users = 0;
-						ResultSet idsUsuario = GeneralSQLFunctions.getExecQuery(conn, "SELECT id_miembro FROM proyectomiembro WHERE id_proyecto = " + randomId);
+						String randomId;
 						String[] idsUser = null;
-						ResultSet userCount = GeneralSQLFunctions.getExecQuery(conn, "SELECT count(id_miembro) FROM proyectomiembro WHERE id_proyecto = " + randomId);
-						if(userCount.next()) {
-							users = userCount.getInt("count(id_miembro)");
-							idsUser = new String[users];
-							userCount.close();
-						}
-						int counter2 = 0;
-						while(idsUsuario.next()) {
-							String id = idsUsuario.getString("id_miembro");
-							idsUser[counter2] = id;
-							counter2++;
-						}
-						idsUsuario.close();
+						
+						do {
+							randomId = arrIdsProyecto[r.nextInt(proyects)];
+							
+							//Obtener el id aleatorio de un participante	
+							ResultSet idsUsuario = GeneralSQLFunctions.getExecQuery(conn, "SELECT id_miembro FROM proyectomiembro WHERE id_proyecto = " + randomId);
+							ResultSet userCount = GeneralSQLFunctions.getExecQuery(conn, "SELECT count(id_miembro) FROM proyectomiembro WHERE id_proyecto = " + randomId);
+							if(userCount.next()) {
+								users = userCount.getInt("count(id_miembro)");
+								idsUser = new String[users];
+								userCount.close();
+							}
+							int counter2 = 0;
+							while(idsUsuario.next()) {
+								String id = idsUsuario.getString("id_miembro");
+								idsUser[counter2] = id;
+								counter2++;
+							}
+							idsUsuario.close();
+							}while(users==0);
 						
 						//Obtener deuda del proyecto
-						//TODO CAMBIAR ID_DEUDA A DEUDA
-						ResultSet deuda = GeneralSQLFunctions.getExecQuery(conn, "SELECT id_deuda FROM proyecto WHERE id = " + randomId);
+						ResultSet deuda = GeneralSQLFunctions.getExecQuery(conn, "SELECT deuda FROM proyecto WHERE id = " + randomId);
 						int deudaInt = 0;
 						if(deuda.next()) {
-							deudaInt = deuda.getInt("id_deuda");
+							deudaInt = deuda.getInt("deuda");
 							deuda.close();
 						}
 						
@@ -92,9 +95,9 @@ public class ProyectTransactionBot extends BotBase{
 							GeneralSQLFunctions.insertEntryIntoDatabase(conn, "proyectotransaccion", new String[] {"id","id_proyecto", "id_miembro","tipo", "cantidad", "razon"},
 							new String[] {tempId+"",randomId,idsUser[r.nextInt(users)], 1+"", cantidad+"", "Transaccion realizada por un bot"});	
 							//Actualizar deuda
-							GeneralSQLFunctions.execUpdate(conn, "UPDATE proyecto SET id_deuda = "+ (deudaInt-cantidad) + " WHERE id = " + randomId);
+							GeneralSQLFunctions.execUpdate(conn, "UPDATE proyecto SET deuda = "+ (deudaInt-cantidad) + " WHERE id = " + randomId);
 						}
-						
+					
 					}
 						
 				} catch (SQLException e) {
