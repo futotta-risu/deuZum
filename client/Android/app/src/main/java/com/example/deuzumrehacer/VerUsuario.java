@@ -2,13 +2,19 @@ package com.example.deuzumrehacer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.FileUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.logging.Logger;
 
 public class VerUsuario extends AppCompatActivity {
@@ -61,10 +67,26 @@ public class VerUsuario extends AppCompatActivity {
         ms.execute(tNombreUsuario.getText().toString(), tTelefono.getText().toString(), tEmail.getText().toString(), tDireccion.getText().toString(),
                 cContrasenya.getText().toString());
 
-
-
         Intent i = new Intent(this, MenuPrincipal.class);
         startActivity(i);
+
+        try {
+            Activity activity = new Activity();
+            File file = new File("java/exitoVerUsuario.txt");
+            FileInputStream is = new FileInputStream(file);
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            String text = new String(buffer);
+
+            Toast.makeText(activity,text,Toast.LENGTH_SHORT).show();
+
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
     }
 
     public void abrirMenuPrincipal() {

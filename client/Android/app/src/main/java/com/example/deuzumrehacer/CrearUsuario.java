@@ -11,6 +11,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 
 public class CrearUsuario extends AppCompatActivity {
 
@@ -81,13 +84,39 @@ public class CrearUsuario extends AppCompatActivity {
     }
 
     public void crearUsuario(){
-        MessageSender ms = new MessageSender();
-        ms.execute(tCorreo.getText().toString(), tNombre.getText().toString(), tApellido.getText().toString(), tTelefono.getText().toString(),
-                tDireccion.getText().toString(), dFechaNacimiento.getText().toString(), sGenero.getSelectedItem().toString(), nUsuario.getText().toString(),
-                cUsuario.getText().toString(), sPreguntaSeguridad.getSelectedItem().toString(), tRespuestaSeguridad.getText().toString());
+        try{
+            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/bizum_bd", "root", "");
+            PreparedStatement pst = cn.prepareStatement("insert into usuario values(?,?,?,?,?,?,?,?,?)");
 
-        Intent i = new Intent(this, MenuPrincipal.class);
-        startActivity(i);
+            pst.setString(1, "0");
+            pst.setString(2, String.valueOf(nUsuario.getText()));
+            pst.setString(3, String.valueOf(cUsuario.getText()));
+            pst.setString(4, String.valueOf(tNombre.getText()));
+            pst.setString(5, String.valueOf(tApellido.getText()));
+            pst.setString(6, String.valueOf(tCorreo.getText()));
+            pst.setString(7, String.valueOf(tTelefono.getText()));
+            pst.setString(8, sPreguntaSeguridad.getSelectedItem().toString().trim());
+            pst.setString(9, String.valueOf(tRespuestaSeguridad.getText()));
+
+            pst.executeUpdate();
+
+            nUsuario.setText("");
+            cUsuario.setText("");
+            tNombre.setText("");
+            tApellido.setText("");
+            tCorreo.setText("");
+            tTelefono.setText("");
+
+            tRespuestaSeguridad.setText("");
+
+            Intent i = new Intent(this, MenuPrincipal.class);
+            startActivity(i);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
 
     }
     public void abrirInicioSesion() {
