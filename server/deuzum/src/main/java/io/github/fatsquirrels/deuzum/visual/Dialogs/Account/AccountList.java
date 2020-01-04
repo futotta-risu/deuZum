@@ -23,6 +23,7 @@ import io.github.fatsquirrels.deuzum.visual.Dialogs.Account.Cuenta;
 import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
 import io.github.fatsquirrels.deuzum.database.WhereAST;
 
+@Deprecated
 public class AccountList extends JDialog{
 	private static final long serialVersionUID = 1L;
 	private JTextField txtFiltrar;

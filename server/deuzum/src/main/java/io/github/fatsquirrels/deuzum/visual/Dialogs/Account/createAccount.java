@@ -25,6 +25,7 @@ import javax.swing.JButton;
 /**
 * Dialogo encargado de crear cuentas en la base de datos
 */
+@Deprecated
 public class createAccount extends JDialog{
 	
 	
