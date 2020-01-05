@@ -20,7 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.SpinnerNumberModel;
 
-import io.github.fatsquirrels.deuzum.visual.ServerHandlerFrame;
+import io.github.fatsquirrels.deuzum.visual.ServerHandlerFrame2;
 import io.github.fatsquirrels.deuzum.visual.components.buttons.FlatButton;
 
 public class ConfigPanel extends JPanel{
@@ -54,7 +54,7 @@ public class ConfigPanel extends JPanel{
 		panel_Config_Server.add(lbl_Server_Port, gbc_lbl_Server_Port);
 		
 		final JSpinner spinner_Port = new JSpinner();
-		spinner_Port.setModel(new SpinnerNumberModel(Integer.parseInt((String)ServerHandlerFrame.properties.get("server.port")), 0, 65535, 1));
+		spinner_Port.setModel(new SpinnerNumberModel(Integer.parseInt((String)ServerHandlerFrame2.properties.get("server.port")), 0, 65535, 1));
 		GridBagConstraints gbc_spinner_Port = new GridBagConstraints();
 		gbc_spinner_Port.fill = GridBagConstraints.HORIZONTAL;
 		gbc_spinner_Port.insets = new Insets(0, 0, 5, 5);
@@ -71,7 +71,7 @@ public class ConfigPanel extends JPanel{
 		panel_Config_Server.add(lblNombreDelServidor, gbc_lblNombreDelServidor);
 		
 		JTextField txf_ServerName = new JTextField();
-		txf_ServerName.setText((String) ServerHandlerFrame.properties.get("server.name"));
+		txf_ServerName.setText((String) ServerHandlerFrame2.properties.get("server.name"));
 		GridBagConstraints gbc_txf_ServerName = new GridBagConstraints();
 		gbc_txf_ServerName.gridwidth = 2;
 		gbc_txf_ServerName.insets = new Insets(0, 0, 5, 5);
@@ -89,7 +89,7 @@ public class ConfigPanel extends JPanel{
 		panel_Config_Server.add(lblConnectionTimeOut, gbc_lblConnectionTimeOut);
 		
 		final JSlider slider_ConTimeOut = new JSlider();
-		slider_ConTimeOut.setValue(Integer.parseInt((String)ServerHandlerFrame.properties.get("server.conexionTimeOut")));
+		slider_ConTimeOut.setValue(Integer.parseInt((String)ServerHandlerFrame2.properties.get("server.conexionTimeOut")));
 		GridBagConstraints gbc_slider_ConTimeOut = new GridBagConstraints();
 		gbc_slider_ConTimeOut.fill = GridBagConstraints.HORIZONTAL;
 		gbc_slider_ConTimeOut.gridwidth = 2;
@@ -153,11 +153,11 @@ public class ConfigPanel extends JPanel{
 		JButton btn_Save = new FlatButton("Guardar");
 		btn_Save.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ServerHandlerFrame.updateProperty("server.conexionTimeOut",String.valueOf(slider_ConTimeOut.getValue()) );
-				ServerHandlerFrame.updateProperty("server.port",spinner_Port.getValue().toString());
-				ServerHandlerFrame.updateProperty("server.name",txf_ServerName.getText());
+				ServerHandlerFrame2.updateProperty("server.conexionTimeOut",String.valueOf(slider_ConTimeOut.getValue()) );
+				ServerHandlerFrame2.updateProperty("server.port",spinner_Port.getValue().toString());
+				ServerHandlerFrame2.updateProperty("server.name",txf_ServerName.getText());
 		
-				ServerHandlerFrame.storeProperties();
+				ServerHandlerFrame2.storeProperties();
 			}
 		});
 		panel_1.add(btn_Save, BorderLayout.EAST);

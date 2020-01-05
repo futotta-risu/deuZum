@@ -3,6 +3,7 @@ package io.github.fatsquirrels.deuzum.visual.components.buttons;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -17,6 +18,11 @@ public class MenuButton extends JButton{
 		public MenuButton(String text) {
 			setStyle();
 			setText(text);
+		}
+		public MenuButton(String text, ActionListener e) {
+			setStyle();
+			setText(text);
+			addActionListener(e);
 		}
 		public void setStyle() {
 			setBackground(CustomColors.mBBlue);

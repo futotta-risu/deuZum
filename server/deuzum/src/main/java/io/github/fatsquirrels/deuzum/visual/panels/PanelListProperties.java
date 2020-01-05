@@ -1,11 +1,13 @@
 package io.github.fatsquirrels.deuzum.visual.panels;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import javax.swing.JPanel;
 
 
-public class PanelListProperties {
+public class PanelListProperties implements Iterable<String>{
 	
 	
 	private HashMap<String, PanelProperties> panelMap;
@@ -31,6 +33,19 @@ public class PanelListProperties {
 	}
 	public boolean containsKey(String name) {
 		return panelMap.containsKey(name);
+	}
+	
+	public void cleanPLP() {
+		HashMap<String, PanelProperties> temp = new HashMap<String, PanelProperties>();
+		for(Map.Entry<String, PanelProperties> i : panelMap.entrySet())
+			if(i.getValue().isChangeable) temp.put(i.getKey(),i.getValue());
+		panelMap = temp;
+	}
+
+	@Override
+	public Iterator<String> iterator() {
+		Iterator<String> iter = panelMap.keySet().iterator();
+		return iter;
 	}
 	
 }

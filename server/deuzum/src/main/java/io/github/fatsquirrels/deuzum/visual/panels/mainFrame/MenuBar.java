@@ -1,4 +1,4 @@
-package io.github.fatsquirrels.deuzum.visual.panels;
+package io.github.fatsquirrels.deuzum.visual.panels.mainFrame;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;

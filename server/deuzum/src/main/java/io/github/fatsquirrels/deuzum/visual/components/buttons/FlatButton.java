@@ -2,6 +2,7 @@ package io.github.fatsquirrels.deuzum.visual.components.buttons;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionListener;
 
 import javax.swing.Icon;
 import javax.swing.JButton;
@@ -26,6 +27,11 @@ public class FlatButton extends JButton {
 		super(icono);
 		setStyle();
 		
+	}
+	public FlatButton(String text, ActionListener e) {
+		setStyle();
+		setText(text);
+		addActionListener(e);
 	}
 	public FlatButton(Icon icono, int size) {
 		super(icono);

@@ -1,6 +1,6 @@
 package io.github.fatsquirrels.deuzum.net;
 
-import io.github.fatsquirrels.deuzum.visual.ServerHandlerFrame;
+import io.github.fatsquirrels.deuzum.visual.ServerHandlerFrame2;
 
 public class ServerThread extends Thread{
 
@@ -15,9 +15,9 @@ public class ServerThread extends Thread{
 			return;
 		
 		server = new Server();
-		server.setDBName(ServerHandlerFrame.properties.getProperty("server.dbName"));
-		server.setBotCount(Integer.valueOf(ServerHandlerFrame.properties.getProperty("server.botCount")));
-		server.setPort(Integer.valueOf(ServerHandlerFrame.properties.getProperty("server.port")));
+		server.setDBName(ServerHandlerFrame2.properties.getProperty("server.dbName"));
+		server.setBotCount(Integer.valueOf(ServerHandlerFrame2.properties.getProperty("server.botCount")));
+		server.setPort(Integer.valueOf(ServerHandlerFrame2.properties.getProperty("server.port")));
 		server.runServer();
 		server.start();
 		

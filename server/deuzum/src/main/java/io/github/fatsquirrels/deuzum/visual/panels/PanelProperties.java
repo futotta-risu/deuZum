@@ -12,7 +12,7 @@ public class PanelProperties {
 	}
 	
 	public JPanel getPanel() {
-		return panel;
+		return this.panel;
 	}
 
 	public void setPanel(JPanel panel) {
