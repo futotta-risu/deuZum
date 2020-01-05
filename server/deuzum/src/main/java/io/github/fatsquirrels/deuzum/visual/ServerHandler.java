@@ -1,16 +1,11 @@
 package io.github.fatsquirrels.deuzum.visual;
 
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JButton;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Level;
 
@@ -20,7 +15,6 @@ import io.github.fatsquirrels.deuzum.database.tableName;
 import io.github.fatsquirrels.deuzum.log.archivoLog;
 import io.github.fatsquirrels.deuzum.net.Server;
 import io.github.fatsquirrels.deuzum.net.ServerThread;
-import io.github.fatsquirrels.deuzum.visual.components.buttons.FlatButton;
 import io.github.fatsquirrels.deuzum.visual.components.buttons.IconizedButton;
 import io.github.fatsquirrels.deuzum.visual.components.buttons.MenuButton;
 import io.github.fatsquirrels.deuzum.visual.panels.ConfigPanel;
@@ -30,31 +24,19 @@ import io.github.fatsquirrels.deuzum.visual.panels.MenuPanel;
 import io.github.fatsquirrels.deuzum.visual.panels.PanelListProperties;
 import io.github.fatsquirrels.deuzum.visual.panels.PanelProperties;
 import io.github.fatsquirrels.deuzum.visual.panels.HomePanel.StatusType;
-import io.github.fatsquirrels.deuzum.visual.panels.mainFrame.MenuBar;
-import io.github.fatsquirrels.deuzum.visual.style.CustomColors;
-
-import java.awt.BorderLayout;
-import java.awt.Color;
 
 import javax.swing.ImageIcon;
 
 import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.FlowLayout;
 import javax.swing.JComponent;
 
 /**
  * Clase de la ventana principal del servidor.
  *
  */
-public class ServerHandlerFrame2  extends GenericSMFrame{
-	
-	
-	String[] framePanelNames = {"Home","Usuario","Cuentas","Transaccion","Grupos","Proyectos","Funcionalidades","Configuracion"};
+public class ServerHandler  extends GenericSMFrame{
 	
 	PanelListProperties plp;
-	
-	
 	
 	private ServerThread hiloStart;
 	
@@ -64,16 +46,14 @@ public class ServerHandlerFrame2  extends GenericSMFrame{
 	private static final long serialVersionUID = 1L;
 	
 
-	
 	/**
 	 * Crea un objeto de ServerHandlerFrame, el cual contiene un frame que controla una instancia de Server.
 	 */
-	public ServerHandlerFrame2() {
+	public ServerHandler() {
 		plp  = new PanelListProperties();
 		openProperties();
 		configWindow();
 		configLayout();
-		
 	}
 	
 	/**
@@ -111,7 +91,7 @@ public class ServerHandlerFrame2  extends GenericSMFrame{
 	 * Abre y carga el archivo properties.
 	 */
 	public static void openProperties() {
-		ServerHandlerFrame2.properties = new Properties();
+		ServerHandler.properties = new Properties();
 		try(FileInputStream f = new FileInputStream("./data/server.properties")){
 			properties.load(f);
 			properties.toString();
@@ -138,8 +118,6 @@ public class ServerHandlerFrame2  extends GenericSMFrame{
 			e.printStackTrace();
 		}
 	}
-	
-	
 	
 	public void generateBasicPanels() {
 		plp.addPanel("Home",new PanelProperties(new HomePanel("Bienvenido","Texto de muestra"), true));
