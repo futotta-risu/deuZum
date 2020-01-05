@@ -3,7 +3,7 @@ package io.github.fatsquirrels.deuzum.visual.components.buttons;
 
 import javax.swing.JToggleButton;
 
-import io.github.fatsquirrels.deuzum.visual.Style.CustomColors;
+import io.github.fatsquirrels.deuzum.visual.style.CustomColors;
 
 public class ActivatedButton extends JToggleButton{
 	

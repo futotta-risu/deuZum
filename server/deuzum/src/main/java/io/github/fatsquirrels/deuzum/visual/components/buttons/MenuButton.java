@@ -7,7 +7,7 @@ import java.awt.Font;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 
-import io.github.fatsquirrels.deuzum.visual.Style.CustomColors;
+import io.github.fatsquirrels.deuzum.visual.style.CustomColors;
 
 public class MenuButton extends JButton{
 	private static final long serialVersionUID = -3682688504237276231L;

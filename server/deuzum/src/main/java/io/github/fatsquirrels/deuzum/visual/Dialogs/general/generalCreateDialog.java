@@ -24,8 +24,8 @@ import io.github.fatsquirrels.deuzum.database.tableName;
 import io.github.fatsquirrels.deuzum.net.ServerUserFunctionality;
 import io.github.fatsquirrels.deuzum.res.Strings;
 import io.github.fatsquirrels.deuzum.utils.math.APair;
-import io.github.fatsquirrels.deuzum.visual.Style.Layout.VerticalFlowLayout;
 import io.github.fatsquirrels.deuzum.visual.components.buttons.FlatButton;
+import io.github.fatsquirrels.deuzum.visual.style.layout.VerticalFlowLayout;
 
 public class generalCreateDialog extends JDialog{
 

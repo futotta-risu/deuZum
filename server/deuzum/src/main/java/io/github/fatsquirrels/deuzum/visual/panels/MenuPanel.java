@@ -23,8 +23,8 @@ import io.github.fatsquirrels.deuzum.database.tableName;
 import io.github.fatsquirrels.deuzum.net.Server;
 import io.github.fatsquirrels.deuzum.utils.math.APair;
 import io.github.fatsquirrels.deuzum.visual.Dialogs.general.generalCreateDialog;
-import io.github.fatsquirrels.deuzum.visual.Style.Layout.VerticalFlowLayout;
 import io.github.fatsquirrels.deuzum.visual.components.buttons.FlatButton;
+import io.github.fatsquirrels.deuzum.visual.style.layout.VerticalFlowLayout;
 
 
 
@@ -140,7 +140,6 @@ public class MenuPanel extends JPanel{
 	private JTable crearTabla(tableName panelType) {
 		Connection conn = Server.createConnection();
 		
-		this.panelType = panelType;
 		
 		ArrayList<APair<String,Integer>> columnNameTypes = GeneralSQLFunctions.getColumnNameType(conn, this.panelType);
 		int columnSize = panelType.getVals();

@@ -4,7 +4,7 @@ package io.github.fatsquirrels.deuzum.IA.bots;
 public abstract class BotBase {
 
 	int id;
-	String name;	
+	public String name;	
 	boolean isActive;
 	
 	public BotBase() {

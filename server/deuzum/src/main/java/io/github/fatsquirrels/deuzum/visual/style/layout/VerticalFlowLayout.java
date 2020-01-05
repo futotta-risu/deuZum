@@ -1,4 +1,4 @@
-package io.github.fatsquirrels.deuzum.visual.Style.Layout;
+package io.github.fatsquirrels.deuzum.visual.style.layout;
 
 
 import java.awt.Component;
@@ -155,7 +155,7 @@ public class VerticalFlowLayout implements LayoutManager, java.io.Serializable{
      * Possible values are <code>VerticalFlowLayout.TOP</code>,
      * <code>VerticalFlowLayout.BOTTOM</code> or <code>VerticalFlowLayout.CENTER</code>,
      * @return   the alignment value for this layout
-     * @see     java.awt.VerticalFlowLayout#setAlignment
+     * @see     io.github.fatsquirrels.deuzum.visual.style.layout.VerticalFlowLayout#setAlignment
      * @since     JDK1.1
      */
     public int getAlignment()
@@ -187,7 +187,7 @@ public class VerticalFlowLayout implements LayoutManager, java.io.Serializable{
      * @return   the horizontal gap between components
      *           and between the components and the borders
      *           of the <code>Container</code>
-     * @see     java.awt.VerticalFlowLayout#setHgap
+     * @see     io.github.fatsquirrels.deuzum.visual.style.layout.VerticalFlowLayout#setHgap
      * @since     JDK1.1
      */
     public int getHgap() {
@@ -202,7 +202,7 @@ public class VerticalFlowLayout implements LayoutManager, java.io.Serializable{
      * @param hgap the horizontal gap between components
      *           and between the components and the borders
      *           of the <code>Container</code>
-     * @see     java.awt.VerticalFlowLayout#getHgap
+     * @see     io.github.fatsquirrels.deuzum.visual.style.layout.VerticalFlowLayout#getHgap
      * @since     JDK1.1
      */
     public void setHgap(int hgap) {
@@ -217,7 +217,7 @@ public class VerticalFlowLayout implements LayoutManager, java.io.Serializable{
      * @return   the vertical gap between components
      *           and between the components and the borders
      *           of the <code>Container</code>
-     * @see     java.awt.VerticalFlowLayout#setVgap
+     * @see     io.github.fatsquirrels.deuzum.visual.style.layout.VerticalFlowLayout#setVgap
      * @since     JDK1.1
      */
     public int getVgap() {
@@ -231,7 +231,7 @@ public class VerticalFlowLayout implements LayoutManager, java.io.Serializable{
      * @param vgap the vertical gap between components
      *           and between the components and the borders
      *           of the <code>Container</code>
-     * @see     java.awt.VerticalFlowLayout#getVgap
+     * @see     io.github.fatsquirrels.deuzum.visual.style.layout.VerticalFlowLayout#getVgap
      */
     public void setVgap(int vgap) {
         this.vgap = vgap;

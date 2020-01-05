@@ -1,5 +1,8 @@
 package io.github.fatsquirrels.deuzum.IA.bots;
 
+import io.github.fatsquirrels.deuzum.IA.bots.types.CleaningBot;
+import io.github.fatsquirrels.deuzum.IA.bots.types.MailBot;
+
 @Deprecated
 public enum BotType {
 	CleaningBot(new CleaningBot()),

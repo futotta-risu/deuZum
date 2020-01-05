@@ -1,5 +1,6 @@
 package io.github.fatsquirrels.deuzum.visual.panels;
 
+import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -26,7 +27,7 @@ import io.github.fatsquirrels.deuzum.visual.statistics.GraficoTransaciones;
 import io.github.fatsquirrels.deuzum.visual.statistics.GraficoTransacionesUsuario;
 import io.github.fatsquirrels.deuzum.visual.statistics.GraficoUsuariosXTiempo;
 
-public class FunctionalityPanel extends JTabbedPane {
+public class FunctionalityPanel extends JPanel {
 	
 	/**
 	 * 
@@ -34,9 +35,9 @@ public class FunctionalityPanel extends JTabbedPane {
 	private static final long serialVersionUID = 4541688928942198726L;
 
 	public FunctionalityPanel() {
-		
+		JTabbedPane mainPanel = new JTabbedPane();
 		JPanel panel_Funct_Visual = new JPanel();
-		addTab("Visualizacion de datos", null, panel_Funct_Visual, null);
+		mainPanel.addTab("Visualizacion de datos", null, panel_Funct_Visual, null);
 		
 		
 		
@@ -59,7 +60,7 @@ public class FunctionalityPanel extends JTabbedPane {
 		
 
 		JPanel panel_Funct_Database = new JPanel();
-		addTab("Base de Datos", null, panel_Funct_Database, null);
+		mainPanel.addTab("Base de Datos", null, panel_Funct_Database, null);
 		
 		btnVisualizarGraficoAportaciones.addActionListener(new ActionListener() {
 
@@ -189,13 +190,13 @@ public class FunctionalityPanel extends JTabbedPane {
 		});
 		
 		JPanel panel_Funct_IA = new JPanel();
-		addTab("IA", null, panel_Funct_IA, null);
+		mainPanel.addTab("IA", null, panel_Funct_IA, null);
 		
 		JButton btnClusterizarDb = new JButton("Clusterizar DB");
 		panel_Funct_IA.add(btnClusterizarDb);
 		
 		JPanel panel_Funct_Seguridad = new JPanel();
-		addTab("Seguridad", null, panel_Funct_Seguridad, null);
+		mainPanel.addTab("Seguridad", null, panel_Funct_Seguridad, null);
 		GridBagLayout gbl_panel_Funct_Seguridad = new GridBagLayout();
 		gbl_panel_Funct_Seguridad.columnWidths = new int[]{44, 75, 93, 0};
 		gbl_panel_Funct_Seguridad.rowHeights = new int[]{23, 0, 0, 0, 0, 0};
@@ -234,5 +235,7 @@ public class FunctionalityPanel extends JTabbedPane {
 		gbc_lblNewLabel.gridx = 1;
 		gbc_lblNewLabel.gridy = 4;
 		panel_Funct_Seguridad.add(lblNewLabel, gbc_lblNewLabel);
+		setLayout(new BorderLayout());
+		add(mainPanel,BorderLayout.CENTER);
 	}
 }

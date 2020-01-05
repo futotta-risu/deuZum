@@ -7,7 +7,7 @@ import java.awt.FlowLayout;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
-import io.github.fatsquirrels.deuzum.visual.Style.CustomColors;
+import io.github.fatsquirrels.deuzum.visual.style.CustomColors;
 
 public class MenuBar extends JPanel{
 

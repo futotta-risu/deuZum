@@ -1,4 +1,4 @@
-package io.github.fatsquirrels.deuzum.IA.bots;
+package io.github.fatsquirrels.deuzum.IA.bots.types;
 
 import java.util.List;
 import java.util.Properties;
@@ -6,6 +6,7 @@ import javax.mail.*;
 import javax.mail.internet.*;
 import javax.swing.JOptionPane;
 
+import io.github.fatsquirrels.deuzum.IA.bots.BotBase;
 import io.github.fatsquirrels.deuzum.utils.math.APair;
 
 public class MailBot extends BotBase{
