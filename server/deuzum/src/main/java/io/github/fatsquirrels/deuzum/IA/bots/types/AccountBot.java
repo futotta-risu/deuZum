@@ -9,6 +9,7 @@ import io.github.fatsquirrels.deuzum.IA.bots.BotBase;
 import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
 
 public class AccountBot extends BotBase{
+	@SuppressWarnings("unused")
 	private String name;
 	private long cantidad;
 	private Connection conn;
@@ -66,7 +67,7 @@ public class AccountBot extends BotBase{
 	@Override
 	public void stop(long tiempo) {
 		try {
-			hiloCuentas.sleep(tiempo*1000);
+			Thread.sleep(tiempo*1000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

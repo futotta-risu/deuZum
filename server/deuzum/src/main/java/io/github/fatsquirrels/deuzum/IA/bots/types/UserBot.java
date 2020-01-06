@@ -48,7 +48,7 @@ public class UserBot extends BotBase{
 	@Override
 	public void stop(long tiempo) {
 		try {
-			hiloUsuario.sleep(tiempo);
+			Thread.sleep(tiempo);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -74,11 +74,6 @@ public class UserBot extends BotBase{
 		return result;
 	}
 	
-	/*
-	public static void main(String[] args) {
-		UserBot ub1= new UserBot(10000);
-		ub1.execute();
-	*/
 }
 
 

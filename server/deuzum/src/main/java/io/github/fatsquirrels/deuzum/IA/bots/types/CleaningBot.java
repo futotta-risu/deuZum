@@ -65,7 +65,7 @@ public class CleaningBot extends BotBase{
 	@Override
 	public void stop(long time) {
 		try {
-			hiloLimpieza.sleep(time);
+			Thread.sleep(time);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

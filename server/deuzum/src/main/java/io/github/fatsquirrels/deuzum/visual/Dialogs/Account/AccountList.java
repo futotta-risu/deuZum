@@ -76,7 +76,6 @@ public class AccountList extends JDialog{
 			public void actionPerformed(ActionEvent e) {
 				String conditions ="";
 				try {
-					//TODO Deprecated : Actualizar sql statement
 					
 					ResultSet resultados = GeneralSQLFunctions.getResultSetEntryFromDatabase(c, "usuario", " " + comboFiltrar.getItemAt(comboFiltrar.getSelectedIndex()) + "= '" + txtFiltrar.getText()+ "'" );
 						// retrieve and print the values for the current row

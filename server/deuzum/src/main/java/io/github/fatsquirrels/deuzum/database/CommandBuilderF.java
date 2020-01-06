@@ -135,10 +135,10 @@ public class CommandBuilderF {
 	 * @return Devuelve el objeto CommandBuilderF modificado
 	 */
 	public CommandBuilderF addInnerJoin(String table) {
-		// TODO Check what to do in case of empty table. Maybe tell the constructor.
 		if(!this.table.isEmpty()) 
 			this.table += " INNER JOIN " + table;
-		
+		else
+			System.err.println("Error en el CommandBuilderF: Se ha intentado addInnerJoin con una tabla vacia. Tabla :" + table);
 		return this;
 	}
 	
@@ -161,8 +161,12 @@ public class CommandBuilderF {
 	}
 	
 	public CommandBuilderF addColumns(String[] columns, String[] values) {
-		// TODO do something on error
-		if(columns.length!=values.length) return this;
+		if(columns.length!=values.length) {
+			System.err.println("Error en el CommandBuilderF: Se ha intentado añadir una cantidad de valores y columnas no iguales.");
+			System.err.println("Cantidad de valores: " + columns.length);
+			System.err.println("Cantidad de valores: " + values.length);
+			return this;
+		}
 		for(int i= 0; i < columns.length; i++)
 			this.columns.put(columns[i], values[i]);
 		return this;
@@ -213,9 +217,11 @@ public class CommandBuilderF {
 		return this;
 	}
 	public CommandBuilderF setLimit(int limit) {
-		// Implementar error
-		if(limit<0) return this;
-		this.limit = limit;
+		if(limit<0) {
+			System.err.println("Error en el CommandBuilderF: Se ha intentado establecer un limite negativo");
+			return this;
+		}else
+			this.limit = limit;
 		return this;
 	}
 	public CommandBuilderF setExpression(String expression) {

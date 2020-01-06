@@ -10,6 +10,7 @@ import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
 
 public class TransactionBot extends BotBase{
 	
+	@SuppressWarnings("unused")
 	private String name;
 	private Thread hiloTransactions;
 	private Connection conn;
@@ -67,7 +68,7 @@ public class TransactionBot extends BotBase{
 	@Override
 	public void stop(long tiempo) {
 		try {
-			hiloTransactions.sleep(tiempo);
+			Thread.sleep(tiempo);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

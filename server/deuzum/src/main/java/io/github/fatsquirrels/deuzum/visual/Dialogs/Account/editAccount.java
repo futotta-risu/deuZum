@@ -258,7 +258,6 @@ public class editAccount extends JDialog{
 					
 				}
 				
-				// TODO Deprecated : Añadir ventana de error
 	}
 	
 

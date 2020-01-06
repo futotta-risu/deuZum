@@ -79,7 +79,6 @@ public class generalCreateDialog extends JDialog{
 					columnVarVals.set(i, rs.getString(i+1));
 				
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -175,7 +174,6 @@ public class generalCreateDialog extends JDialog{
 		try {
 			GeneralSQLFunctions.execUpdate(conn, cmbf.pack());
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			errorOnCode = true;
 		}

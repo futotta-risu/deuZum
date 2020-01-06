@@ -1,7 +1,6 @@
 package io.github.fatsquirrels.deuzum.visual.panels.mainFrame;
 
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.util.HashMap;
 import java.util.Map;
 

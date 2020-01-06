@@ -41,6 +41,7 @@ import java.awt.GridLayout;
 import java.awt.FlowLayout;
 import javax.swing.JComponent;
 
+@Deprecated
 /**
  * Clase de la ventana principal del servidor.
  *
@@ -179,7 +180,6 @@ public class ServerHandlerFrame  extends JFrame{
 		try {
 			properties.store(new FileOutputStream("./data/server.properties"), null);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -247,7 +247,6 @@ public class ServerHandlerFrame  extends JFrame{
 			try {
 				Thread.sleep(50);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}		
 			timeOut++;
@@ -271,7 +270,6 @@ public class ServerHandlerFrame  extends JFrame{
 	public void stopServer() {
 		if(hiloStart == null) return;
 		hiloStart.stopServer();
-		// TODO if in panel which should be disabled, move to home
 		setButtonsEnable(false);
 		((HomePanel)plp.getPanel("Home")).changeServerStatus(StatusType.off);
 	}

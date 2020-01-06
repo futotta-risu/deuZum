@@ -38,7 +38,7 @@ public class Server implements Runnable{
 	/**
 	 * Nombre de la base de datos. Se extrae del archivo properties.
 	 */
-	private static String dbName;
+	static String dbName;
 	
 	public Server() {
 		

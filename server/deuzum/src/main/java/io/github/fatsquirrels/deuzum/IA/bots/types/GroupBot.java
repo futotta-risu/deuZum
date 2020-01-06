@@ -9,6 +9,7 @@ import io.github.fatsquirrels.deuzum.IA.bots.BotBase;
 import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
 
 public class GroupBot extends BotBase{
+	@SuppressWarnings("unused")
 	private String name;
 	private Connection conn;
 	private long cantidad;
@@ -65,9 +66,8 @@ public class GroupBot extends BotBase{
 
 	public void stop(long tiempo) {
 		try {
-			hiloGrupo.sleep(tiempo*1000);
+			Thread.sleep(tiempo*1000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

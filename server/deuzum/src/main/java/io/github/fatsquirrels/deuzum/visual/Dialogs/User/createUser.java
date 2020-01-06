@@ -87,7 +87,6 @@ public class createUser extends JDialog{
 	public createUser(Connection conn) {
 		this.conn =conn;
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		// TODO Actualizar esta ventana respecto a los nuevos parametros de la base de datos
 		setSize(540,350);
 		
 		initialize(conn);
@@ -403,13 +402,13 @@ public class createUser extends JDialog{
 				idUser = GeneralSQLFunctions.getEntryFromDatabase(conn, "usuario", "id", "usuario = '" + tFUser.getText() + "'");
 				System.out.println(idUser);
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
+				
 				e1.printStackTrace();
 			}
 			
 			System.out.println(idUser);
 			//Añadimos la informacion de usuario a la tabla InfoUsuario con el ID obtenido
-			// TODO Cambiar lo del sexo
+			
 			
 			ServerUserFunctionality.createUserInf(conn, new String[]
 					{idUser, txtNombre.getText(), txtApellidos.getText(), txtTelefono.getText(), txtEmail.getText(),
@@ -418,7 +417,7 @@ public class createUser extends JDialog{
 			dispose();
 		}
 		
-		// TODO Deprecated : Añadir ventana de error
+
 		
 	}
 	

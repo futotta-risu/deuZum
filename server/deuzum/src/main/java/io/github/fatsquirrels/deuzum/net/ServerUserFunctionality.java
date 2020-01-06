@@ -26,12 +26,12 @@ public class ServerUserFunctionality {
 	 */
 	public static void createUserC(JSONObject data) {
 		// TODO hacer que acceda a la base de datos segun el nobre de la base de datos
-		Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost/deuzumdb", "root", "");
+		Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost/"+Server.dbName, "root", "");
 		createUser(conn, new String[] {data.getString("user"), data.getString("pass"), data.getString("pregSegu"),data.getString("resp"),"3"});
 	}
 	
 	public static void createGroupC(JSONObject data) {
-		Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost/deuzumdb", "rood", "");
+		Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost/"+Server.dbName, "rood", "");
 		createGroup(conn, new String[] {data.getString("nombre"), data.getString("descripcion")});
 	}
 	
@@ -47,7 +47,6 @@ public class ServerUserFunctionality {
 		try {
 			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "usuario", columnNamesUsuarios, data);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -58,7 +57,7 @@ public class ServerUserFunctionality {
 	 * @see {@link #createUserInf(Connection connection, String[] data)}
 	 */
 	public static void createUserInfC(JSONObject data) {
-		Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost/deuzumdb", "root", "");
+		Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost/"+Server.dbName, "root", "");
 		
 		createUserInf(conn, new String[] {data.getString("nombre"), data.getString("apellido"), data.getString("telefono"), 
 				data.getString("email"), data.getString("direccion"), data.getString("fecha_nacimiento"), data.getString("sexo")});	
@@ -78,7 +77,6 @@ public class ServerUserFunctionality {
 		try {
 			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "infousuario", reducedInfo.getIndex(), reducedInfo.getValue());
 		}catch(SQLException e) {
-			//TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -90,7 +88,7 @@ public class ServerUserFunctionality {
 	 * @see #updateUser
 	 */
 	public static void updateUserC(JSONObject data) {
-		Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost/deuzumdb", "root", "");
+		Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost/"+Server.dbName, "root", "");
 		updateUser(conn,data.getString("id") ,new String[] {data.getString("user"), data.getString("pass"), data.getString("pregSegu"),data.getString("resp"),"3"});
 	}
 	
@@ -118,7 +116,7 @@ public class ServerUserFunctionality {
 	 * @see #updateUserInf
 	 */
 	public static void updateUserInfC(JSONObject data) {
-		Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost/deuzumdb", "root", "");
+		Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost/"+Server.dbName, "root", "");
 		
 		updateUserInf(conn,data.getString("id"), new String[] {data.getString("nombre"), data.getString("apellido"), data.getString("telefono"), 
 				data.getString("email"), data.getString("direccion"), data.getString("fecha_nacimiento"), data.getString("sexo")});	
@@ -152,7 +150,7 @@ public class ServerUserFunctionality {
 		
 		String realPass;
 		
-		Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost/deuzum", "root", "");
+		Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost/"+Server.dbName, "root", "");
 		String user = data.getString("user");
 		String pass = data.getString("pass");
 		try {
@@ -268,7 +266,6 @@ public class ServerUserFunctionality {
 			WhereAST where = new WhereAST().addValue("id='"+userID+"'");
 			GeneralSQLFunctions.deleteEntryFromDatabase(connection, "usuario", where);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -278,7 +275,6 @@ public class ServerUserFunctionality {
 		try {
 			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "grupomiembros", new String[] {"id_grupo","miembro", "permisos"},new String[] {groupID, userID, permisos} );
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -289,7 +285,6 @@ public class ServerUserFunctionality {
 					WhereAST where = new WhereAST().addValue("id='"+groupID+"'");
 					GeneralSQLFunctions.updateEntryFromDatabase(conn, "grupo", new String[] { "nombre" },data, where);
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 	}
@@ -312,7 +307,6 @@ public class ServerUserFunctionality {
 		try {
 			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "grupo", new String[] {"nombre", "descripcion"}, data);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -341,7 +335,6 @@ public class ServerUserFunctionality {
 			WhereAST where = new WhereAST().addValue("id='"+proyectID+"'");
 			GeneralSQLFunctions.deleteEntryFromDatabase(connection, "proyecto", where);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -351,7 +344,6 @@ public class ServerUserFunctionality {
 			WhereAST where = new WhereAST().addValue("id='"+proyectID+"'");
 			GeneralSQLFunctions.updateEntryFromDatabase(connection, "proyecto", new String[] { "id_grupo", "nombre" },data, where);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -364,7 +356,6 @@ public class ServerUserFunctionality {
 					new String[] {"numero_cuenta", "id_usuario","dinero"},
 					data);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -374,7 +365,7 @@ public class ServerUserFunctionality {
 			WhereAST where = new WhereAST().addValue("numero_cuenta='"+accountID+"'");
 			GeneralSQLFunctions.deleteEntryFromDatabase(connection, "cuenta", where);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.err.println("Error a la hora de eliminar una cuenta.");
 			e.printStackTrace();
 		}
 	}
@@ -384,7 +375,7 @@ public class ServerUserFunctionality {
 			WhereAST where = new WhereAST().addValue("id='"+accountID+"'");
 			GeneralSQLFunctions.updateEntryFromDatabase(connection, "cuenta", columns, data, where);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.err.println("Error a la hora de updatear una cuenta.");
 			e.printStackTrace();
 		}
 	}

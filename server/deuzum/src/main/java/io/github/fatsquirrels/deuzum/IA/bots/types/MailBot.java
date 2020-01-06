@@ -50,7 +50,7 @@ public class MailBot extends BotBase{
 	@Override
 	public void stop(long time) {
 		try {
-			hiloMensaje.sleep(time);
+			Thread.sleep(time);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

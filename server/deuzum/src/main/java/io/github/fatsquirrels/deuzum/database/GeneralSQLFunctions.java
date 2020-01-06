@@ -7,6 +7,7 @@ import io.github.fatsquirrels.deuzum.utils.ArrayFunctions;
 import io.github.fatsquirrels.deuzum.utils.math.APair;
 
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -39,10 +40,8 @@ public final class GeneralSQLFunctions {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			conn = DriverManager.getConnection(direction,user, pass);
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return conn;
@@ -133,9 +132,8 @@ public final class GeneralSQLFunctions {
 			return;	
 		APair<String[],String[]> tempArrs = ArrayFunctions.getReducedArrayString(columnNames, values);
 		String insertQ = (new CommandBuilderF(StatementType.INSERT).setTable(table).addColumns(tempArrs.getIndex(), tempArrs.getValue())).pack();
-		System.out.println(insertQ);
-		// TODO check if table exist
-		GeneralSQLFunctions.execUpdate(connection, insertQ);
+		if(checkIfTableExist(connection, table))
+			GeneralSQLFunctions.execUpdate(connection, insertQ);
 		
 	}
 	/**
@@ -163,6 +161,20 @@ public final class GeneralSQLFunctions {
 		
 		GeneralSQLFunctions.execUpdate(connection, deleteQ);
 		
+	}
+	
+	public static final boolean checkIfTableExist(Connection connection,String name) {
+		DatabaseMetaData dbm;
+		ResultSet tables = null;
+		try {
+			dbm = connection.getMetaData();
+			tables = dbm.getTables(null, null, name, null);
+			if (tables.next()) return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return false;
 	}
 	
 	 

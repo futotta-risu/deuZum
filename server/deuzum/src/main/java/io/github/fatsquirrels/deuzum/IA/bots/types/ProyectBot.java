@@ -10,6 +10,7 @@ import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
 import io.github.fatsquirrels.deuzum.net.Server;
 
 public class ProyectBot extends BotBase{
+	@SuppressWarnings("unused")
 	private String name;
 	private Connection conn;
 	private Thread hiloProyecto;
@@ -73,9 +74,8 @@ public class ProyectBot extends BotBase{
 	@Override
 	public void stop(long tiempo) {
 		try {
-			hiloProyecto.sleep(tiempo*1000);
+			Thread.sleep(tiempo*1000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

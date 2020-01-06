@@ -19,6 +19,7 @@ import io.github.fatsquirrels.deuzum.visual.panels.mainFrame.MenuBar;
  */
 public class GenericSMFrame extends JFrame{
 
+	private static final long serialVersionUID = -7157700499871893057L;
 	private JPanel centerPanel;
 	private MenuBar topPanel;
 	private ButtonMenu buttonMenu;
@@ -47,6 +48,7 @@ public class GenericSMFrame extends JFrame{
 		else
 			topPanel.addRight(comp);
 	}
+	
 	public void addComponentS(boolean isLeft, JComponent comp[]) {
 		if(isLeft)
 			topPanel.addLeft(comp);
@@ -63,6 +65,7 @@ public class GenericSMFrame extends JFrame{
 	public void deleteButtonsM() {
 		buttonMenu.deleteAll();
 	}
+	
 	public void resetButtons() {
 		buttonMenu.resetButtons();
 	}

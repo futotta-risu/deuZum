@@ -50,7 +50,6 @@ public class ServerSocketHandler extends Thread{
 			out.close();
 	        socket.close();
 		} catch (IOException e) {
-			// TODO Ajustar tema de errores
 			e.printStackTrace();
 		}
         

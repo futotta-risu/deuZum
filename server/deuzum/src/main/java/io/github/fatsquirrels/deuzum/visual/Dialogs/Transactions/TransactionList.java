@@ -70,7 +70,6 @@ public class TransactionList extends JDialog{
 			public void actionPerformed(ActionEvent e) {
 				String conditions ="";
 				try {
-					//TODO Deprecated : Actualizar sql statement
 					String query = GeneralSQLFunctions.getEntryFromDatabase(c, "transacion", comboFiltrar.getItemAt(comboFiltrar.getSelectedIndex()), conditions);
 					ResultSet resultados = GeneralSQLFunctions.getExecQuery(c, query);
 					while(resultados.next()) {

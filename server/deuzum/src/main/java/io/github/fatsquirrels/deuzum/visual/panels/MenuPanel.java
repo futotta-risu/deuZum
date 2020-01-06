@@ -71,7 +71,6 @@ public class MenuPanel extends JPanel{
 			editar.addActionListener(e->editElement());
 			rightMenu.add(editar);
 		}
-		// TODO BotonRefresh
 		
 		// Delete
 		
@@ -131,7 +130,7 @@ public class MenuPanel extends JPanel{
 		try {
 			GeneralSQLFunctions.deleteEntryFromDatabase(conn, this.panelType.getName(), where);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.err.println("Ha habido un error a la hora de eliminar una entrada");
 			e.printStackTrace();
 		}
 		refreshTable(panelType);
@@ -169,7 +168,7 @@ public class MenuPanel extends JPanel{
 				actColumn++;
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.err.println("Error a la hora de crear la tabla del panel.");
 			e.printStackTrace();
 		}
 		

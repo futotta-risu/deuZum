@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import io.github.fatsquirrels.deuzum.utils.meta.anotations.Tested;
 
 
-//TODO Arreglar errores con referencias entre llamada y ejecucion en todas
+
 /**
  * Clase Funciones de Texto
  * La utilidad de esta clase es facilitar varios metodos para realizar operaciones sobre textos

@@ -1,12 +1,10 @@
 package io.github.fatsquirrels.deuzum.net;
 
-import io.github.fatsquirrels.deuzum.visual.ServerHandler;
+import io.github.fatsquirrels.deuzum.res.ServerProperties;
 
 public class ServerThread extends Thread{
 
 	private Server server;
-	
-
 
 	@Override
 	public void run() {
@@ -15,14 +13,13 @@ public class ServerThread extends Thread{
 			return;
 		
 		server = new Server();
-		server.setDBName(ServerHandler.properties.getProperty("server.dbName"));
-		server.setBotCount(Integer.valueOf(ServerHandler.properties.getProperty("server.botCount")));
-		server.setPort(Integer.valueOf(ServerHandler.properties.getProperty("server.port")));
+		server.setDBName(ServerProperties.properties.getProperty("server.dbName"));
+		server.setBotCount(Integer.valueOf(ServerProperties.properties.getProperty("server.botCount")));
+		server.setPort(Integer.valueOf(ServerProperties.properties.getProperty("server.port")));
 		server.runServer();
 		server.start();
 		
 	}
-	
 	
 	public void stopServer() {
 		server.stop();

@@ -2,19 +2,12 @@ package io.github.fatsquirrels.deuzum.visual;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Properties;
-import java.util.logging.Level;
 
-import javax.swing.JPanel;
 
 import io.github.fatsquirrels.deuzum.database.tableName;
-import io.github.fatsquirrels.deuzum.log.archivoLog;
 import io.github.fatsquirrels.deuzum.net.Server;
 import io.github.fatsquirrels.deuzum.net.ServerThread;
+import io.github.fatsquirrels.deuzum.res.ServerProperties;
 import io.github.fatsquirrels.deuzum.visual.components.buttons.IconizedButton;
 import io.github.fatsquirrels.deuzum.visual.components.buttons.MenuButton;
 import io.github.fatsquirrels.deuzum.visual.panels.ConfigPanel;
@@ -40,18 +33,14 @@ public class ServerHandler  extends GenericSMFrame{
 	
 	private ServerThread hiloStart;
 	
-	public static Properties properties;
-	
-	
 	private static final long serialVersionUID = 1L;
 	
-
 	/**
 	 * Crea un objeto de ServerHandlerFrame, el cual contiene un frame que controla una instancia de Server.
 	 */
 	public ServerHandler() {
 		plp  = new PanelListProperties();
-		openProperties();
+		ServerProperties.openProperties();
 		configWindow();
 		configLayout();
 	}
@@ -82,42 +71,10 @@ public class ServerHandler  extends GenericSMFrame{
 		generateBasicPanels();
 		
 		createMenuButtons();
-		System.out.println(plp.getSize());
 		setPanelC(plp.getPanel("Home"));
 	}
 	
 
-	/**
-	 * Abre y carga el archivo properties.
-	 */
-	public static void openProperties() {
-		ServerHandler.properties = new Properties();
-		try(FileInputStream f = new FileInputStream("./data/server.properties")){
-			properties.load(f);
-			properties.toString();
-			
-		logServerHandlerFrame("Prueba");	
-			
-		}catch(FileNotFoundException e1) {
-			System.err.println("El archivo no se encuentra en el lugar indicado.");
-		}catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	
-	public static void updateProperty(String property, String value) {
-		properties.setProperty(property, value);
-	}
-	
-	public static void storeProperties() {
-		try {
-			properties.store(new FileOutputStream("./data/server.properties"), null);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 	
 	public void generateBasicPanels() {
 		plp.addPanel("Home",new PanelProperties(new HomePanel("Bienvenido","Texto de muestra"), true));
@@ -153,16 +110,15 @@ public class ServerHandler  extends GenericSMFrame{
 		hiloStart.start();
 		
 		
-		while(!Server.serverLoadFailed && !Server.isRunning) {
-			try {
-				Thread.sleep(50);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}		
-			timeOut++;
-			if(timeOut>=40) break;
-		}
+			while(!Server.serverLoadFailed && !Server.isRunning) {
+				try {
+					Thread.sleep(50);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}		
+				timeOut++;
+				if(timeOut>=40) break;
+			}
 		
 		if(Server.isRunning) {
 			((HomePanel)plp.getPanel("Home")).changeServerStatus(StatusType.on);
@@ -184,11 +140,6 @@ public class ServerHandler  extends GenericSMFrame{
 		revalidate();
 		((HomePanel)plp.getPanel("Home")).changeServerStatus(StatusType.off);
 		setPanelC(plp.getPanel("Home"));
-	}
-	
-	public static void logServerHandlerFrame(String message) {
-		archivoLog log = new archivoLog("logServerHandlerFrame");
-		log.addLine(Level.INFO, message);
 	}
 	
 }

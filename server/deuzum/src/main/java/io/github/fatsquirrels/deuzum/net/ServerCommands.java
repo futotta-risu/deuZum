@@ -70,7 +70,7 @@ public class ServerCommands {
 								System.out.println(a.getName());
 							return (String) method.invoke(null, new Object[] {data});
 							
-							// TODO cambiar los errores para algo m�s util
+							
 						} catch (ClassNotFoundException e) {
 							e.printStackTrace();
 						} catch (NoSuchMethodException e) {
@@ -93,10 +93,8 @@ public class ServerCommands {
 			  br.close();
 			  
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
 		  
