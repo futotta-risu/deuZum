@@ -23,6 +23,8 @@
 
 logUser io.github.fatsquirrels.deuzum.net.ServerUserFunctionality logUser
 addUser	io.github.fatsquirrels.deuzum.net.ServerUserFunctionality createUserC
+addData	io.github.fatsquirrels.deuzum.net.ServerUserFunctionality createElement
+
 # addTransaction
 
 # Security Commands

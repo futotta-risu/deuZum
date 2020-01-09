@@ -46,10 +46,11 @@ public class ServerUserFunctionality {
 	
 	
 	// TODO Documentar esta funcion
-	public static void createElement(Connection connection, JSONObject data) {
+	public static String createElement(JSONObject data) {
+		Connection connection = Server.createConnection();
 		if(!data.has("tableName")) {
 			System.err.println("El JSON no contiene el nombre de la tabla");
-			return;
+			return "0";
 		}
 		
 		GeneralSQLData.tableName tableName = GeneralSQLData.getTableName(data.getString("tableName"));
@@ -58,7 +59,9 @@ public class ServerUserFunctionality {
 					DataStructuresFunctions.JSONtoHashMap(data));
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return "0";
 		}
+		return "1";
 	}
 	
 	@Deprecated
@@ -180,7 +183,7 @@ public class ServerUserFunctionality {
 		String pass = data.getString("pass");
 		System.out.println("Hola:"+pass);
 		try {
-			realPass = GeneralSQLFunctions.getEntryFromDatabase(conn, "usuario",  "contraseña", 
+			realPass = GeneralSQLFunctions.getEntryFromDatabase(conn, "usuario",  "pass", 
 					new WhereAST().addColumValueLO(
 							new String[]{"usuario"}, new String[]{user}, 
 							WhereAST.logicOP.AND, WhereAST.ariOP.EQ).packW());

@@ -157,6 +157,7 @@ public final class GeneralSQLFunctions {
 		command.setSQLType(StatementType.INSERT).setTable(table);
 		for(Entry<String,String> val : data.entrySet())
 			command.addColumn(val.getKey(), val.getValue());
+		System.out.println(command.pack());
 		GeneralSQLFunctions.execUpdate(connection, command.pack());
 	}
 	/**
@@ -210,12 +211,16 @@ public final class GeneralSQLFunctions {
 		ArrayList<String> nonNullableColumnNames = new ArrayList<String>();
 		ResultSet tableResultSet;
 		try {
+			System.out.println(GeneralSQLData.defaultGetLimitStatement.replace("{tableName}",table));
 			tableResultSet = GeneralSQLFunctions.getExecQuery(connection, GeneralSQLData.defaultGetLimitStatement.replace("{tableName}",table));
 			ResultSetMetaData tableMetadata = tableResultSet.getMetaData();
 			
-			for(int i = 0; i < tableMetadata.getColumnCount(); i++) 
-				if(tableMetadata.isNullable(i) == 1)
-					nonNullableColumnNames.add(tableMetadata.getCatalogName(i));
+			// Empezamos en 2 para saltar id
+			for(int i = 2; i < tableMetadata.getColumnCount()+1; i++) 
+				if(tableMetadata.isNullable(i) == 0)
+					nonNullableColumnNames.add(tableMetadata.getColumnName(i));
+			
+				
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

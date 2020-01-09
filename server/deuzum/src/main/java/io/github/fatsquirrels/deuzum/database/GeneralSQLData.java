@@ -2,7 +2,7 @@ package io.github.fatsquirrels.deuzum.database;
 
 public class GeneralSQLData {
 
-	public final static String defaultGetLimitStatement = "SELECT {tableName} FROM %s LIMIT 1";
+	public final static String defaultGetLimitStatement = "SELECT * FROM {tableName} LIMIT 1";
 	
 	
 	// Esto puede parecer redundante ya que al final nos van a enviar un identificador de la tabla a modificar, pero,

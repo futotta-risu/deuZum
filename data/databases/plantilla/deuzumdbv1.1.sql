@@ -20,11 +20,11 @@
 CREATE TABLE `usuario` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `usuario` varchar(32) NOT NULL,
-  `contraseña` varchar(32) NOT NULL,
+  `pass` varchar(32) NOT NULL,
   `fecha_creacion` timestamp NULL DEFAULT current_timestamp(),
   `preg_seguridad` int(10) NOT NULL,
   `resp_seguridad` varchar(32) NOT NULL,
-  `permisos` int(10) DEFAULT NULL,
+  `permisos` int(10) DEFAULT NULL DEFAULT 3,
   `categoria` int(10) DEFAULT NULL,
    PRIMARY KEY (`id`),
    UNIQUE KEY `usuario` (`usuario`),
