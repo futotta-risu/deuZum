@@ -32,20 +32,15 @@ public class ServerSocketHandler extends Thread{
 	
 	public void run() {
 		try {
-			out = new PrintWriter(socket.getOutputStream(), true);
+			out = new PrintWriter(socket.getOutputStream());
 	        in = new BufferedReader(
 	          new InputStreamReader(socket.getInputStream()));
-	        
 	        // TODO Add a function to check whether a Hash exist for the user
-	        
 	        String command = in.readLine();
-	        
 	        // Dechiper the Command
 	        JSONObject data = new JSONObject(in.readLine());
-	        System.out.println(data.toString());
-	        out.println(ServerCommands.serverCommands.get(command).runCommand(data));
-	        
-
+	        out.println(ServerCommands.serverCommands.get(command).runCommand(data)+"\n");
+	        out.flush();
 			in.close();
 			out.close();
 	        socket.close();

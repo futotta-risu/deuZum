@@ -134,5 +134,9 @@ public class WhereAST {
 		return "WHERE " + this.root.pack();
 	}
 	
+	public String packW() {
+		return this.root.pack();
+	}
+	
 }
 

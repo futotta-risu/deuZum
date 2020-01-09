@@ -111,10 +111,17 @@ public final class GeneralSQLFunctions {
 	 * @throws SQLException Puede lanzar una Exception SQL
 	 */
 	public static final String getEntryFromDatabase(Connection connection, String table, String column, String conditions) throws SQLException {
+		System.out.println("SELECT * FROM `"+table+"` WHERE "+conditions);
 		ResultSet result = getExecQuery(connection, "SELECT * FROM `"+table+"` WHERE "+conditions);
 		
-		if(result.next()) return result.getString(column);
-		else return null;
+		if(result.next()) {
+			System.out.println("El valor es " + result.getString(column));
+			return result.getString(column);
+		}
+		else {
+			System.out.println("El valor es null");
+			return null;
+		}
 		
 	}
 	

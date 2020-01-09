@@ -146,26 +146,29 @@ public class ServerUserFunctionality {
 	 * @param data JSONObject con la informacion de log
 	 * @return boolean Cierto si la informacion es correcta
 	 */
-	public static boolean logUser(JSONObject data) {
+	public static String logUser(JSONObject data) {
 		
-		String realPass;
+		String realPass=null;
 		
 		Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost/"+Server.dbName, "root", "");
 		String user = data.getString("user");
 		String pass = data.getString("pass");
+		System.out.println("Hola:"+pass);
 		try {
-			realPass = GeneralSQLFunctions.getEntryFromDatabase(conn, "usuarios",  "pass", 
+			realPass = GeneralSQLFunctions.getEntryFromDatabase(conn, "usuario",  "contraseña", 
 					new WhereAST().addColumValueLO(
 							new String[]{"usuario"}, new String[]{user}, 
-							WhereAST.logicOP.AND, WhereAST.ariOP.EQ).pack());
+							WhereAST.logicOP.AND, WhereAST.ariOP.EQ).packW());
 					
 		} catch (SQLException e) {
 			System.err.println("Ha habido un problema al intentar recopilar la verdadera password");
-			return false;
+			e.printStackTrace();
+			return "0";
 		}
-		if(realPass == pass) 
-			return true;
-		return false;
+		if(realPass == null) return "0";
+		if(realPass.equals(pass)) 
+			return "1";
+		return "0";
 		
 	}
 	
