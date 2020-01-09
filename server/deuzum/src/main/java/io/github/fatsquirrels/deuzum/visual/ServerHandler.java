@@ -8,15 +8,16 @@ import io.github.fatsquirrels.deuzum.database.tableName;
 import io.github.fatsquirrels.deuzum.net.Server;
 import io.github.fatsquirrels.deuzum.net.ServerThread;
 import io.github.fatsquirrels.deuzum.res.ServerProperties;
+import io.github.fatsquirrels.deuzum.res.Strings;
 import io.github.fatsquirrels.deuzum.visual.components.buttons.IconizedButton;
 import io.github.fatsquirrels.deuzum.visual.components.buttons.MenuButton;
 import io.github.fatsquirrels.deuzum.visual.panels.ConfigPanel;
 import io.github.fatsquirrels.deuzum.visual.panels.FunctionalityPanel;
 import io.github.fatsquirrels.deuzum.visual.panels.HomePanel;
 import io.github.fatsquirrels.deuzum.visual.panels.MenuPanel;
-import io.github.fatsquirrels.deuzum.visual.panels.PanelListProperties;
-import io.github.fatsquirrels.deuzum.visual.panels.PanelProperties;
 import io.github.fatsquirrels.deuzum.visual.panels.HomePanel.StatusType;
+import io.github.fatsquirrels.deuzum.visual.panels.util.PanelListProperties;
+import io.github.fatsquirrels.deuzum.visual.panels.util.PanelProperties;
 
 import javax.swing.ImageIcon;
 
@@ -67,7 +68,7 @@ public class ServerHandler  extends GenericSMFrame{
 		});
 		
 		plp.addPanel("Home",new PanelProperties(new HomePanel("Bienvenido","Texto de muestra"), true));
-		plp.addPanel("Funcionalidades",new PanelProperties(new FunctionalityPanel(), true));
+		
 		plp.addPanel("Configuracion",new PanelProperties(new ConfigPanel(), true));
 		
 		createMenuButtons();
@@ -81,6 +82,7 @@ public class ServerHandler  extends GenericSMFrame{
 		plp.addPanel("Transaccion",new PanelProperties(new MenuPanel(tableName.TRANSACCION), false));
 		plp.addPanel("Grupos",new PanelProperties(new MenuPanel(tableName.GRUPO), false));
 		plp.addPanel("Proyectos",new PanelProperties(new MenuPanel(tableName.PROYECTO), false));
+		plp.addPanel("Funcionalidades",new PanelProperties(new FunctionalityPanel(), false));
 	}
 	
 	public void createMenuButtons() {
@@ -118,7 +120,7 @@ public class ServerHandler  extends GenericSMFrame{
 			revalidate();
 		}else if(timeOut ==40) {
 			hiloStart.interrupt();
-		}else JOptionPane.showMessageDialog(null,"Parece que ha habido algun tipo de error al ejecutar el servidor","Error al activar el Server",1);
+		}else JOptionPane.showMessageDialog(null,Strings.server_execution_error_body,Strings.server_execution_error_tittle,1);
 	
 	}
 	

@@ -2,8 +2,8 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2020-01-09T03:19:51</date>
-  <millis>1578536391120</millis>
+  <date>2020-01-09T18:25:58</date>
+  <millis>1578590758728</millis>
   <sequence>0</sequence>
   <logger>io.github.fatsquirrels.deuzum.log.archivoLog</logger>
   <level>INFO</level>

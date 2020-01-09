@@ -1,9 +1,7 @@
 package io.github.fatsquirrels.deuzum.net;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map.Entry;
 
 import org.json.JSONObject;
 
@@ -11,11 +9,10 @@ import static io.github.fatsquirrels.deuzum.utils.DataStructuresFunctions.getRed
 
 import java.sql.Connection;
 
-import io.github.fatsquirrels.deuzum.database.CommandBuilderF;
 import io.github.fatsquirrels.deuzum.database.GeneralSQLData;
 import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
-import io.github.fatsquirrels.deuzum.database.StatementType;
 import io.github.fatsquirrels.deuzum.database.WhereAST;
+import io.github.fatsquirrels.deuzum.database.tableName;
 import io.github.fatsquirrels.deuzum.utils.DataStructuresFunctions;
 import io.github.fatsquirrels.deuzum.utils.math.APair;
 import io.github.fatsquirrels.deuzum.utils.meta.anotations.Tested;
@@ -53,9 +50,9 @@ public class ServerUserFunctionality {
 			return "0";
 		}
 		
-		GeneralSQLData.tableName tableName = GeneralSQLData.getTableName(data.getString("tableName"));
+		tableName tableNameT = tableName.getTableName(data.getString("tableName"));
 		try {
-			GeneralSQLFunctions.insertEntryIntoDatabase(connection, tableName.getTableName(), 
+			GeneralSQLFunctions.insertEntryIntoDatabase(connection, tableNameT.getName(), 
 					DataStructuresFunctions.JSONtoHashMap(data));
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -411,7 +408,59 @@ public class ServerUserFunctionality {
 		}
 	}
 	
-	public static void addMoneyToAccount(Connection connection, String account_ID, int money) {
-		// TODO Crear esta funcion updateAccountInfo(Connection connection, String[] columns, String[] data)
+	public static String addMoney(JSONObject data) {
+		String account = data.getString("account");
+		if(account == null) return "-1";
+		
+		int amount = Integer.valueOf(data.getString("amount"));
+		Connection connection = Server.createConnection();
+		
+		String money = null;
+		try {
+			money = GeneralSQLFunctions.getEntryFromDatabase(connection, tableName.CUENTA.getName(), "dinero", tableName.CUENTA.getID() + "=" + account);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return "-1";
+		}
+		String newMoney = String.valueOf(Integer.valueOf(money)+Integer.valueOf(amount));
+		WhereAST condition =  new WhereAST();
+		condition.addColumValueLO(new String[] {tableName.CUENTA.getID()},new String[] {account}, WhereAST.logicOP.AND, WhereAST.ariOP.EQ);
+		try {
+			GeneralSQLFunctions.updateEntryFromDatabase(connection, tableName.CUENTA.getName(), new String[] {"dinero"},new String[] {newMoney}, condition);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return "-1";
+		}
+		return "1";
+		
+	}
+	
+	public static String getPreguntaSeguridad(JSONObject data) {
+		String usuario = data.getString("user");
+		if(usuario == null) return "-1";
+		String result = "-1";
+		Connection connection = Server.createConnection();
+		try {
+			result = GeneralSQLFunctions.getEntryFromDatabase(connection, tableName.USUARIO.getName(), "preg_seguridad", tableName.USUARIO.getID() + " = " + usuario);;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public static String getValidationSecurityQuestion(JSONObject data) {
+		String usuario = data.getString("user");
+		String resp = data.getString("resp");
+		Connection connection = Server.createConnection();
+		String realResp = null;
+		try {
+			realResp = GeneralSQLFunctions.getEntryFromDatabase(connection, tableName.USUARIO.getName(), "resp_seguridad", tableName.USUARIO.getID() + " = " + usuario);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return "-1";
+		}
+		if(realResp.equals(resp))
+			return "1";
+		return "0";
 	}
 }

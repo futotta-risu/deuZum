@@ -1,5 +1,7 @@
 package io.github.fatsquirrels.deuzum.database;
 
+
+
 public enum tableName {
 	
 	USUARIO("usuario","id",2), CUENTA("cuenta","numero_cuenta",3)
@@ -29,5 +31,13 @@ public enum tableName {
 	public int getVals() {
 		return this.vals;
 	}
+	
+	public static tableName getTableName(String tableNameT) {
+		for (tableName name : tableName.values()) 
+		    if(tableNameT.equals(name.getName()))
+		    	return name;
+		return null;
+	}
+	
 
 }

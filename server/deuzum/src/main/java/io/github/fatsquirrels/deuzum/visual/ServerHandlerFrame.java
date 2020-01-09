@@ -25,10 +25,10 @@ import io.github.fatsquirrels.deuzum.visual.panels.ConfigPanel;
 import io.github.fatsquirrels.deuzum.visual.panels.FunctionalityPanel;
 import io.github.fatsquirrels.deuzum.visual.panels.HomePanel;
 import io.github.fatsquirrels.deuzum.visual.panels.MenuPanel;
-import io.github.fatsquirrels.deuzum.visual.panels.PanelListProperties;
-import io.github.fatsquirrels.deuzum.visual.panels.PanelProperties;
 import io.github.fatsquirrels.deuzum.visual.panels.HomePanel.StatusType;
 import io.github.fatsquirrels.deuzum.visual.panels.mainFrame.MenuBar;
+import io.github.fatsquirrels.deuzum.visual.panels.util.PanelListProperties;
+import io.github.fatsquirrels.deuzum.visual.panels.util.PanelProperties;
 import io.github.fatsquirrels.deuzum.visual.style.CustomColors;
 
 import java.awt.BorderLayout;
