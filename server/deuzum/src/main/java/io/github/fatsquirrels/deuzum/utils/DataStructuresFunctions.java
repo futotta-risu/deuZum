@@ -1,9 +1,16 @@
 package io.github.fatsquirrels.deuzum.utils;
 
 
+import java.util.HashMap;
+import java.util.Iterator;
+
+import org.json.JSONObject;
+
 import io.github.fatsquirrels.deuzum.utils.math.APair;
 import io.github.fatsquirrels.deuzum.utils.meta.anotations.Tested;
 
+
+// TODO Esta clase deprecated con los JSON?
 
 /**
  * Clase Funciones de Array
@@ -11,7 +18,7 @@ import io.github.fatsquirrels.deuzum.utils.meta.anotations.Tested;
  * @see #getReducedArrayString
  */
 @Tested(tested = false)
-public class ArrayFunctions {
+public class DataStructuresFunctions {
 		
 	/**
 	 * Dados dos arrays, uno de nombres y uno de valores, devuelve una pareja de arrays las cuales contienen los valores de names y data tales que los valores correspondientes de data no esten en blanco.
@@ -39,6 +46,15 @@ public class ArrayFunctions {
 		
 	}
 	
-	
+	public static HashMap<String,String> JSONtoHashMap(JSONObject data){
+		HashMap<String,String> nData = new HashMap<String,String>();
+
+		Iterator<String> keys = data.keys();
+
+		for(String key = keys.next();keys.hasNext();key = keys.next()) 
+			nData.put(key, String.valueOf(data.get(key)));
+		
+		return nData;
+	}
 	
 }

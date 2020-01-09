@@ -59,8 +59,6 @@ public class ConfigPanel extends JPanel{
 		JToggleButton tglEncriptacion = new JToggleButton("Si");
 		
 		
-		
-		
 		JComboBox<String> comboBox = new JComboBox<String>();
 		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"RSA", "SHA256", "MD5", "Blowfish", "Cesar", "Vigenere"}));
 		

@@ -12,7 +12,11 @@ import io.github.fatsquirrels.deuzum.visual.panels.mainFrame.ButtonMenu;
 import io.github.fatsquirrels.deuzum.visual.panels.mainFrame.MenuBar;
 
 /**
- * Generic Status-Menu Frame
+ * Generic Status-Menu Frame.
+ * 
+ * Este modelo de panel contiene una fila que actua como menu superior,
+ * una columna de botones de redirección y un panel central que actua 
+ * como contenedor del frame.
  * 
  * @author whiwho
  *

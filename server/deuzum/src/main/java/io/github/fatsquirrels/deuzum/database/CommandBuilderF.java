@@ -117,8 +117,8 @@ public class CommandBuilderF {
 	public StatementType getSQLType() {
 		return SQLType;
 	}
-	public CommandBuilderF setSQLType(StatementType sQLType) {
-		this.SQLType = sQLType;
+	public CommandBuilderF setSQLType(StatementType SQLTypeT) {
+		this.SQLType = SQLTypeT;
 		return this;
 	}
 	

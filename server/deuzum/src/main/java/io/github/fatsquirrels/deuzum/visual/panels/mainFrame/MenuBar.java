@@ -11,21 +11,16 @@ import io.github.fatsquirrels.deuzum.visual.style.CustomColors;
 
 public class MenuBar extends JPanel{
 
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 6683307666068708856L;
 	
-	
-	JPanel left_Size, right_Size;
+	private JPanel left_Size, right_Size;
 	
 	public MenuBar() {
 		setLayout(new BorderLayout());
-		setBackground(CustomColors.mBlueR);
+		setBackground(CustomColors.Blue);
 		setPreferredSize(new Dimension(0, 53));
 		left_Size = new JPanel();
-		left_Size.setBackground(CustomColors.mBlueR);
+		left_Size.setBackground(CustomColors.Blue);
 		right_Size = new JPanel();
 		right_Size.setOpaque(false);
 		right_Size.setPreferredSize(new Dimension(153, 40));

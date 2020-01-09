@@ -119,10 +119,10 @@ public class ServerHandlerFrame  extends JFrame{
 		
 		central_Direction_Panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		central_Panel.add(central_Direction_Panel, BorderLayout.WEST);
-		central_Direction_Panel.setBackground(CustomColors.mBBlue);
+		central_Direction_Panel.setBackground(CustomColors.Blue);
 		
 		central_Direction_Menu_Panel = new JPanel(new GridLayout(0, 1, 0, 0));
-		central_Direction_Menu_Panel.setBackground(CustomColors.mBBlue);
+		central_Direction_Menu_Panel.setBackground(CustomColors.Blue);
 		central_Direction_Menu_Panel.setPreferredSize(new Dimension(180,280));
 		central_Direction_Panel.add(central_Direction_Menu_Panel);		
 		

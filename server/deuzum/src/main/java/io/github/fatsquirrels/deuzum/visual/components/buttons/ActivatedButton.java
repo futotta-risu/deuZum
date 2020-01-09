@@ -7,11 +7,7 @@ import io.github.fatsquirrels.deuzum.visual.style.CustomColors;
 
 public class ActivatedButton extends JToggleButton{
 	
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 8599437877918600714L;
 
 	public ActivatedButton(String text) {
 		setStyle();
@@ -19,7 +15,7 @@ public class ActivatedButton extends JToggleButton{
 	}
 	
 	public void setStyle() {
-		setBackground(CustomColors.mBRedLight);
+		setBackground(CustomColors.SaturatedRed);
 		setBorderPainted(true);
 		setFocusPainted(false);
 		setContentAreaFilled(true);

@@ -1,15 +1,22 @@
 package io.github.fatsquirrels.deuzum.net;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map.Entry;
 
 import org.json.JSONObject;
 
-import static io.github.fatsquirrels.deuzum.utils.ArrayFunctions.getReducedArrayString;
+import static io.github.fatsquirrels.deuzum.utils.DataStructuresFunctions.getReducedArrayString;
 
 import java.sql.Connection;
 
+import io.github.fatsquirrels.deuzum.database.CommandBuilderF;
+import io.github.fatsquirrels.deuzum.database.GeneralSQLData;
 import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
+import io.github.fatsquirrels.deuzum.database.StatementType;
 import io.github.fatsquirrels.deuzum.database.WhereAST;
+import io.github.fatsquirrels.deuzum.utils.DataStructuresFunctions;
 import io.github.fatsquirrels.deuzum.utils.math.APair;
 import io.github.fatsquirrels.deuzum.utils.meta.anotations.Tested;
 
@@ -25,17 +32,36 @@ public class ServerUserFunctionality {
 	 * @see {@link #createUser(Connection connection, String[] data)}
 	 */
 	public static void createUserC(JSONObject data) {
-		// TODO hacer que acceda a la base de datos segun el nobre de la base de datos
-		Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost/"+Server.dbName, "root", "");
-		createUser(conn, new String[] {data.getString("user"), data.getString("pass"), data.getString("pregSegu"),data.getString("resp"),"3"});
+		Connection connection = Server.createConnection();
+		createUser(connection,DataStructuresFunctions.JSONtoHashMap(data));
 	}
 	
-	public static void createGroupC(JSONObject data) {
-		Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost/"+Server.dbName, "rood", "");
-		createGroup(conn, new String[] {data.getString("nombre"), data.getString("descripcion")});
+	public static void createUser(Connection connection,HashMap<String,String> data) {
+		try {
+			GeneralSQLFunctions.insertEntryIntoDatabase(connection,"usuario",  data);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
+	// TODO Documentar esta funcion
+	public static void createElement(Connection connection, JSONObject data) {
+		if(!data.has("tableName")) {
+			System.err.println("El JSON no contiene el nombre de la tabla");
+			return;
+		}
+		
+		GeneralSQLData.tableName tableName = GeneralSQLData.getTableName(data.getString("tableName"));
+		try {
+			GeneralSQLFunctions.insertEntryIntoDatabase(connection, tableName.getTableName(), 
+					DataStructuresFunctions.JSONtoHashMap(data));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Deprecated
 	/**
 	 * Crea un usuario dentro de la base de datos dada en la conexion. Tabla usuario.
 	 * @param connection Conexi�n de SQL
@@ -50,6 +76,8 @@ public class ServerUserFunctionality {
 			e.printStackTrace();
 		}
 	}
+	
+	
 	
 	/**
 	 * Genera una conexión con el servidor SQL y ordena la informacion en un array para llamar a la funcion createUserInf.
@@ -137,9 +165,6 @@ public class ServerUserFunctionality {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
 	
 	/**
 	 * Devuelve un booleano que indica si se ha introducido una combinacion de usuario/clave correcta

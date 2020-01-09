@@ -29,15 +29,13 @@ import javax.swing.JComponent;
  */
 public class ServerHandler  extends GenericSMFrame{
 	
+	private static final long serialVersionUID = -2032372544471677287L;
+
 	PanelListProperties plp;
 	
 	private ServerThread hiloStart;
 	
-	private static final long serialVersionUID = 1L;
 	
-	/**
-	 * Crea un objeto de ServerHandlerFrame, el cual contiene un frame que controla una instancia de Server.
-	 */
 	public ServerHandler() {
 		plp  = new PanelListProperties();
 		ServerProperties.openProperties();
@@ -68,19 +66,14 @@ public class ServerHandler  extends GenericSMFrame{
 				new IconizedButton("symbol","stop",35,40,e -> stopServer())
 		});
 		
-		generateBasicPanels();
+		plp.addPanel("Home",new PanelProperties(new HomePanel("Bienvenido","Texto de muestra"), true));
+		plp.addPanel("Funcionalidades",new PanelProperties(new FunctionalityPanel(), true));
+		plp.addPanel("Configuracion",new PanelProperties(new ConfigPanel(), true));
 		
 		createMenuButtons();
 		setPanelC(plp.getPanel("Home"));
 	}
 	
-
-	
-	public void generateBasicPanels() {
-		plp.addPanel("Home",new PanelProperties(new HomePanel("Bienvenido","Texto de muestra"), true));
-		plp.addPanel("Funcionalidades",new PanelProperties(new FunctionalityPanel(), true));
-		plp.addPanel("Configuracion",new PanelProperties(new ConfigPanel(), true));
-	}
 	
 	public void loadMenuPanels() {
 		plp.addPanel("Usuario",new PanelProperties(new MenuPanel(tableName.USUARIO), false));
@@ -109,17 +102,15 @@ public class ServerHandler  extends GenericSMFrame{
 		hiloStart = new ServerThread();
 		hiloStart.start();
 		
-		
-			while(!Server.serverLoadFailed && !Server.isRunning) {
-				try {
-					Thread.sleep(50);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}		
-				timeOut++;
-				if(timeOut>=40) break;
-			}
-		
+		while(!Server.serverLoadFailed && !Server.isRunning) {
+			try {
+				Thread.sleep(50);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}		
+			timeOut++;
+			if(timeOut>=40) break;
+		}
 		if(Server.isRunning) {
 			((HomePanel)plp.getPanel("Home")).changeServerStatus(StatusType.on);
 			loadMenuPanels();

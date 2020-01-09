@@ -32,11 +32,9 @@ public class MenuPanel extends JPanel{
 
 	private static final long serialVersionUID = 3963889402535275585L;
 	
-	
 	private tableName panelType;
 	JScrollPane leftList;
 	
-
 	private JPanel rightMenu;
 	private JTable table;
 	private JButton create, editar=null, delete, refresh;
@@ -51,11 +49,7 @@ public class MenuPanel extends JPanel{
 		
 		leftList.setViewportView(table);
 		
-		
 		add(leftList, BorderLayout.CENTER);
-		
-		
-		
 		
 		rightMenu = new JPanel();
 		rightMenu.setLayout(new VerticalFlowLayout(10,10,10));
@@ -117,9 +111,7 @@ public class MenuPanel extends JPanel{
             	
             	refreshTable(panelType);
             }
-
         });
-		
 	
 	}
 	

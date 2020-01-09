@@ -12,10 +12,8 @@ import javax.swing.JButton;
  */
 public class FlatButton extends JButton {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+
+	private static final long serialVersionUID = 4490645896762745693L;
 	public FlatButton() {
 		setStyle();
 	}

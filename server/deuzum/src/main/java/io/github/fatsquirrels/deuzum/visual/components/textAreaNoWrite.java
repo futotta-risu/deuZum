@@ -5,9 +5,6 @@ import javax.swing.UIManager;
 
 public class textAreaNoWrite extends JTextArea{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 8681092823807818205L;
 
 	public textAreaNoWrite() {

@@ -2,8 +2,10 @@ package io.github.fatsquirrels.deuzum.database;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map.Entry;
 
-import io.github.fatsquirrels.deuzum.utils.ArrayFunctions;
+import io.github.fatsquirrels.deuzum.utils.DataStructuresFunctions;
 import io.github.fatsquirrels.deuzum.utils.math.APair;
 
 import java.sql.Connection;
@@ -26,12 +28,11 @@ import java.sql.ResultSetMetaData;
  */
 public final class GeneralSQLFunctions {
 	
-	
 	/**
 	 * Metodo que devuelve una Conexion a la base de datos
 	 * @param direction direccion de la base de datos
 	 * @param user Nombre de usuario del SGBD
-	 * @param pass Contraseña del usuario del SGDB
+	 * @param pass Contrasenia del usuario del SGDB
 	 * @return Objecto Connection, que es la conexion a la BD
 	 */
 	public static Connection connectToDatabase(String direction, String user, String pass) {
@@ -137,11 +138,26 @@ public final class GeneralSQLFunctions {
 	public static final void insertEntryIntoDatabase(Connection connection, String table, String[] columnNames, String[] values) throws SQLException {
 		if(columnNames.length != values.length || columnNames.length == 0)
 			return;	
-		APair<String[],String[]> tempArrs = ArrayFunctions.getReducedArrayString(columnNames, values);
+		APair<String[],String[]> tempArrs = DataStructuresFunctions.getReducedArrayString(columnNames, values);
 		String insertQ = (new CommandBuilderF(StatementType.INSERT).setTable(table).addColumns(tempArrs.getIndex(), tempArrs.getValue())).pack();
 		if(checkIfTableExist(connection, table))
 			GeneralSQLFunctions.execUpdate(connection, insertQ);
 		
+	}
+	
+	public static final void insertEntryIntoDatabase(Connection connection, String table, HashMap<String,String> data) throws SQLException {
+		ArrayList<String> nonNullableColumns = GeneralSQLFunctions.getNonNullableColumns(connection,table);
+		for(String name : nonNullableColumns)
+			if(!data.containsKey(name)) {
+				System.err.println("El valor " + name + " es un valor obligatorio pero no esta contenido en los datos introducidos");
+				return;
+			}
+		
+		CommandBuilderF command = new CommandBuilderF();	
+		command.setSQLType(StatementType.INSERT).setTable(table);
+		for(Entry<String,String> val : data.entrySet())
+			command.addColumn(val.getKey(), val.getValue());
+		GeneralSQLFunctions.execUpdate(connection, command.pack());
 	}
 	/**
 	 * Metodo para actualizar valores en una tabla
@@ -158,7 +174,7 @@ public final class GeneralSQLFunctions {
 		
 		if(columnNames.length != values.length || columnNames.length == 0)
 			return;
-		APair<String[],String[]> tempArrs = ArrayFunctions.getReducedArrayString(columnNames, values);
+		APair<String[],String[]> tempArrs = DataStructuresFunctions.getReducedArrayString(columnNames, values);
 		String updateQ = (new CommandBuilderF(StatementType.UPDATE).setTable(table).addExpression(tempArrs.getIndex(),tempArrs.getValue()).addWhere(where)).pack();
 		GeneralSQLFunctions.execUpdate(connection, updateQ);
 	}
@@ -183,6 +199,31 @@ public final class GeneralSQLFunctions {
 		
 		return false;
 	}
+	
+	/**
+	 * Returns the names of all the nonullable collumns
+	 * @param connection
+	 * @param table
+	 * @return
+	 */
+	public static final ArrayList<String> getNonNullableColumns(Connection connection, String table) {
+		ArrayList<String> nonNullableColumnNames = new ArrayList<String>();
+		ResultSet tableResultSet;
+		try {
+			tableResultSet = GeneralSQLFunctions.getExecQuery(connection, GeneralSQLData.defaultGetLimitStatement.replace("{tableName}",table));
+			ResultSetMetaData tableMetadata = tableResultSet.getMetaData();
+			
+			for(int i = 0; i < tableMetadata.getColumnCount(); i++) 
+				if(tableMetadata.isNullable(i) == 1)
+					nonNullableColumnNames.add(tableMetadata.getCatalogName(i));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return nonNullableColumnNames;
+	}
+	
 	
 	 
 	

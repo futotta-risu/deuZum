@@ -206,7 +206,7 @@ public class HomePanel extends JPanel{
 		
 		JPanel panel_Home_Lateral_Status = new JPanel();
 		panel_Home_Lateral.add(panel_Home_Lateral_Status);
-		panel_Home_Lateral_Status.setBackground(CustomColors.mBOrangeL);
+		panel_Home_Lateral_Status.setBackground(CustomColors.LightSaturatedOrange);
 		panel_Home_Lateral_Status.setLayout(new VerticalFlowLayout(10,10,10));
 		
 		serverLabel = new JLabel("Status: Off");
@@ -228,7 +228,7 @@ public class HomePanel extends JPanel{
 		JPanel panel_Home_Lateral_Bots = new JPanel();
 		panel_Home_Lateral.add(panel_Home_Lateral_Bots);
 		panel_Home_Lateral_Bots.setPreferredSize(new Dimension(200, 675));
-		panel_Home_Lateral_Bots.setBackground(CustomColors.mBBlueGrayL);
+		panel_Home_Lateral_Bots.setBackground(CustomColors.BlueGray);
 		panel_Home_Lateral_Bots.setLayout(null);
 		
 		
@@ -1061,14 +1061,14 @@ public class HomePanel extends JPanel{
 	public void refreshComponentsCleaning() {
 		if(actButtonCleaning.isSelected()) {
 			actButtonCleaning.setText("Desactivar Bot Limpieza");
-			actButtonCleaning.setBackground(CustomColors.mBGreenLight);
+			actButtonCleaning.setBackground(CustomColors.Green);
 			cleaningBotIcon.setVisible(true);
 			deleteCleaningIcon.setVisible(true);
 			pauseCleaningIcon.setVisible(true);
 			lblNumBotsLimpieza.setVisible(true);
 		}else {
 			actButtonCleaning.setText("Activar Bot Limpieza");
-			actButtonCleaning.setBackground(CustomColors.mBRedLight);
+			actButtonCleaning.setBackground(CustomColors.SaturatedRed);
 			lblNumBotsLimpieza.setText(0+"");
 			cleaningBotIcon.setVisible(false);
 			deleteCleaningIcon.setVisible(false);
@@ -1080,14 +1080,14 @@ public class HomePanel extends JPanel{
 	public void refreshComponentsMail() {
 		if(actButtonMail.isSelected()) {
 			actButtonMail.setText("Desactivar Bot Mail");
-			actButtonMail.setBackground(CustomColors.mBGreenLight);
+			actButtonMail.setBackground(CustomColors.Green);
 			mailBotIcon.setVisible(true);
 			deleteMailIcon.setVisible(true);
 			pauseMailIcon.setVisible(true);
 			lblNumBotsMail.setVisible(true);
 		}else {
 			actButtonMail.setText("Activar Bot Mail");
-			actButtonMail.setBackground(CustomColors.mBRedLight);
+			actButtonMail.setBackground(CustomColors.SaturatedRed);
 			lblNumBotsMail.setText(0+"");
 			mailBotIcon.setVisible(false);
 			deleteMailIcon.setVisible(false);
@@ -1099,14 +1099,14 @@ public class HomePanel extends JPanel{
 	public void refreshComponentsUsuario() {
 		if(actButtonUsuario.isSelected()) {
 			actButtonUsuario.setText("Desactivar Bot Usuario");
-			actButtonUsuario.setBackground(CustomColors.mBGreenLight);
+			actButtonUsuario.setBackground(CustomColors.Green);
 			userBotIcon.setVisible(true);
 			deleteUserIcon.setVisible(true);
 			pauseUserIcon.setVisible(true);
 			lblNumBotsUsuario.setVisible(true);
 		}else {
 			actButtonUsuario.setText("Activar Bot Usuario");
-			actButtonUsuario.setBackground(CustomColors.mBRedLight);
+			actButtonUsuario.setBackground(CustomColors.SaturatedRed);
 			lblNumBotsUsuario.setText(0+"");
 			userBotIcon.setVisible(false);
 			deleteUserIcon.setVisible(false);
@@ -1118,14 +1118,14 @@ public class HomePanel extends JPanel{
 	public void refreshComponentsTransacion() {
 		if(actButtonTransacion.isSelected()) {
 			actButtonTransacion.setText("Desactivar Bot Transacion");
-			actButtonTransacion.setBackground(CustomColors.mBGreenLight);
+			actButtonTransacion.setBackground(CustomColors.Green);
 			transactionBotIcon.setVisible(true);
 			deleteTransactionIcon.setVisible(true);
 			pauseTransactionIcon.setVisible(true);
 			lblNumBotsTransacion.setVisible(true);
 		}else {
 			actButtonTransacion.setText("Activar Bot Transacion");
-			actButtonTransacion.setBackground(CustomColors.mBRedLight);
+			actButtonTransacion.setBackground(CustomColors.SaturatedRed);
 			lblNumBotsTransacion.setText(0+"");
 			transactionBotIcon.setVisible(false);
 			deleteTransactionIcon.setVisible(false);
@@ -1137,14 +1137,14 @@ public class HomePanel extends JPanel{
 	public void refreshComponentsAccount() {
 		if(actButtonAccount.isSelected()) {
 			actButtonAccount.setText("Desactivar Bot Cuenta");
-			actButtonAccount.setBackground(CustomColors.mBGreenLight);
+			actButtonAccount.setBackground(CustomColors.Green);
 			accountBotIcon.setVisible(true);
 			deleteAccountIcon.setVisible(true);
 			pauseAccountIcon.setVisible(true);
 			lblNumBotsCuenta.setVisible(true);
 		}else {
 			actButtonAccount.setText("Activar Bot Cuenta");
-			actButtonAccount.setBackground(CustomColors.mBRedLight);
+			actButtonAccount.setBackground(CustomColors.SaturatedRed);
 			lblNumBotsTransacion.setText(0+"");
 			accountBotIcon.setVisible(false);
 			deleteAccountIcon.setVisible(false);
@@ -1156,14 +1156,14 @@ public class HomePanel extends JPanel{
 	public void refreshComponentsGroup() {
 		if(actButtonGroup.isSelected()) {
 			actButtonGroup.setText("Desactivar Bot Grupo");
-			actButtonGroup.setBackground(CustomColors.mBGreenLight);
+			actButtonGroup.setBackground(CustomColors.Green);
 			groupBotIcon.setVisible(true);
 			deleteGroupIcon.setVisible(true);
 			pauseGroupIcon.setVisible(true);
 			lblNumBotsGrupo.setVisible(true);
 		}else {
 			actButtonGroup.setText("Activar Bot Grupo");
-			actButtonGroup.setBackground(CustomColors.mBRedLight);
+			actButtonGroup.setBackground(CustomColors.SaturatedRed);
 			lblNumBotsGrupo.setText(0+"");
 			groupBotIcon.setVisible(false);
 			deleteGroupIcon.setVisible(false);
@@ -1175,14 +1175,14 @@ public class HomePanel extends JPanel{
 	public void refreshComponentsProyect() {
 		if(actButtonProyect.isSelected()) {
 			actButtonProyect.setText("Desactivar Bot Proyecto");
-			actButtonProyect.setBackground(CustomColors.mBGreenLight);
+			actButtonProyect.setBackground(CustomColors.Green);
 			proyectBotIcon.setVisible(true);
 			deleteProyectIcon.setVisible(true);
 			pauseProyectIcon.setVisible(true);
 			lblNumBotsProyecto.setVisible(true);
 		}else {
 			actButtonProyect.setText("Activar Bot Proyecto");
-			actButtonGroup.setBackground(CustomColors.mBRedLight);
+			actButtonGroup.setBackground(CustomColors.SaturatedRed);
 			lblNumBotsProyecto.setText(0+"");
 			proyectBotIcon.setVisible(false);
 			deleteProyectIcon.setVisible(false);
@@ -1194,14 +1194,14 @@ public class HomePanel extends JPanel{
 	public void refreshComponentsTransacionProyecto() {
 		if(actButtonProyectTransaction.isSelected()) {
 			actButtonProyectTransaction.setText("Desactivar Bot Transacion Proyecto");
-			actButtonProyectTransaction.setBackground(CustomColors.mBGreenLight);
+			actButtonProyectTransaction.setBackground(CustomColors.Green);
 			proyectTransactionBotIcon.setVisible(true);
 			deleteProyectTransactionIcon.setVisible(true);
 			pauseProyectTransactionIcon.setVisible(true);
 			lblNumBotsTransacionProyecto.setVisible(true);
 		}else {
 			actButtonProyectTransaction.setText("Activar Bot Transacion proyecto");
-			actButtonProyectTransaction.setBackground(CustomColors.mBRedLight);
+			actButtonProyectTransaction.setBackground(CustomColors.SaturatedRed);
 			lblNumBotsTransacionProyecto.setText(0+"");
 			proyectTransactionBotIcon.setVisible(false);
 			deleteProyectTransactionIcon.setVisible(false);

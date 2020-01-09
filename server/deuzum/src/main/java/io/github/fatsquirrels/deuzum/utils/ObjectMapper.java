@@ -7,8 +7,6 @@ import javax.swing.JPanel;
 
 import io.github.fatsquirrels.deuzum.utils.meta.anotations.Tested;
 
-
-
 /**
  * Contiene las funciones para trabajar con mapas de componentes
  * @see #createComponentMap
@@ -30,7 +28,6 @@ public class ObjectMapper {
         for (int i=0; i < components.length; i++) 
                 componentMap.put(components[i].getName(), components[i]);
         return componentMap;
-        
 	}
 	
 	/**

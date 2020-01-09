@@ -11,13 +11,9 @@ import io.github.fatsquirrels.deuzum.utils.files.Icons;
 
 public class IconizedButton extends JButton{
 
+	private static final long serialVersionUID = 2927729938981246967L;
 	private Icon icon, hoverIcon;
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
+
 	public IconizedButton() {
 		setStyle();
 	}

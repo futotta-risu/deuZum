@@ -14,12 +14,11 @@ public class ButtonMenu extends JPanel{
 
 	private static final long serialVersionUID = 3735287384001018431L;
 	
-	
 	private HashMap<String,JButton> buttons;
 	
 	public ButtonMenu(){
 		buttons = new HashMap<String,JButton>();
-		setBackground(CustomColors.mBBlue);
+		setBackground(CustomColors.DarkBlue);
 		setLayout(new VerticalFlowLayout(0, 0, 0));
 		setPreferredSize(new Dimension(180,280));
 	}
