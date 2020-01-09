@@ -12,11 +12,10 @@ public class UserBot extends BotBase{
 	private Thread hiloUsuario;
 	private Connection conn;
 	private long cantidad;
-	private String name = "UserBot";
 	private static int BotIdCounter = 0;
 	
-	public UserBot(long cantidad) {
-		this.name = this.name + BotIdCounter++;
+	public UserBot(String namet, long cantidad) {
+		this.name = namet + BotIdCounter++;
 		this.cantidad = cantidad;
 		this.conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost:3306/deuzumdb", "root", "");
 		}

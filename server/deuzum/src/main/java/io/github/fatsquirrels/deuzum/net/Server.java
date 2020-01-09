@@ -34,7 +34,7 @@ public class Server implements Runnable{
 	
 	private ServerSocket serverSocket;
 	private Connection connection;
-	private int port, botCount;
+	private int port;
 	/**
 	 * Nombre de la base de datos. Se extrae del archivo properties.
 	 */
@@ -67,9 +67,6 @@ public class Server implements Runnable{
 			this.port = port;
 	}
 	
-	public void setBotCount(int botCount) {
-		this.botCount = botCount;
-	}
 	
 	public void setDBName(String dbName) {
 		Server.dbName = dbName;
@@ -125,15 +122,6 @@ public class Server implements Runnable{
     
     // Server Bot Functionality
     
-    /**
-     * Crea un array de Objetos Bot.
-     */
-    public void createBotList() {
-    	this.bots = new ArrayList<BotBase>();
-    	for(int i = 0; i <this.botCount;i++) 
-    		this.bots.add(BotGenerator.generateBot(BotType.CleaningBot, "Bot-"+i));
-    	
-    }
 
 	public void run() {
 		
@@ -174,7 +162,6 @@ public class Server implements Runnable{
 	 * Carga todos los modulos de ejecuci�n del servidor.
 	 */
 	public void execute() {
-		createBotList();
 		ServerCommands.createMethodArray();
 		this.connection = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost:3306/"+Server.dbName, "root", "");
 		// TODO Add to the database the user status

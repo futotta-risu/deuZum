@@ -1,19 +1,23 @@
 package io.github.fatsquirrels.deuzum.IA.bots;
 
-import io.github.fatsquirrels.deuzum.IA.bots.types.CleaningBot;
-import io.github.fatsquirrels.deuzum.IA.bots.types.MailBot;
 
-@Deprecated
+
+
 public enum BotType {
-	CleaningBot(new CleaningBot()),
-	MailBot(new MailBot());
+	CLEANING("Limpieza","robot"), MAIL("Mail","bot"), ACCOUNT("Cuenta","creditCard"),
+	USUARIO("Usuario","cyborg"), PROYECTO("Proyecto","proyecto"), PROYECTOTRANSACCION("Proyecto Transaccion","proyectTransaction"), 
+	TRANSACCION("Transaccion","moneyBot"), GRUPO("Grupo","group");
 	
-	private final BotBase botClass;
-	
-	private BotType(BotBase botFunctionality) {
-		this.botClass = botFunctionality;
+	private final String botClass;
+	private final String iconName;
+	private BotType(String name, String iconNamet) {
+		this.botClass = name;
+		this.iconName = iconNamet;
 	}
-	public BotBase getBotClass() {
+	public String getBotClass() {
 		return this.botClass;
+	}
+	public String getIconName() {
+		return this.iconName;
 	}
 }

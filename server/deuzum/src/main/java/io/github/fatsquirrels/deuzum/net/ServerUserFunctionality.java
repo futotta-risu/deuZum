@@ -9,7 +9,6 @@ import static io.github.fatsquirrels.deuzum.utils.DataStructuresFunctions.getRed
 
 import java.sql.Connection;
 
-import io.github.fatsquirrels.deuzum.database.GeneralSQLData;
 import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
 import io.github.fatsquirrels.deuzum.database.WhereAST;
 import io.github.fatsquirrels.deuzum.database.tableName;

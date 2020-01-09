@@ -14,7 +14,6 @@ public class ServerThread extends Thread{
 		
 		server = new Server();
 		server.setDBName(ServerProperties.properties.getProperty("server.dbName"));
-		server.setBotCount(Integer.valueOf(ServerProperties.properties.getProperty("server.botCount")));
 		server.setPort(Integer.valueOf(ServerProperties.properties.getProperty("server.port")));
 		server.runServer();
 		server.start();
