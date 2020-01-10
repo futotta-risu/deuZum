@@ -43,7 +43,7 @@ import javax.swing.JComponent;
 
 @Deprecated
 /**
- * Clase de la ventana principal del servidor.
+ * Clase de la ventana principal del servidor. Se sustityo por ServerHandler
  *
  */
 public class ServerHandlerFrame  extends JFrame{

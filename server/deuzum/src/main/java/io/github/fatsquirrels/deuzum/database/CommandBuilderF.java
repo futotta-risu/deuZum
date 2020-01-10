@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import io.github.fatsquirrels.deuzum.database.exceptions.CommandBuilderBuildException;
 import io.github.fatsquirrels.deuzum.utils.math.APair;
 import io.github.fatsquirrels.deuzum.utils.meta.anotations.Tested;
 import io.github.fatsquirrels.deuzum.utils.text.TextFunctions;
@@ -123,8 +124,9 @@ public class CommandBuilderF {
 	}
 	
 	
-	public CommandBuilderF setTable(String table) {
-		// Check if table is correct (Doesnt have space or whatsoever)
+	public CommandBuilderF setTable(String table) throws CommandBuilderBuildException {
+		if(table.matches("\\s")) 
+			throw new CommandBuilderBuildException("El nombre de la tabla es invalido");
 		this.table = table;
 		return this;
 	}
@@ -134,11 +136,11 @@ public class CommandBuilderF {
 	 * @param table Tabla a aÃ±adir
 	 * @return Devuelve el objeto CommandBuilderF modificado
 	 */
-	public CommandBuilderF addInnerJoin(String table) {
+	public CommandBuilderF addInnerJoin(String table) throws CommandBuilderBuildException {
 		if(!this.table.isEmpty()) 
 			this.table += " INNER JOIN " + table;
 		else
-			System.err.println("Error en el CommandBuilderF: Se ha intentado addInnerJoin con una tabla vacia. Tabla :" + table);
+			throw new CommandBuilderBuildException("No se ha estipulado ningun nombre de tabla");
 		return this;
 	}
 	
@@ -160,13 +162,10 @@ public class CommandBuilderF {
 		return this;
 	}
 	
-	public CommandBuilderF addColumns(String[] columns, String[] values) {
-		if(columns.length!=values.length) {
-			System.err.println("Error en el CommandBuilderF: Se ha intentado añadir una cantidad de valores y columnas no iguales.");
-			System.err.println("Cantidad de valores: " + columns.length);
-			System.err.println("Cantidad de valores: " + values.length);
-			return this;
-		}
+	public CommandBuilderF addColumns(String[] columns, String[] values) throws CommandBuilderBuildException {
+		if(columns.length!=values.length) 
+			throw new CommandBuilderBuildException("La cantidad de columnas y valores es diferente");
+		
 		for(int i= 0; i < columns.length; i++)
 			this.columns.put(columns[i], values[i]);
 		return this;
@@ -192,8 +191,9 @@ public class CommandBuilderF {
 		this.expression += column + "=\"" + expression +"\"";
 		return this;
 	}
-	public CommandBuilderF addExpression(String[] column, String[] expression) {
-		if(column.length != expression.length) return this;
+	public CommandBuilderF addExpression(String[] column, String[] expression) throws CommandBuilderBuildException {
+		if(column.length != expression.length) 
+			throw new CommandBuilderBuildException("La cantidad de columnas y valores es diferente");
 		for(int i = 0; i < column.length; i++) {
 			if(!this.expression.isEmpty()) this.expression +=",";
 			this.expression += column[i] + "=\"" + expression[i] +"\"";
@@ -216,11 +216,10 @@ public class CommandBuilderF {
 			this.group.add(i);
 		return this;
 	}
-	public CommandBuilderF setLimit(int limit) {
-		if(limit<0) {
-			System.err.println("Error en el CommandBuilderF: Se ha intentado establecer un limite negativo");
-			return this;
-		}else
+	public CommandBuilderF setLimit(int limit) throws CommandBuilderBuildException{
+		if(limit<0) 
+			throw new CommandBuilderBuildException("No se puede establecer limites negativos");
+		else
 			this.limit = limit;
 		return this;
 	}

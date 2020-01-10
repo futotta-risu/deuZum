@@ -9,6 +9,7 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.util.Map.Entry;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -81,7 +82,7 @@ public class HomePanel extends JPanel{
 		
 		// Titulo
 		JLabel lblBienvenido = new JLabel(titulo);
-		lblBienvenido.setFont(new Font("Maiandra GD", Font.PLAIN, 29));
+		lblBienvenido.setFont(new Font("Helvetica", Font.BOLD, 29));
 		panel_Home_Title.add(lblBienvenido);
 		
 		
@@ -93,10 +94,6 @@ public class HomePanel extends JPanel{
 		JTextArea tf_Information = new textAreaNoWrite();
 		tf_Information.setText(texto_central);
 		
-		
-		JLabel lblVersiones = new JLabel("Versiones");
-		lblVersiones.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		panel_Home_Info.add(lblVersiones, BorderLayout.WEST);
 		
 		JTextArea tf_Software_Info = new textAreaNoWrite();
 		tf_Software_Info.setText("Actualmente esta aplicaci\u00F3n se encuentra en la versi\u00F3n alpha. Esta permite la realizaci\u00F3n de las tareas m\u00E1s basicas pero requiere todav\u00EDa bastantes cambios para evitar errores y mejorar el rendimiento. Las caracteristicas de esta versi\u00F3n han sido las siguientes:\r\n\r\n\t- Ventanas de control de la base de datos\r\n\t- Plantilla de la base de datos.\r\n\t- Estado actual del servidor");
@@ -136,38 +133,39 @@ public class HomePanel extends JPanel{
 		panel_Home_Lateral.setSize(500, 500);
 		panel_Home_Lateral.setBackground(new Color(176, 224, 230));		
 		panel_Home_Lateral.setLayout(new VerticalFlowLayout(10,10,10));
+		panel_Home_Lateral.setBorder(BorderFactory.createMatteBorder(1,1,0,0, CustomColors.LightSaturatedBlue));
 		
-		JPanel panel_Home_Lateral_Status = new JPanel();
+		JPanel panel_Home_Lateral_Status = new JPanel(new VerticalFlowLayout(10,10,10));
 		panel_Home_Lateral.add(panel_Home_Lateral_Status);
 		panel_Home_Lateral_Status.setBackground(CustomColors.BlueGray);
-		panel_Home_Lateral_Status.setLayout(new VerticalFlowLayout(10,10,10));
+		
+		
 		
 		panel_Home_Lateral_Status.setBorder(new BubbleBorder(CustomColors.LightSaturatedBlue,1,16));
-		serverLabel = new JLabel("Status: Off");
+		serverLabel = new JLabel("Status: Off", SwingConstants.CENTER);
 		serverLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		panel_Home_Lateral_Status.add(serverLabel);
 		serverLabel.setForeground(new Color(0, 0, 0));
+		panel_Home_Lateral_Status.add(serverLabel);
 		
-		JPanel panel_Lateral_Info = new JPanel();
-		panel_Lateral_Info.setLayout(new VerticalFlowLayout(0,5,5));
+		
+		JPanel panel_Lateral_Info = new JPanel(new VerticalFlowLayout(0,0,0));
 		panel_Home_Lateral_Status.add(panel_Lateral_Info);
 		
-		JLabel lblVersion = new JLabel("Version: alpha0.0.1");
+		JLabel lblVersion = new JLabel("Version: v1.0", SwingConstants.CENTER);
 		panel_Lateral_Info.add(lblVersion);
 		
-		JLabel lblNewLabel_1 = new JLabel("FatSquirrels");
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.LEFT);
-		panel_Lateral_Info.add(lblNewLabel_1);
+		JLabel lblGroup = new JLabel("Creado por FatSquirrels", SwingConstants.CENTER);
+		panel_Lateral_Info.add(lblGroup);
+		
+		panel_Lateral_Info.setLayout(new VerticalFlowLayout(10,10,10));
+		panel_Lateral_Info.setBorder(new BubbleBorder(CustomColors.LightSaturatedBlue,1,16));
+		panel_Lateral_Info.setBackground(Color.WHITE);
 		
 		JPanel panel_Home_Lateral_Bots = new JPanel(new VerticalFlowLayout(10,10,10));
 		panel_Home_Lateral.add(panel_Home_Lateral_Bots);
 		panel_Home_Lateral_Bots.setBackground(CustomColors.BlueGray);
 		panel_Home_Lateral_Bots.setBorder(new BubbleBorder(CustomColors.LightSaturatedBlue,1,16));
 		
-		
-		//////////////////////////////////////////////////////////
-		//						   BOTS						    //
-		//////////////////////////////////////////////////////////
 		
 		botPanels = new HashMap<String,BotPanel>();
 		botPanels.put("mail", new BotPanel(BotType.MAIL));
@@ -177,6 +175,7 @@ public class HomePanel extends JPanel{
 		botPanels.put("group", new BotPanel(BotType.GRUPO));
 		botPanels.put("proyect", new BotPanel(BotType.PROYECTO));
 		botPanels.put("proyectTransaction", new BotPanel(BotType.PROYECTOTRANSACCION));
+		
 		for(Entry<String, BotPanel> botPanel : botPanels.entrySet())
 			panel_Home_Lateral_Bots.add(botPanel.getValue());
 		
@@ -191,8 +190,12 @@ public class HomePanel extends JPanel{
 		panel_Home_Info.add(tf_Software_Info, BorderLayout.EAST);
 		panel_Home_Info.add(tf_Information, BorderLayout.NORTH);
 		
+		panel_Home_Title.setBorder(new EmptyBorder(0,0,20,0));
+		
 		panel_Home_Center.add(panel_Home_Info,BorderLayout.CENTER);
 		panel_Home_Center.add(panel_Home_Title, BorderLayout.NORTH);
+		
+		panel_Home_Center.setBorder(new EmptyBorder(20,20,20,20));
 		
 		add(panel_Home_Center,BorderLayout.CENTER);
 		

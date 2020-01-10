@@ -1,9 +1,10 @@
 package io.github.fatsquirrels.deuzum.visual.components.buttons;
 
-
 import javax.swing.JToggleButton;
 
 import io.github.fatsquirrels.deuzum.visual.style.CustomColors;
+import io.github.fatsquirrels.deuzum.visual.style.layout.BubbleBorder;
+
 
 public class ActivatedButton extends JToggleButton{
 	
@@ -15,10 +16,14 @@ public class ActivatedButton extends JToggleButton{
 	}
 	
 	public void setStyle() {
-		setBackground(CustomColors.SaturatedRed);
+		
+		
+		setBorder(new BubbleBorder(CustomColors.LighterSaturatedBlue,1,8));
 		setBorderPainted(true);
-		setFocusPainted(false);
+		setFocusPainted(true);
 		setContentAreaFilled(true);
+		
+
 		
 	}
 

@@ -5,9 +5,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Random;
 
+import javax.swing.JOptionPane;
+
 import io.github.fatsquirrels.deuzum.IA.bots.BotBase;
 import io.github.fatsquirrels.deuzum.IA.bots.BotFunctions;
 import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
+import io.github.fatsquirrels.deuzum.database.exceptions.CommandBuilderBuildException;
 
 public class TransactionBot extends BotBase implements BotFunctions{
 	
@@ -58,8 +61,9 @@ public class TransactionBot extends BotBase implements BotFunctions{
 					new String[] {tempId+"",randomId1,randomId2, cantidad});
 					}
 						
-				} catch (SQLException e) {
-					e.printStackTrace();
+				} catch (SQLException | CommandBuilderBuildException e) {
+					JOptionPane.showMessageDialog(null, "Ha habido un error con el bot. Cerrando el hilo.");
+					return;
 				}
 			}
 		});

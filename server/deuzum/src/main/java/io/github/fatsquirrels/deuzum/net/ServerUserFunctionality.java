@@ -12,6 +12,7 @@ import java.sql.Connection;
 import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
 import io.github.fatsquirrels.deuzum.database.WhereAST;
 import io.github.fatsquirrels.deuzum.database.tableName;
+import io.github.fatsquirrels.deuzum.database.exceptions.CommandBuilderBuildException;
 import io.github.fatsquirrels.deuzum.utils.DataStructuresFunctions;
 import io.github.fatsquirrels.deuzum.utils.math.APair;
 import io.github.fatsquirrels.deuzum.utils.meta.anotations.Tested;
@@ -39,6 +40,9 @@ public class ServerUserFunctionality {
 		} catch (SQLException e) {
 			// TODO Añadir el error a un posible log ya que esta funcion solo se ejecuta desde el cliente
 			e.printStackTrace();
+		} catch (CommandBuilderBuildException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -59,6 +63,9 @@ public class ServerUserFunctionality {
 			// TODO Añadir el error a un posible log ya que esta funcion solo se ejecuta desde el cliente
 			e.printStackTrace();
 			return "0";
+		} catch (CommandBuilderBuildException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return "1";
 	}
@@ -75,6 +82,9 @@ public class ServerUserFunctionality {
 		try {
 			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "usuario", columnNamesUsuarios, data);
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (CommandBuilderBuildException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -108,6 +118,9 @@ public class ServerUserFunctionality {
 			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "infousuario", reducedInfo.getIndex(), reducedInfo.getValue());
 		}catch(SQLException e) {
 			e.printStackTrace();
+		} catch (CommandBuilderBuildException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -135,6 +148,9 @@ public class ServerUserFunctionality {
 			WhereAST where = new WhereAST().addValue("id='"+userID+"'");
 			GeneralSQLFunctions.updateEntryFromDatabase(connection, "usuario", reducedInfo.getIndex(), reducedInfo.getValue(), where);
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (CommandBuilderBuildException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -164,6 +180,9 @@ public class ServerUserFunctionality {
 		try {
 			GeneralSQLFunctions.updateEntryFromDatabase(conn, "usuario", columnNamesUserInf, data, where);
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (CommandBuilderBuildException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -235,6 +254,9 @@ public class ServerUserFunctionality {
 			
 			e.printStackTrace();
 			return 1;
+		} catch (CommandBuilderBuildException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return 0;
 	}
@@ -286,6 +308,9 @@ public class ServerUserFunctionality {
 			
 			e.printStackTrace();
 			return 1;
+		} catch (CommandBuilderBuildException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return 0;
 	}
@@ -296,6 +321,9 @@ public class ServerUserFunctionality {
 			GeneralSQLFunctions.deleteEntryFromDatabase(connection, "usuario", where);
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} catch (CommandBuilderBuildException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -305,27 +333,35 @@ public class ServerUserFunctionality {
 			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "grupomiembros", new String[] {"id_grupo","miembro", "permisos"},new String[] {groupID, userID, permisos} );
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} catch (CommandBuilderBuildException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
 	public static void updateGroup(Connection conn, String groupID, String[] data) {
 		// TODO anyadir las funciones de verificacion de groupID, groupName
-				try {
-					WhereAST where = new WhereAST().addValue("id='"+groupID+"'");
-					GeneralSQLFunctions.updateEntryFromDatabase(conn, "grupo", new String[] { "nombre" },data, where);
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
+		try {
+			WhereAST where = new WhereAST().addValue("id='"+groupID+"'");
+			GeneralSQLFunctions.updateEntryFromDatabase(conn, "grupo", new String[] { "nombre" },data, where);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (CommandBuilderBuildException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public static void updateGroupMiembros(Connection conn, String groupID, String[] userId, String[] comboPermisos) {
 		WhereAST where = new WhereAST().addValue("id='"+ groupID +"'");
 		try {
-			for (int i = 0; i < userId.length; i++) {
+			for (int i = 0; i < userId.length; i++) 
 				GeneralSQLFunctions.updateEntryFromDatabase(conn, "grupomiembro", new String[] {"id_grupo","id_miembro", "permisos"}, new String[] {groupID, userId[i], comboPermisos[i]}, where);
-
-			}
+	
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (CommandBuilderBuildException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -337,6 +373,9 @@ public class ServerUserFunctionality {
 			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "grupo", new String[] {"nombre", "descripcion"}, data);
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} catch (CommandBuilderBuildException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -347,6 +386,9 @@ public class ServerUserFunctionality {
 			GeneralSQLFunctions.deleteEntryFromDatabase(connection, "grupo", where);
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} catch (CommandBuilderBuildException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -355,6 +397,9 @@ public class ServerUserFunctionality {
 			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "proyecto",
 					new String[] {"id_grupo", "nombre", "descripcion"}, data);
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (CommandBuilderBuildException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -365,6 +410,9 @@ public class ServerUserFunctionality {
 			GeneralSQLFunctions.deleteEntryFromDatabase(connection, "proyecto", where);
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} catch (CommandBuilderBuildException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -373,6 +421,9 @@ public class ServerUserFunctionality {
 			WhereAST where = new WhereAST().addValue("id='"+proyectID+"'");
 			GeneralSQLFunctions.updateEntryFromDatabase(connection, "proyecto", new String[] { "id_grupo", "nombre" },data, where);
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (CommandBuilderBuildException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -386,6 +437,9 @@ public class ServerUserFunctionality {
 					data);
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} catch (CommandBuilderBuildException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -396,6 +450,9 @@ public class ServerUserFunctionality {
 		} catch (SQLException e) {
 			System.err.println("Error a la hora de eliminar una cuenta.");
 			e.printStackTrace();
+		} catch (CommandBuilderBuildException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	public static void updateAccount(Connection connection, String accountID, String[] columns, String[] data) {
@@ -405,6 +462,9 @@ public class ServerUserFunctionality {
 			GeneralSQLFunctions.updateEntryFromDatabase(connection, "cuenta", columns, data, where);
 		} catch (SQLException e) {
 			System.err.println("Error a la hora de updatear una cuenta.");
+			e.printStackTrace();
+		} catch (CommandBuilderBuildException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -431,6 +491,9 @@ public class ServerUserFunctionality {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return "-1";
+		} catch (CommandBuilderBuildException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return "1";
 		

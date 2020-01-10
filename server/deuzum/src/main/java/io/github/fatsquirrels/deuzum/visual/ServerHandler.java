@@ -67,7 +67,7 @@ public class ServerHandler  extends GenericSMFrame{
 				new IconizedButton("symbol","stop",35,40,e -> stopServer())
 		});
 		
-		plp.addPanel("Home",new PanelProperties(new HomePanel("Bienvenido","Texto de muestra"), true));
+		plp.addPanel("Home",new PanelProperties(new HomePanel("Bienvenido a el Servidor de Deuzum","Texto de muestra"), true));
 		
 		plp.addPanel("Configuracion",new PanelProperties(new ConfigPanel(), true));
 		

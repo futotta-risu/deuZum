@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import io.github.fatsquirrels.deuzum.database.exceptions.CommandBuilderBuildException;
 import io.github.fatsquirrels.deuzum.utils.DataStructuresFunctions;
 import io.github.fatsquirrels.deuzum.utils.math.APair;
 
@@ -135,19 +136,21 @@ public final class GeneralSQLFunctions {
 	 * @param columnNames Array de Strings que contiene las columnas a modificar
 	 * @param values Array de String que contiene los valores a insertar en las columnas
 	 * @throws SQLException Puede lanzar una Exception SQL
+	 * @throws CommandBuilderBuildException 
 	 * @see io.github.fatsquirrels.deuzum.database.CommandBuilderF
 	 */
-	public static final void insertEntryIntoDatabase(Connection connection, String table, String[] columnNames, String[] values) throws SQLException {
+	public static final void insertEntryIntoDatabase(Connection connection, String table, String[] columnNames, String[] values) throws SQLException, CommandBuilderBuildException {
 		if(columnNames.length != values.length || columnNames.length == 0)
 			return;	
 		APair<String[],String[]> tempArrs = DataStructuresFunctions.getReducedArrayString(columnNames, values);
 		String insertQ = (new CommandBuilderF(StatementType.INSERT).setTable(table).addColumns(tempArrs.getIndex(), tempArrs.getValue())).pack();
+		
 		if(checkIfTableExist(connection, table))
 			GeneralSQLFunctions.execUpdate(connection, insertQ);
 		
 	}
 	
-	public static final void insertEntryIntoDatabase(Connection connection, String table, HashMap<String,String> data) throws SQLException {
+	public static final void insertEntryIntoDatabase(Connection connection, String table, HashMap<String,String> data) throws SQLException, CommandBuilderBuildException {
 		ArrayList<String> nonNullableColumns = GeneralSQLFunctions.getNonNullableColumns(connection,table);
 		for(String name : nonNullableColumns)
 			if(!data.containsKey(name)) {
@@ -170,10 +173,11 @@ public final class GeneralSQLFunctions {
 	 * @param values Array de String que contiene los valores a actualizar en las columnas
 	 * @param where Objeto de WhereAST, es la condicion de la actualizacion
 	 * @throws SQLException Puede lanzar una Exception SQL
+	 * @throws CommandBuilderBuildException 
 	 * @see io.github.fatsquirrels.deuzum.database.CommandBuilderF
 	 * @see io.github.fatsquirrels.deuzum.database.WhereAST
 	 */
-	public static final void updateEntryFromDatabase(Connection connection, String table, String[] columnNames, String[] values, WhereAST where) throws SQLException {
+	public static final void updateEntryFromDatabase(Connection connection, String table, String[] columnNames, String[] values, WhereAST where) throws SQLException, CommandBuilderBuildException {
 		
 		if(columnNames.length != values.length || columnNames.length == 0)
 			return;
@@ -182,7 +186,7 @@ public final class GeneralSQLFunctions {
 		GeneralSQLFunctions.execUpdate(connection, updateQ);
 	}
 	
-	public static final void deleteEntryFromDatabase(Connection connection, String table, WhereAST where) throws SQLException {
+	public static final void deleteEntryFromDatabase(Connection connection, String table, WhereAST where) throws SQLException, CommandBuilderBuildException {
 		String deleteQ = (new CommandBuilderF(StatementType.DELETE).setTable(table).addWhere(where)).pack();
 		
 		GeneralSQLFunctions.execUpdate(connection, deleteQ);

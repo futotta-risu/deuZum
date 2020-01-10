@@ -1,6 +1,7 @@
 package io.github.fatsquirrels.deuzum.visual.panels;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Rectangle;
 import java.util.ArrayList;
@@ -67,8 +68,8 @@ public class BotPanel extends JPanel{
 	}
 	
 	public void animateOpen() {
-		Rectangle from = new Rectangle(this.getX(), this.getY(), 211, 25);
-        Rectangle to = new Rectangle(this.getX(), this.getY(), 211, 75);
+		Rectangle from = new Rectangle(this.getX(), this.getY(), 211, 32);
+        Rectangle to = new Rectangle(this.getX(), this.getY(), 211, 80);
         if(this.isEnabled) animate = new DropAnimation(this, from, to);
         else animate = new DropAnimation(this, to, from);
         
@@ -82,14 +83,17 @@ public class BotPanel extends JPanel{
 	
 	public void setEnabled(boolean state) {
 		
-		if(!Server.isRunning) 
+		if(!Server.isRunning) {
 			JOptionPane.showMessageDialog(this, "No puede activar bots con el servidor apagado.\n Enciendalo por favor.");
+			btnEnabled.setSelected(false);
+		}
+			
 		
 		if(this.isEnabled != state && Server.isRunning) {
 			this.isEnabled = state;
 			refreshComponents();
 			animateOpen();
-		}
+		}else btnEnabled.setSelected(false);
 		
 	}
 	
@@ -138,7 +142,7 @@ public class BotPanel extends JPanel{
 			add(bottomPanel, BorderLayout.CENTER);
 		}else {
 			btnEnabled.setText("Activar Bot "+ type.getBotClass());
-			btnEnabled.setBackground(CustomColors.SaturatedRed);
+			btnEnabled.setBackground(Color.WHITE);
 			lblBotCount.setText(0+"");
 			remove(bottomPanel);
 			revalidate();

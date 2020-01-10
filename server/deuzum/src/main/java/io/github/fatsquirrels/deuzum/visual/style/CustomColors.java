@@ -6,7 +6,9 @@ public class CustomColors {
 
 	public static Color DarkBlue = new Color(19, 31, 43);
 	public static Color Blue = new Color(30,100,174);
+	
 	public static Color LightSaturatedBlue = new Color(162, 199, 230);
+	public static Color LighterSaturatedBlue = new Color(175, 215, 235);
 	
 	public static Color LightGrey = new Color(211, 211, 211);
 	public static Color VeryLightGrey = new Color(244,244,244);

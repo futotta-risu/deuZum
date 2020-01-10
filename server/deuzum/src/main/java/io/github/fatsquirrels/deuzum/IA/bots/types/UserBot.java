@@ -4,9 +4,12 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
 import io.github.fatsquirrels.deuzum.IA.bots.BotBase;
 import io.github.fatsquirrels.deuzum.IA.bots.BotFunctions;
 import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
+import io.github.fatsquirrels.deuzum.database.exceptions.CommandBuilderBuildException;
 
 public class UserBot extends BotBase implements BotFunctions{
 
@@ -34,8 +37,9 @@ public class UserBot extends BotBase implements BotFunctions{
 					try {
 						GeneralSQLFunctions.insertEntryIntoDatabase(conn, "usuario", new String[] {"id","usuario", "contraseña", "preg_seguridad", "resp_seguridad","permisos"}, 
 							new String[] {tempId+"",name + tempId*7, tempId+"", "1", "respuesta","1" });
-					} catch (SQLException e) {
-						e.printStackTrace();
+					} catch (SQLException | CommandBuilderBuildException e) {
+						JOptionPane.showMessageDialog(null, "Ha habido un error con el bot. Cerrando el hilo.");
+						return;
 					}
 				}
 				
