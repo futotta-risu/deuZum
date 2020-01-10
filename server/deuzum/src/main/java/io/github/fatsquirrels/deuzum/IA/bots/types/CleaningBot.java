@@ -7,10 +7,11 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import io.github.fatsquirrels.deuzum.IA.bots.BotBase;
+import io.github.fatsquirrels.deuzum.IA.bots.BotFunctions;
 import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
 
 
-public class CleaningBot extends BotBase{
+public class CleaningBot extends BotBase implements BotFunctions{
 	
 	private Connection conn;
 	private Thread hiloLimpieza = null;

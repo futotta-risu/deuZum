@@ -69,13 +69,13 @@ CREATE TABLE `clientecategoria` (
 -- Descripcion	:	Contiene la informacion de los usuarios. Dentro de esta tabla entra la informacion personal del usuario(nombre, apellido,...).
 CREATE TABLE `infousuario` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(15) NOT NULL,
-  `apellido` varchar(15) NOT NULL,
-  `telefono` varchar(9) NOT NULL,
-  `email` varchar(40) NOT NULL,
-  `direccion` varchar(50) NOT NULL,
-  `fecha_nacimiento` date NOT NULL DEFAULT current_timestamp(),
-  `sexo` enum('Femenino','Masculino','Otro') NOT NULL,
+  `nombre` varchar(15) NULL,
+  `apellido` varchar(15) NULL,
+  `telefono` varchar(9) NULL,
+  `email` varchar(40) NULL,
+  `direccion` varchar(50) NULL,
+  `fecha_nacimiento` date NULL DEFAULT current_timestamp(),
+  `sexo` enum('Femenino','Masculino','Otro') NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -155,7 +155,7 @@ CREATE TABLE `proyecto` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `id_grupo` int(10) NOT NULL,
   `nombre` varchar(15) NOT NULL,
-  `descripcion` varchar(32) NOT NULL,
+  `descripcion` varchar(32) NULL,
   `deuda` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
@@ -177,8 +177,8 @@ CREATE TABLE `proyectotransaccion` (
   `id_miembro` int(10) NOT NULL,
   `tipo` int(1) NOT NULL,
   `cantidad` int(11) NOT NULL,
-  `razon` varchar(50) NOT NULL,
-  `fecha` date NOT NULL DEFAULT current_timestamp(),
+  `razon` varchar(50) NULL,
+  `fecha` date NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `id_proyecto` (`id_proyecto`),
   KEY `id_miembro` (`id_miembro`)
@@ -201,7 +201,7 @@ CREATE TABLE `transaccion` (
   `source` int(10) NOT NULL,
   `destino` int(10) NOT NULL,
   `dinero` int(10) NOT NULL,
-  `fecha` date NOT NULL DEFAULT current_timestamp(),
+  `fecha` date NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`codigo`),
   KEY `source` (`source`),
   KEY `dest` (`destino`)

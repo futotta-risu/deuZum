@@ -3,7 +3,9 @@ package io.github.fatsquirrels.deuzum.database;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import io.github.fatsquirrels.deuzum.utils.DataStructuresFunctions;
 import io.github.fatsquirrels.deuzum.utils.math.APair;
@@ -228,7 +230,33 @@ public final class GeneralSQLFunctions {
 		
 		return nonNullableColumnNames;
 	}
-	
+	/**
+	 * Returns the names of all the nonullable collumns
+	 * @param connection
+	 * @param table
+	 * @return
+	 */
+	public static final Set<String> getNonNullableColumnsSet(Connection connection, String table) {
+		Set<String> nonNullableColumnNames = new HashSet<String>();
+		ResultSet tableResultSet;
+		try {
+			System.out.println(GeneralSQLData.defaultGetLimitStatement.replace("{tableName}",table));
+			tableResultSet = GeneralSQLFunctions.getExecQuery(connection, GeneralSQLData.defaultGetLimitStatement.replace("{tableName}",table));
+			ResultSetMetaData tableMetadata = tableResultSet.getMetaData();
+			
+			// Empezamos en 2 para saltar id
+			for(int i = 2; i < tableMetadata.getColumnCount()+1; i++) 
+				if(tableMetadata.isNullable(i) == 0)
+					nonNullableColumnNames.add(tableMetadata.getColumnName(i));
+			
+				
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return nonNullableColumnNames;
+	}
 	
 	 
 	

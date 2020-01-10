@@ -4,27 +4,27 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GridLayout;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.util.Map.Entry;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
-import javax.swing.border.AbstractBorder;
 import javax.swing.border.EmptyBorder;
 
 import io.github.fatsquirrels.deuzum.IA.bots.*;
-import io.github.fatsquirrels.deuzum.net.Server;
 import io.github.fatsquirrels.deuzum.utils.WebpageConnection;
 import io.github.fatsquirrels.deuzum.visual.components.textAreaNoWrite;
 import io.github.fatsquirrels.deuzum.visual.components.buttons.FlatButton;
 import io.github.fatsquirrels.deuzum.visual.style.CustomColors;
 import io.github.fatsquirrels.deuzum.visual.style.layout.VerticalFlowLayout;
 import io.github.fatsquirrels.deuzum.visual.style.layout.*;
-import net.miginfocom.swing.MigLayout;
 import java.util.HashMap;
 import javax.swing.ScrollPaneConstants;
 
@@ -106,12 +106,28 @@ public class HomePanel extends JPanel{
 		panel_Home_Info_Botones.setBackground(Color.WHITE);
 		
 		JButton btn_FAQ = new FlatButton("Documentacion");
-		btn_FAQ.addActionListener( e -> WebpageConnection.openWebpage(FAQ_URL));
-		
-		
+		btn_FAQ.addActionListener( e -> {
+			try {
+				WebpageConnection.openWebpage(FAQ_URL);
+			} catch (MalformedURLException | URISyntaxException malformedURL) {
+				JOptionPane.showMessageDialog(this, "El enlace no es valido.");
+			} catch (IOException IOExcp) {
+				JOptionPane.showMessageDialog(this, "El enlace no se ha podido abrir.");
+			} 
+			
+		});
 		
 		JButton btn_About_Us = new FlatButton("Sobre Nosotros");
-		btn_About_Us.addActionListener(e -> WebpageConnection.openWebpage(ABOUT_US_URL));
+		btn_About_Us.addActionListener(e -> {
+			try {
+				WebpageConnection.openWebpage(ABOUT_US_URL);
+			} catch (MalformedURLException | URISyntaxException malformedURL) {
+				JOptionPane.showMessageDialog(this, "El enlace no es valido.");
+			} catch (IOException IOExcp) {
+				JOptionPane.showMessageDialog(this, "El enlace no se ha podido abrir.");
+			} 
+			
+		});
 		
 		panel_Home_Info_Botones.add(btn_FAQ);
 		panel_Home_Info_Botones.add(btn_About_Us);
@@ -189,9 +205,6 @@ public class HomePanel extends JPanel{
 		this.stType = s;
 		serverLabel.setText("Status: " + stType.getStatus());
 		revalidate();
-		for(Entry<String, BotPanel> botPanel : botPanels.entrySet())
-			botPanel.getValue().setEnabled(Server.isRunning);
-		
 	}
 	
 	

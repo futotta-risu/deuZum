@@ -1,5 +1,8 @@
 package io.github.fatsquirrels.deuzum.utils.text;
 
+
+// Informacion sobre la razon del deprecated en ConcreteText
+@Deprecated
 /**
  * Lista de los formatos de texto disponibles. Actualmente se encuentran impelmentados los siguientes;
  * <ul><li>EMAIL</li><li>NAME</li><li>PASSWORD</li><li>PHONE</li><li>USER</li>

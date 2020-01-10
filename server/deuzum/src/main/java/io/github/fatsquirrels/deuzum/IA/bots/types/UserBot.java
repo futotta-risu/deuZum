@@ -5,9 +5,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import io.github.fatsquirrels.deuzum.IA.bots.BotBase;
+import io.github.fatsquirrels.deuzum.IA.bots.BotFunctions;
 import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
 
-public class UserBot extends BotBase{
+public class UserBot extends BotBase implements BotFunctions{
 
 	private Thread hiloUsuario;
 	private Connection conn;

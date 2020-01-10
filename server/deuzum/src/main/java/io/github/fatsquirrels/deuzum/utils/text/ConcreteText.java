@@ -2,6 +2,10 @@ package io.github.fatsquirrels.deuzum.utils.text;
 
 import io.github.fatsquirrels.deuzum.utils.meta.anotations.Tested;
 
+// Esta clase era util cuando trabajabamos en el codigo con los tipos de texto. 
+// Ahora trabajamos haciendo peticiones a la base de datos y ella nos indica si el texto
+// es valido o no
+@Deprecated
 /**
  * Estrucura de Datos que combina un String junto con una lista de formatos posibles.
  * @see #isValid()

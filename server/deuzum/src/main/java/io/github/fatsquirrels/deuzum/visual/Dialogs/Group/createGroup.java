@@ -256,6 +256,7 @@ public class createGroup extends JDialog{
 		
 		}
 	
+	@SuppressWarnings("null")
 	public void crearGrupo() {
 		
 		//Para comprobar si hay textos obligatorios sin rellenar

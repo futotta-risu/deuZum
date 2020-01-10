@@ -6,7 +6,7 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.MatteBorder;
 
-import io.github.fatsquirrels.deuzum.visual.Dialogs.User.Usuario;
+
 import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
 import io.github.fatsquirrels.deuzum.database.WhereAST;
 

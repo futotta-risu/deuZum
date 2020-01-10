@@ -74,6 +74,7 @@ public class AccountList extends JDialog{
 		getContentPane().add(btnFiltrar);
 		btnFiltrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				@SuppressWarnings("unused")
 				String conditions ="";
 				try {
 					

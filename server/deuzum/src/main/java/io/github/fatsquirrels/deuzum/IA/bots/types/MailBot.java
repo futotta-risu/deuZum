@@ -7,9 +7,10 @@ import javax.mail.internet.*;
 import javax.swing.JOptionPane;
 
 import io.github.fatsquirrels.deuzum.IA.bots.BotBase;
+import io.github.fatsquirrels.deuzum.IA.bots.BotFunctions;
 import io.github.fatsquirrels.deuzum.utils.math.APair;
 
-public class MailBot extends BotBase{
+public class MailBot extends BotBase implements BotFunctions{
 	
 	private APair<String, String> mensaje;
 	private List<String> destinatarios;

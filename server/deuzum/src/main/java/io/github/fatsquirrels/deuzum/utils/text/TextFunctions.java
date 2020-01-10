@@ -17,7 +17,7 @@ import io.github.fatsquirrels.deuzum.utils.meta.anotations.Tested;
  * @see #concatenateAlternative(String[] arr1, String[] arr2,String concat, String nullText)
  * @see #concatenateAlternative(String[] arr1, String[] arr2,String concat, String nullText, String surroundText)
  */
-@Tested(tested=true) //FALTA TESTEAR DATECHECKER()
+@Tested(tested=true) 
 public class TextFunctions {
 
 	

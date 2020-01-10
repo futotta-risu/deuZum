@@ -4,9 +4,6 @@ package io.github.fatsquirrels.deuzum.net;
 import java.io.IOException;
 import java.net.*;
 import java.sql.Connection;
-import java.util.ArrayList;
-
-import io.github.fatsquirrels.deuzum.IA.bots.*;
 import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
 
 
@@ -25,11 +22,7 @@ public class Server implements Runnable{
 	public static boolean isRunning = false;
 	public static boolean serverLoadFailed = false;
 	
-	
-	/**
-	 * Array que contiene los bots del servidor.
-	 */
-	private ArrayList<BotBase> bots;
+
 	
 	
 	private ServerSocket serverSocket;
@@ -111,7 +104,6 @@ public class Server implements Runnable{
     	serverLoadFailed = false;
     	isRunning = false;
 		this.connection = null;
-		this.bots.clear();
 		ServerCommands.serverCommands.clear();
 		try{
 			this.serverSocket.close();
@@ -148,7 +140,6 @@ public class Server implements Runnable{
 		serverLoadFailed = true;
 		isRunning = false;
 		this.connection = null;
-		this.bots.clear();
 		ServerCommands.serverCommands.clear();
 		try{
 			this.serverSocket.close();
@@ -167,7 +158,6 @@ public class Server implements Runnable{
 		// TODO Add to the database the user status
 		// El servidor tiene que tener una base de datos hosteando el estado de los usuarios
 		// activos e inactivos
-		
 		
 	}
 	

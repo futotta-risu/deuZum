@@ -15,6 +15,7 @@ import io.github.fatsquirrels.deuzum.database.tableName;
 import io.github.fatsquirrels.deuzum.utils.DataStructuresFunctions;
 import io.github.fatsquirrels.deuzum.utils.math.APair;
 import io.github.fatsquirrels.deuzum.utils.meta.anotations.Tested;
+import io.github.fatsquirrels.deuzum.visual.Dialogs.general.InvalidTransactionException;
 
 /**
  * Funciones comunes para la gestion de usuarios
@@ -36,6 +37,7 @@ public class ServerUserFunctionality {
 		try {
 			GeneralSQLFunctions.insertEntryIntoDatabase(connection,"usuario",  data);
 		} catch (SQLException e) {
+			// TODO Añadir el error a un posible log ya que esta funcion solo se ejecuta desde el cliente
 			e.printStackTrace();
 		}
 	}
@@ -54,6 +56,7 @@ public class ServerUserFunctionality {
 			GeneralSQLFunctions.insertEntryIntoDatabase(connection, tableNameT.getName(), 
 					DataStructuresFunctions.JSONtoHashMap(data));
 		} catch (SQLException e) {
+			// TODO Añadir el error a un posible log ya que esta funcion solo se ejecuta desde el cliente
 			e.printStackTrace();
 			return "0";
 		}
@@ -242,19 +245,18 @@ public class ServerUserFunctionality {
 	 * @param userID_B
 	 * @param value
 	 * @return Codigo de error.
+	 * @throws SQLException, InvalidTransactionException
 	 */
-	public static int checkTransaction(Connection connection, String userID_A, String userID_B, int value) {
+	public static boolean checkTransaction(Connection connection, String userID_A, String userID_B, int value) throws InvalidTransactionException, SQLException{
 		String dinero_A;
 		try {
 			dinero_A = GeneralSQLFunctions.getEntryFromDatabase(connection, "cuenta", "dinero", " numero_cuenta='"+userID_A+"'");
 			if(Integer.valueOf(dinero_A)<value) 
-				return 2;
+				throw new InvalidTransactionException("La cuenta original no tiene el dinero suficiente para realizar la transaccion");
 		} catch (SQLException e) {
-			System.err.println("Error A");
-			e.printStackTrace();
-			return 1;
+			throw new SQLException("Error al ejecutar la accion");
 		}
-		return 0;
+		return true;
 	}
 	
 	/**

@@ -19,9 +19,6 @@ import javax.swing.SwingConstants;
 import io.github.fatsquirrels.deuzum.net.ServerUserFunctionality;
 import io.github.fatsquirrels.deuzum.utils.ObjectMapper;
 import io.github.fatsquirrels.deuzum.utils.math.APair;
-import io.github.fatsquirrels.deuzum.utils.text.ConcreteText;
-import io.github.fatsquirrels.deuzum.utils.text.TextFunctions;
-import io.github.fatsquirrels.deuzum.utils.text.TextTypes;
 import io.github.fatsquirrels.deuzum.visual.components.buttons.FlatButton;
 
 import java.awt.event.ActionListener;

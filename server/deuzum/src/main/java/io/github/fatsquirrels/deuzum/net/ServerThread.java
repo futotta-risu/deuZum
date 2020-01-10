@@ -8,7 +8,7 @@ public class ServerThread extends Thread{
 
 	@Override
 	public void run() {
-		// Checks if the server is alredy running
+		
 		if(Server.isRunning) 
 			return;
 		

@@ -1,6 +1,7 @@
 package io.github.fatsquirrels.deuzum.utils;
 
 import java.awt.Desktop;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -8,37 +9,18 @@ import java.net.URL;
 
 public class WebpageConnection {
 	
-	public static boolean openWebpage(URI uri) {
+	public static void openWebpage(URI uri) throws IOException{
 	    Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
-	    if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
-	        try {
-	            desktop.browse(uri);
-	            return true;
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	        }
-	    }
-	    return false;
+	    if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) 
+	    	desktop.browse(uri);
 	}
 
-	public static boolean openWebpage(URL url) {
-	    try {
-	        return openWebpage(url.toURI());
-	    } catch (URISyntaxException e) {
-	        e.printStackTrace();
-	    }
-	    return false;
+	public static void openWebpage(URL url) throws IOException, URISyntaxException{
+	   openWebpage(url.toURI());   
 	}
 	
-	public static boolean openWebpage(String link) {
-		URL url = null;
-		try {
-			url = new URL(link);
-		} catch (MalformedURLException e1) {
-			e1.printStackTrace();
-		}
-		
-	    return openWebpage(url);
+	public static void openWebpage(String link) throws MalformedURLException, IOException, URISyntaxException {
+		openWebpage(new URL(link));
 	}
 
 }

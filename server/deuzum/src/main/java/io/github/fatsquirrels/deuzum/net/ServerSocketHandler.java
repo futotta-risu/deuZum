@@ -45,6 +45,7 @@ public class ServerSocketHandler extends Thread{
 			out.close();
 	        socket.close();
 		} catch (IOException e) {
+			// TODO Añadir el error a un posible log ya que esta funcion solo se ejecuta desde el cliente
 			e.printStackTrace();
 		}
         

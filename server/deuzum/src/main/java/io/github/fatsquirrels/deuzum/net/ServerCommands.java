@@ -70,6 +70,7 @@ public class ServerCommands {
 								System.out.println(a.getName());
 							return (String) method.invoke(null, new Object[] {data});
 							
+							// TODO hacer algo con las excepciones aqui
 							
 						} catch (ClassNotFoundException e) {
 							e.printStackTrace();

@@ -1,7 +1,6 @@
 package io.github.fatsquirrels.deuzum.visual.panels;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Rectangle;
 import java.util.ArrayList;
@@ -15,6 +14,7 @@ import javax.swing.SwingConstants;
 import io.github.fatsquirrels.deuzum.IA.bots.BotBase;
 import io.github.fatsquirrels.deuzum.IA.bots.BotGenerator;
 import io.github.fatsquirrels.deuzum.IA.bots.BotType;
+import io.github.fatsquirrels.deuzum.net.Server;
 import io.github.fatsquirrels.deuzum.visual.components.buttons.ActivatedButton;
 import io.github.fatsquirrels.deuzum.visual.components.buttons.IconizedButton;
 import io.github.fatsquirrels.deuzum.visual.style.CustomColors;
@@ -26,12 +26,12 @@ public class BotPanel extends JPanel{
 
 	private BotType type;
 	
-	private boolean isEnabled;
+	private boolean isEnabled = false;
 	
 	private JLabel lblBotCount;
 	private ActivatedButton btnEnabled;
 	private JButton btnCreate, btnDelete, btnPause;
-	DropAnimation animate;
+	private DropAnimation animate;
 	private JPanel bottomPanel;
 	private int botCount = 0;
 	private ArrayList<BotBase> botList;
@@ -59,7 +59,7 @@ public class BotPanel extends JPanel{
 		
 		add(btnEnabled, BorderLayout.NORTH);
 		
-		setEnabled(false);
+
 		refreshComponents();
 		
         revalidate();
@@ -73,6 +73,7 @@ public class BotPanel extends JPanel{
         else animate = new DropAnimation(this, to, from);
         
 		animate.start();
+
 	}
 	
 	public boolean isEnabled() {
@@ -81,7 +82,10 @@ public class BotPanel extends JPanel{
 	
 	public void setEnabled(boolean state) {
 		
-		if(this.isEnabled != state) {
+		if(!Server.isRunning) 
+			JOptionPane.showMessageDialog(this, "No puede activar bots con el servidor apagado.\n Enciendalo por favor.");
+		
+		if(this.isEnabled != state && Server.isRunning) {
 			this.isEnabled = state;
 			refreshComponents();
 			animateOpen();
@@ -124,7 +128,7 @@ public class BotPanel extends JPanel{
 	}
 	
 	public void refreshComponents() {
-		if(btnEnabled.isSelected()) {
+		if(btnEnabled.isSelected() && this.isEnabled) {
 			btnEnabled.setText("Desactivar Bot "+ type.getBotClass());
 			btnEnabled.setBackground(CustomColors.Green);
 			bottomPanel.add(btnCreate);

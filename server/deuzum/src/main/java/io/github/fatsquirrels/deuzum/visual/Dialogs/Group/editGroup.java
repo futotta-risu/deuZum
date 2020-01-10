@@ -217,6 +217,7 @@ public class editGroup extends JDialog{
 		
 		btonBuscarGrupo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				@SuppressWarnings("unused")
 				Thread hiloBuscar = new Thread(new Runnable() {
 					
 					@Override
@@ -257,6 +258,7 @@ public class editGroup extends JDialog{
 		});
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void editarGrupo(Connection conn) {
 		//Comprobar campos vacios
 		APair<?,?> [] compulsaryVars = {
@@ -272,6 +274,7 @@ public class editGroup extends JDialog{
 			}
 		}
 		
+		@SuppressWarnings("rawtypes")
 		APair [] formatVars = {
 			new APair<String, ConcreteText>("txtNombreGrupo", new ConcreteText("Nombre del Grupo",TextTypes.NAME)),
 			new APair<String, ConcreteText>("txtMiembro1", new ConcreteText("Nombre de usuario del miembro 1",TextTypes.USER)),
@@ -283,6 +286,7 @@ public class editGroup extends JDialog{
 			new APair<String, ConcreteText>("txtMiembro7", new ConcreteText("Nombre de usuario del miembro 7",TextTypes.USER)),
 			new APair<String, ConcreteText>("txtMiembro8", new ConcreteText("Nombre de usuario del miembro 8",TextTypes.USER))};
 			
+		@SuppressWarnings("unused")
 		int txtFieldRelleno = 0;
 		ArrayList<String> usernames= new ArrayList<String>();
 				for (APair<String, ConcreteText> i : formatVars) {

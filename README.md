@@ -46,7 +46,6 @@ Una vez configurado esto, podemos lanzar el server desde la carpeta `src/deustoZ
 
 La sección de FAQ se encuentra dentro de la Wiki del repositorio. Por otro lado, la documentación oficial del código todavía no esta disponible, esperamos tenerla preparada para finales de diciembre.
 
-## TODO
+## Bugs conocidos
 
-- Modificar el codigo segun la plantilla
-- Ajustar la forma base de datos sobre el tema de cuentas (forma de asignar numero de cuenta y añadir accountname)
+- Al pulsar sobre "Activar bot" estando el servidor apagado, este se mantendrá en azul aun habiando saltado el error. Si luego se ejecuta el server y se vuelve a pulsar, la transicion se buggea no dejando ver los botones.

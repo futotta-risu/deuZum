@@ -6,9 +6,10 @@ import java.sql.SQLException;
 import java.util.Random;
 
 import io.github.fatsquirrels.deuzum.IA.bots.BotBase;
+import io.github.fatsquirrels.deuzum.IA.bots.BotFunctions;
 import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
 
-public class AccountBot extends BotBase{
+public class AccountBot extends BotBase implements BotFunctions{
 	@SuppressWarnings("unused")
 	private String name;
 	private long cantidad;
