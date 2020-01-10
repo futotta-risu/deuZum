@@ -1,7 +1,9 @@
 package io.github.fatsquirrels.deuzum.visual.panels;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -16,6 +18,7 @@ import io.github.fatsquirrels.deuzum.IA.bots.BotType;
 import io.github.fatsquirrels.deuzum.visual.components.buttons.ActivatedButton;
 import io.github.fatsquirrels.deuzum.visual.components.buttons.IconizedButton;
 import io.github.fatsquirrels.deuzum.visual.style.CustomColors;
+import io.github.fatsquirrels.deuzum.visual.style.animation.DropAnimation;
 
 public class BotPanel extends JPanel{
 	
@@ -28,7 +31,7 @@ public class BotPanel extends JPanel{
 	private JLabel lblBotCount;
 	private ActivatedButton btnEnabled;
 	private JButton btnCreate, btnDelete, btnPause;
-	
+	DropAnimation animate;
 	private JPanel bottomPanel;
 	private int botCount = 0;
 	private ArrayList<BotBase> botList;
@@ -37,7 +40,7 @@ public class BotPanel extends JPanel{
 		this.type = typeT;
 		botList = new ArrayList<BotBase>();
 		
-		setLayout(new GridLayout(2,1));
+		setLayout(new BorderLayout());
 		btnEnabled = new ActivatedButton("Activar");
 		btnEnabled.addActionListener(e -> setEnabled(!isEnabled()));
 		
@@ -54,10 +57,22 @@ public class BotPanel extends JPanel{
 		lblBotCount = new JLabel("0");
 		lblBotCount.setHorizontalAlignment(SwingConstants.CENTER);
 		
-		add(btnEnabled);
+		add(btnEnabled, BorderLayout.NORTH);
 		
 		setEnabled(false);
 		refreshComponents();
+		
+        revalidate();
+        repaint();
+	}
+	
+	public void animateOpen() {
+		Rectangle from = new Rectangle(this.getX(), this.getY(), 211, 25);
+        Rectangle to = new Rectangle(this.getX(), this.getY(), 211, 75);
+        if(this.isEnabled) animate = new DropAnimation(this, from, to);
+        else animate = new DropAnimation(this, to, from);
+        
+		animate.start();
 	}
 	
 	public boolean isEnabled() {
@@ -65,8 +80,13 @@ public class BotPanel extends JPanel{
 	}
 	
 	public void setEnabled(boolean state) {
-		this.isEnabled = state;
-		refreshComponents();
+		
+		if(this.isEnabled != state) {
+			this.isEnabled = state;
+			refreshComponents();
+			animateOpen();
+		}
+		
 	}
 	
 	private void addBot() {
@@ -93,7 +113,6 @@ public class BotPanel extends JPanel{
 	
 	private void deleteBot() {
 		Thread t1 = new Thread(() -> {
-			
 				for (BotBase botBase : botList) {
 					botBase.kill();
 					botList.remove(botBase);
@@ -112,14 +131,12 @@ public class BotPanel extends JPanel{
 			bottomPanel.add(btnPause);
 			bottomPanel.add(btnDelete);
 			bottomPanel.add(lblBotCount);
-			setLayout(new GridLayout(2,1));
-			add(bottomPanel);
+			add(bottomPanel, BorderLayout.CENTER);
 		}else {
 			btnEnabled.setText("Activar Bot "+ type.getBotClass());
 			btnEnabled.setBackground(CustomColors.SaturatedRed);
 			lblBotCount.setText(0+"");
 			remove(bottomPanel);
-			setLayout(new GridLayout(1,1));
 			revalidate();
 			repaint();
 		}

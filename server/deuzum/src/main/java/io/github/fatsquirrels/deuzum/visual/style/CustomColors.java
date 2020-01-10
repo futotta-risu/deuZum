@@ -18,4 +18,10 @@ public class CustomColors {
 	public static Color LightSaturatedOrange = new Color(255,239,217);
 	
 	public static Color BlueGray = new Color(244,247,248);
+	
+	
+	// NEW COLORS
+	
+	public static Color BluePale = new Color(193, 233, 238);
+	
 }

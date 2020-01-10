@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
+import javax.swing.border.AbstractBorder;
 import javax.swing.border.EmptyBorder;
 
 import io.github.fatsquirrels.deuzum.IA.bots.*;
@@ -22,6 +23,7 @@ import io.github.fatsquirrels.deuzum.visual.components.textAreaNoWrite;
 import io.github.fatsquirrels.deuzum.visual.components.buttons.FlatButton;
 import io.github.fatsquirrels.deuzum.visual.style.CustomColors;
 import io.github.fatsquirrels.deuzum.visual.style.layout.VerticalFlowLayout;
+import io.github.fatsquirrels.deuzum.visual.style.layout.*;
 import net.miginfocom.swing.MigLayout;
 import java.util.HashMap;
 import javax.swing.ScrollPaneConstants;
@@ -62,7 +64,7 @@ public class HomePanel extends JPanel{
 	
 	private void  initializeProperties() {
 		setBackground(new Color(255, 255, 255));
-		setLayout(new MigLayout("fill,insets 0", "[455.00px,grow,center][278.00px,grow 60,center]", "[491.00px,grow]"));
+		setLayout(new BorderLayout());
 		
 	}
 	
@@ -117,13 +119,14 @@ public class HomePanel extends JPanel{
 		JPanel panel_Home_Lateral = new JPanel();
 		panel_Home_Lateral.setSize(500, 500);
 		panel_Home_Lateral.setBackground(new Color(176, 224, 230));		
-		panel_Home_Lateral.setLayout(new  VerticalFlowLayout(0,true));
+		panel_Home_Lateral.setLayout(new VerticalFlowLayout(10,10,10));
 		
 		JPanel panel_Home_Lateral_Status = new JPanel();
 		panel_Home_Lateral.add(panel_Home_Lateral_Status);
-		panel_Home_Lateral_Status.setBackground(CustomColors.LightSaturatedOrange);
+		panel_Home_Lateral_Status.setBackground(CustomColors.BlueGray);
 		panel_Home_Lateral_Status.setLayout(new VerticalFlowLayout(10,10,10));
 		
+		panel_Home_Lateral_Status.setBorder(new BubbleBorder(CustomColors.LightSaturatedBlue,1,16));
 		serverLabel = new JLabel("Status: Off");
 		serverLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_Home_Lateral_Status.add(serverLabel);
@@ -142,9 +145,8 @@ public class HomePanel extends JPanel{
 		
 		JPanel panel_Home_Lateral_Bots = new JPanel(new VerticalFlowLayout(10,10,10));
 		panel_Home_Lateral.add(panel_Home_Lateral_Bots);
-		panel_Home_Lateral_Bots.setPreferredSize(new Dimension(200, 675));
 		panel_Home_Lateral_Bots.setBackground(CustomColors.BlueGray);
-		
+		panel_Home_Lateral_Bots.setBorder(new BubbleBorder(CustomColors.LightSaturatedBlue,1,16));
 		
 		
 		//////////////////////////////////////////////////////////
@@ -166,8 +168,8 @@ public class HomePanel extends JPanel{
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
 	            ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPanel_Lateral.setBorder(new EmptyBorder(0, 0, 0, 0));
-		add(scrollPanel_Lateral, "cell 1 0,grow");
-		
+		scrollPanel_Lateral.setPreferredSize(new Dimension(300,100));
+		add(scrollPanel_Lateral, BorderLayout.EAST);
 		
 		panel_Home_Info.add(panel_Home_Info_Botones, BorderLayout.SOUTH);
 		panel_Home_Info.add(tf_Software_Info, BorderLayout.EAST);
@@ -176,7 +178,7 @@ public class HomePanel extends JPanel{
 		panel_Home_Center.add(panel_Home_Info,BorderLayout.CENTER);
 		panel_Home_Center.add(panel_Home_Title, BorderLayout.NORTH);
 		
-		add(panel_Home_Center, "cell 0 0,grow");
+		add(panel_Home_Center,BorderLayout.CENTER);
 		
 	}
 

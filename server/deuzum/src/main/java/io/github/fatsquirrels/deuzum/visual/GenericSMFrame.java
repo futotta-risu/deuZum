@@ -2,7 +2,6 @@ package io.github.fatsquirrels.deuzum.visual;
 
 import java.awt.BorderLayout;
 
-
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -81,7 +80,5 @@ public class GenericSMFrame extends JFrame{
 		revalidate();
 		repaint();
 	}
-	
-	
 	
 }
