@@ -2,8 +2,8 @@ package io.github.fatsquirrels.deuzum.visual.statistics;
 
 import java.awt.Color;
 import java.awt.Container;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map.Entry;
 
 import javax.swing.JFrame;
@@ -16,18 +16,21 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 
-import io.github.fatsquirrels.deuzum.utils.math.APair;
-
+/**
+ * Esta clase permite crear ventanas que contienen un Grafico la cantidad de usuarios
+ * registrados a traves del tiempo (solo contiene usuarios que siguen registrados en la BD)
+ */
 public class GraficoUsuariosXTiempo extends JFrame{
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
-	private ArrayList<APair<String,Integer>> cantidades;
-	
-	
-	
-	public GraficoUsuariosXTiempo(ArrayList<APair<String, Integer>> data){
+	private List<String> cantidades;
+		
+	/**
+	 * Constructor de la ventana que recibe un ArrayList de Strings con las fechas a procesar.
+	 * @param data Contiene un ArrayList con varios Strings [fechaRegistro]
+	 * @see crearGraficoBarrasUsuario
+	 */
+	public GraficoUsuariosXTiempo(List<String> data){
 		this.cantidades = data;
 		Container cp = this.getContentPane();
 		
@@ -36,11 +39,14 @@ public class GraficoUsuariosXTiempo extends JFrame{
 		setVisible(true);
 		setSize(500,500);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setTitle("Grafico cantidad transferida por usuario");
+		setTitle("Grafico de usuarios Registrados en el Tiempo");
 	}
 
-
-
+	/**
+	 * Este metodo crea un grafico lineal y lo devuelve como un objeto ChartFrame
+	 * @return ChartFrame Ventana que contiene el grafico
+	 * @see contarRepeticiones
+	 */
 	private ChartFrame crearGraficoUsuariosXTiempo() {
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();		
 		
@@ -63,30 +69,32 @@ public class GraficoUsuariosXTiempo extends JFrame{
 		return frame;
 	}
 	
-private HashMap<String, Integer> contarRepeticionesFecha() {
+	/**
+	 * Este metodo recorre la lista de fechas y acumula la cantidad
+	 * usuarios registrados en un mismo dia.
+	 * @return HashMap<String, Integer> Mapa que contiene los usuarios registrados por dia. 
+	 */
+	private HashMap<String, Integer> contarRepeticionesFecha() {
 		
 		HashMap<String, Integer> mapaResult = new HashMap<String,Integer>();
-		for (APair<String, Integer> pareja : cantidades) {
+		for (String fecha : cantidades) {
 			if(mapaResult.isEmpty()) {
-				mapaResult.put(pareja.getIndex(), pareja.getValue());
+				mapaResult.put(fecha, 1);
 			}else {
 				boolean existe = false;
 				for (Entry<String, Integer> entry : mapaResult.entrySet()) {			
-					if(pareja.getIndex().equals(entry.getKey())) { 
-						mapaResult.replace(pareja.getIndex(),entry.getValue()+pareja.getValue());
+					if(fecha.equals(entry.getKey())) { 
+						mapaResult.replace(fecha,entry.getValue()+1);
 						existe = true;
 						break;
 					}
 				}
 				if(!existe) {
-					mapaResult.put(pareja.getIndex(), pareja.getValue());
+					mapaResult.put(fecha, 1);
 				}
 			}
 		}
 		
-		for (Entry<String, Integer> entry : mapaResult.entrySet()) {
-			System.out.println(entry.getKey() + " con valor " + entry.getValue() );
-		}
 		return mapaResult;
 	}
 

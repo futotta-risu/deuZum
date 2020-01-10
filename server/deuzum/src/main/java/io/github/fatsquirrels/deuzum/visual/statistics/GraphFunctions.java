@@ -12,9 +12,23 @@ import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
 import io.github.fatsquirrels.deuzum.net.Server;
 import io.github.fatsquirrels.deuzum.utils.math.APair;
 
+/**
+ * Esta clase contiene todos los metodos para crear los graficos, 
+ * recogiendo informacion de la BD mediante querys.
+ * @see createGraphAportaciones
+ * @see createGraphUsuariosXTiempo
+ * @see createGraphPermisos
+ * @see createGraphTransacciones
+ * @see createGraphUsuario
+ */
 public class GraphFunctions {
 
-	
+	/**
+	 * Este metodo realiza una busqueda en la BD para obtener la cantidad transferidad
+	 * por usuario en un proyecto en especifico que introduce el usuarioServidor.
+	 * Rellena el ArrayList de parejas con la informacion y crea un nuevo objeto de GraficoAportacionesProyecto.
+	 * @see GraficoAportacionesProyecto
+	 */
 	public static void createGraphAportaciones() {
 		Connection conn = Server.createConnection();
 		ArrayList<APair<Integer, Integer>> lista = new ArrayList<APair<Integer, Integer>>();
@@ -24,7 +38,6 @@ public class GraphFunctions {
 			ResultSet rs = GeneralSQLFunctions.getExecQuery(conn, "SELECT id_miembro,cantidad FROM proyectotransaccion WHERE id_proyecto = " + proyectId);
 			while(rs.next()) {
 				lista.add(new APair<Integer, Integer>(rs.getInt("id_miembro"), rs.getInt("cantidad")));
-				System.out.println(rs.getInt("id_miembro") + "  " + rs.getInt("cantidad"));
 			}
 			rs.close();
 		}catch(Exception ex) {
@@ -34,16 +47,21 @@ public class GraphFunctions {
 		new GraficoAportacionesProyecto(lista);
 	}
 	
+	/**
+	 * Este metodo realiza una busqueda en la BD para obtener los usuarios y su fecha de registro.
+	 * Rellena el ArrayList de parejas con la informacion y crea un nuevo objeto de GraficoUsuariosXTiempo.
+	 * @see GraficoUsuariosXTiempo
+	 */
 	public static void createGraphUsuariosXTiempo() {
 		Connection conn = Server.createConnection();
-		ArrayList<APair<String, Integer>> lista = new ArrayList<APair<String, Integer>>();
+		List<String> lista = new ArrayList<String>();
 		
 		try {
 			ResultSet rs = GeneralSQLFunctions.getExecQuery(conn, "SELECT fecha_creacion FROM usuario ORDER BY fecha_creacion DESC");
 			while(rs.next()) {
 				String fecha = rs.getString("fecha_creacion");
 				String[] fecha2= fecha.split(" ");
-				lista.add(new APair<String, Integer>(fecha2[0], 1));
+				lista.add(fecha2[0]);
 			}
 			rs.close();
 		} catch (SQLException e1) {
@@ -53,13 +71,18 @@ public class GraphFunctions {
 		new GraficoUsuariosXTiempo(lista);
 	}
 	
+	/**
+	 * Este metodo realiza una busqueda en la BD para obtener los permisos de los usuarios.
+	 * Rellena la Lista de Strings con la informacion y crea un nuevo objeto de GraficoPermisos.
+	 * @see GraficoPermisos
+	 */
 	public static void createGraphPermisos() {
 		Connection conn = Server.createConnection();
-		ArrayList<APair<String, Integer>> lista = new ArrayList<APair<String, Integer>>();
+		List<String> lista = new ArrayList<String>();
 		try {
 			ResultSet rs = GeneralSQLFunctions.getExecQuery(conn, "SELECT permisos FROM usuario");
 			while(rs.next()) 
-				lista.add(new APair<String,Integer>(rs.getString("permisos"), 1));
+				lista.add(rs.getString("permisos"));
 			
 		}catch (Exception ex) {
 			ex.printStackTrace();
@@ -68,6 +91,11 @@ public class GraphFunctions {
 		new GraficoPermisos(lista);
 	}
 	
+	/**
+	 * Este metodo realiza una busqueda en la BD para obtener las cantidades de dinero que se han transferido.
+	 * Rellena la Lista de Integers con la informacion y crea un nuevo objeto de GraficoTransaciones.
+	 * @see GraficoTransaciones
+	 */
 	public static void createGraphTransacciones() {
 		Connection conn = Server.createConnection();
 		List<Integer> cantidades = new ArrayList<Integer>();
@@ -83,6 +111,12 @@ public class GraphFunctions {
 		new GraficoTransaciones(cantidades);
 	}
 	
+	/**
+	 * Este metodo realiza una busqueda en la BD para obtener la cantidad total de dinero transferida
+	 * por usuario en transacciones normales (no grupales).
+	 * Rellena el ArrayList de parejas con la informacion y crea un nuevo objeto de GraficoTransacionesUsuario.
+	 * @see GraficoTransacionesUsuario
+	 */
 	public static void createGraphUsuario() {
 		Connection conn = Server.createConnection();
 		ArrayList<APair<Integer, Integer>> lista = new ArrayList<APair<Integer, Integer>>();

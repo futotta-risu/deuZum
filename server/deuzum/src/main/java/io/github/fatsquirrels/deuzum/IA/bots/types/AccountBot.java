@@ -16,13 +16,13 @@ public class AccountBot extends BotBase implements BotFunctions{
 	@SuppressWarnings("unused")
 	private String name;
 	private long cantidad;
-	private Connection conn;
+	private Connection connection;
 	private Thread hiloCuentas;
 	
 	public AccountBot(String name, long cantidad){
 		this.name = name;
 		this.cantidad = cantidad;
-		this.conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost:3306/deuzumdb", "root", "");
+		this.connection = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost:3306/deuzumdb", "root", "");
 	}
 	
 
@@ -36,8 +36,8 @@ public class AccountBot extends BotBase implements BotFunctions{
 				
 				
 				try {
-					ResultSet ids = GeneralSQLFunctions.getExecQuery(conn, "SELECT id FROM usuario");
-					ResultSet userCount = GeneralSQLFunctions.getExecQuery(conn, "SELECT count(id) FROM usuario");
+					ResultSet ids = GeneralSQLFunctions.getExecQuery(connection, "SELECT id FROM usuario");
+					ResultSet userCount = GeneralSQLFunctions.getExecQuery(connection, "SELECT count(id) FROM usuario");
 					if(userCount.next()) {
 						users = userCount.getInt("count(id)");
 						arrIds = new String[users];
@@ -55,7 +55,7 @@ public class AccountBot extends BotBase implements BotFunctions{
 						Random r = new Random(i);
 						String randomId = arrIds[r.nextInt(users)];
 						String cantidad = Integer.toString(r.nextInt(999));
-					GeneralSQLFunctions.insertEntryIntoDatabase(conn, "cuenta", new String[] {"numero_cuenta","id_usuario", "dinero","tipo_cuenta", "estado"},
+					GeneralSQLFunctions.insertEntryIntoDatabase(connection, "cuenta", new String[] {"numero_cuenta","id_usuario", "dinero","tipo_cuenta", "estado"},
 					new String[] {tempId+"",randomId, cantidad, "cuenta Bot", 0+""});
 					}
 						
@@ -88,7 +88,7 @@ public class AccountBot extends BotBase implements BotFunctions{
 		int result = 0;
 		try {
 	
-			ResultSet rs = GeneralSQLFunctions.getExecQuery(conn, "SELECT numero_cuenta FROM cuenta ORDER BY numero_cuenta DESC");
+			ResultSet rs = GeneralSQLFunctions.getExecQuery(connection, "SELECT numero_cuenta FROM cuenta ORDER BY numero_cuenta DESC");
 			if(rs.next()) {
 				result = Integer.parseInt(rs.getString("numero_cuenta"));
 				rs.close();

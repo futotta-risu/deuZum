@@ -17,35 +17,44 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
 import io.github.fatsquirrels.deuzum.utils.math.APair;
 
+/**
+ * Esta clase permite crear ventanas que contienen un Grafico con la cantidad
+ * que ha aportado cada usuario a un proyecto en especifico.
+ */
 public class GraficoAportacionesProyecto extends JFrame{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private static ArrayList<APair<Integer,Integer>> cantidades;
 	
+	/**
+	 * Constructor de la ventana que recibe un ArrayList con la informacion a procesar.
+	 * @param data Contiene un ArrayList con varias parejas de dos Integer [idMiembro - cantidadAportada]
+	 * @see crearGraficoBarras
+	 */
 	public GraficoAportacionesProyecto(ArrayList<APair<Integer,Integer>> data) {
 		GraficoAportacionesProyecto.cantidades = data;
 		Container cp = this.getContentPane();
 		
-
 		cp.add(crearGraficoBarras());
-		
-		
+				
 		setVisible(true);
 		setSize(500,500);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setTitle("Grafico Aportaciones en Proyecto");
 	}
 
+	/**
+	 * Este metodo crea un grafico de barras y lo devuelve como un objeto ChartFrame
+	 * @return ChartFrame Ventana que contiene el grafico
+	 * @see contarRepeticiones
+	 */
 	private static ChartFrame crearGraficoBarras() {
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		
 		HashMap<Integer, Integer > mapaNumeros = contarRepeticiones();
 		
 		for (Entry<Integer, Integer> entry : mapaNumeros.entrySet()) {
-			dataset.setValue(entry.getValue(), ""+2019, entry.getKey());
+			dataset.setValue(entry.getValue(), ""+2020, entry.getKey());
 		}		
 		
 		JFreeChart chart = ChartFactory.createBarChart("Aportaciones por Usuario", null, 
@@ -61,6 +70,12 @@ public class GraficoAportacionesProyecto extends JFrame{
 		return frame;
 	}
 	
+	
+	/**
+	 * Este metodo recorre la lista con las parejas de enteros y acumula el dinero total aportado por usuario
+	 * @return HashMap<Integer, Integer> Mapa que contiene la cantidad de dinero transferida 
+	 * por usuario
+	 */
 	public static HashMap<Integer, Integer> contarRepeticiones() {
 		
 		HashMap<Integer, Integer > mapaNumeros = new HashMap<Integer, Integer>();
@@ -81,8 +96,7 @@ public class GraficoAportacionesProyecto extends JFrame{
 					mapaNumeros.put(pareja.getIndex(), pareja.getValue());
 				}
 			}
-		}
-		
+		}	
 		return mapaNumeros;
 		
 	}

@@ -16,34 +16,44 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
-
+/**
+ * Esta clase permite crear ventanas que contienen un Grafico las repeticiones de cantidad de dinero transferidas
+ * en transacciones normales (no grupales).
+ */
 public class GraficoTransaciones extends JFrame {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private static List<Integer> cantidades;
-		
+	
+	/**
+	 * Constructor de la ventana que recibe un Lista con la informacion a procesar.
+	 * @param data Contiene un Lista con varios Enteros [CantidadTransferida]
+	 * @see crearGraficoBarras
+	 */
 	public GraficoTransaciones(List<Integer> data) {
 		GraficoTransaciones.cantidades = data;
 		Container cp = this.getContentPane();
 		
-
 		cp.add(crearGraficoBarras());
-		
-		
+				
 		setVisible(true);
 		setSize(500,500);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setTitle("Grafico Transaciones");
 	}
+	
+	/**
+	 * Este metodo crea un grafico de barras y lo devuelve como un objeto ChartFrame
+	 * @return ChartFrame Ventana que contiene el grafico
+	 * @see contarRepeticiones
+	 */
 	private static ChartFrame crearGraficoBarras() {
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		
 		HashMap<Integer, Integer > mapaNumeros = contarRepeticiones();
 		
 		for (Entry<Integer, Integer> entry : mapaNumeros.entrySet()) {
-			dataset.setValue(entry.getValue(), ""+2019, entry.getKey());
+			dataset.setValue(entry.getValue(), ""+2020, entry.getKey());
 		}		
 		
 		JFreeChart chart = ChartFactory.createBarChart("Repeticiones de cantidad transferida", null, 
@@ -59,7 +69,11 @@ public class GraficoTransaciones extends JFrame {
 		return frame;
 	}
 	
-	
+	/**
+	 * Este metodo recorre la lista de Integers y acumula las repeticiones de las cantidades
+	 * de dinero transferidas.
+	 * @return HashMap<String, Integer> Mapa que contiene las repeticiones de cantidad transferida. 
+	 */
 	public static HashMap<Integer, Integer> contarRepeticiones() {
 		
 		HashMap<Integer, Integer > mapaNumeros = new HashMap<Integer, Integer>();
