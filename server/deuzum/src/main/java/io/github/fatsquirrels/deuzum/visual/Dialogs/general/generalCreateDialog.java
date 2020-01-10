@@ -22,6 +22,7 @@ import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
 import io.github.fatsquirrels.deuzum.database.StatementType;
 import io.github.fatsquirrels.deuzum.database.WhereAST;
 import io.github.fatsquirrels.deuzum.database.tableName;
+import io.github.fatsquirrels.deuzum.database.exceptions.CommandBuilderBuildException;
 import io.github.fatsquirrels.deuzum.net.ServerUserFunctionality;
 import io.github.fatsquirrels.deuzum.utils.math.APair;
 import io.github.fatsquirrels.deuzum.visual.components.buttons.FlatButton;
@@ -114,6 +115,8 @@ public class generalCreateDialog extends JDialog{
 				JOptionPane.showMessageDialog(this, saveSQLException.getMessage());
 			} catch (InvalidTransactionException invalidTransactionException) {
 				JOptionPane.showMessageDialog(this, invalidTransactionException.getMessage());
+			} catch (CommandBuilderBuildException invalidCommandBuilder) {
+				JOptionPane.showMessageDialog(this, invalidCommandBuilder.getMessage());
 			}
 		});
 		botomButtons.add(save);
@@ -125,7 +128,7 @@ public class generalCreateDialog extends JDialog{
 		setModal(true);
 	}
 	
-	public void guardarCambios(Connection conn, tableName table,boolean isEdit, int id) throws SQLException, InvalidTransactionException{
+	public void guardarCambios(Connection conn, tableName table,boolean isEdit, int id) throws SQLException, InvalidTransactionException, CommandBuilderBuildException{
 		
 		// Si es transaccion comprobamos si es valida
 		if(this.tableNamei==tableName.TRANSACCION) 

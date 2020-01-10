@@ -7,6 +7,7 @@ import javax.swing.JTextField;
 
 import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
 import io.github.fatsquirrels.deuzum.database.WhereAST;
+import io.github.fatsquirrels.deuzum.database.exceptions.CommandBuilderBuildException;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -54,7 +55,7 @@ public class deleteTransaction extends JDialog{
 				try {
 					WhereAST where = new WhereAST().addValue("user_id='"+id+"'");
 					GeneralSQLFunctions.deleteEntryFromDatabase(c, "Transacion", where);
-				} catch (SQLException e1) {
+				} catch (SQLException | CommandBuilderBuildException e1) {
 					JOptionPane.showMessageDialog(null, "No se ha podido eliminar el usuario", "ERROR", 0);
 				}
 			}

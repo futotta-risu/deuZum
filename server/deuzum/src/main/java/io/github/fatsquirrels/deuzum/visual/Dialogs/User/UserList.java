@@ -12,6 +12,7 @@ import javax.swing.border.MatteBorder;
 
 import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
 import io.github.fatsquirrels.deuzum.database.WhereAST;
+import io.github.fatsquirrels.deuzum.database.exceptions.CommandBuilderBuildException;
 
 import java.awt.Color;
 
@@ -115,7 +116,7 @@ public class UserList extends JDialog{
 						WhereAST where = new WhereAST().addValue("user_id='"+id+"'");
 						GeneralSQLFunctions.deleteEntryFromDatabase(c, "usuario", where);
 					}
-				}catch (SQLException e1) {
+				}catch (SQLException | CommandBuilderBuildException e1) {
 					JOptionPane.showMessageDialog(null, "ERROR", "Ha habido un error al eliminar el usuario", 0);
 				}
 			}

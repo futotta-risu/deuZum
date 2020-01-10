@@ -20,6 +20,7 @@ import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
 import io.github.fatsquirrels.deuzum.database.StatementType;
 import io.github.fatsquirrels.deuzum.database.WhereAST;
 import io.github.fatsquirrels.deuzum.database.tableName;
+import io.github.fatsquirrels.deuzum.database.exceptions.CommandBuilderBuildException;
 import io.github.fatsquirrels.deuzum.net.Server;
 import io.github.fatsquirrels.deuzum.utils.math.APair;
 import io.github.fatsquirrels.deuzum.visual.Dialogs.general.generalCreateDialog;
@@ -124,6 +125,9 @@ public class MenuPanel extends JPanel{
 		} catch (SQLException e) {
 			System.err.println("Ha habido un error a la hora de eliminar una entrada");
 			e.printStackTrace();
+		} catch (CommandBuilderBuildException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		refreshTable(panelType);
 	}
@@ -140,8 +144,14 @@ public class MenuPanel extends JPanel{
 		
 		
 		
-		CommandBuilderF cmdb = new CommandBuilderF().setSQLType(StatementType.SELECT)
-				.setTable(panelType.getName()).addColumns(columnNames);
+		CommandBuilderF cmdb = null;
+		try {
+			cmdb = new CommandBuilderF().setSQLType(StatementType.SELECT)
+					.setTable(panelType.getName()).addColumns(columnNames);
+		} catch (CommandBuilderBuildException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		ResultSet dataRS, rowCountRS;
 		int rowCountI;
 		String[][] tableData = null;

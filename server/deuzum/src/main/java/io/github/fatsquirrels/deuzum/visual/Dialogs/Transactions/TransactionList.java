@@ -9,6 +9,7 @@ import javax.swing.border.MatteBorder;
 
 import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
 import io.github.fatsquirrels.deuzum.database.WhereAST;
+import io.github.fatsquirrels.deuzum.database.exceptions.CommandBuilderBuildException;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -108,7 +109,7 @@ public class TransactionList extends JDialog{
 				try {
 					WhereAST where = new WhereAST().addValue("user_id='"+ids+"'");
 					GeneralSQLFunctions.deleteEntryFromDatabase(c, "transacion", where);
-				} catch (SQLException e1) {
+				} catch (SQLException | CommandBuilderBuildException e1) {
 					JOptionPane.showMessageDialog(null, "ERROR", "Ha habido un error al eliminar la transacion", 0);
 				}
 			}
