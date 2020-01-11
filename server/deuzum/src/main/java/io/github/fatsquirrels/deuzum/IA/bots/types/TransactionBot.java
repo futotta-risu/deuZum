@@ -11,23 +11,38 @@ import io.github.fatsquirrels.deuzum.IA.bots.BotBase;
 import io.github.fatsquirrels.deuzum.IA.bots.BotFunctions;
 import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
 import io.github.fatsquirrels.deuzum.database.exceptions.CommandBuilderBuildException;
+import io.github.fatsquirrels.deuzum.net.Server;
 
+/**
+ * Esta clase permite crear un objeto de TransactionBot que introduce la cantidad recibida
+ * de transacciones en la BD.
+ * @see BotBase
+ * @see BotFunctions
+ */
 public class TransactionBot extends BotBase implements BotFunctions{
 	
 	@SuppressWarnings("unused")
 	private String name;
 	private Thread hiloTransactions;
-	private Connection conn;
+	private Connection connection;
 	private long cantidad;
 	
-	
+	/**
+	 * Contructor de la clase, crea un TransactionBot con los parametros recibidos
+	 * @param namet Nombre del bot
+	 * @param cantidad Cantidad de transacciones que se quieren introducir en la BD
+	 */
 	public TransactionBot(String name, long cantidad){
 		this.name = name;
-		this.conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost:3306/deuzumdb", "root", "");
+		this.connection = Server.getDefaultServerConnection();
 		this.cantidad = cantidad;
 	}
 	
-
+	/**
+	 * Metodo que ejecuta el TransactionBot en un hilo.
+	 * Se eligen dos usuarios aleatorios en la BD, ademas de una cuenta existente de uno de los usuarios
+	 * elegidos y se transfiere una cantidad aleatoria
+	 */
 	@Override
 	public void execute() {
 		hiloTransactions = new Thread(new Runnable() {
@@ -37,8 +52,8 @@ public class TransactionBot extends BotBase implements BotFunctions{
 				String[] arrIds = null;
 				
 				try {
-					ResultSet ids = GeneralSQLFunctions.getExecQuery(conn, "SELECT numero_cuenta FROM cuenta");
-					ResultSet accountCount = GeneralSQLFunctions.getExecQuery(conn, "SELECT count(numero_cuenta) FROM cuenta");
+					ResultSet ids = GeneralSQLFunctions.getExecQuery(connection, "SELECT numero_cuenta FROM cuenta");
+					ResultSet accountCount = GeneralSQLFunctions.getExecQuery(connection, "SELECT count(numero_cuenta) FROM cuenta");
 					if(accountCount.next()) {
 						users = accountCount.getInt("count(numero_cuenta)");
 						arrIds = new String[users];
@@ -57,7 +72,7 @@ public class TransactionBot extends BotBase implements BotFunctions{
 						String randomId1 = arrIds[r.nextInt(users)];
 						String randomId2 = arrIds[r.nextInt(users)];
 						String cantidad = Integer.toString(r.nextInt(50));
-					GeneralSQLFunctions.insertEntryIntoDatabase(conn, "transaccion", new String[] {"codigo","source", "destino","dinero"},
+					GeneralSQLFunctions.insertEntryIntoDatabase(connection, "transaccion", new String[] {"codigo","source", "destino","dinero"},
 					new String[] {tempId+"",randomId1,randomId2, cantidad});
 					}
 						
@@ -70,25 +85,34 @@ public class TransactionBot extends BotBase implements BotFunctions{
 		hiloTransactions.run();
 	}
 
+	/**
+	 * Metodo que detiene el TransactionBot durante los segundos introducidos
+	 */
 	@Override
 	public void stop(long tiempo) {
 		try {
-			Thread.sleep(tiempo);
+			Thread.sleep(tiempo*1000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * Metodo que elimina el TransactionBot
+	 */
 	@Override
 	public void kill() {
 		hiloTransactions.interrupt();
 	}
 	
+	/**
+	 * Metodo que obtiene de la BD el codigoTransaccion mas alto
+	 * @return codigoTransaccion mas alto + 1
+	 */
 	public int getLastId() {
 		int result = 0;
 		try {
-			Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost:3306/deuzumdb", "root", "");
-			ResultSet rs = GeneralSQLFunctions.getExecQuery(conn, "SELECT codigo FROM transaccion ORDER BY codigo DESC");
+			ResultSet rs = GeneralSQLFunctions.getExecQuery(connection, "SELECT codigo FROM transaccion ORDER BY codigo DESC");
 			if(rs.next()) {
 				result = Integer.parseInt(rs.getString("codigo"));
 				rs.close();
@@ -96,13 +120,8 @@ public class TransactionBot extends BotBase implements BotFunctions{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}	
-		result = result +1;
-		return result;
+		return result +1;
 	}
 	
-	/*public static void main(String[] args) {
-		TransactionBot tb1 = new TransactionBot("TransactionBot1", 10000);
-		tb1.execute();
-	}
-	*/
+	
 }

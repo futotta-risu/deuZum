@@ -2,6 +2,7 @@ package io.github.fatsquirrels.deuzum.net;
 
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.logging.Level;
 
 import org.json.JSONObject;
 
@@ -13,6 +14,7 @@ import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
 import io.github.fatsquirrels.deuzum.database.WhereAST;
 import io.github.fatsquirrels.deuzum.database.tableName;
 import io.github.fatsquirrels.deuzum.database.exceptions.CommandBuilderBuildException;
+import io.github.fatsquirrels.deuzum.log.archivoLog;
 import io.github.fatsquirrels.deuzum.utils.DataStructuresFunctions;
 import io.github.fatsquirrels.deuzum.utils.math.APair;
 import io.github.fatsquirrels.deuzum.utils.meta.anotations.Tested;
@@ -157,11 +159,8 @@ public class ServerUserFunctionality {
 		WhereAST where = new WhereAST().addValue("id='"+userID+"'");
 		try {
 			GeneralSQLFunctions.updateEntryFromDatabase(conn, "usuario", columnNamesUserInf, data, where);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (CommandBuilderBuildException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (SQLException | CommandBuilderBuildException e) {
+			archivoLog.addLineError(Level.SEVERE, e.getMessage(), e);
 		}
 	}
 	
@@ -197,13 +196,9 @@ public class ServerUserFunctionality {
 			String[] columns = {"source","destino","dinero"};
 			
 			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "transaccion", columns, new String[]{userID_A, userID_B,String.valueOf(value)});
-		} catch (SQLException e) {
-			
-			e.printStackTrace();
+		} catch (SQLException | CommandBuilderBuildException e) {
+			archivoLog.addLineError(Level.SEVERE, e.getMessage(), e);
 			return 1;
-		} catch (CommandBuilderBuildException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 		return 0;
 	}
@@ -251,14 +246,11 @@ public class ServerUserFunctionality {
 			GeneralSQLFunctions.updateEntryFromDatabase(connection, "cuenta", 
 					new String[] {"dinero"}, new String[] {Integer.toString(actdinero_B)},whereB);
 			
-		} catch (SQLException e) {
-			
-			e.printStackTrace();
+		} catch (SQLException| CommandBuilderBuildException e) {
+			archivoLog.addLineError(Level.SEVERE, e.getMessage(), e);
 			return 1;
-		} catch (CommandBuilderBuildException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
+		
 		return 0;
 	}
 	
@@ -426,22 +418,15 @@ public class ServerUserFunctionality {
 		String money = null;
 		try {
 			money = GeneralSQLFunctions.getEntryFromDatabase(connection, tableName.CUENTA.getName(), "dinero", tableName.CUENTA.getID() + "=" + account);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return "-1";
-		}
-		String newMoney = String.valueOf(Integer.valueOf(money)+Integer.valueOf(amount));
-		WhereAST condition =  new WhereAST();
-		condition.addColumValueLO(new String[] {tableName.CUENTA.getID()},new String[] {account}, WhereAST.logicOP.AND, WhereAST.ariOP.EQ);
-		try {
+		
+			String newMoney = String.valueOf(Integer.valueOf(money)+Integer.valueOf(amount));
+			WhereAST condition =  new WhereAST();
+			condition.addColumValueLO(new String[] {tableName.CUENTA.getID()},new String[] {account}, WhereAST.logicOP.AND, WhereAST.ariOP.EQ);
 			GeneralSQLFunctions.updateEntryFromDatabase(connection, tableName.CUENTA.getName(), new String[] {"dinero"},new String[] {newMoney}, condition);
-		} catch (SQLException e) {
-			e.printStackTrace();
+		}catch (SQLException|CommandBuilderBuildException e) {
+			archivoLog.addLineError(Level.SEVERE, e.getMessage(), e);
 			return "-1";
-		} catch (CommandBuilderBuildException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} 
 		return "1";
 		
 	}

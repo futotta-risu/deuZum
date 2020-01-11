@@ -19,7 +19,7 @@ public class PairPanel extends JPanel{
 	}
 	public PairPanel(String texto, String texto2) {
 		setLayout(new BorderLayout());
-		JLabel temp1 = new JLabel(texto);
+		JLabel temp1 = new JLabel(texto); 
 		add(temp1, BorderLayout.WEST);
 		JTextField temp2 = new JTextField(10);
 		temp2.setText(texto2);

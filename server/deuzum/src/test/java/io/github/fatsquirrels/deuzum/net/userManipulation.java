@@ -11,6 +11,7 @@ import io.github.fatsquirrels.deuzum.net.ServerUserFunctionality;
 import io.github.fatsquirrels.deuzum.utils.text.ConcreteText;
 import io.github.fatsquirrels.deuzum.utils.text.TextTypes;
 
+@SuppressWarnings("deprecation")
 class userManipulation {
 
 	@Test

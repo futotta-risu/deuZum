@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import io.github.fatsquirrels.deuzum.utils.text.ConcreteText;
 import io.github.fatsquirrels.deuzum.utils.text.TextTypes;
 
+@SuppressWarnings("deprecation")
 class ConcreteTextTest {
 
 	@Test

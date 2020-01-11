@@ -4,7 +4,10 @@ package io.github.fatsquirrels.deuzum.net;
 import java.io.IOException;
 import java.net.*;
 import java.sql.Connection;
+import java.util.logging.Level;
+
 import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
+import io.github.fatsquirrels.deuzum.log.archivoLog;
 
 
 /**
@@ -92,7 +95,6 @@ public class Server implements Runnable{
 		} catch (IOException e) {
 			isRunning = false;
 			System.err.println("The Server was closed");
-			//e.printStackTrace();
 		}
          
     }
@@ -108,6 +110,7 @@ public class Server implements Runnable{
 		try{
 			this.serverSocket.close();
 		}catch(IOException e) {
+			archivoLog.addLineError(Level.INFO, e.getMessage(), e);
 			System.err.println("Se ha cerrado la conexion con uno o varios sockets");
 		} 
     }
@@ -169,6 +172,7 @@ public class Server implements Runnable{
 			shutdown();
 			execute();
 		}catch(Exception e) {
+			archivoLog.addLineError(Level.INFO, e.getMessage(), e);
 			shutdown();
 		}
 		

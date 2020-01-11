@@ -21,6 +21,10 @@ import io.github.fatsquirrels.deuzum.utils.math.Vectors;
  */
 public class Clustering {
 	
+	public enum ClusteringAlgorithm{
+		MSC, DBSCAN,KMC
+	}
+	
 	
 	/**
 	 * Ejecuta el algoritmo KNN sobre una lista de listas de informacion.
@@ -35,7 +39,7 @@ public class Clustering {
 	public static final ArrayList<int[]> KNN(ArrayList<double[][]> users, ArrayList<int[]> labels, ArrayList<double[][]> newVector, int[] kVal){
 		ArrayList<int[]> resultMatrix= new ArrayList<int[]>();
 		int totalCases = users.size();
-		for(int i = 0;  i < totalCases; i++) {
+		for(int i = 0;  i < totalCases; i++) { 
 			int KNNCaseSize = newVector.get(i).length;
 			// Para cada caso de KNN
 			int[] tempVal = new int[KNNCaseSize];
@@ -96,12 +100,13 @@ public class Clustering {
 	
 	/**
 	 * Ejecuta el algoritmo MSC sobre una lista de lista de usuarios
-	 * @param users Matriz de información
-	 * @param kernelSize Tamaño del kernel
+	 * @param users Matriz de informacion
+	 * @param kernelSize Tamanio del kernel
 	 * @return Lista con las labels de los usuarios
 	 */
 	public static final int[] MSC(double[][] users, double kernelSize) {
 		if(users.length==0) return null;
+		
 		int dimension = users[0].length;
 		int points = users.length;
 		// TODO revisar el codigo y optimizar
@@ -277,7 +282,7 @@ public class Clustering {
 	public static final int[] KMC(double[][] users, int clusters){
 		
 		if(users.length == 0) return null;
-		if(clusters > users[0].length) return null;
+		if(clusters > users.length) return null;
 		
 		
 		int userCount = users.length;
@@ -326,5 +331,6 @@ public class Clustering {
 		
 		return nearCluster;
 	}
+	
 	
 }
