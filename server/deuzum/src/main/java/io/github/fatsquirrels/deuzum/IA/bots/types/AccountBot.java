@@ -11,7 +11,14 @@ import io.github.fatsquirrels.deuzum.IA.bots.BotBase;
 import io.github.fatsquirrels.deuzum.IA.bots.BotFunctions;
 import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
 import io.github.fatsquirrels.deuzum.database.exceptions.CommandBuilderBuildException;
+import io.github.fatsquirrels.deuzum.net.Server;
 
+/**
+ * Esta clase permite crear un objeto de AccountBot que introduce en la BD la cantidad 
+ * de cuentas introucidas.
+ * @see BotBase
+ * @see BotFunctions
+ */
 public class AccountBot extends BotBase implements BotFunctions{
 	@SuppressWarnings("unused")
 	private String name;
@@ -19,13 +26,21 @@ public class AccountBot extends BotBase implements BotFunctions{
 	private Connection connection;
 	private Thread hiloCuentas;
 	
+	/**
+	 * Contructor de la clase, crea un AccountBot con los parametros recibidos.
+	 * @param name Nombre del bot
+	 * @param cantidad Cantidad de cuentas a introducir;
+	 */
 	public AccountBot(String name, long cantidad){
 		this.name = name;
 		this.cantidad = cantidad;
-		this.connection = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost:3306/deuzumdb", "root", "");
+		this.connection = Server.getDefaultServerConnection();
 	}
 	
-
+	/**
+	 * Metodo que ejecuta el AccountBot en un hilo.
+	 * Se crean la cantidad de cuentas selecionadas asociadas a un usuario aleatorio.
+	 */
 	@Override
 	public void execute() {
 		hiloCuentas = new Thread(new Runnable() {
@@ -68,7 +83,9 @@ public class AccountBot extends BotBase implements BotFunctions{
 		hiloCuentas.run();
 	}		
 	
-
+	/**
+	 * Metodo que detiene el AccountBot durante los segundos introducidos
+	 */
 	@Override
 	public void stop(long tiempo) {
 		try {
@@ -78,12 +95,18 @@ public class AccountBot extends BotBase implements BotFunctions{
 		}
 	}
 
+	/**
+	 * Metodo que elimina el AccountBot
+	 */
 	@Override
 	public void kill() {
 		hiloCuentas.interrupt();
 	}
 
-	
+	/**
+	 * Metodo que obtiene de la BD el numeroCuenta mas alto
+	 * @return numeroCuenta mas alto + 1
+	 */
 	public int getLastId() {
 		int result = 0;
 		try {
@@ -96,7 +119,6 @@ public class AccountBot extends BotBase implements BotFunctions{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}	
-		result = result +1;
-		return result;
+		return result +1;
 	}
 }

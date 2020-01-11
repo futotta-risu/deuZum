@@ -11,21 +11,37 @@ import io.github.fatsquirrels.deuzum.IA.bots.BotBase;
 import io.github.fatsquirrels.deuzum.IA.bots.BotFunctions;
 import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
 import io.github.fatsquirrels.deuzum.database.exceptions.CommandBuilderBuildException;
+import io.github.fatsquirrels.deuzum.net.Server;
 
+/**
+ * Esta clase permite crear un objeto de GroupBot que introduce la cantidad recibida
+ * de grupos en la BD.
+ * @see BotBase
+ * @see BotFunctions
+ */
 public class GroupBot extends BotBase implements BotFunctions{
 	@SuppressWarnings("unused")
 	private String name;
-	private Connection conn;
+	private Connection connection;
 	private long cantidad;
 	private Thread hiloGrupo;
 	
+	/**
+	 * Contructor de la clase, crea un GroupBot con los parametros recibidos
+	 * @param namet Nombre del bot
+	 * @param cantidad Cantidad de grupos que se quieren introducir en la BD
+	 */
 	public GroupBot(String name, long cantidad) {
 		this.name = name;
 		this.cantidad = cantidad;
-		this.conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost:3306/deuzumdb", "root", "");
+		this.connection = Server.getDefaultServerConnection();
 	}
 	
-
+	/**
+	 * Metodo que ejecuta el GroupBot en un hilo.
+	 * Se crea un grupo en la BD y se introducen en el una cantidad aleatoria de miembros
+	 * (8 como maximo)
+	 */
 	public void execute() {
 		hiloGrupo = new Thread(new Runnable() {
 
@@ -35,8 +51,8 @@ public class GroupBot extends BotBase implements BotFunctions{
 				
 				
 				try {
-					ResultSet ids = GeneralSQLFunctions.getExecQuery(conn, "SELECT id FROM usuario");
-					ResultSet userCount = GeneralSQLFunctions.getExecQuery(conn, "SELECT count(id) FROM usuario");
+					ResultSet ids = GeneralSQLFunctions.getExecQuery(connection, "SELECT id FROM usuario");
+					ResultSet userCount = GeneralSQLFunctions.getExecQuery(connection, "SELECT count(id) FROM usuario");
 					if(userCount.next()) {
 						users = userCount.getInt("count(id)");
 						arrIds = new String[users];
@@ -50,13 +66,13 @@ public class GroupBot extends BotBase implements BotFunctions{
 					}
 					for (int i = 0; i < cantidad; i++) {
 						int tempId = getLastId();
-						GeneralSQLFunctions.insertEntryIntoDatabase(conn, "grupo", new String[] {"id","nombre", "descripcion"},
+						GeneralSQLFunctions.insertEntryIntoDatabase(connection, "grupo", new String[] {"id","nombre", "descripcion"},
 								new String[] {tempId+"", "BotGroup"+tempId, "Grupo creado por un bot"} );
 						Random r = new Random(i);
 						for (int j = 0; j < r.nextInt(8); j++) {
 							String randomId = arrIds[r.nextInt(users)];
 							int tempMemberId = getLastIdGroup();
-							GeneralSQLFunctions.insertEntryIntoDatabase(conn, "grupomiembro", new String[] {"id", "id_grupo", "id_miembro", "permisos"}, 
+							GeneralSQLFunctions.insertEntryIntoDatabase(connection, "grupomiembro", new String[] {"id", "id_grupo", "id_miembro", "permisos"}, 
 									new String[] {tempMemberId+"", tempId+"", randomId, 0+""});
 						}
 					}						
@@ -69,6 +85,9 @@ public class GroupBot extends BotBase implements BotFunctions{
 		hiloGrupo.run();		
 	}
 
+	/**
+	 * Metodo que detiene el GroupBot durante los segundos introducidos
+	 */
 	public void stop(long tiempo) {
 		try {
 			Thread.sleep(tiempo*1000);
@@ -77,15 +96,21 @@ public class GroupBot extends BotBase implements BotFunctions{
 		}
 	}
 
+	/**
+	 * Metodo que elimina el GroupBot
+	 */
 	public void kill() {
 		hiloGrupo.interrupt();
 	}
 	
+	/**
+	 * Metodo que obtiene de la BD el idGrupo mas alto
+	 * @return idGrupo mas alto + 1
+	 */
 	public int getLastId() {
 		int result = 0;
 		try {
-			Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost:3306/deuzumdb", "root", "");
-			ResultSet rs = GeneralSQLFunctions.getExecQuery(conn, "SELECT id FROM grupo ORDER BY id DESC");
+			ResultSet rs = GeneralSQLFunctions.getExecQuery(connection, "SELECT id FROM grupo ORDER BY id DESC");
 			if(rs.next()) {
 				result = Integer.parseInt(rs.getString("id"));
 				rs.close();
@@ -97,11 +122,14 @@ public class GroupBot extends BotBase implements BotFunctions{
 		return result;
 	}
 	
+	/**
+	 * Metodo que obtiene de la BD el idGrupoMiembro mas alto
+	 * @return idGrupoMiembro mas alto + 1
+	 */
 	public int getLastIdGroup() {
 		int result = 0;
-		try {
-			Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost:3306/deuzumdb", "root", "");
-			ResultSet rs = GeneralSQLFunctions.getExecQuery(conn, "SELECT id FROM grupomiembro ORDER BY id DESC");
+		try {			
+			ResultSet rs = GeneralSQLFunctions.getExecQuery(connection, "SELECT id FROM grupomiembro ORDER BY id DESC");
 			if(rs.next()) {
 				result = Integer.parseInt(rs.getString("id"));
 				rs.close();
@@ -109,8 +137,7 @@ public class GroupBot extends BotBase implements BotFunctions{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}	
-		result = result +1;
-		return result;
+		return result +1;
 	}
 
 }

@@ -11,23 +11,38 @@ import io.github.fatsquirrels.deuzum.IA.bots.BotBase;
 import io.github.fatsquirrels.deuzum.IA.bots.BotFunctions;
 import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
 import io.github.fatsquirrels.deuzum.database.exceptions.CommandBuilderBuildException;
+import io.github.fatsquirrels.deuzum.net.Server;
 
+/**
+ * Esta clase permite crear un objeto de ProyectTransactionBot que introduce la cantidad recibida
+ * de transacciones de proyecto en la BD.
+ * @see BotBase
+ * @see BotFunctions
+ */
 public class ProyectTransactionBot extends BotBase implements BotFunctions{
 	
 	@SuppressWarnings("unused")
 	private String name;
 	private Thread hiloProyectTransactions;
-	private Connection conn;
+	private Connection connection;
 	private long cantidad;
-	
-	
+		
+	/**
+	 * Contructor de la clase, crea un ProyectTransactionBot con los parametros recibidos
+	 * @param namet Nombre del bot
+	 * @param cantidad Cantidad de transacciones de proyecto que se quieren introducir en la BD
+	 */
 	public ProyectTransactionBot(String name, long cantidad){
 		this.name = name;
-		this.conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost:3306/deuzumdb", "root", "");
+		this.connection = Server.getDefaultServerConnection();
 		this.cantidad = cantidad;
 	}
 	
-
+	/**
+	 * Metodo que ejecuta el ProyectTransactionBot en un hilo.
+	 * Se elige un proyecto aleatorio en la BD, ademas de un usuario participante del proyecto
+	 * y transfiere una aportacion.
+	 */
 	@Override
 	public void execute() {
 		hiloProyectTransactions = new Thread(new Runnable() {
@@ -37,8 +52,8 @@ public class ProyectTransactionBot extends BotBase implements BotFunctions{
 				String[] arrIdsProyecto = null;
 				
 				try {
-					ResultSet ids = GeneralSQLFunctions.getExecQuery(conn, "SELECT id FROM proyecto");
-					ResultSet proyectCount = GeneralSQLFunctions.getExecQuery(conn, "SELECT count(id) FROM proyecto");
+					ResultSet ids = GeneralSQLFunctions.getExecQuery(connection, "SELECT id FROM proyecto");
+					ResultSet proyectCount = GeneralSQLFunctions.getExecQuery(connection, "SELECT count(id) FROM proyecto");
 					if(proyectCount.next()) {
 						proyects = proyectCount.getInt("count(id)");
 						arrIdsProyecto = new String[proyects];
@@ -62,8 +77,8 @@ public class ProyectTransactionBot extends BotBase implements BotFunctions{
 							randomId = arrIdsProyecto[r.nextInt(proyects)];
 							
 							//Obtener el id aleatorio de un participante	
-							ResultSet idsUsuario = GeneralSQLFunctions.getExecQuery(conn, "SELECT id_miembro FROM proyectomiembro WHERE id_proyecto = " + randomId);
-							ResultSet userCount = GeneralSQLFunctions.getExecQuery(conn, "SELECT count(id_miembro) FROM proyectomiembro WHERE id_proyecto = " + randomId);
+							ResultSet idsUsuario = GeneralSQLFunctions.getExecQuery(connection, "SELECT id_miembro FROM proyectomiembro WHERE id_proyecto = " + randomId);
+							ResultSet userCount = GeneralSQLFunctions.getExecQuery(connection, "SELECT count(id_miembro) FROM proyectomiembro WHERE id_proyecto = " + randomId);
 							if(userCount.next()) {
 								users = userCount.getInt("count(id_miembro)");
 								idsUser = new String[users];
@@ -79,7 +94,7 @@ public class ProyectTransactionBot extends BotBase implements BotFunctions{
 							}while(users==0);
 						
 						//Obtener deuda del proyecto
-						ResultSet deuda = GeneralSQLFunctions.getExecQuery(conn, "SELECT deuda FROM proyecto WHERE id = " + randomId);
+						ResultSet deuda = GeneralSQLFunctions.getExecQuery(connection, "SELECT deuda FROM proyecto WHERE id = " + randomId);
 						int deudaInt = 0;
 						if(deuda.next()) {
 							deudaInt = deuda.getInt("deuda");
@@ -95,13 +110,13 @@ public class ProyectTransactionBot extends BotBase implements BotFunctions{
 							memberId = idsUser[r.nextInt(users)];
 						}
 						if(deudaInt == 0 ) {
-							GeneralSQLFunctions.insertEntryIntoDatabase(conn, "proyectotransaccion", new String[] {"id","id_proyecto", "id_miembro","tipo", "cantidad", "razon"},
+							GeneralSQLFunctions.insertEntryIntoDatabase(connection, "proyectotransaccion", new String[] {"id","id_proyecto", "id_miembro","tipo", "cantidad", "razon"},
 							new String[] {tempId+"",randomId,idsUser[r.nextInt(users)], 1+"", 0+"", "El proyecto no tiene ninguna deuda"});							
 						}else {
-							GeneralSQLFunctions.insertEntryIntoDatabase(conn, "proyectotransaccion", new String[] {"id","id_proyecto", "id_miembro","tipo", "cantidad", "razon"},
+							GeneralSQLFunctions.insertEntryIntoDatabase(connection, "proyectotransaccion", new String[] {"id","id_proyecto", "id_miembro","tipo", "cantidad", "razon"},
 							new String[] {tempId+"",randomId,idsUser[r.nextInt(users)], 1+"", cantidad+"", "Transaccion realizada por un bot"});	
 							//Actualizar deuda
-							GeneralSQLFunctions.execUpdate(conn, "UPDATE proyecto SET deuda = "+ (deudaInt-cantidad) + " WHERE id = " + randomId);
+							GeneralSQLFunctions.execUpdate(connection, "UPDATE proyecto SET deuda = "+ (deudaInt-cantidad) + " WHERE id = " + randomId);
 						}
 					
 					}
@@ -114,7 +129,11 @@ public class ProyectTransactionBot extends BotBase implements BotFunctions{
 		});
 		hiloProyectTransactions.run();
 	}
-
+	
+	
+	/**
+	 * Metodo que detiene el ProyectTransactionBot durante los segundos introducidos
+	 */
 	@Override
 	public void stop(long tiempo) {
 		try {
@@ -124,16 +143,22 @@ public class ProyectTransactionBot extends BotBase implements BotFunctions{
 		}
 	}
 
+	/**
+	 * Metodo que elimina el ProyectTransactionBot
+	 */
 	@Override
 	public void kill() {
 		hiloProyectTransactions.interrupt();
 	}
 	
+	/**
+	 * Metodo que obtiene de la BD el codigoProyectoTransaccion mas alto
+	 * @return codigoProyectoTransaccion mas alto + 1
+	 */
 	public int getLastId() {
 		int result = 0;
 		try {
-			Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost:3306/deuzumdb", "root", "");
-			ResultSet rs = GeneralSQLFunctions.getExecQuery(conn, "SELECT id FROM proyectotransaccion ORDER BY id DESC");
+			ResultSet rs = GeneralSQLFunctions.getExecQuery(connection, "SELECT id FROM proyectotransaccion ORDER BY id DESC");
 			if(rs.next()) {
 				result = Integer.parseInt(rs.getString("id"));
 				rs.close();
@@ -141,7 +166,6 @@ public class ProyectTransactionBot extends BotBase implements BotFunctions{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}	
-		result = result +1;
-		return result;
+		return result +1;
 	}
 }
