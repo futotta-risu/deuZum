@@ -2,15 +2,17 @@ package io.github.fatsquirrels.deuzum.net;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import  java.lang.reflect.Method;
 
 import org.json.*;
+
+import io.github.fatsquirrels.deuzum.log.archivoLog;
 
 /**
  * Interfaz especifica para guardar metodos dentro del HashMap de comandos del servidor.
@@ -72,32 +74,21 @@ public class ServerCommands {
 							
 							// TODO hacer algo con las excepciones aqui
 							
-						} catch (ClassNotFoundException e) {
+						} catch (ClassNotFoundException | NoSuchMethodException | SecurityException 
+								| IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+							archivoLog.addLineError(Level.SEVERE, e.getMessage(), e);
 							e.printStackTrace();
-						} catch (NoSuchMethodException e) {
-							e.printStackTrace();
-						} catch (SecurityException e) {
-							e.printStackTrace();
-						} catch (IllegalAccessException e) {
-							e.printStackTrace();
-						} catch (IllegalArgumentException e) {
-							System.err.println(data.getClass().getName());
-							e.printStackTrace();
-						} catch (InvocationTargetException e) {
-							e.printStackTrace();
-						}
-						
+						} 
 						return null;
 					}
 				  });
 			  }
 			  br.close();
 			  
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
+			archivoLog.addLineError(Level.SEVERE, e.getMessage(), e);
 			e.printStackTrace();
-		} 
+		}
 		  
 		  
 	}

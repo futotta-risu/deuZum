@@ -21,6 +21,10 @@ import io.github.fatsquirrels.deuzum.utils.math.Vectors;
  */
 public class Clustering {
 	
+	public enum ClusteringAlgorithm{
+		MSC, DBSCAN,KMC
+	}
+	
 	
 	/**
 	 * Ejecuta el algoritmo KNN sobre una lista de listas de informacion.
@@ -35,7 +39,7 @@ public class Clustering {
 	public static final ArrayList<int[]> KNN(ArrayList<double[][]> users, ArrayList<int[]> labels, ArrayList<double[][]> newVector, int[] kVal){
 		ArrayList<int[]> resultMatrix= new ArrayList<int[]>();
 		int totalCases = users.size();
-		for(int i = 0;  i < totalCases; i++) {
+		for(int i = 0;  i < totalCases; i++) { 
 			int KNNCaseSize = newVector.get(i).length;
 			// Para cada caso de KNN
 			int[] tempVal = new int[KNNCaseSize];

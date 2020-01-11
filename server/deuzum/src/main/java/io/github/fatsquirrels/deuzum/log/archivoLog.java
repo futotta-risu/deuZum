@@ -22,18 +22,18 @@ public class archivoLog {
 		
 			try {
 				logger.addHandler(new FileHandler("data/logs/" + nombre + ".log.xml"));
-			} catch (SecurityException e) {
-				e.printStackTrace();
+			} catch (SecurityException e){ 
+				e.printStackTrace(); 
 			} catch (IOException e) {
 				e.printStackTrace();
-			}
+			} 
 	}
 	
-    public void addLine(Level level, String message) {
+    public static void addLine(Level level, String message) {
     	logger.log(level, message);
     }
     
-    public void addLineError(Level level, String message, Exception e) {
+    public static void addLineError(Level level, String message, Exception e) {
     	logger.log(level, message, e);
     }
 }

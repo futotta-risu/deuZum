@@ -6,9 +6,11 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.sql.Connection;
-import java.sql.SQLException;
+import java.util.logging.Level;
 
 import org.json.JSONObject;
+
+import io.github.fatsquirrels.deuzum.log.archivoLog;
 
 
 /**
@@ -55,8 +57,7 @@ public class ServerSocketHandler extends Thread{
 			out.close();
 	        socket.close();
 		} catch (IOException e) {
-			// TODO Añadir el error a un posible log ya que esta funcion solo se ejecuta desde el cliente
-			e.printStackTrace();
+			archivoLog.addLineError(Level.SEVERE, e.getMessage(), e);
 		}
         
 	}

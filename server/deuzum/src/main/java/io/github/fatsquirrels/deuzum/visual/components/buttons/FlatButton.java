@@ -6,9 +6,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.Icon;
 import javax.swing.JButton;
-import javax.swing.border.MatteBorder;
-
-import io.github.fatsquirrels.deuzum.visual.style.CustomColors;
 
 /**
  * Boton con estilo Flat.

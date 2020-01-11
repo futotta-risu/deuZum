@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
-import java.util.logging.Level;
 
 import io.github.fatsquirrels.deuzum.log.archivoLog;
 
@@ -21,8 +20,7 @@ public class ServerProperties {
 		try(FileInputStream f = new FileInputStream(Paths.PropertiesPath)){
 			properties.load(f);
 			properties.toString();
-			logServerHandlerFrame("Prueba");	
-			
+			createErrorLog();
 		}catch(FileNotFoundException e1) {
 			System.err.println("El archivo no se encuentra en el lugar indicado.");
 		}catch (IOException e) {
@@ -43,9 +41,8 @@ public class ServerProperties {
 			e.printStackTrace();
 		}
 	}
-	public static void logServerHandlerFrame(String message) {
-		archivoLog log = new archivoLog("logServerHandlerFrame");
-		log.addLine(Level.INFO, message);
+	public static void createErrorLog() {
+		new archivoLog("logServerHandlerFrame");
 	}
 	
 }
