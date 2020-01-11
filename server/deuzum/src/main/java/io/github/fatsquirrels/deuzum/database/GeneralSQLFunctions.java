@@ -274,7 +274,18 @@ public final class GeneralSQLFunctions {
 		return nonNullableColumnNames;
 	}
 
-	
+	public static final ArrayList<String[]> getCustomQuery(Connection connection, String query, int columns) throws SQLException{
+		ArrayList<String[]> data = new ArrayList<String[]>();
+		
+		ResultSet rs =getExecQuery(connection,query);
+		while(rs.next()) {
+			String[] tempData = new String[3];
+			for(int i = 0; i < columns; i++)
+				tempData[i] = rs.getString(i+1);
+			data.add(tempData);
+		}
+		return data;
+	}
 	
 	 
 	
