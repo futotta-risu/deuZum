@@ -96,12 +96,13 @@ public class Clustering {
 	
 	/**
 	 * Ejecuta el algoritmo MSC sobre una lista de lista de usuarios
-	 * @param users Matriz de información
-	 * @param kernelSize Tamaño del kernel
+	 * @param users Matriz de informacion
+	 * @param kernelSize Tamanio del kernel
 	 * @return Lista con las labels de los usuarios
 	 */
 	public static final int[] MSC(double[][] users, double kernelSize) {
 		if(users.length==0) return null;
+		
 		int dimension = users[0].length;
 		int points = users.length;
 		// TODO revisar el codigo y optimizar
@@ -277,7 +278,7 @@ public class Clustering {
 	public static final int[] KMC(double[][] users, int clusters){
 		
 		if(users.length == 0) return null;
-		if(clusters > users[0].length) return null;
+		if(clusters > users.length) return null;
 		
 		
 		int userCount = users.length;
@@ -326,5 +327,6 @@ public class Clustering {
 		
 		return nearCluster;
 	}
+	
 	
 }
