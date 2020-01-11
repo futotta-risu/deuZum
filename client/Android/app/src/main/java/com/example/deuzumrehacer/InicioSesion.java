@@ -9,6 +9,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -57,33 +61,30 @@ public class InicioSesion extends AppCompatActivity {
 
     public void comprobarUsuarioContraseña() {
 
-        try{
-            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/bizum_bd", "root", "");
-            PreparedStatement pst = cn.prepareStatement("select * from usuario where User = ?");
-            pst.setString(1, String.valueOf(nUsuario.getText()));
-
-            ResultSet rs = pst.executeQuery();
-
-            if(rs.next()){
-                String temp_pass = rs.getString("Pass");
-
-                if (temp_pass.contentEquals(cUsuario.getText())){
-                    Intent i = new Intent(this, MenuPrincipal.class);
-                    startActivity(i);
-
-                }else {
-                    tLogin.setText("Contraseña incorrecta");
-                }
-
-
-            } else {
-                tLogin.setText("Usuario no registrado.");
-            }
-
-        }catch (Exception ex){
-            ex.printStackTrace();
+        JSONObject data = new JSONObject();
+        try {
+            data.put("user",nUsuario.getText().toString());
+            data.put("pass",cUsuario.getText().toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
 
+        Thread t1 = new Thread(new MessageSender("logUser", data));
+        t1.start();
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if(ServerRespond.result.equals("1")){
+            Toast toast= Toast. makeText(getApplicationContext(),"Conectado:"+ServerRespond.result,Toast. LENGTH_SHORT);
+            toast. setMargin(50,50);
+            toast. show();
+        }else{
+            Toast toast= Toast. makeText(getApplicationContext(),"Contraseña equivocada:"+ServerRespond.result,Toast. LENGTH_SHORT);
+            toast. setMargin(50,50);
+            toast. show();
+        }
 
     }
 

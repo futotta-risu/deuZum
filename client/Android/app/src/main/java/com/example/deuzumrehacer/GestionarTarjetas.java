@@ -8,6 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class GestionarTarjetas extends AppCompatActivity {
 
@@ -16,7 +20,7 @@ public class GestionarTarjetas extends AppCompatActivity {
     EditText cCVV;
     EditText tFechaCaducidad;
     Button bAtras;
-    Button bGuardar;
+    Button bAñadir;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +32,7 @@ public class GestionarTarjetas extends AppCompatActivity {
         cCVV = findViewById(R.id.contrasenyaCVV);
         tFechaCaducidad = findViewById(R.id.textoFechaCaducidad);
         bAtras = findViewById(R.id.botonAtrasGT);
-        bGuardar = findViewById(R.id.botonGuardar);
+        bAñadir = findViewById(R.id.botonAñadir);
 
         Thread myThread = new Thread(new MyServerThread());
         myThread.start();
@@ -40,7 +44,7 @@ public class GestionarTarjetas extends AppCompatActivity {
             }
         });
 
-        bGuardar.setOnClickListener(new View.OnClickListener() {
+        bAñadir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 guardar();
@@ -49,9 +53,33 @@ public class GestionarTarjetas extends AppCompatActivity {
     }
 
     public void guardar() {
-        MessageSender ms = new MessageSender();
-        ms.execute(tNumeroTarjeta.getText().toString(), cCVV.getText().toString(), tFechaCaducidad.getText().toString());
+        JSONObject jsonData = new JSONObject();
+        try {
+            jsonData.put("tableName","cuentas");
+            jsonData.put("numeroCuenta", String.valueOf(tNumeroTarjeta.getText()));
+        } catch (JSONException e) {
+            Toast toast= Toast. makeText(getApplicationContext(),
+                    "Local: Error al intentar añadir tarjeta.",Toast. LENGTH_SHORT);
+            toast. setMargin(50,50);
+            toast. show();
+            e.printStackTrace();
+            return;
+        }
 
+        Thread t1 = new Thread(new MessageSender("addData", jsonData));
+        t1.start();
+        try{
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        if(ServerRespond.result.equals("0")){
+            Toast toast= Toast. makeText(getApplicationContext(),
+                    "Server: Error al intentar añadir tarjeta.",Toast. LENGTH_SHORT);
+            toast. setMargin(50,50);
+            toast. show();
+        }
         Intent i = new Intent(this, MenuPrincipal.class);
         startActivity(i);
     }

@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
         android:layout_marginLeft="50dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="60dp"
         android:ems="10"
         android:hint="Nombre de usuario"
         android:inputType="textPersonName"
@@ -48,25 +48,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
         android:layout_marginLeft="50dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="45dp"
         android:ems="10"
         android:hint="Telefono"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText" />
-
-    <EditText
-        android:id="@+id/textoEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="30dp"
-        android:ems="10"
-        android:hint="Correo electrónico"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textoTelefono" />
 
     <Button
         android:id="@+id/botonAtrasVU"
@@ -74,7 +61,7 @@
         android:layout_height="65dp"
         android:layout_marginStart="50dp"
         android:layout_marginLeft="50dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="75dp"
         android:text="Atras"
         android:textColor="#2196F3"
         android:textStyle="bold"
@@ -85,7 +72,7 @@
         android:id="@+id/botonGuardarCambios"
         android:layout_width="110dp"
         android:layout_height="65dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="75dp"
         android:layout_marginEnd="60dp"
         android:layout_marginRight="60dp"
         android:textColor="#2196F3"
@@ -95,29 +82,16 @@
         tools:text="Guardar cambios" />
 
     <EditText
-        android:id="@+id/textoDireccion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="30dp"
-        android:ems="10"
-        android:hint="Dirección"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textoEmail" />
-
-    <EditText
         android:id="@+id/editarContrasenya"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
         android:layout_marginLeft="50dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="45dp"
         android:ems="10"
         android:hint="Contraseña"
         android:inputType="textPassword"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textoDireccion" />
+        app:layout_constraintTop_toBottomOf="@+id/textoTelefono" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

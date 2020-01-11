@@ -12,6 +12,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -22,8 +25,6 @@ public class VerUsuario extends AppCompatActivity {
     private TextView cVerUsuario;
     private EditText tNombreUsuario;
     private EditText tTelefono;
-    private EditText tEmail;
-    private EditText tDireccion;
     private EditText cContrasenya;
     private Button bGuardarCambios;
     private Button bAtras;
@@ -36,8 +37,6 @@ public class VerUsuario extends AppCompatActivity {
         cVerUsuario = findViewById(R.id.cajaVerUsuario);
         tNombreUsuario = findViewById(R.id.textoNombreUsuario);
         tTelefono = findViewById(R.id.textoTelefono);
-        tEmail = findViewById(R.id.textoEmail);
-        tDireccion = findViewById(R.id.textoDireccion);
         cContrasenya = findViewById(R.id.editarContrasenya);
         bGuardarCambios = findViewById(R.id.botonGuardarCambios);
         bAtras = findViewById(R.id.botonAtrasVU);
@@ -56,19 +55,49 @@ public class VerUsuario extends AppCompatActivity {
         bGuardarCambios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                guardarCambios();
+                guardarCambiosUsuario();
+            }
+        });
+
+        bGuardarCambios.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                guardarCambiosInformacionUsuario();
             }
         });
 
     }
 
-    public void guardarCambios() {
-        MessageSender ms = new MessageSender();
-        ms.execute(tNombreUsuario.getText().toString(), tTelefono.getText().toString(), tEmail.getText().toString(), tDireccion.getText().toString(),
-                cContrasenya.getText().toString());
+    public void guardarCambiosUsuario() {
 
-        Intent i = new Intent(this, MenuPrincipal.class);
-        startActivity(i);
+        JSONObject jsonData = new JSONObject();
+        try {
+            jsonData.put("tableName","usuario");
+            jsonData.put("user", String.valueOf(tNombreUsuario.getText()));
+            jsonData.put("pass",String.valueOf(cContrasenya.getText()));
+        } catch (JSONException e) {
+            Toast toast= Toast. makeText(getApplicationContext(),
+                    "Local: Error al intentar cambiar usuario.",Toast. LENGTH_SHORT);
+            toast. setMargin(50,50);
+            toast. show();
+            e.printStackTrace();
+            return;
+        }
+
+        Thread t1 = new Thread(new MessageSender("addData", jsonData));
+        t1.start();
+        try{
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        if(ServerRespond.result.equals("0")){
+            Toast toast= Toast. makeText(getApplicationContext(),
+                    "Server: Error al intentar cambiar usuario. ",Toast. LENGTH_SHORT);
+            toast. setMargin(50,50);
+            toast. show();
+        }
 
         try {
             Activity activity = new Activity();
@@ -87,6 +116,39 @@ public class VerUsuario extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        Intent i = new Intent(this, MenuPrincipal.class);
+        startActivity(i);
+
+    }
+
+    public void guardarCambiosInformacionUsuario() {
+        JSONObject jsonData = new JSONObject();
+        try {
+            jsonData.put("tableName","informacionUsuario");
+            jsonData.put("telefono", String.valueOf(tTelefono.getText()));
+        } catch (JSONException e) {
+            Toast toast= Toast. makeText(getApplicationContext(),
+                    "Local: Error al intentar cambiar la información del usuario.",Toast. LENGTH_SHORT);
+            toast. setMargin(50,50);
+            toast. show();
+            e.printStackTrace();
+            return;
+        }
+
+        Thread t1 = new Thread(new MessageSender("addData", jsonData));
+        t1.start();
+        try{
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        if(ServerRespond.result.equals("0")){
+            Toast toast= Toast. makeText(getApplicationContext(),
+                    "Server: Error al intentar cambiar la información del usuario. ",Toast. LENGTH_SHORT);
+            toast. setMargin(50,50);
+            toast. show();
+        }
     }
 
     public void abrirMenuPrincipal() {

@@ -20,7 +20,7 @@
         android:id="@+id/textoNombreDestinatario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="75dp"
         android:ems="10"
         android:hint="Nombre del destinatario"
         android:inputType="textPersonName"
@@ -33,7 +33,7 @@
         android:id="@+id/numImporte"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="75dp"
         android:ems="10"
         android:hint="Importe"
         android:inputType="number"
@@ -42,44 +42,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textoNombreDestinatario" />
 
-    <EditText
-        android:id="@+id/textoConcepto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:ems="10"
-        android:hint="Concepto"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/numImporte" />
-
     <Button
         android:id="@+id/botonAtrasED"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:layout_marginLeft="60dp"
-        android:layout_marginTop="125dp"
+        android:layout_marginTop="100dp"
         android:text="Atras"
         android:textColor="#2196F3"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textoConcepto" />
+        app:layout_constraintTop_toBottomOf="@+id/numImporte" />
 
     <Button
         android:id="@+id/botonFinalizar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="125dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="60dp"
         android:layout_marginRight="60dp"
         android:text="Finalizar"
         android:textColor="#2196F3"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textoConcepto" />
+        app:layout_constraintTop_toBottomOf="@+id/numImporte" />
 
     <TextView
         android:id="@+id/cajaEnviarDinero"
