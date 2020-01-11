@@ -123,8 +123,8 @@ public class BotPanel extends JPanel{
 		Thread t1 = new Thread(() -> {
 				for (BotBase botBase : botList) {
 					botBase.kill();
-					botList.remove(botBase);
 				}
+				botList.clear();
 				this.botCount = botList.size();
 				lblBotCount.setText(this.botCount+"");		
 		});

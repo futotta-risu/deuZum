@@ -32,6 +32,9 @@ public class ServerHandler  extends GenericSMFrame{
 	
 	private static final long serialVersionUID = -2032372544471677287L;
 
+	final private String[] notLoadedButtonOrder = {"Home", "Configuracion"};
+	final private String[] loadedButtonOrder = {"Home","Usuario","Cuentas","Transaccion","Grupos","Proyectos","Funcionalidades", "Configuracion"};
+	
 	PanelListProperties plp;
 	
 	private ServerThread hiloStart;
@@ -90,6 +93,10 @@ public class ServerHandler  extends GenericSMFrame{
 		deleteButtonsM();
 		for(String panelN : plp) 
 			addButtonM(panelN, new MenuButton(panelN, e -> setPanelC(plp.getPanel(panelN))));
+		if(hiloStart != null) 
+			if(hiloStart.isAlive()) drawButtons(loadedButtonOrder);
+			else drawButtons(notLoadedButtonOrder);
+		else drawButtons(notLoadedButtonOrder);
 		revalidate();
 	}
 	

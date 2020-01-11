@@ -171,6 +171,7 @@ public class HomePanel extends JPanel{
 		botPanels.put("mail", new BotPanel(BotType.MAIL));
 		botPanels.put("cleaning", new BotPanel(BotType.CLEANING));
 		botPanels.put("user", new BotPanel(BotType.USUARIO));
+		botPanels.put("account", new BotPanel(BotType.ACCOUNT));
 		botPanels.put("transaction", new BotPanel(BotType.TRANSACCION));
 		botPanels.put("group", new BotPanel(BotType.GRUPO));
 		botPanels.put("proyect", new BotPanel(BotType.PROYECTO));
@@ -196,8 +197,12 @@ public class HomePanel extends JPanel{
 		panel_Home_Center.add(panel_Home_Title, BorderLayout.NORTH);
 		
 		panel_Home_Center.setBorder(new EmptyBorder(20,20,20,20));
+		JPanel panel_Shadow_Home_Center = new JPanel(new BorderLayout());
 		
-		add(panel_Home_Center,BorderLayout.CENTER);
+		panel_Shadow_Home_Center.setBorder(BorderFactory.createMatteBorder(1,2,0,0, CustomColors.LightGrey));
+		panel_Shadow_Home_Center.add(panel_Home_Center,BorderLayout.CENTER);
+		
+		add(panel_Shadow_Home_Center,BorderLayout.CENTER);
 		
 	}
 

@@ -25,7 +25,6 @@ public class ButtonMenu extends JPanel{
 	
 	public void addButton(String name, JButton button) {
 		buttons.put(name, button);
-		drawButtons();
 	}
 	
 	
@@ -36,6 +35,14 @@ public class ButtonMenu extends JPanel{
 		revalidate();
 		repaint();
 		
+	}
+	
+	public void drawButtons(String[] buttonList) {
+		for(String buttonName : buttonList) 
+			if(buttons.containsKey(buttonName))
+				add(buttons.get(buttonName));
+		revalidate();
+		repaint();
 	}
 	
 	public void resetButtons() {

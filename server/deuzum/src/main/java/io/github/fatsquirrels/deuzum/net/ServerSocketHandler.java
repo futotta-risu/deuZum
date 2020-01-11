@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.sql.Connection;
+import java.sql.SQLException;
 
 import org.json.JSONObject;
 
@@ -39,7 +40,16 @@ public class ServerSocketHandler extends Thread{
 	        String command = in.readLine();
 	        // Dechiper the Command
 	        JSONObject data = new JSONObject(in.readLine());
-	        out.println(ServerCommands.serverCommands.get(command).runCommand(data)+"\n");
+	        
+	        // Process the command
+	        String result = "";
+	        try{
+	        	result = ServerCommands.serverCommands.get(command).runCommand(data);
+	        }catch(Exception e) {
+	        	result = "&" + e.getMessage();
+	        }
+	        
+	        out.println(result+"\n");
 	        out.flush();
 			in.close();
 			out.close();

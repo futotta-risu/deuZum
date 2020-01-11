@@ -47,28 +47,6 @@ public class ServerUserFunctionality {
 	}
 	
 	
-	// TODO Documentar esta funcion
-	public static String createElement(JSONObject data) {
-		Connection connection = Server.createConnection();
-		if(!data.has("tableName")) {
-			System.err.println("El JSON no contiene el nombre de la tabla");
-			return "0";
-		}
-		
-		tableName tableNameT = tableName.getTableName(data.getString("tableName"));
-		try {
-			GeneralSQLFunctions.insertEntryIntoDatabase(connection, tableNameT.getName(), 
-					DataStructuresFunctions.JSONtoHashMap(data));
-		} catch (SQLException e) {
-			// TODO AÒadir el error a un posible log ya que esta funcion solo se ejecuta desde el cliente
-			e.printStackTrace();
-			return "0";
-		} catch (CommandBuilderBuildException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return "1";
-	}
 	
 	@Deprecated
 	/**
@@ -92,7 +70,7 @@ public class ServerUserFunctionality {
 	
 	
 	/**
-	 * Genera una conexi√≥n con el servidor SQL y ordena la informacion en un array para llamar a la funcion createUserInf.
+	 * Genera una conexion con el servidor SQL y ordena la informacion en un array para llamar a la funcion createUserInf.
 	 * @param data JSON que contiene informacion detallada de usuario.
 	 * @see {@link #createUserInf(Connection connection, String[] data)}
 	 */
@@ -187,37 +165,6 @@ public class ServerUserFunctionality {
 		}
 	}
 	
-	/**
-	 * Devuelve un booleano que indica si se ha introducido una combinacion de usuario/clave correcta
-	 * @param data JSONObject con la informacion de log
-	 * @return boolean Cierto si la informacion es correcta
-	 */
-	public static String logUser(JSONObject data) {
-		
-		String realPass=null;
-		
-		Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost/"+Server.dbName, "root", "");
-		String user = data.getString("user");
-		String pass = data.getString("pass");
-		System.out.println("Hola:"+pass);
-		try {
-			realPass = GeneralSQLFunctions.getEntryFromDatabase(conn, "usuario",  "pass", 
-					new WhereAST().addColumValueLO(
-							new String[]{"usuario"}, new String[]{user}, 
-							WhereAST.logicOP.AND, WhereAST.ariOP.EQ).packW());
-					
-		} catch (SQLException e) {
-			System.err.println("Ha habido un problema al intentar recopilar la verdadera password");
-			e.printStackTrace();
-			return "0";
-		}
-		if(realPass == null) return "0";
-		if(realPass.equals(pass)) 
-			return "1";
-		return "0";
-		
-	}
-	
 	
 	
 	/**
@@ -287,7 +234,7 @@ public class ServerUserFunctionality {
 	 * @param userID_A
 	 * @param userID_B
 	 * @param value
-	 * @return Codigo de error.
+	 * @return Codigo de error. 0 Correcto. 1 Error SQL
 	 */
 	public static int applyTransacction(Connection connection, String userID_A, String userID_B, int value) {
 		String dinero_A, dinero_B;
@@ -499,32 +446,8 @@ public class ServerUserFunctionality {
 		
 	}
 	
-	public static String getPreguntaSeguridad(JSONObject data) {
-		String usuario = data.getString("user");
-		if(usuario == null) return "-1";
-		String result = "-1";
-		Connection connection = Server.createConnection();
-		try {
-			result = GeneralSQLFunctions.getEntryFromDatabase(connection, tableName.USUARIO.getName(), "preg_seguridad", tableName.USUARIO.getID() + " = " + usuario);;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
 	
-	public static String getValidationSecurityQuestion(JSONObject data) {
-		String usuario = data.getString("user");
-		String resp = data.getString("resp");
-		Connection connection = Server.createConnection();
-		String realResp = null;
-		try {
-			realResp = GeneralSQLFunctions.getEntryFromDatabase(connection, tableName.USUARIO.getName(), "resp_seguridad", tableName.USUARIO.getID() + " = " + usuario);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return "-1";
-		}
-		if(realResp.equals(resp))
-			return "1";
-		return "0";
-	}
+	
+	
+	
 }

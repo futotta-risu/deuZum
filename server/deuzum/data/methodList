@@ -21,11 +21,19 @@
 
 # Database Commands
 
-logUser io.github.fatsquirrels.deuzum.net.ServerUserFunctionality logUser
-addUser	io.github.fatsquirrels.deuzum.net.ServerUserFunctionality createUserC
-addData	io.github.fatsquirrels.deuzum.net.ServerUserFunctionality createElement
+logUser io.github.fatsquirrels.deuzum.net.ServerCommandFunctions logUser
+addUser	io.github.fatsquirrels.deuzum.net.ServerCommandFunctions createUserC
+addData	io.github.fatsquirrels.deuzum.net.ServerCommandFunctions createElement
+delData io.github.fatsquirrels.deuzum.net.ServerCommandFunctions deleteElement
+
+getPregSeg	io.github.fatsquirrels.deuzum.net.ServerCommandFunctions getPreguntaSeguridad
+valPregSeg	io.github.fatsquirrels.deuzum.net.ServerCommandFunctions getValidationSecurityQuestion
 
 # addTransaction
 
+transac io.github.fatsquirrels.deuzum.net.ServerCommandFunctions makeTransaction
+addMoney io.github.fatsquirrels.deuzum.net.ServerCommandFunctions addMoney
+
 # Security Commands
 hash io.github.fatsquirrels.deuzum.Security.hashFunctions hashNumber
+

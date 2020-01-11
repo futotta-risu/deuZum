@@ -65,6 +65,10 @@ public class GenericSMFrame extends JFrame{
 		repaint();
 	}
 	
+	public void drawButtons(String[] buttonNames) {
+		buttonMenu.drawButtons(buttonNames);
+	}
+	
 	public void deleteButtonsM() {
 		buttonMenu.deleteAll();
 	}

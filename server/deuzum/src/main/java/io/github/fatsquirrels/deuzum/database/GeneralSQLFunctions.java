@@ -165,6 +165,18 @@ public final class GeneralSQLFunctions {
 		System.out.println(command.pack());
 		GeneralSQLFunctions.execUpdate(connection, command.pack());
 	}
+	
+	public static void deleteEntryFromDatabase(Connection connection, String table,
+			String id) throws CommandBuilderBuildException, SQLException {
+		tableName tableN = tableName.getTableName(table);
+		WhereAST where = new WhereAST().addValue(tableN.getID()+"='"+id+"'");
+		
+		CommandBuilderF command = new CommandBuilderF();	
+		command.setSQLType(StatementType.DELETE).setTable(table).addWhere(where);
+		GeneralSQLFunctions.execUpdate(connection, command.pack());
+		
+	}
+	
 	/**
 	 * Metodo para actualizar valores en una tabla
 	 * @param connection Conexion a la BD
@@ -261,6 +273,8 @@ public final class GeneralSQLFunctions {
 		
 		return nonNullableColumnNames;
 	}
+
+	
 	
 	 
 	

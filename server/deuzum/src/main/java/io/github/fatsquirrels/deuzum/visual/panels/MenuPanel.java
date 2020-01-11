@@ -142,8 +142,6 @@ public class MenuPanel extends JPanel{
 		for(int i = 0 ; i < columnSize;i++)
 			columnNames[i] =columnNameTypes.get(i).getIndex();
 		
-		
-		
 		CommandBuilderF cmdb = null;
 		try {
 			cmdb = new CommandBuilderF().setSQLType(StatementType.SELECT)
@@ -165,8 +163,8 @@ public class MenuPanel extends JPanel{
 			dataRS = GeneralSQLFunctions.getExecQuery(conn,cmdb.pack());
 			int actColumn = 0;
 			while(dataRS.next()) {
-				for(int i = 0; i < columnSize; i++)
-					tableData[actColumn][columnSize-i-1] = dataRS.getString(i+1);
+				for(int i = 0; i < columnSize; i++) 
+					tableData[actColumn][i] = dataRS.getString(columnNames[i]);
 				actColumn++;
 			}
 		} catch (SQLException e) {

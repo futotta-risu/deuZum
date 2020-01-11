@@ -18,7 +18,7 @@ import org.json.*;
  */
 interface Command{
 
-	String runCommand(JSONObject data);
+	String runCommand(JSONObject data) throws Exception;
 }
 
 /**

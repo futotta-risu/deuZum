@@ -32,6 +32,11 @@ public enum tableName {
 		return this.vals;
 	}
 	
+	/**
+	 * Obtiene un objeto tipo tableName dado el nombre de la tabla que buscamos
+	 * @param tableNameT
+	 * @return
+	 */
 	public static tableName getTableName(String tableNameT) {
 		for (tableName name : tableName.values()) 
 		    if(tableNameT.equals(name.getName()))
