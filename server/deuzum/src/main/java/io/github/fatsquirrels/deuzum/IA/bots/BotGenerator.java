@@ -23,8 +23,18 @@ import io.github.fatsquirrels.deuzum.IA.bots.types.TransactionBot;
 import io.github.fatsquirrels.deuzum.IA.bots.types.UserBot;
 import io.github.fatsquirrels.deuzum.utils.math.APair;
 
+/**
+ * Clase encargada de generar los Bots
+ * @see BotType
+ */
 public class BotGenerator {
 
+	/**
+	 * Metodo estatico que genera un bot
+	 * @param botType Tipo de Bot
+	 * @param name Nombre del Bot
+	 * @return BotBase Bot generado
+	 */
 	public static BotBase generateBot(BotType botType, String name) {
 		BotBase bot = null;
 		// Set the Specific Class of the Bot
@@ -59,6 +69,11 @@ public class BotGenerator {
 
 	}
 	
+	/**
+	 * Metodo que crea un MailBot
+	 * @param name Nombre del MailBot
+	 * @return MailBot generado
+	 */
 	public static BotBase addMailBot(String name) {
 		
 		List<String> destinatarios = new ArrayList<String>();

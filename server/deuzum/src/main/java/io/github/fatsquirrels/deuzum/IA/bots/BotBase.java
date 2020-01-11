@@ -1,6 +1,8 @@
 package io.github.fatsquirrels.deuzum.IA.bots;
 
-
+/**
+ * Clase abstracta que contiene las propiedades base de los bots
+ */
 public abstract class BotBase {
 
 	int id;

@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import io.github.fatsquirrels.deuzum.database.CommandBuilder;
 
 		
+@SuppressWarnings("deprecation")
 class CommandBuilderTest {
 
 	@Test
