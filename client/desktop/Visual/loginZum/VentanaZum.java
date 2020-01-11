@@ -1,3 +1,5 @@
+package loginZum;
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -54,6 +56,10 @@ public class VentanaZum extends JFrame  {
 	 */
 	public VentanaZum() {
 	initialize();
+	}
+
+	public VentanaZum(String text) {
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -140,4 +146,5 @@ public class VentanaZum extends JFrame  {
 
 	}
 	}
+
 
