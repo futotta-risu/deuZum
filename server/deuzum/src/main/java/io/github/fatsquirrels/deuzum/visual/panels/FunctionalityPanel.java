@@ -1,7 +1,6 @@
 package io.github.fatsquirrels.deuzum.visual.panels;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -11,7 +10,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -28,11 +26,13 @@ import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
 import io.github.fatsquirrels.deuzum.net.Server;
 import io.github.fatsquirrels.deuzum.res.Strings;
 import io.github.fatsquirrels.deuzum.utils.math.APair;
+import io.github.fatsquirrels.deuzum.utils.meta.anotations.Tested;
 import io.github.fatsquirrels.deuzum.visual.components.buttons.FlatButton;
 import io.github.fatsquirrels.deuzum.visual.panels.util.PairPanel;
 import io.github.fatsquirrels.deuzum.visual.statistics.GraphFunctions;
 import io.github.fatsquirrels.deuzum.visual.style.layout.VerticalFlowLayout;
 
+@Tested
 public class FunctionalityPanel extends JPanel {
 	
 	private static final long serialVersionUID = 4541688928942198726L;
@@ -89,15 +89,6 @@ public class FunctionalityPanel extends JPanel {
 		panel_Cluster_Sector.add(new PairPanel("Nombre de la clusterizacion", txtFileName));
 		panel_Cluster_Sector.add(btnClusterizarDb);
 		panel_Funct_IA.add(panel_Cluster_Sector, BorderLayout.NORTH);
-		JPanel panel_Funct_Seguridad = new JPanel(new FlowLayout());
-		
-		JButton btnEncriptar = new JButton("Encriptar");
-		JButton btnDesencriptar = new JButton("Desencriptar");
-		
-		panel_Funct_Seguridad.add(btnEncriptar);
-		panel_Funct_Seguridad.add(btnDesencriptar);
-		
-		mainPanel.addTab("Seguridad", panel_Funct_Seguridad);
 		
 		setLayout(new BorderLayout());
 		add(mainPanel,BorderLayout.CENTER);

@@ -23,12 +23,13 @@ import io.github.fatsquirrels.deuzum.database.tableName;
 import io.github.fatsquirrels.deuzum.database.exceptions.CommandBuilderBuildException;
 import io.github.fatsquirrels.deuzum.net.Server;
 import io.github.fatsquirrels.deuzum.utils.math.APair;
+import io.github.fatsquirrels.deuzum.utils.meta.anotations.Tested;
 import io.github.fatsquirrels.deuzum.visual.Dialogs.general.generalCreateDialog;
 import io.github.fatsquirrels.deuzum.visual.components.buttons.FlatButton;
 import io.github.fatsquirrels.deuzum.visual.style.layout.VerticalFlowLayout;
 
 
-
+@Tested
 public class MenuPanel extends JPanel{
 
 	private static final long serialVersionUID = 3963889402535275585L;

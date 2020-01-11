@@ -13,7 +13,9 @@ import java.awt.geom.RoundRectangle2D;
 
 import javax.swing.border.AbstractBorder;
 
+import io.github.fatsquirrels.deuzum.utils.meta.anotations.Tested;
 
+@Tested
 /**
  * Clase sacada de: https://stackoverflow.com/questions/15025092/border-with-rounded-corners-transparency
  * con modificaciones para adecuarse a nuestras necesidades

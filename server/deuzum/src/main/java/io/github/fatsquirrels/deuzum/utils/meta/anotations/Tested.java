@@ -5,6 +5,6 @@ import java.lang.annotation.RetentionPolicy;
 
 @Retention(RetentionPolicy.SOURCE)
 public @interface Tested {
-	boolean tested();
+	boolean tested() default true;
 }
 

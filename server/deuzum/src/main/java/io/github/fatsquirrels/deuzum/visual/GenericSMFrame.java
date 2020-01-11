@@ -7,9 +7,11 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import io.github.fatsquirrels.deuzum.utils.meta.anotations.Tested;
 import io.github.fatsquirrels.deuzum.visual.panels.mainFrame.ButtonMenu;
 import io.github.fatsquirrels.deuzum.visual.panels.mainFrame.MenuBar;
 
+@Tested
 /**
  * Generic Status-Menu Frame.
  * 

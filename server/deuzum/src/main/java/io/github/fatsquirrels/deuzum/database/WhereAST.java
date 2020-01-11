@@ -63,7 +63,7 @@ public class WhereAST {
 				String[] tempD = new String[length];
 				for(int i  = 0; i <  length;  i++) 
 					tempD[i] = children.get(i).pack();
-				result = "(" +String.join(" " +logicOPi.value+" ", tempD) + ")";
+				result = "(" +String.join(") " +logicOPi.value+" (", tempD) + ")";
 			}
 				
 			return result;

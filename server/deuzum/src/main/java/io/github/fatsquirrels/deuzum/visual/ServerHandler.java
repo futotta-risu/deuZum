@@ -9,6 +9,7 @@ import io.github.fatsquirrels.deuzum.net.Server;
 import io.github.fatsquirrels.deuzum.net.ServerThread;
 import io.github.fatsquirrels.deuzum.res.ServerProperties;
 import io.github.fatsquirrels.deuzum.res.Strings;
+import io.github.fatsquirrels.deuzum.utils.meta.anotations.Tested;
 import io.github.fatsquirrels.deuzum.visual.components.buttons.IconizedButton;
 import io.github.fatsquirrels.deuzum.visual.components.buttons.MenuButton;
 import io.github.fatsquirrels.deuzum.visual.panels.ConfigPanel;
@@ -24,6 +25,7 @@ import javax.swing.ImageIcon;
 import java.awt.Dimension;
 import javax.swing.JComponent;
 
+@Tested
 /**
  * Clase de la ventana principal del servidor.
  *

@@ -21,6 +21,7 @@ import javax.swing.border.EmptyBorder;
 
 import io.github.fatsquirrels.deuzum.IA.bots.*;
 import io.github.fatsquirrels.deuzum.utils.WebpageConnection;
+import io.github.fatsquirrels.deuzum.utils.meta.anotations.Tested;
 import io.github.fatsquirrels.deuzum.visual.components.textAreaNoWrite;
 import io.github.fatsquirrels.deuzum.visual.components.buttons.FlatButton;
 import io.github.fatsquirrels.deuzum.visual.style.CustomColors;
@@ -30,7 +31,7 @@ import java.util.HashMap;
 import javax.swing.ScrollPaneConstants;
 
 
-
+@Tested
 public class HomePanel extends JPanel{
 
 	private static final long serialVersionUID = -2649734373790386687L;

@@ -7,6 +7,8 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.LayoutManager;
 
+import io.github.fatsquirrels.deuzum.utils.meta.anotations.Tested;
+@Tested
 /**
  * A flow layout arranges components in a directional flow, much
  * like lines of text in a paragraph. The flow direction is

@@ -9,6 +9,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import io.github.fatsquirrels.deuzum.utils.meta.anotations.Tested;
+
 public class DropAnimation {
 
 public static final int RUN_TIME = 400;
@@ -19,6 +21,7 @@ private Rectangle to;
 
 private long startTime;
 
+@Tested
 public DropAnimation(JPanel panel, Rectangle from, Rectangle to) {
     this.panel = panel;
     this.from = from;
