@@ -26,7 +26,7 @@ public class MyServerThread implements Runnable{
     @Override
     public void run() {
 
-        try {
+        /*try {
             ss = new ServerSocket(50337);
             while (true){
                 s = ss.accept();
@@ -47,6 +47,6 @@ public class MyServerThread implements Runnable{
         }catch (IOException e){
             e.printStackTrace();
         }
-
+*/
     }
 }

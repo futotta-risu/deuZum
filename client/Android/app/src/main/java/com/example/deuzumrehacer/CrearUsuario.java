@@ -9,21 +9,22 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
 
 public class CrearUsuario extends AppCompatActivity {
 
-    private EditText tCorreo;
     private EditText tNombre;
     private EditText tApellido;
     private EditText tTelefono;
-    private EditText tDireccion;
-    private EditText dFechaNacimiento;
-    private Spinner sGenero;
     private EditText nUsuario;
     private EditText cUsuario;
     private Spinner sPreguntaSeguridad;
@@ -36,13 +37,9 @@ public class CrearUsuario extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_usuario);
 
-        tCorreo = findViewById(R.id.textoCorreoElectronico);
         tNombre = findViewById(R.id.textoNombre);
         tApellido = findViewById(R.id.textoApellido);
         tTelefono = findViewById(R.id.textoTelefono);
-        tDireccion = findViewById(R.id.textoDireccion);
-        dFechaNacimiento = findViewById(R.id.fechaFechaNacimiento);
-        sGenero = findViewById(R.id.spinnerGenero);
         nUsuario = findViewById(R.id.textoNombreUsuario);
         cUsuario = findViewById(R.id.contrasenyaContrasenya);
         sPreguntaSeguridad = findViewById(R.id.spinnerPreguntaSeguridad);
@@ -50,19 +47,17 @@ public class CrearUsuario extends AppCompatActivity {
         bSiguiente = findViewById(R.id.botonCrear);
         bAtras = findViewById(R.id.botonAtrasCU1);
 
-        String[] opciones1 = {"Hombre", "Mujer", "Otro"};
+        ArrayList<String> opciones = new ArrayList<String>();
 
-        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, opciones1);
-        sGenero.setAdapter(adapter1);
+        opciones.add("¿Donde cursaste la educación primaria?");
+        opciones.add("¿Como se llama tú heman@ pequeñ@?");
+        opciones.add("¿Como se llamaba tu primera mascota?");
 
-        String[] opciones2 = {"¿Donde cursaste la educación primaria?", "¿Como se llama tú heman@ pequeñ@?", "¿Como se llamaba tu primera mascota?"};
-
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, opciones2);
-        sPreguntaSeguridad.setAdapter(adapter2);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, opciones);
+        sPreguntaSeguridad.setAdapter(adapter);
 
         try {
-            tNombre.setText(Util.getProperty("nombre",getApplicationContext()));
-            tApellido.setText(Util.getProperty("apellido",getApplicationContext()));
+            bAtras.setText(Util.getProperty("atras",getApplicationContext()));
             bSiguiente.setText(Util.getProperty("siguiente",getApplicationContext()));
         } catch (IOException e) {
             e.printStackTrace();
@@ -75,6 +70,13 @@ public class CrearUsuario extends AppCompatActivity {
             }
         });
 
+        bSiguiente.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                informacionUsuario();
+            }
+        });
+
         bAtras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,42 +85,75 @@ public class CrearUsuario extends AppCompatActivity {
         });
     }
 
-    public void crearUsuario(){
+    public void crearUsuario() {
+
+        JSONObject jsonData = new JSONObject();
+        try {
+            jsonData.put("tableName","usuario");
+            jsonData.put("user", String.valueOf(nUsuario.getText()));
+            jsonData.put("pass",String.valueOf(cUsuario.getText()));
+            jsonData.put("pregSeguridad", String.valueOf(sPreguntaSeguridad.getSelectedItemPosition()+1));
+            jsonData.put("respSeguridad",String.valueOf(tRespuestaSeguridad.getText()) );
+        } catch (JSONException e) {
+            Toast toast= Toast. makeText(getApplicationContext(),
+                    "Local: Error al intentar añadir al usuario.",Toast. LENGTH_SHORT);
+            toast. setMargin(50,50);
+            toast. show();
+            e.printStackTrace();
+            return;
+        }
+
+        Thread t1 = new Thread(new MessageSender("addData", jsonData));
+        t1.start();
         try{
-            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/bizum_bd", "root", "");
-            PreparedStatement pst = cn.prepareStatement("insert into usuario values(?,?,?,?,?,?,?,?,?)");
-
-            pst.setString(1, "0");
-            pst.setString(2, String.valueOf(nUsuario.getText()));
-            pst.setString(3, String.valueOf(cUsuario.getText()));
-            pst.setString(4, String.valueOf(tNombre.getText()));
-            pst.setString(5, String.valueOf(tApellido.getText()));
-            pst.setString(6, String.valueOf(tCorreo.getText()));
-            pst.setString(7, String.valueOf(tTelefono.getText()));
-            pst.setString(8, sPreguntaSeguridad.getSelectedItem().toString().trim());
-            pst.setString(9, String.valueOf(tRespuestaSeguridad.getText()));
-
-            pst.executeUpdate();
-
-            nUsuario.setText("");
-            cUsuario.setText("");
-            tNombre.setText("");
-            tApellido.setText("");
-            tCorreo.setText("");
-            tTelefono.setText("");
-
-            tRespuestaSeguridad.setText("");
-
-            Intent i = new Intent(this, MenuPrincipal.class);
-            startActivity(i);
-
-        }catch (Exception e){
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-
+        if(ServerRespond.result.equals("0")){
+            Toast toast= Toast. makeText(getApplicationContext(),
+                    "Server: Error al intentar añadir al usuario. ",Toast. LENGTH_SHORT);
+            toast. setMargin(50,50);
+            toast. show();
+        }
+        Intent i = new Intent(this, MenuPrincipal.class);
+        startActivity(i);
 
     }
+
+    public void informacionUsuario() {
+        JSONObject jsonData = new JSONObject();
+        try {
+            jsonData.put("tableName","informacionUsuario");
+            jsonData.put("nombre", String.valueOf(tNombre.getText()));
+            jsonData.put("apellidos",String.valueOf(tApellido.getText()));
+            jsonData.put("telefono",String.valueOf(tTelefono.getText()) );
+        } catch (JSONException e) {
+            Toast toast= Toast. makeText(getApplicationContext(),
+                    "Local: Error al intentar añadir la informacion del usuario.",Toast. LENGTH_SHORT);
+            toast. setMargin(50,50);
+            toast. show();
+            e.printStackTrace();
+            return;
+        }
+
+        Thread t1 = new Thread(new MessageSender("addData", jsonData));
+        t1.start();
+        try{
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        if(ServerRespond.result.equals("0")){
+            Toast toast= Toast. makeText(getApplicationContext(),
+                    "Server: Error al intentar añadir la informacion del usuario. ",Toast. LENGTH_SHORT);
+            toast. setMargin(50,50);
+            toast. show();
+        }
+    }
+
     public void abrirInicioSesion() {
         Intent i = new Intent(this, InicioSesion.class);
         startActivity(i);
