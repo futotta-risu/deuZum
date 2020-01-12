@@ -50,8 +50,8 @@ public class EnviarDinero extends AppCompatActivity {
     public void enviarDinero(){
         JSONObject jsonData = new JSONObject();
         try {
-            jsonData.put("tableName","transacciones");
-            jsonData.put("dest", String.valueOf(tUsuarioDestinatario.getText()));
+            jsonData.put("tableName","transaccion");
+            jsonData.put("destino", String.valueOf(tUsuarioDestinatario.getText()));
             jsonData.put("dinero", String.valueOf(tImporte.getText()));
         } catch (JSONException e) {
             Toast toast= Toast. makeText(getApplicationContext(),
