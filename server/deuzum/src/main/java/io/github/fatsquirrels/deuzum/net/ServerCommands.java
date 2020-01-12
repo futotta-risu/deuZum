@@ -35,6 +35,8 @@ public class ServerCommands {
 	 * Mapa que contiene los commandos y sus respectivas funciones.
 	 */
 	public static Map<String, Command> serverCommands;
+
+	final private static ArchivoLog logger = new ArchivoLog("ServerCommands");
 	
 	/**
 	 * Abre el mapa que contiene una lista de direcciones de metodos y las guarda en un HashMap. 
@@ -77,6 +79,7 @@ public class ServerCommands {
 						} catch (ClassNotFoundException | NoSuchMethodException | SecurityException 
 								| IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 							ArchivoLog.addLineError(Level.SEVERE, e.getMessage(), e);
+
 							e.printStackTrace();
 						} 
 						return null;
@@ -87,6 +90,7 @@ public class ServerCommands {
 			  
 		} catch (IOException e) {
 			ArchivoLog.addLineError(Level.SEVERE, e.getMessage(), e);
+
 			e.printStackTrace();
 		}
 		  

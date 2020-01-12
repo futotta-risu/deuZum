@@ -73,5 +73,8 @@ public class VentanaLogin extends JFrame{
 		add(top, BorderLayout.NORTH);
 		add(center, BorderLayout.CENTER);
 	}
+	public static void main(String[] args) {
+		new VentanaLogin();
+	}
 
 }

@@ -23,6 +23,8 @@ public class ServerSocketHandler extends Thread{
     private PrintWriter out;
     private BufferedReader in;
 	
+
+	final private static ArchivoLog logger = new ArchivoLog("ServerSocketHandler");
 	/**
 	 * Crea un hilo que contiene un socket recibido y una conexi�n para la ejecuci�n de comandos del cliente.
 	 * @param Socket socket
@@ -58,6 +60,7 @@ public class ServerSocketHandler extends Thread{
 	        socket.close();
 		} catch (IOException e) {
 			ArchivoLog.addLineError(Level.SEVERE, e.getMessage(), e);
+
 		}
         
 	}
