@@ -77,7 +77,7 @@ public class VentanaZum extends JFrame  {
 	   	 
 	   	 
 	   	 JPanel panel = new JPanel();
-	   	 panel.setLayout(new GridLayout(4,1));
+	   	 panel.setLayout(new GridLayout(3,1));
 	   	 
 
 		
