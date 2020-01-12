@@ -10,7 +10,6 @@ import java.util.logging.StreamHandler;
 
 
 
-
 /**
  *  Mediante esta clase, pretendemos que cada vez que nosotros hagamos un cambio, haya algun error en algun
  * metodo/clase, se almacene esa informacion en algun lado.
@@ -42,7 +41,6 @@ public class ArchivoLog {
 	
 	
 	/**
-
 	 * Aqui podemos encontrar dos metodos que hacen referencia al ArchivoLog
 	 * estos seran los metodos a los que se llamaran desde cada clase/ metodo de cada clase para crear el 
 	 * archivo log o añadir informaion al mismo.
@@ -52,8 +50,7 @@ public class ArchivoLog {
 	 * @param message --> y el mensaje que debe aparecer respecto al metodo/clase al que se refiere
 	 */
 	
-
-    public static void addLine(Level level, String message) {
+    public void addLine(Level level, String message) {
     	logger.log(level, message);
     }
 
@@ -69,9 +66,8 @@ public class ArchivoLog {
 	 */
 	
     
-   
-    public static void addLineError(Level level, String message, Exception e) {
-
+    
+    public void addLineError(Level level, String message, Exception e) {
     	logger.log(level, message, e);
     }
 }

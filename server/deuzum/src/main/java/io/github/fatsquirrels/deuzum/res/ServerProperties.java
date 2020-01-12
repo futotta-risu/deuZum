@@ -45,8 +45,4 @@ public class ServerProperties {
 			e.printStackTrace();
 		}
 	}
-	public static void createErrorLog() {
-		new ArchivoLog("logServerHandlerFrame");
-	}
-
 }

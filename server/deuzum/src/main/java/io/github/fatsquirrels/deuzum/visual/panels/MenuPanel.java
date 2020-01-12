@@ -63,7 +63,7 @@ public class MenuPanel extends JPanel{
 		add(leftList, BorderLayout.CENTER);
 		
 		rightMenu = new JPanel(new VerticalFlowLayout(10,10,10));
-		rightMenu.setBackground(CustomColors.LightBluePale);
+		rightMenu.setBackground(CustomColors.BluePale);
 		//Create
 		create = new FlatButton("Crear " + type.getName());
 		create.addActionListener(e->createElement());
@@ -98,7 +98,7 @@ public class MenuPanel extends JPanel{
 		// Es invisible
 		JTextField sizeUp = new JTextField(20);
 		sizeUp.setBorder(new EmptyBorder(0,0,0,0));
-		sizeUp.setBackground(CustomColors.LightBluePale);
+		sizeUp.setBackground(CustomColors.BluePale);
 		sizeUp.setEditable(false);
 		rightMenu.add(sizeUp);
 		

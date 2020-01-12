@@ -162,8 +162,7 @@ public class ServerUserFunctionality {
 		try {
 			GeneralSQLFunctions.updateEntryFromDatabase(conn, "usuario", columnNamesUserInf, data, where);
 		} catch (SQLException | CommandBuilderBuildException e) {
-			ArchivoLog.addLineError(Level.SEVERE, e.getMessage(), e);
-
+			logger.addLineError(Level.SEVERE, e.getMessage(), e);
 		}
 	}
 	
@@ -200,8 +199,7 @@ public class ServerUserFunctionality {
 			
 			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "transaccion", columns, new String[]{userID_A, userID_B,String.valueOf(value)});
 		} catch (SQLException | CommandBuilderBuildException e) {
-			ArchivoLog.addLineError(Level.SEVERE, e.getMessage(), e);
-
+			logger.addLineError(Level.SEVERE, e.getMessage(), e);
 			return 1;
 		}
 		return 0;
@@ -251,8 +249,7 @@ public class ServerUserFunctionality {
 					new String[] {"dinero"}, new String[] {Integer.toString(actdinero_B)},whereB);
 			
 		} catch (SQLException| CommandBuilderBuildException e) {
-			ArchivoLog.addLineError(Level.SEVERE, e.getMessage(), e);
-
+			logger.addLineError(Level.SEVERE, e.getMessage(), e);
 			return 1;
 		}
 		
@@ -312,7 +309,7 @@ public class ServerUserFunctionality {
 	
 	
 	public static void createGroup(Connection connection, String[] data) {
-		// TODO aniadir las funciones de verificacion de groupName
+		// TODO a�adir las funciones de verificacion de groupName
 		try {
 			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "grupo", new String[] {"nombre", "descripcion"}, data);
 		} catch (SQLException e) {
@@ -373,7 +370,7 @@ public class ServerUserFunctionality {
 	}
 	
 	public static void createAccount(Connection connection, String[] data) {
-		// TODO aniadir las funciones de verificacion de userId, accountName
+		// TODO a�adir las funciones de verificacion de userId, accountName
 		try {
 			// TODO cambiar esto entero para que meta mediante mapas
 			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "cuenta", 
@@ -400,7 +397,7 @@ public class ServerUserFunctionality {
 		}
 	}
 	public static void updateAccount(Connection connection, String accountID, String[] columns, String[] data) {
-		// TODO aniadir las funciones de verificacion de userId, accountName
+		// TODO a�adir las funciones de verificacion de userId, accountName
 		try {
 			WhereAST where = new WhereAST().addValue("id='"+accountID+"'");
 			GeneralSQLFunctions.updateEntryFromDatabase(connection, "cuenta", columns, data, where);
@@ -429,8 +426,7 @@ public class ServerUserFunctionality {
 			condition.addColumValueLO(new String[] {tableName.CUENTA.getID()},new String[] {account}, WhereAST.logicOP.AND, WhereAST.ariOP.EQ);
 			GeneralSQLFunctions.updateEntryFromDatabase(connection, tableName.CUENTA.getName(), new String[] {"dinero"},new String[] {newMoney}, condition);
 		}catch (SQLException|CommandBuilderBuildException e) {
-			ArchivoLog.addLineError(Level.SEVERE, e.getMessage(), e);
-
+			logger.addLineError(Level.SEVERE, e.getMessage(), e);
 			return "-1";
 		} 
 		return "1";

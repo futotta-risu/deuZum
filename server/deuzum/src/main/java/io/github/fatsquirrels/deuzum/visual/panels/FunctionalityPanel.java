@@ -211,7 +211,6 @@ public class FunctionalityPanel extends JPanel {
 	}
 	
 	public void saveClusterData(ClusterGroup clusterG) throws IOException {
-		if(txtFileName.getText().isEmpty()) return;
 		ObjectOutputStream o = new ObjectOutputStream(
 				new FileOutputStream(
 						new File(String.format("data/clusters/%s.bin", txtFileName.getText())
