@@ -23,7 +23,7 @@ public class GroupBot extends BotBase implements BotFunctions{
 	@SuppressWarnings("unused")
 	private String name;
 	private Connection connection;
-	private long cantidad;
+	private Integer cantidad;
 	private Thread hiloGrupo;
 	
 	/**
@@ -31,7 +31,7 @@ public class GroupBot extends BotBase implements BotFunctions{
 	 * @param namet Nombre del bot
 	 * @param cantidad Cantidad de grupos que se quieren introducir en la BD
 	 */
-	public GroupBot(String name, long cantidad) {
+	public GroupBot(String name, Integer cantidad) {
 		this.name = name;
 		this.cantidad = cantidad;
 		this.connection = Server.getDefaultServerConnection();

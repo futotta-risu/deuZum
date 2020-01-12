@@ -24,14 +24,14 @@ public class UserBot extends BotBase implements BotFunctions{
 
 	private Thread hiloUsuario;
 	private Connection connection;
-	private long cantidad;
+	private Integer cantidad;
 	
 	/**
 	 * Contructor de la clase, crea un UserBot con los parametros recibidos
 	 * @param namet Nombre del bot
 	 * @param cantidad Cantidad de usuarios que se quieren introducir en la BD
 	 */
-	public UserBot(String namet, long cantidad) {
+	public UserBot(String namet, Integer cantidad) {
 		this.name = namet;
 		this.cantidad = cantidad;
 		this.connection = Server.getDefaultServerConnection();
