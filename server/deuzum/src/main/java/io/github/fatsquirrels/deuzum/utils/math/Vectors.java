@@ -16,7 +16,7 @@ import io.github.fatsquirrels.deuzum.utils.meta.anotations.Tested;
  * @see #isZero
  * @see #isEqual
  */
-@Tested(tested = true)
+@Tested
 public class Vectors {
 	
 	/**

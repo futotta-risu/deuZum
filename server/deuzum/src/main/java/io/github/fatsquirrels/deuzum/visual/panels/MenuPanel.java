@@ -86,6 +86,8 @@ public class MenuPanel extends JPanel{
 	private void setButtonAble(boolean able) {
 		if(editar!=null) editar.setEnabled(able);
 		delete.setEnabled(able);
+		revalidate();
+		repaint();
 	}
 	
 	private void createElement() {

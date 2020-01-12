@@ -82,13 +82,7 @@ public class Server implements Runnable{
         try {
         	InetAddress addr = InetAddress.getByName("127.0.0.1");
 
-        	// and now you can pass it to your socket-constructor
         	serverSocket =  new ServerSocket(this.port, 50, addr);
-			System.out.println("Binded");
-			System.out.println(serverSocket.getLocalPort());
-			System.out.println(serverSocket.isBound());
-			System.out.println(serverSocket.getInetAddress());
-			System.out.println(serverSocket.getLocalSocketAddress());
 			while (true) 
 				new ServerSocketHandler(serverSocket.accept(), connection).start();
 	            

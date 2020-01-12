@@ -5,9 +5,12 @@ import static org.junit.Assert.*;
 import java.util.Arrays;
 
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 
 import io.github.fatsquirrels.deuzum.utils.math.Vectors;
 
+
+@DisplayName("Math-> Vectors Specifications")
 public class VectorsTest {
 
 	@Test

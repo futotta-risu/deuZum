@@ -6,7 +6,9 @@ import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 
+@DisplayName("Math-> Metric Specifications")
 public class MetricsTest {
 
 	
@@ -14,7 +16,7 @@ public class MetricsTest {
 	public void testEuclideanDistance() {
 		double[] arr1 = {0.1, 0.2, 0.3};
 		double result = euclideanDistance(arr1);
-		assertEquals(true, Math.abs(result-0.374166)<0.1);
+		assertEquals("Error en la distancia euclidiana respecto a 0",result, 0.374166,0.1);
 	}
 	
 	
@@ -23,7 +25,7 @@ public class MetricsTest {
 		double[] arr1 = {0.3, 0.2, 0.7};
 		double[] arr2 = {0.1, 0.4, 0.3};
 		double result = euclideanDistance(arr1, arr2);
-		assertEquals(true, Math.abs(result-0.489898)<0.1);
+		assertEquals("Error en la distancia euclidiana entre dos vectores ",result, 0.489898,0.1);
 	}
 	
 	@Test
@@ -32,17 +34,16 @@ public class MetricsTest {
 		double radious = 2;
 		double[] newPos = {3, 2, 1};
 		double result = flatKernel(center, radious, newPos);
-		assertEquals(0, result);
+		assertEquals("Error en el flat kernel",0, result,0.01);
 			
 	}
 	
 	@Test
 	public void getMiniumDistancePoint() {
-		//TODO implementar este test
-		double[] point = null;
-		double[][] pointList = null;
-		//int result = Metrics.getMinimumDistancePoint(point, pointList);
-		//assertEquals(expected, result);
+		double[] point = {1,2};
+		double[][] pointList = {{2,3},{5,6},{0,0}};
+		int result = Metrics.getMinimumDistancePoint(point, pointList);
+		assertEquals("Error en la distancia al punto minimo",0, result);
 	
 	}
 	

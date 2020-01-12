@@ -73,10 +73,11 @@ public class GroupBot extends BotBase implements BotFunctions{
 							String randomId = arrIds[r.nextInt(users)];
 							int tempMemberId = getLastIdGroup();
 							GeneralSQLFunctions.insertEntryIntoDatabase(connection, "grupomiembro", new String[] {"id", "id_grupo", "id_miembro", "permisos"}, 
-									new String[] {tempMemberId+"", tempId+"", randomId, 0+""});
+									new String[] {tempMemberId+"", tempId+"", randomId, 1+""});
 						}
 					}						
 				} catch (SQLException | CommandBuilderBuildException e) {
+					e.printStackTrace();
 					JOptionPane.showMessageDialog(null, "Ha habido un error con el bot. Cerrando el hilo.");
 					return;
 				}

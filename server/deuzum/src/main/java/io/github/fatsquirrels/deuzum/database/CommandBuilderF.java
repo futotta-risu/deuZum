@@ -2,6 +2,7 @@ package io.github.fatsquirrels.deuzum.database;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -57,8 +58,8 @@ public class CommandBuilderF {
 		 */
 		public void addKeys(String[] keys) {
 			if(this.isRandom) return;
-			for(String i : keys) 
-				this.keys.add(i);
+			Arrays.stream(keys).forEach(this.keys::add);
+
 		}
 		/**
 		 * Devuelve una cadena de texto sobre los valores de Orden
@@ -212,8 +213,7 @@ public class CommandBuilderF {
 		return this;
 	}
 	public CommandBuilderF setGroupBy(String[] keys) {
-		for(String i : keys)
-			this.group.add(i);
+		Arrays.stream(keys).forEach(this.group::add);
 		return this;
 	}
 	public CommandBuilderF setLimit(int limit) throws CommandBuilderBuildException{

@@ -4,8 +4,11 @@ package io.github.fatsquirrels.deuzum.utils.math;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
+import io.github.fatsquirrels.deuzum.utils.meta.anotations.Tested;
 
+@Tested
 /**
  * Clase Estadistica
  * La utilidad de esta clase es obtener diferentes tipos de Modas
@@ -22,25 +25,19 @@ public final class Statistics {
 	 */
 	public static int getModa(int[] muestras) {
 
-	    int maximoNumRepeticiones= 0;
+	    int actMax= 0;
 	    int moda= 0;
-
-	    for(int i=0; i<muestras.length; i++)
-	    {
-	        int numRepeticiones= 0;
-	        for(int j=0; j<muestras.length; j++)
-	        {
-	            if(muestras[i]==muestras[j])
-	            {
-	                numRepeticiones++;
-	            }  
-	            if(numRepeticiones>maximoNumRepeticiones)
-	            {
-	                moda= muestras[i];
-	                maximoNumRepeticiones= numRepeticiones;
-	            }  
-	        }
-	    }  
+	    HashMap<Integer,Integer> reps = new HashMap<Integer,Integer>();
+	    for(int i=0; i<muestras.length; i++) {
+	    	if(reps.containsKey(muestras[i]))
+	    		reps.put(muestras[i], reps.get(muestras[i])+1);
+	    	else reps.put(muestras[i], 1);
+	    }
+	    for(Entry<Integer, Integer> a : reps.entrySet())
+	    	if(actMax<a.getValue()) {
+	    		actMax = a.getValue();
+	    		moda = a.getKey();
+	    	}
 	   return moda;
 	}   
 	

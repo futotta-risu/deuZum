@@ -20,7 +20,7 @@
 *.zip
 *.tar.gz
 *.rar
-
+*.bin
 
 #Evitamos que eliminen el lab
 !src/server/lib/*

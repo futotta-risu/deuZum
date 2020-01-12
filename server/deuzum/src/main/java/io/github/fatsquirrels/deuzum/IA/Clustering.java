@@ -70,8 +70,6 @@ public class Clustering {
 		if (usersSize ==0) return -1;
 		if(users[0].length!=newVector.length) return -1;
 		
-		
-		
 		Pair[] distanciasIndex = new Pair[usersSize];
 				
 		for (int i = 0; i < usersSize; i++) 

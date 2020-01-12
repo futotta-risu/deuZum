@@ -50,6 +50,9 @@ public class ClusterGroup  implements Serializable{
 		return new APair<ArrayList<ClusterElement>,double[][]>(orden,realData);
 		
 	}
+	public HashMap<ClusterElement, Integer> getCategory(){
+		return this.dataCategory;
+	}
 	
 	
 }

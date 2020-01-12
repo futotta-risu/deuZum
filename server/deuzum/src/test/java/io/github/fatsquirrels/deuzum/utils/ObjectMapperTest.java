@@ -1,20 +1,24 @@
 package io.github.fatsquirrels.deuzum.utils;
 
-import static org.junit.jupiter.api.Assertions.*;
+
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import static org.junit.Assert.assertEquals;
+
 import java.awt.Component;
 import java.util.HashMap;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import io.github.fatsquirrels.deuzum.utils.ObjectMapper;
 
+@DisplayName("ObjectMapper Specifications")
 class ObjectMapperTest {
 	
-	//TODO Arreglar esto
 	@Test
 	void testCreateComponentMap() {
 		JPanel panel = new JPanel();
@@ -28,7 +32,7 @@ class ObjectMapperTest {
 		expected.put("txt1", txt1);
 		
 		HashMap<String, Component > actual = ObjectMapper.createComponentMap(panel);
-		assertEquals(expected, actual);
+		assertEquals("Error al intentar crear un mapa de componentes",expected, actual);
 	}
 	
 	
@@ -42,7 +46,7 @@ class ObjectMapperTest {
 		
 		Component expected = btn1;
 		Component actual = ObjectMapper.getComponentByName("btn1", hashMap);
-		assertEquals(expected, actual);
+		assertEquals("Error al intentar obtener un component del mapa",expected, actual);
 		
 		
 	}

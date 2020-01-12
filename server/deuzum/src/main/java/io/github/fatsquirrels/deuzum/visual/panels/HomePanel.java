@@ -108,9 +108,9 @@ public class HomePanel extends JPanel{
 			try {
 				WebpageConnection.openWebpage(FAQ_URL);
 			} catch (MalformedURLException | URISyntaxException malformedURL) {
-				JOptionPane.showMessageDialog(this, "El enlace no es valido.");
+				JOptionPane.showMessageDialog(this, malformedURL.getMessage(), "El enlace no es valido.", JOptionPane.ERROR_MESSAGE);
 			} catch (IOException IOExcp) {
-				JOptionPane.showMessageDialog(this, "El enlace no se ha podido abrir.");
+				JOptionPane.showMessageDialog(this, IOExcp.getMessage(), "El enlace no se ha podido abrir.", JOptionPane.ERROR_MESSAGE);
 			} 
 			
 		});
@@ -120,9 +120,9 @@ public class HomePanel extends JPanel{
 			try {
 				WebpageConnection.openWebpage(ABOUT_US_URL);
 			} catch (MalformedURLException | URISyntaxException malformedURL) {
-				JOptionPane.showMessageDialog(this, "El enlace no es valido.");
+				JOptionPane.showMessageDialog(this, malformedURL.getMessage(), "El enlace no es valido.", JOptionPane.ERROR_MESSAGE);
 			} catch (IOException IOExcp) {
-				JOptionPane.showMessageDialog(this, "El enlace no se ha podido abrir.");
+				JOptionPane.showMessageDialog(this, IOExcp.getMessage(), "El enlace no se ha podido abrir.", JOptionPane.ERROR_MESSAGE);
 			} 
 			
 		});

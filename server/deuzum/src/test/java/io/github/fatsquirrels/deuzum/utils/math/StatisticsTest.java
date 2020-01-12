@@ -2,13 +2,12 @@ package io.github.fatsquirrels.deuzum.utils.math;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import io.github.fatsquirrels.deuzum.utils.math.Statistics;
 
-
-
+@DisplayName("Math-> Statistics Specifications")
 class StatisticsTest {
 
 	@Test

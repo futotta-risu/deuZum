@@ -3,6 +3,7 @@ package io.github.fatsquirrels.deuzum.database;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import io.github.fatsquirrels.deuzum.database.CommandBuilderF;
@@ -11,6 +12,7 @@ import io.github.fatsquirrels.deuzum.database.StatementType;
 import io.github.fatsquirrels.deuzum.database.WhereAST;
 import io.github.fatsquirrels.deuzum.database.exceptions.CommandBuilderBuildException;
 
+@DisplayName("CommandBuilderF Specifications")
 public class CommandBuilderFTest {
 	@Test
 	void testInsert() {

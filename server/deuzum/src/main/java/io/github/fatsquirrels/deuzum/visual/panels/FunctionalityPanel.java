@@ -172,18 +172,22 @@ public class FunctionalityPanel extends JPanel {
 			}
 			// Clusterizar
 			 
-			for(int i = 0; i < result.length; i++) 
-				clusterGroup.setCategory(orden.get(i), result[i]);
+			String sqlUpdate = "UPDATE usuario SET categoria = %s WHERE id = %s";
 			
+			for(int i = 0; i < result.length; i++) {
+				clusterGroup.setCategory(orden.get(i), result[i]);
+				GeneralSQLFunctions.execUpdate(connection,
+						String.format(sqlUpdate, String.valueOf(result[i]+1), orden.get(i).getName()));
+			}
 			
 			saveClusterData(clusterGroup);
 			
 			
+			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Error en el SQL", JOptionPane.ERROR_MESSAGE);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Error al guardar el archivo", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	

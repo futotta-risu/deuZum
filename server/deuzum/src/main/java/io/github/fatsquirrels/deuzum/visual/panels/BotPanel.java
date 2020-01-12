@@ -85,6 +85,7 @@ public class BotPanel extends JPanel{
 		
 		if(!Server.isRunning) {
 			JOptionPane.showMessageDialog(this, "No puede activar bots con el servidor apagado.\n Enciendalo por favor.");
+			
 			btnEnabled.setSelected(false);
 		}
 			
