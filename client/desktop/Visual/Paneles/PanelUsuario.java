@@ -3,6 +3,8 @@ package Paneles;
 import javax.swing.JPanel;
 
 import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -12,6 +14,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextPane;
 
+import mensajeRespuesta.MessageSender;
+import mensajeRespuesta.ServerRespuesta;
 
 import javax.swing.JRadioButton;
 
@@ -82,7 +86,42 @@ public class PanelUsuario extends JPanel{
 		botones.add(rdbtnFemenino);
 		botones.add(rdbtnMasculino);
 		
+
+JButton btnenviar=new JButton("Enviar");
+		btnenviar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				
+				String usuario = textPaneNombre.getText();
+				String apellido = textPaneApellidos.getText();
+				String telefono = textPaneTelefono.getText();
+				
+				
+				JSONObject data = new JSONObject();
+				
+				data.put("usuario", usuario);
+				data.put("apellido", apellido);
+				data.put("telefono",telefono);
+				
+				Thread t1 = new Thread(new MessageSender("logUser", data));
+				t1.start();
+				try {
+		            Thread.sleep(300);
+		        } catch (InterruptedException e) {
+		            e.printStackTrace();
+		        }
+				
+				
+				ServerRespuesta.result = "-1";
+			
+			
+			}
+		});
 		
+    }
+
     }
 
 	public ButtonGroup getBotones() {
