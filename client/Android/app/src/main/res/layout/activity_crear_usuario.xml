@@ -28,7 +28,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.148"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText4" />
+        app:layout_constraintTop_toBottomOf="@+id/textoEmail" />
 
     <EditText
         android:id="@+id/textoApellido"
@@ -43,7 +43,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.82"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText4" />
+        app:layout_constraintTop_toBottomOf="@+id/textoEmail" />
 
     <EditText
         android:id="@+id/textoTelefono"
@@ -62,14 +62,10 @@
         android:id="@+id/botonAtrasCU1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
         android:layout_marginTop="20dp"
-=======
-        android:layout_marginTop="50dp"
->>>>>>> parent of 6350dcf... Maven
         android:text="Atras"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.123"
+        app:layout_constraintHorizontal_bias="0.167"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textoRespuestaSeguridad" />
 
@@ -77,14 +73,10 @@
         android:id="@+id/botonCrear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
         android:layout_marginTop="20dp"
-=======
-        android:layout_marginTop="50dp"
->>>>>>> parent of 6350dcf... Maven
         android:text="Crear"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.558"
+        app:layout_constraintHorizontal_bias="0.613"
         app:layout_constraintStart_toEndOf="@+id/botonAtrasCU1"
         app:layout_constraintTop_toBottomOf="@+id/textoRespuestaSeguridad" />
 
@@ -105,19 +97,11 @@
         android:id="@+id/spinnerPreguntaSeguridad"
         android:layout_width="300dp"
         android:layout_height="42dp"
-<<<<<<< HEAD
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.351"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnerSexo" />
-=======
-        android:layout_marginTop="35dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.351"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contrasenyaContrasenya" />
->>>>>>> parent of 6350dcf... Maven
 
     <EditText
         android:id="@+id/textoRespuestaSeguridad"
@@ -145,7 +129,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textoNombreUsuario" />
 
-<<<<<<< HEAD
     <EditText
         android:id="@+id/fechaNacimiento"
         android:layout_width="wrap_content"
@@ -183,18 +166,16 @@
         app:layout_constraintTop_toBottomOf="@+id/textoDireccion" />
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/textoEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:ems="10"
+        android:hint="Email"
         android:inputType="textPersonName"
-        android:text="Name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.208"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-=======
->>>>>>> parent of 6350dcf... Maven
 </androidx.constraintlayout.widget.ConstraintLayout>

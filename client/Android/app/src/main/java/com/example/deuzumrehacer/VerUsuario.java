@@ -26,6 +26,8 @@ public class VerUsuario extends AppCompatActivity {
     private EditText tNombreUsuario;
     private EditText tTelefono;
     private EditText cContrasenya;
+    private EditText tDireccion;
+    private EditText tEmail;
     private Button bGuardarCambios;
     private Button bAtras;
 
@@ -38,6 +40,8 @@ public class VerUsuario extends AppCompatActivity {
         tNombreUsuario = findViewById(R.id.textoNombreUsuario);
         tTelefono = findViewById(R.id.textoTelefono);
         cContrasenya = findViewById(R.id.editarContrasenya);
+        tDireccion = findViewById(R.id.textoDireccion);
+        tEmail = findViewById(R.id.textoEmail);
         bGuardarCambios = findViewById(R.id.botonGuardarCambios);
         bAtras = findViewById(R.id.botonAtrasVU);
 
@@ -73,7 +77,7 @@ public class VerUsuario extends AppCompatActivity {
         JSONObject jsonData = new JSONObject();
         try {
             jsonData.put("tableName","usuario");
-            jsonData.put("user", String.valueOf(tNombreUsuario.getText()));
+            jsonData.put("usuario", String.valueOf(tNombreUsuario.getText()));
             jsonData.put("pass",String.valueOf(cContrasenya.getText()));
         } catch (JSONException e) {
             Toast toast= Toast. makeText(getApplicationContext(),
@@ -124,8 +128,10 @@ public class VerUsuario extends AppCompatActivity {
     public void guardarCambiosInformacionUsuario() {
         JSONObject jsonData = new JSONObject();
         try {
-            jsonData.put("tableName","informacionUsuario");
+            jsonData.put("tableName","infoUsuario");
             jsonData.put("telefono", String.valueOf(tTelefono.getText()));
+            jsonData.put("email", String.valueOf(tEmail.getText()));
+            jsonData.put("direccion", String.valueOf(tDireccion.getText()));
         } catch (JSONException e) {
             Toast toast= Toast. makeText(getApplicationContext(),
                     "Local: Error al intentar cambiar la información del usuario.",Toast. LENGTH_SHORT);

@@ -27,6 +27,10 @@ public class CrearUsuario extends AppCompatActivity {
     private EditText tTelefono;
     private EditText nUsuario;
     private EditText cUsuario;
+    private EditText tEmail;
+    private EditText tFechaNacimiento;
+    private EditText tDireccion;
+    private Spinner sSexo;
     private Spinner sPreguntaSeguridad;
     private EditText tRespuestaSeguridad;
     private Button bSiguiente;
@@ -42,19 +46,32 @@ public class CrearUsuario extends AppCompatActivity {
         tTelefono = findViewById(R.id.textoTelefono);
         nUsuario = findViewById(R.id.textoNombreUsuario);
         cUsuario = findViewById(R.id.contrasenyaContrasenya);
+        tEmail = findViewById(R.id.textoEmail);
+        tDireccion = findViewById(R.id.textoDireccion);
+        tFechaNacimiento = findViewById(R.id.fechaNacimiento);
+        sSexo = findViewById(R.id.spinnerSexo);
         sPreguntaSeguridad = findViewById(R.id.spinnerPreguntaSeguridad);
         tRespuestaSeguridad = findViewById(R.id.textoRespuestaSeguridad);
         bSiguiente = findViewById(R.id.botonCrear);
         bAtras = findViewById(R.id.botonAtrasCU1);
 
-        ArrayList<String> opciones = new ArrayList<String>();
+        ArrayList<String> opcionesP = new ArrayList<String>();
 
-        opciones.add("¿Donde cursaste la educación primaria?");
-        opciones.add("¿Como se llama tú heman@ pequeñ@?");
-        opciones.add("¿Como se llamaba tu primera mascota?");
+        opcionesP.add("¿Donde cursaste la educación primaria?");
+        opcionesP.add("¿Como se llama tú heman@ pequeñ@?");
+        opcionesP.add("¿Como se llamaba tu primera mascota?");
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, opciones);
-        sPreguntaSeguridad.setAdapter(adapter);
+        ArrayAdapter<String> adapterP = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, opcionesP);
+        sPreguntaSeguridad.setAdapter(adapterP);
+
+        ArrayList<String> opcionesF = new ArrayList<String>();
+
+        opcionesF.add("Hombre");
+        opcionesF.add("Mujer");
+        opcionesF.add("otro");
+
+        ArrayAdapter<String> adapterF = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, opcionesF);
+        sPreguntaSeguridad.setAdapter(adapterF);
 
         try {
             bAtras.setText(Util.getProperty("atras",getApplicationContext()));
@@ -90,10 +107,10 @@ public class CrearUsuario extends AppCompatActivity {
         JSONObject jsonData = new JSONObject();
         try {
             jsonData.put("tableName","usuario");
-            jsonData.put("user", String.valueOf(nUsuario.getText()));
+            jsonData.put("usuario", String.valueOf(nUsuario.getText()));
             jsonData.put("pass",String.valueOf(cUsuario.getText()));
-            jsonData.put("pregSeguridad", String.valueOf(sPreguntaSeguridad.getSelectedItemPosition()+1));
-            jsonData.put("respSeguridad",String.valueOf(tRespuestaSeguridad.getText()) );
+            jsonData.put("preg_seguridad", String.valueOf(sPreguntaSeguridad.getSelectedItemPosition()+1));
+            jsonData.put("resp_seguridad",String.valueOf(tRespuestaSeguridad.getText()) );
         } catch (JSONException e) {
             Toast toast= Toast. makeText(getApplicationContext(),
                     "Local: Error al intentar añadir al usuario.",Toast. LENGTH_SHORT);
@@ -125,10 +142,14 @@ public class CrearUsuario extends AppCompatActivity {
     public void informacionUsuario() {
         JSONObject jsonData = new JSONObject();
         try {
-            jsonData.put("tableName","informacionUsuario");
+            jsonData.put("tableName","infoUsuario");
             jsonData.put("nombre", String.valueOf(tNombre.getText()));
-            jsonData.put("apellidos",String.valueOf(tApellido.getText()));
+            jsonData.put("apellido",String.valueOf(tApellido.getText()));
             jsonData.put("telefono",String.valueOf(tTelefono.getText()) );
+            jsonData.put("email", String.valueOf(tEmail.getText()));
+            jsonData.put("direccion", String.valueOf(tDireccion.getText()));
+            jsonData.put("fecha_nacimiento", String.valueOf(tFechaNacimiento.getText()));
+            jsonData.put("sexo", String.valueOf(sSexo.getSelectedItemPosition()+1));
         } catch (JSONException e) {
             Toast toast= Toast. makeText(getApplicationContext(),
                     "Local: Error al intentar añadir la informacion del usuario.",Toast. LENGTH_SHORT);
