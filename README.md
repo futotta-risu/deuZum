@@ -34,7 +34,7 @@ Una vez configurado esto, podemos lanzar el server desde la carpeta `src/deustoZ
 
     java ServerHandlerFrame
 
-
+Para la instalación de la parte del cliente para desktop no se necesita nada más que el programa de eclipse para poder lanzar el programa. Mientras que para la app de android, en nuestro caso hemos usado android studio. Dentro del programa va a haver que instalarse un virtual device, para ello tenemos que pulsar el spinner que esta a la izquierda del boton de lanzar el programa  y selleccionar la opcion de `Open AVD Manager`. Despues para evitar tener promblemas se aconseja crear una nueva maquina virtualcon el nombre de Pixel 3 API 27. Despues de esos sencillos pasos el programa va ha estar preparado para klanzar el programa de Dezum.
 
 ## Caracteristicas
 
