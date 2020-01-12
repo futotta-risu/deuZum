@@ -31,6 +31,8 @@ import java.sql.ResultSetMetaData;
  */
 public final class GeneralSQLFunctions {
 	
+	
+	public final static String defaultGetLimitStatement = "SELECT * FROM {tableName} LIMIT 1";
 	/**
 	 * Metodo que devuelve una Conexion a la base de datos
 	 * @param direction direccion de la base de datos
@@ -222,8 +224,8 @@ public final class GeneralSQLFunctions {
 		ArrayList<String> nonNullableColumnNames = new ArrayList<String>();
 		ResultSet tableResultSet;
 		try {
-			System.out.println(GeneralSQLData.defaultGetLimitStatement.replace("{tableName}",table));
-			tableResultSet = GeneralSQLFunctions.getExecQuery(connection, GeneralSQLData.defaultGetLimitStatement.replace("{tableName}",table));
+			System.out.println(defaultGetLimitStatement.replace("{tableName}",table));
+			tableResultSet = GeneralSQLFunctions.getExecQuery(connection, defaultGetLimitStatement.replace("{tableName}",table));
 			ResultSetMetaData tableMetadata = tableResultSet.getMetaData();
 			
 			// Empezamos en 2 para saltar id
@@ -249,8 +251,8 @@ public final class GeneralSQLFunctions {
 		Set<String> nonNullableColumnNames = new HashSet<String>();
 		ResultSet tableResultSet;
 		try {
-			System.out.println(GeneralSQLData.defaultGetLimitStatement.replace("{tableName}",table));
-			tableResultSet = GeneralSQLFunctions.getExecQuery(connection, GeneralSQLData.defaultGetLimitStatement.replace("{tableName}",table));
+			System.out.println(defaultGetLimitStatement.replace("{tableName}",table));
+			tableResultSet = GeneralSQLFunctions.getExecQuery(connection, defaultGetLimitStatement.replace("{tableName}",table));
 			ResultSetMetaData tableMetadata = tableResultSet.getMetaData();
 			
 			// Empezamos en 2 para saltar id

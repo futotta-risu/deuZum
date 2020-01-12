@@ -10,6 +10,10 @@ import java.awt.LayoutManager;
 import io.github.fatsquirrels.deuzum.utils.meta.anotations.Tested;
 @Tested
 /**
+ * 
+ * Clase extraida de internet: https://github.com/mynawang/Java8-Source-Code/blob/master/src/main/jdk8/java/awt/FlowLayout.java
+ * Pero con multiples cambios sobre la forma de distribuir los objetos para adaptarse a nuestras necesidades sobre multiples paneles
+ * 
  * A flow layout arranges components in a directional flow, much
  * like lines of text in a paragraph. The flow direction is
  * determined by the container's <code>componentOrientation</code>

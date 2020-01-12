@@ -12,6 +12,12 @@ import javax.swing.JComponent;
 import javax.swing.JScrollBar;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
+/**
+ * Clase importada de aqui : http://www.java2s.com/Tutorials/Java/Swing_How_to/JScrollPane/Create_custom_JScrollBar_for_JScrollPane.htm
+ * Pero con ligeros cambios en las esquinas y colores
+ * @author whiwho
+ *
+ */
 public class ScrollBarUI extends BasicScrollBarUI{
 
 	  private final Dimension d = new Dimension();

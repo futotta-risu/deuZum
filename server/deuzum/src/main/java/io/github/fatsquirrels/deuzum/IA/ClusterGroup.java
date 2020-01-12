@@ -7,6 +7,12 @@ import java.util.Map.Entry;
 
 import io.github.fatsquirrels.deuzum.utils.math.APair;
 
+/**
+ * Clase encargada de almacenar los usuarios y sus categorias.
+ * 
+ * @author whiwho
+ *
+ */
 public class ClusterGroup  implements Serializable{
 
 	private static final long serialVersionUID = -4461939921541058341L;
