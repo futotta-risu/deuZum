@@ -14,7 +14,7 @@ import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
 import io.github.fatsquirrels.deuzum.database.WhereAST;
 import io.github.fatsquirrels.deuzum.database.tableName;
 import io.github.fatsquirrels.deuzum.database.exceptions.CommandBuilderBuildException;
-import io.github.fatsquirrels.deuzum.log.archivoLog;
+import io.github.fatsquirrels.deuzum.log.ArchivoLog;
 import io.github.fatsquirrels.deuzum.utils.DataStructuresFunctions;
 import io.github.fatsquirrels.deuzum.utils.math.APair;
 import io.github.fatsquirrels.deuzum.utils.meta.anotations.Tested;
@@ -160,7 +160,7 @@ public class ServerUserFunctionality {
 		try {
 			GeneralSQLFunctions.updateEntryFromDatabase(conn, "usuario", columnNamesUserInf, data, where);
 		} catch (SQLException | CommandBuilderBuildException e) {
-			archivoLog.addLineError(Level.SEVERE, e.getMessage(), e);
+			ArchivoLog.addLineError(Level.SEVERE, e.getMessage(), e);
 		}
 	}
 	
@@ -197,7 +197,7 @@ public class ServerUserFunctionality {
 			
 			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "transaccion", columns, new String[]{userID_A, userID_B,String.valueOf(value)});
 		} catch (SQLException | CommandBuilderBuildException e) {
-			archivoLog.addLineError(Level.SEVERE, e.getMessage(), e);
+			ArchivoLog.addLineError(Level.SEVERE, e.getMessage(), e);
 			return 1;
 		}
 		return 0;
@@ -247,7 +247,7 @@ public class ServerUserFunctionality {
 					new String[] {"dinero"}, new String[] {Integer.toString(actdinero_B)},whereB);
 			
 		} catch (SQLException| CommandBuilderBuildException e) {
-			archivoLog.addLineError(Level.SEVERE, e.getMessage(), e);
+			ArchivoLog.addLineError(Level.SEVERE, e.getMessage(), e);
 			return 1;
 		}
 		
@@ -424,7 +424,7 @@ public class ServerUserFunctionality {
 			condition.addColumValueLO(new String[] {tableName.CUENTA.getID()},new String[] {account}, WhereAST.logicOP.AND, WhereAST.ariOP.EQ);
 			GeneralSQLFunctions.updateEntryFromDatabase(connection, tableName.CUENTA.getName(), new String[] {"dinero"},new String[] {newMoney}, condition);
 		}catch (SQLException|CommandBuilderBuildException e) {
-			archivoLog.addLineError(Level.SEVERE, e.getMessage(), e);
+			ArchivoLog.addLineError(Level.SEVERE, e.getMessage(), e);
 			return "-1";
 		} 
 		return "1";

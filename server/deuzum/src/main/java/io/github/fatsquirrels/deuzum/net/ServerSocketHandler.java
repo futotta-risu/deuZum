@@ -10,7 +10,7 @@ import java.util.logging.Level;
 
 import org.json.JSONObject;
 
-import io.github.fatsquirrels.deuzum.log.archivoLog;
+import io.github.fatsquirrels.deuzum.log.ArchivoLog;
 
 
 /**
@@ -57,7 +57,7 @@ public class ServerSocketHandler extends Thread{
 			out.close();
 	        socket.close();
 		} catch (IOException e) {
-			archivoLog.addLineError(Level.SEVERE, e.getMessage(), e);
+			ArchivoLog.addLineError(Level.SEVERE, e.getMessage(), e);
 		}
         
 	}

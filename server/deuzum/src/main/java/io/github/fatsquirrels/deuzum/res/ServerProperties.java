@@ -6,7 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-import io.github.fatsquirrels.deuzum.log.archivoLog;
+import io.github.fatsquirrels.deuzum.log.ArchivoLog;
 
 public class ServerProperties {
 
@@ -42,7 +42,7 @@ public class ServerProperties {
 		}
 	}
 	public static void createErrorLog() {
-		new archivoLog("logServerHandlerFrame");
+		new ArchivoLog("logServerHandlerFrame");
 	}
 	
 }
