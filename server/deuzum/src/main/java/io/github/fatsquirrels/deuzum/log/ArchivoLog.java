@@ -18,9 +18,9 @@ import java.util.logging.StreamHandler;
 
 public class ArchivoLog {
 	
-	public static Logger logger = Logger.getLogger(archivoLog.class.getName());
+	public static Logger logger = Logger.getLogger(ArchivoLog.class.getName());
 	
-	public archivoLog(String nombre) {
+	public ArchivoLog(String nombre) {
 		logger.setLevel(Level.ALL);
 		Handler h = new StreamHandler(System.out, new SimpleFormatter());
 		h.setLevel(Level.FINEST);
