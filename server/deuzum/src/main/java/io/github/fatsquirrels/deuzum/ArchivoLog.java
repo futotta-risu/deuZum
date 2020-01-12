@@ -16,7 +16,7 @@ import java.util.logging.StreamHandler;
  * almacenada en la carpeta de logs. 
  */
 
-public class archivoLog {
+public class ArchivoLog {
 	
 	public static Logger logger = Logger.getLogger(archivoLog.class.getName());
 	
