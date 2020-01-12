@@ -63,7 +63,7 @@ public class InicioSesion extends AppCompatActivity {
 
         JSONObject data = new JSONObject();
         try {
-            data.put("user",nUsuario.getText().toString());
+            data.put("useuario",nUsuario.getText().toString());
             data.put("pass",cUsuario.getText().toString());
         } catch (JSONException e) {
             e.printStackTrace();
