@@ -1,6 +1,12 @@
 package io.github.fatsquirrels.deuzum.visual.panels;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Window;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
@@ -26,7 +32,11 @@ import io.github.fatsquirrels.deuzum.utils.math.APair;
 import io.github.fatsquirrels.deuzum.utils.meta.anotations.Tested;
 import io.github.fatsquirrels.deuzum.visual.Dialogs.general.generalCreateDialog;
 import io.github.fatsquirrels.deuzum.visual.components.buttons.FlatButton;
+import io.github.fatsquirrels.deuzum.visual.style.CustomColors;
 import io.github.fatsquirrels.deuzum.visual.style.layout.VerticalFlowLayout;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.MatteBorder;
 
 
 @Tested
@@ -48,17 +58,20 @@ public class MenuPanel extends JPanel{
 		
 		leftList = new JScrollPane();
 		table = crearTabla(type);
-		
+
+
 		leftList.setViewportView(table);
-		
+		leftList.getViewport().setBackground(CustomColors.BluePale);
 		add(leftList, BorderLayout.CENTER);
 		
 		rightMenu = new JPanel();
 		rightMenu.setLayout(new VerticalFlowLayout(10,10,10));
+		rightMenu.setBackground(CustomColors.BluePale);
 		//Create
 		create = new FlatButton("Crear " + type.getName());
 		create.addActionListener(e->createElement());
 		rightMenu.add(create);
+
 		
 		// Edit
 		if(type!=tableName.TRANSACCION) {
@@ -80,9 +93,20 @@ public class MenuPanel extends JPanel{
 		rightMenu.add(refresh);
 		add(rightMenu, BorderLayout.EAST);
 		table.getSelectionModel().addListSelectionListener(e-> setButtonAble(true));
+		table.setIntercellSpacing(new Dimension(0,0));
+		table.setRowHeight(25);
+		table.setSelectionBackground(new Color(232,57,95));
+		table.setSelectionForeground(Color.WHITE);
+		table.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
+		table.getTableHeader().setOpaque(false);
+		table.getTableHeader().setBackground(new Color(32, 136, 203));
+		table.getTableHeader().setForeground(Color.WHITE);
+		table.setShowVerticalLines(false);
 		setButtonAble(false);
 	}
 	
+
+
 	private void setButtonAble(boolean able) {
 		if(editar!=null) editar.setEnabled(able);
 		delete.setEnabled(able);
@@ -181,6 +205,15 @@ public class MenuPanel extends JPanel{
 	
 	private void refreshTable(tableName panelType) {
 		table = crearTabla(panelType);
+		table.setIntercellSpacing(new Dimension(0,0));
+		table.setRowHeight(25);
+		table.setSelectionBackground(new Color(232,57,95));
+		table.setSelectionForeground(Color.WHITE);
+		table.getTableHeader().setOpaque(false);
+		table.getTableHeader().setBackground(new Color(32, 136, 203));
+		table.getTableHeader().setForeground(Color.WHITE);
+		table.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
+		table.setShowVerticalLines(false);
 		leftList.setViewportView(table);
 		revalidate();
 		repaint();

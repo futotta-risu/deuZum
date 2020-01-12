@@ -7,6 +7,9 @@ import java.awt.event.ActionListener;
 import javax.swing.Icon;
 import javax.swing.JButton;
 
+import io.github.fatsquirrels.deuzum.visual.style.CustomColors;
+import io.github.fatsquirrels.deuzum.visual.style.layout.BubbleBorder;
+
 /**
  * Boton con estilo Flat.
  */
@@ -38,6 +41,7 @@ public class FlatButton extends JButton {
 		
 	}
 	public void setStyle() {
+		setBorder(new BubbleBorder(CustomColors.LighterSaturatedBlue,1,8));
 		setBackground(Color.WHITE);
 		setBorderPainted(true);
 		setFocusPainted(false);
