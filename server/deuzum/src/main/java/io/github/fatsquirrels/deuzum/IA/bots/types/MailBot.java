@@ -138,7 +138,8 @@ public class MailBot extends BotBase implements BotFunctions{
      * Clase privada que autentfica el usuario y contraseña del correo electronico en
      * el servidor SMTP.
      */
-    private class autentificadorSMTP extends javax.mail.Authenticator {
+    @SuppressWarnings("unused")
+	private class autentificadorSMTP extends javax.mail.Authenticator {
 
     	/**
     	 * Metodo que autentifica el cliente mail.

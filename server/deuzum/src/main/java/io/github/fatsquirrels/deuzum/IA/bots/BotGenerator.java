@@ -1,20 +1,6 @@
 package io.github.fatsquirrels.deuzum.IA.bots;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
-import io.github.fatsquirrels.deuzum.IA.bots.types.MailBot;
-import io.github.fatsquirrels.deuzum.utils.math.APair;
 
 /**
  * Clase encargada de generar los Bots
@@ -35,12 +21,5 @@ public class BotGenerator {
 		bot.setName(name);
 		return bot;
 	}
-	
-	/**
-	 * Metodo que crea un MailBot
-	 * @param name Nombre del MailBot
-	 * @return MailBot generado
-	 */
-	
 	
 }
