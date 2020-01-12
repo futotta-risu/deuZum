@@ -11,10 +11,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
 
 import javax.swing.JPanel;
 
 import io.github.fatsquirrels.deuzum.database.tableName;
+import io.github.fatsquirrels.deuzum.log.ArchivoLog;
 import io.github.fatsquirrels.deuzum.net.Server;
 import io.github.fatsquirrels.deuzum.net.ServerThread;
 import io.github.fatsquirrels.deuzum.visual.components.buttons.IconizedButton;
@@ -62,6 +64,9 @@ public class ServerHandlerFrame  extends JFrame{
 	private JPanel central_Mutable_Panel;
 	private JPanel central_Direction_Menu_Panel, central_Direction_Panel;
 	private List<JButton> menu_Buttons;
+	
+
+	final private static ArchivoLog logger = new ArchivoLog("ServerHandlerFrame");
 	
 	/**
 	 * Crea un objeto de ServerHandlerFrame, el cual contiene un frame que controla una instancia de Server.
@@ -165,6 +170,7 @@ public class ServerHandlerFrame  extends JFrame{
 		}catch(FileNotFoundException e1) {
 			System.err.println("El archivo no se encuentra en el lugar indicado.");
 		}catch (IOException e) {
+			logger.addLineError(Level.SEVERE, "El archivo no se encuentra en el lugar indicado.", e);
 			e.printStackTrace();
 		}
 	}
