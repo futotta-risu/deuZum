@@ -62,7 +62,7 @@ public class ServerHandler  extends GenericSMFrame{
 		setTitle("DeuZum Servidor");
 		
 		setSize(new Dimension(1280, 720));
-		setMinimumSize(new Dimension(600, 400));
+		setMinimumSize(new Dimension(850, 600));
 		setVisible(true);
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -76,7 +76,7 @@ public class ServerHandler  extends GenericSMFrame{
 				new IconizedButton("symbol","stop",35,40,e -> stopServer())
 		});
 		
-		plp.addPanel("Home",new PanelProperties(new HomePanel("Bienvenido a el Servidor de Deuzum","Texto de muestra"), true));
+		plp.addPanel("Home",new PanelProperties(new HomePanel(), true));
 		
 		plp.addPanel("Configuracion",new PanelProperties(new ConfigPanel(), true));
 		

@@ -138,7 +138,7 @@ public class ServerHandlerFrame  extends JFrame{
 
 		plp.addPanel("Funcionalidades",new PanelProperties(new FunctionalityPanel(), true));
 		plp.addPanel("Configuracion",new PanelProperties(new ConfigPanel(), true));
-		plp.addPanel("Home",new PanelProperties(new HomePanel("Bienvenido","Texto de muestra"), true));
+		plp.addPanel("Home",new PanelProperties(new HomePanel(), true));
 		
 		
 		createMenuPanels();

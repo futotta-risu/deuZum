@@ -28,7 +28,7 @@ public class MenuButton extends JButton{
 	public void setStyle() {
 		setBackground(CustomColors.DarkBlue);
 		setForeground(Color.WHITE);
-		setFont(new Font("Georgia", Font.PLAIN, 16));
+		setFont(new Font("Tahoma", Font.PLAIN, 16));
 		setBorderPainted(true);
 		setFocusPainted(false);
 		setContentAreaFilled(true);

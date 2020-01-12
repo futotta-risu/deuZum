@@ -34,7 +34,7 @@ public class ServerUserFunctionality {
 
 	final private static ArchivoLog logger = new ArchivoLog("ServerUserFunctionality");
 	public static void createUserC(JSONObject data) {
-		Connection connection = Server.createConnection();
+		Connection connection = Server.getDefaultServerConnection();
 		createUser(connection,DataStructuresFunctions.JSONtoHashMap(data));
 	}
 	
@@ -79,7 +79,7 @@ public class ServerUserFunctionality {
 	 * @see {@link #createUserInf(Connection connection, String[] data)}
 	 */
 	public static void createUserInfC(JSONObject data) {
-		Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost/"+Server.dbName, "root", "");
+		Connection conn = Server.getDefaultServerConnection();
 		
 		createUserInf(conn, new String[] {data.getString("nombre"), data.getString("apellido"), data.getString("telefono"), 
 				data.getString("email"), data.getString("direccion"), data.getString("fecha_nacimiento"), data.getString("sexo")});	
@@ -113,7 +113,7 @@ public class ServerUserFunctionality {
 	 * @see #updateUser
 	 */
 	public static void updateUserC(JSONObject data) {
-		Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost/"+Server.dbName, "root", "");
+		Connection conn = Server.getDefaultServerConnection();
 		updateUser(conn,data.getString("id") ,new String[] {data.getString("user"), data.getString("pass"), data.getString("pregSegu"),data.getString("resp"),"3"});
 	}
 	
@@ -144,7 +144,7 @@ public class ServerUserFunctionality {
 	 * @see #updateUserInf
 	 */
 	public static void updateUserInfC(JSONObject data) {
-		Connection conn = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost/"+Server.dbName, "root", "");
+		Connection conn = Server.getDefaultServerConnection();
 		
 		updateUserInf(conn,data.getString("id"), new String[] {data.getString("nombre"), data.getString("apellido"), data.getString("telefono"), 
 				data.getString("email"), data.getString("direccion"), data.getString("fecha_nacimiento"), data.getString("sexo")});	
@@ -415,7 +415,7 @@ public class ServerUserFunctionality {
 		if(account == null) return "-1";
 		
 		int amount = Integer.valueOf(data.getString("amount"));
-		Connection connection = Server.createConnection();
+		Connection connection = Server.getDefaultServerConnection();
 		
 		String money = null;
 		try {

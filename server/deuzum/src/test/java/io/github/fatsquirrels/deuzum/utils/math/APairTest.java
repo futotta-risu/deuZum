@@ -6,7 +6,6 @@ import java.util.Random;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 
 @DisplayName("Math-> APair Specifications")
@@ -14,7 +13,7 @@ public class APairTest {
 	APair<Integer, String> p,p2;
 	int[] a;
 	
-	@BeforeAll
+	@Before
 	public void setup() {
 		a = new int[2];
 		for(int i = 0; i < 2; i++)

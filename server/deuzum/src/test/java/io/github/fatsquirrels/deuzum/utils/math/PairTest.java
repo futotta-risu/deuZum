@@ -1,13 +1,14 @@
 package io.github.fatsquirrels.deuzum.utils.math;
 
-import static org.junit.Assert.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
+
+
+import static org.junit.Assert.assertEquals;
 
 import java.util.Random;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 
 import io.github.fatsquirrels.deuzum.utils.math.Pair;
@@ -18,7 +19,7 @@ public class PairTest {
 	Pair p,p2;
 	int[] a;
 	
-	@BeforeAll
+	@Before
 	public void setup() {
 		a = new int[4];
 		for(int i = 0; i < 4; i++)
@@ -39,14 +40,14 @@ public class PairTest {
 	
 	@Test
 	public void testGetIndex() {
-		assertEquals(p.getIndex(),a[0] );
+		assertEquals(p.getIndex(),a[0]);
 		assertEquals(p2.getIndex(),a[2]);
 	}
 	
 	@Test
 	public void testGetValue() {
-		assertEquals(a[1], p.getValue());
-		assertEquals(a[3], p2.getValue());
+		assertEquals(a[1], p.getValue(),0.1);
+		assertEquals(a[3], p2.getValue(),0.1);
 	}
 
 }
