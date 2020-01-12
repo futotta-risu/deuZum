@@ -36,37 +36,11 @@ public class BotGenerator {
 	 * @return BotBase Bot generado
 	 */
 	public static BotBase generateBot(BotType botType, String name) {
-		BotBase bot = null;
-		// Set the Specific Class of the Bot
-		switch(botType) {
-			case MAIL:
-				bot =  addMailBot(name);
-				break;
-			case CLEANING:
-				bot = new CleaningBot(name);
-				break;
-			case USUARIO:
-				bot = new UserBot(name, Integer.parseInt(JOptionPane.showInputDialog("Introduce la cantidad de usuarios")));
-				break;
-			case PROYECTO:
-				bot = new ProyectBot(name, Integer.parseInt(JOptionPane.showInputDialog("Introduce la cantidad de Proyectos")));
-				break;
-			case PROYECTOTRANSACCION:
-				bot = new ProyectTransactionBot(name, Integer.parseInt(JOptionPane.showInputDialog("Introduce la cantidad de Transaciones de Proyecto")));
-				break;
-			case GRUPO:
-				bot = new GroupBot(name, Integer.parseInt(JOptionPane.showInputDialog("Introduce la cantidad de Grupos")));
-				break;
-			case ACCOUNT:
-				bot = new AccountBot(name, Integer.parseInt(JOptionPane.showInputDialog("Introduce la cantidad de Cuentas")));
-				break;
-			case TRANSACCION:
-				bot = new TransactionBot(name, Integer.parseInt(JOptionPane.showInputDialog("Introduce la cantidad de Transaciones")));
-				break;
-		}
+		BotBase bot;
+		if(botType == BotType.MAIL || botType == BotType.CLEANING) bot = botType.createBot(0);
+		else bot = botType.createBot(Integer.parseInt(JOptionPane.showInputDialog("Introduce la cantidad de Transaciones")));
 		bot.setName(name);
 		return bot;
-
 	}
 	
 	/**
@@ -74,7 +48,7 @@ public class BotGenerator {
 	 * @param name Nombre del MailBot
 	 * @return MailBot generado
 	 */
-	public static BotBase addMailBot(String name) {
+	public static BotBase addMailBot(String name, int temp) {
 		
 		List<String> destinatarios = new ArrayList<String>();
 		FileFilter filter = new FileNameExtensionFilter("TXT File","txt");

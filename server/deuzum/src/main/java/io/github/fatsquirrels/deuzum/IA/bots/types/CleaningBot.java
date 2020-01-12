@@ -31,7 +31,7 @@ public class CleaningBot extends BotBase implements BotFunctions{
 	 * Contructor de la clase, crea un CleaningBot con los parametros recibidos
 	 * @param name Nombre del bot
 	 */
-	public CleaningBot(String name) {
+	public CleaningBot(String name, Integer temp) {
 		this.name = name;
 		this.connection = Server.getDefaultServerConnection();
 	}
