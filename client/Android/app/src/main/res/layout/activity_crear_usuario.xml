@@ -21,14 +21,14 @@
         android:id="@+id/textoNombre"
         android:layout_width="141dp"
         android:layout_height="42dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Nombre"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.148"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/editText4" />
 
     <EditText
         android:id="@+id/textoApellido"
@@ -36,20 +36,20 @@
         android:layout_height="42dp"
         android:layout_marginStart="40dp"
         android:layout_marginLeft="40dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Apellido"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.836"
+        app:layout_constraintHorizontal_bias="0.82"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/editText4" />
 
     <EditText
         android:id="@+id/textoTelefono"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Teléfono"
         android:inputType="phone"
@@ -62,27 +62,29 @@
         android:id="@+id/botonAtrasCU1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:text="Atras"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.167"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="758dp" />
+        app:layout_constraintTop_toBottomOf="@+id/textoRespuestaSeguridad" />
 
     <Button
         android:id="@+id/botonCrear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:text="Crear"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.613"
         app:layout_constraintStart_toEndOf="@+id/botonAtrasCU1"
-        tools:layout_editor_absoluteY="683dp" />
+        app:layout_constraintTop_toBottomOf="@+id/textoRespuestaSeguridad" />
 
     <EditText
         android:id="@+id/textoNombreUsuario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Nombre de usuario"
         android:inputType="textPersonName"
@@ -95,16 +97,17 @@
         android:id="@+id/spinnerPreguntaSeguridad"
         android:layout_width="300dp"
         android:layout_height="42dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.144"
+        app:layout_constraintHorizontal_bias="0.351"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="609dp" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerSexo" />
 
     <EditText
         android:id="@+id/textoRespuestaSeguridad"
         android:layout_width="312dp"
         android:layout_height="42dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Respuesta de seguridad"
         android:inputType="textPersonName"
@@ -117,7 +120,7 @@
         android:id="@+id/contrasenyaContrasenya"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Contraseña"
         android:inputType="textPassword"
@@ -127,30 +130,52 @@
         app:layout_constraintTop_toBottomOf="@+id/textoNombreUsuario" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/fechaNacimiento"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:ems="10"
+        android:hint="Fecha Nacimiento"
         android:inputType="textPersonName"
-        android:text="Name"
-        tools:layout_editor_absoluteX="45dp"
-        tools:layout_editor_absoluteY="418dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.197"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contrasenyaContrasenya" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/textoDireccion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Direccion"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.203"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fechaNacimiento" />
+
+    <Spinner
+        android:id="@+id/spinnerSexo"
+        android:layout_width="300dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.369"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textoDireccion" />
+
+    <EditText
+        android:id="@+id/editText4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Name"
-        tools:layout_editor_absoluteX="63dp"
-        tools:layout_editor_absoluteY="485dp" />
-
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="560dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.208"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
