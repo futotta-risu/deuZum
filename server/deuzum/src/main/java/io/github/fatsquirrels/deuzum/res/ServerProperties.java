@@ -5,15 +5,12 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
-import java.util.logging.Level;
 
-import io.github.fatsquirrels.deuzum.log.ArchivoLog;
+import io.github.fatsquirrels.deuzum.log.archivoLog;
 
 public class ServerProperties {
 
 	public static Properties properties;
-
-	final private static ArchivoLog logger = new ArchivoLog("ServerProperties");
 	
 	/**
 	 * Abre y carga el archivo properties.
@@ -23,8 +20,7 @@ public class ServerProperties {
 		try(FileInputStream f = new FileInputStream(Paths.PropertiesPath)){
 			properties.load(f);
 			properties.toString();
-			logger.addLine(Level.INFO, "El archivo properties se ha cargado correctamente");
-			
+			createErrorLog();
 		}catch(FileNotFoundException e1) {
 			System.err.println("El archivo no se encuentra en el lugar indicado.");
 		}catch (IOException e) {
@@ -46,7 +42,7 @@ public class ServerProperties {
 		}
 	}
 	public static void createErrorLog() {
-		new ArchivoLog("logServerHandlerFrame");
+		new archivoLog("logServerHandlerFrame");
 	}
-
+	
 }

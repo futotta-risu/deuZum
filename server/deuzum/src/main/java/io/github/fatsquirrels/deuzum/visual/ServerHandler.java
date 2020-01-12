@@ -5,7 +5,6 @@ import javax.swing.JOptionPane;
 
 
 import io.github.fatsquirrels.deuzum.database.tableName;
-import io.github.fatsquirrels.deuzum.log.ArchivoLog;
 import io.github.fatsquirrels.deuzum.net.Server;
 import io.github.fatsquirrels.deuzum.net.ServerThread;
 import io.github.fatsquirrels.deuzum.res.ServerProperties;
@@ -24,8 +23,6 @@ import io.github.fatsquirrels.deuzum.visual.panels.util.PanelProperties;
 import javax.swing.ImageIcon;
 
 import java.awt.Dimension;
-import java.util.logging.Level;
-
 import javax.swing.JComponent;
 
 @Tested
@@ -37,7 +34,6 @@ public class ServerHandler  extends GenericSMFrame{
 	
 	private static final long serialVersionUID = -2032372544471677287L;
 
-	final private ArchivoLog logger = new ArchivoLog("ServerHandler");
 	final private String[] notLoadedButtonOrder = {"Home", "Configuracion"};
 	final private String[] loadedButtonOrder = {"Home","Usuario","Cuentas","Transaccion","Grupos","Proyectos","Funcionalidades", "Configuracion"};
 	
@@ -131,7 +127,6 @@ public class ServerHandler  extends GenericSMFrame{
 			loadMenuPanels();
 			createMenuButtons();
 			revalidate();
-			logger.addLine(Level.INFO, "El servidor se ha iniciado correctamente");
 		}else if(timeOut ==40) {
 			hiloStart.interrupt();
 		}else JOptionPane.showMessageDialog(null,Strings.server_execution_error_body,Strings.server_execution_error_tittle,1);

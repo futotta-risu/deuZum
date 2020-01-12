@@ -4,13 +4,14 @@ package io.github.fatsquirrels.deuzum.net;
 import java.io.IOException;
 import java.net.*;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.logging.Level;
 
+import javax.swing.JOptionPane;
+
 import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
-import io.github.fatsquirrels.deuzum.log.ArchivoLog;
-
+import io.github.fatsquirrels.deuzum.log.archivoLog;
 import io.github.fatsquirrels.deuzum.res.Strings;
-
 
 
 /**
@@ -29,7 +30,7 @@ public class Server implements Runnable{
 	public static boolean serverLoadFailed = false;
 	
 
-	final private static ArchivoLog logger = new ArchivoLog("Server");
+	
 	
 	private ServerSocket serverSocket;
 	private Connection connection;
@@ -37,7 +38,7 @@ public class Server implements Runnable{
 	/**
 	 * Nombre de la base de datos. Se extrae del archivo properties.
 	 */
-	static String dbName;
+	static String dbName,dbPort,dbUser,dbPass;
 	
 	public Server() {
 		
@@ -50,10 +51,11 @@ public class Server implements Runnable{
 	 */
 	public void runServer() {
 		try{
-			
 			execute();
 		}catch(Exception e) {
+			System.err.println("El server no ha podido ejecutarse");
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,Strings.server_execution_error_body,Strings.server_execution_error_tittle,1);
 			System.err.println("El server no ha podido ejecutarse");
 			shutdown();
 		}
@@ -71,8 +73,26 @@ public class Server implements Runnable{
 		Server.dbName = dbName;
 	}
 	
-	public static Connection getDefaultServerConnection() {
-		return GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost:3306/"+Server.dbName, "root", "");
+	public void setDBPort(String dbPort) {
+		Server.dbPort = dbPort;
+	}
+	public void setDBUser(String dbUser) {
+		Server.dbUser = dbUser;
+	}
+	public void setDBPass(String dbPass) {
+		Server.dbPass = dbPass;
+	}
+	
+	public static Connection getDefaultServerConnection(){
+		try {
+			return GeneralSQLFunctions.connectToDatabase(
+					"jdbc:mysql://localhost:" + Server.dbPort+"/"+Server.dbName, Server.dbUser, Server.dbPass);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	// Server Execution Functions
@@ -86,6 +106,7 @@ public class Server implements Runnable{
         	InetAddress addr = InetAddress.getByName("127.0.0.1");
 
         	serverSocket =  new ServerSocket(this.port, 50, addr);
+        	
 			while (true) 
 				new ServerSocketHandler(serverSocket.accept(), connection).start();
 	            
@@ -107,8 +128,7 @@ public class Server implements Runnable{
 		try{
 			this.serverSocket.close();
 		}catch(IOException e) {
-
-			ArchivoLog.addLineError(Level.INFO, e.getMessage(), e);
+			archivoLog.addLineError(Level.INFO, e.getMessage(), e);
 			System.err.println("Se ha cerrado la conexion con uno o varios sockets");
 		} 
     }
@@ -130,8 +150,8 @@ public class Server implements Runnable{
 		return connection;
 	}
 	
-	public static Connection createConnection() {
-		return GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost:3306/"+Server.dbName, "root", "");
+	public static Connection createConnection() throws ClassNotFoundException, SQLException {
+		return GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost:" + Server.dbPort+"/"+Server.dbName, Server.dbUser, Server.dbPass);
 	}
 	
 	/**
@@ -152,10 +172,12 @@ public class Server implements Runnable{
 	
 	/**
 	 * Carga todos los modulos de ejecuci�n del servidor.
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
-	public void execute() {
+	public void execute() throws ClassNotFoundException, SQLException {
 		ServerCommands.createMethodArray();
-		this.connection = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost:3306/"+Server.dbName, "root", "");
+		this.connection = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost:" + Server.dbPort+"/"+Server.dbName, Server.dbUser, Server.dbPass);
 		// TODO Add to the database the user status
 		// El servidor tiene que tener una base de datos hosteando el estado de los usuarios
 		// activos e inactivos
@@ -170,8 +192,7 @@ public class Server implements Runnable{
 			shutdown();
 			execute();
 		}catch(Exception e) {
-			ArchivoLog.addLineError(Level.INFO, e.getMessage(), e);
-
+			archivoLog.addLineError(Level.INFO, e.getMessage(), e);
 			shutdown();
 		}
 		

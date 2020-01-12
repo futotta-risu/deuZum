@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Random;
-import java.util.logging.Level;
 
 import javax.swing.JOptionPane;
 
@@ -12,7 +11,6 @@ import io.github.fatsquirrels.deuzum.IA.bots.BotBase;
 import io.github.fatsquirrels.deuzum.IA.bots.BotFunctions;
 import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
 import io.github.fatsquirrels.deuzum.database.exceptions.CommandBuilderBuildException;
-import io.github.fatsquirrels.deuzum.log.ArchivoLog;
 import io.github.fatsquirrels.deuzum.net.Server;
 
 /**
@@ -24,17 +22,16 @@ import io.github.fatsquirrels.deuzum.net.Server;
 public class AccountBot extends BotBase implements BotFunctions{
 	@SuppressWarnings("unused")
 	private String name;
-	private Integer cantidad;
+	private long cantidad;
 	private Connection connection;
-	private Thread hiloCuentas; 
-	final private static ArchivoLog logger = new ArchivoLog("AccountBot");
+	private Thread hiloCuentas;
 	
 	/**
 	 * Contructor de la clase, crea un AccountBot con los parametros recibidos.
 	 * @param name Nombre del bot
 	 * @param cantidad Cantidad de cuentas a introducir;
 	 */
-	public AccountBot(String name, Integer cantidad){
+	public AccountBot(String name, long cantidad){
 		this.name = name;
 		this.cantidad = cantidad;
 		this.connection = Server.getDefaultServerConnection();
@@ -75,10 +72,7 @@ public class AccountBot extends BotBase implements BotFunctions{
 						String cantidad = Integer.toString(r.nextInt(999));
 					GeneralSQLFunctions.insertEntryIntoDatabase(connection, "cuenta", new String[] {"numero_cuenta","id_usuario", "dinero","tipo_cuenta", "estado"},
 					new String[] {tempId+"",randomId, cantidad, "cuenta Bot", 0+""});
-
 					}
-
-					logger.addLine(Level.INFO, "El bot se ha ejecutado correctamente");
 						
 				} catch (SQLException | CommandBuilderBuildException e) {
 					e.printStackTrace();

@@ -26,5 +26,5 @@ public class CustomColors {
 	// NEW COLORS
 	
 	public static Color BluePale = new Color(193, 233, 238);
-	public static Color LightBluePale = new Color(204, 233, 237);
+	
 }

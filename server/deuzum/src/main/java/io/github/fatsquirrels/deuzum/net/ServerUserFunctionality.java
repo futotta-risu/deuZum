@@ -14,7 +14,7 @@ import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
 import io.github.fatsquirrels.deuzum.database.WhereAST;
 import io.github.fatsquirrels.deuzum.database.tableName;
 import io.github.fatsquirrels.deuzum.database.exceptions.CommandBuilderBuildException;
-import io.github.fatsquirrels.deuzum.log.ArchivoLog;
+import io.github.fatsquirrels.deuzum.log.archivoLog;
 import io.github.fatsquirrels.deuzum.utils.DataStructuresFunctions;
 import io.github.fatsquirrels.deuzum.utils.math.APair;
 import io.github.fatsquirrels.deuzum.utils.meta.anotations.Tested;
@@ -31,8 +31,6 @@ public class ServerUserFunctionality {
 	 * @param data JSON que contiene la informaciï¿½n de usuario
 	 * @see {@link #createUser(Connection connection, String[] data)}
 	 */
-
-	final private static ArchivoLog logger = new ArchivoLog("ServerUserFunctionality");
 	public static void createUserC(JSONObject data) {
 		Connection connection = Server.getDefaultServerConnection();
 		createUser(connection,DataStructuresFunctions.JSONtoHashMap(data));
@@ -42,7 +40,7 @@ public class ServerUserFunctionality {
 		try {
 			GeneralSQLFunctions.insertEntryIntoDatabase(connection,"usuario",  data);
 		} catch (SQLException e) {
-			// TODO Aï¿½adir el error a un posible log ya que esta funcion solo se ejecuta desde el cliente
+			// TODO Añadir el error a un posible log ya que esta funcion solo se ejecuta desde el cliente
 			e.printStackTrace();
 		} catch (CommandBuilderBuildException e) {
 			// TODO Auto-generated catch block
@@ -91,7 +89,7 @@ public class ServerUserFunctionality {
 	 * @param data Array que contiene la informaciÃ³n de usuario (Nombre, Apellidos, Telefono, Email, Direccion, F_Nacimiento, Sexo).
 	 */	
 	public static void createUserInf(Connection connection, String[] data) {
-		// INFO Esta funciï¿½n no se llega a usar durante el codigo.
+		// INFO Esta función no se llega a usar durante el codigo.
 		// TODO Repasar la utilidad de esta funcion
 		String[] columnNamesUserInf = {"id","nombre", "apellido", "telefono", "email", "direccion", "sexo"};
 		// Create UserInf
@@ -162,8 +160,7 @@ public class ServerUserFunctionality {
 		try {
 			GeneralSQLFunctions.updateEntryFromDatabase(conn, "usuario", columnNamesUserInf, data, where);
 		} catch (SQLException | CommandBuilderBuildException e) {
-			ArchivoLog.addLineError(Level.SEVERE, e.getMessage(), e);
-
+			archivoLog.addLineError(Level.SEVERE, e.getMessage(), e);
 		}
 	}
 	
@@ -200,15 +197,14 @@ public class ServerUserFunctionality {
 			
 			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "transaccion", columns, new String[]{userID_A, userID_B,String.valueOf(value)});
 		} catch (SQLException | CommandBuilderBuildException e) {
-			ArchivoLog.addLineError(Level.SEVERE, e.getMessage(), e);
-
+			archivoLog.addLineError(Level.SEVERE, e.getMessage(), e);
 			return 1;
 		}
 		return 0;
 	}
 	
 	/**
-	 * Comprueba si el usuario podrï¿½a realizar la transacciï¿½n
+	 * Comprueba si el usuario podría realizar la transacción
 	 * @param userID_A
 	 * @param userID_B
 	 * @param value
@@ -228,7 +224,7 @@ public class ServerUserFunctionality {
 	}
 	
 	/**
-	 * Aplica la transacciï¿½n sobre sus cuentas. No crea un registro.
+	 * Aplica la transacción sobre sus cuentas. No crea un registro.
 	 * @param connection
 	 * @param userID_A
 	 * @param userID_B
@@ -251,8 +247,7 @@ public class ServerUserFunctionality {
 					new String[] {"dinero"}, new String[] {Integer.toString(actdinero_B)},whereB);
 			
 		} catch (SQLException| CommandBuilderBuildException e) {
-			ArchivoLog.addLineError(Level.SEVERE, e.getMessage(), e);
-
+			archivoLog.addLineError(Level.SEVERE, e.getMessage(), e);
 			return 1;
 		}
 		
@@ -312,7 +307,7 @@ public class ServerUserFunctionality {
 	
 	
 	public static void createGroup(Connection connection, String[] data) {
-		// TODO aniadir las funciones de verificacion de groupName
+		// TODO aï¿½adir las funciones de verificacion de groupName
 		try {
 			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "grupo", new String[] {"nombre", "descripcion"}, data);
 		} catch (SQLException e) {
@@ -373,7 +368,7 @@ public class ServerUserFunctionality {
 	}
 	
 	public static void createAccount(Connection connection, String[] data) {
-		// TODO aniadir las funciones de verificacion de userId, accountName
+		// TODO aï¿½adir las funciones de verificacion de userId, accountName
 		try {
 			// TODO cambiar esto entero para que meta mediante mapas
 			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "cuenta", 
@@ -400,7 +395,7 @@ public class ServerUserFunctionality {
 		}
 	}
 	public static void updateAccount(Connection connection, String accountID, String[] columns, String[] data) {
-		// TODO aniadir las funciones de verificacion de userId, accountName
+		// TODO aï¿½adir las funciones de verificacion de userId, accountName
 		try {
 			WhereAST where = new WhereAST().addValue("id='"+accountID+"'");
 			GeneralSQLFunctions.updateEntryFromDatabase(connection, "cuenta", columns, data, where);
@@ -429,8 +424,7 @@ public class ServerUserFunctionality {
 			condition.addColumValueLO(new String[] {tableName.CUENTA.getID()},new String[] {account}, WhereAST.logicOP.AND, WhereAST.ariOP.EQ);
 			GeneralSQLFunctions.updateEntryFromDatabase(connection, tableName.CUENTA.getName(), new String[] {"dinero"},new String[] {newMoney}, condition);
 		}catch (SQLException|CommandBuilderBuildException e) {
-			ArchivoLog.addLineError(Level.SEVERE, e.getMessage(), e);
-
+			archivoLog.addLineError(Level.SEVERE, e.getMessage(), e);
 			return "-1";
 		} 
 		return "1";

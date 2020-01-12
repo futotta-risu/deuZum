@@ -12,7 +12,7 @@ import  java.lang.reflect.Method;
 
 import org.json.*;
 
-import io.github.fatsquirrels.deuzum.log.ArchivoLog;
+import io.github.fatsquirrels.deuzum.log.archivoLog;
 
 /**
  * Interfaz especifica para guardar metodos dentro del HashMap de comandos del servidor.
@@ -35,8 +35,6 @@ public class ServerCommands {
 	 * Mapa que contiene los commandos y sus respectivas funciones.
 	 */
 	public static Map<String, Command> serverCommands;
-
-	final private static ArchivoLog logger = new ArchivoLog("ServerCommands");
 	
 	/**
 	 * Abre el mapa que contiene una lista de direcciones de metodos y las guarda en un HashMap. 
@@ -78,8 +76,7 @@ public class ServerCommands {
 							
 						} catch (ClassNotFoundException | NoSuchMethodException | SecurityException 
 								| IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-							ArchivoLog.addLineError(Level.SEVERE, e.getMessage(), e);
-
+							archivoLog.addLineError(Level.SEVERE, e.getMessage(), e);
 							e.printStackTrace();
 						} 
 						return null;
@@ -89,8 +86,7 @@ public class ServerCommands {
 			  br.close();
 			  
 		} catch (IOException e) {
-			ArchivoLog.addLineError(Level.SEVERE, e.getMessage(), e);
-
+			archivoLog.addLineError(Level.SEVERE, e.getMessage(), e);
 			e.printStackTrace();
 		}
 		  

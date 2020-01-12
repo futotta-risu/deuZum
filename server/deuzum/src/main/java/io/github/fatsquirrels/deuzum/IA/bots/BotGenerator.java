@@ -13,7 +13,14 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import io.github.fatsquirrels.deuzum.IA.bots.types.AccountBot;
+import io.github.fatsquirrels.deuzum.IA.bots.types.CleaningBot;
+import io.github.fatsquirrels.deuzum.IA.bots.types.GroupBot;
 import io.github.fatsquirrels.deuzum.IA.bots.types.MailBot;
+import io.github.fatsquirrels.deuzum.IA.bots.types.ProyectBot;
+import io.github.fatsquirrels.deuzum.IA.bots.types.ProyectTransactionBot;
+import io.github.fatsquirrels.deuzum.IA.bots.types.TransactionBot;
+import io.github.fatsquirrels.deuzum.IA.bots.types.UserBot;
 import io.github.fatsquirrels.deuzum.utils.math.APair;
 
 /**
@@ -29,11 +36,37 @@ public class BotGenerator {
 	 * @return BotBase Bot generado
 	 */
 	public static BotBase generateBot(BotType botType, String name) {
-		BotBase bot;
-		if(botType == BotType.MAIL || botType == BotType.CLEANING) bot = botType.createBot(0);
-		else bot = botType.createBot(Integer.parseInt(JOptionPane.showInputDialog("Introduce la cantidad de Transaciones")));
+		BotBase bot = null;
+		// Set the Specific Class of the Bot
+		switch(botType) {
+			case MAIL:
+				bot =  addMailBot(name);
+				break;
+			case CLEANING:
+				bot = new CleaningBot(name);
+				break;
+			case USUARIO:
+				bot = new UserBot(name, Integer.parseInt(JOptionPane.showInputDialog("Introduce la cantidad de usuarios")));
+				break;
+			case PROYECTO:
+				bot = new ProyectBot(name, Integer.parseInt(JOptionPane.showInputDialog("Introduce la cantidad de Proyectos")));
+				break;
+			case PROYECTOTRANSACCION:
+				bot = new ProyectTransactionBot(name, Integer.parseInt(JOptionPane.showInputDialog("Introduce la cantidad de Transaciones de Proyecto")));
+				break;
+			case GRUPO:
+				bot = new GroupBot(name, Integer.parseInt(JOptionPane.showInputDialog("Introduce la cantidad de Grupos")));
+				break;
+			case ACCOUNT:
+				bot = new AccountBot(name, Integer.parseInt(JOptionPane.showInputDialog("Introduce la cantidad de Cuentas")));
+				break;
+			case TRANSACCION:
+				bot = new TransactionBot(name, Integer.parseInt(JOptionPane.showInputDialog("Introduce la cantidad de Transaciones")));
+				break;
+		}
 		bot.setName(name);
 		return bot;
+
 	}
 	
 	/**
@@ -41,7 +74,7 @@ public class BotGenerator {
 	 * @param name Nombre del MailBot
 	 * @return MailBot generado
 	 */
-	public static BotBase addMailBot(String name, int temp) {
+	public static BotBase addMailBot(String name) {
 		
 		List<String> destinatarios = new ArrayList<String>();
 		FileFilter filter = new FileNameExtensionFilter("TXT File","txt");

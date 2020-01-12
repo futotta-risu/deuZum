@@ -10,7 +10,7 @@ import java.util.logging.Level;
 
 import org.json.JSONObject;
 
-import io.github.fatsquirrels.deuzum.log.ArchivoLog;
+import io.github.fatsquirrels.deuzum.log.archivoLog;
 
 
 /**
@@ -23,8 +23,6 @@ public class ServerSocketHandler extends Thread{
     private PrintWriter out;
     private BufferedReader in;
 	
-
-	final private static ArchivoLog logger = new ArchivoLog("ServerSocketHandler");
 	/**
 	 * Crea un hilo que contiene un socket recibido y una conexi�n para la ejecuci�n de comandos del cliente.
 	 * @param Socket socket
@@ -59,8 +57,7 @@ public class ServerSocketHandler extends Thread{
 			out.close();
 	        socket.close();
 		} catch (IOException e) {
-			ArchivoLog.addLineError(Level.SEVERE, e.getMessage(), e);
-
+			archivoLog.addLineError(Level.SEVERE, e.getMessage(), e);
 		}
         
 	}

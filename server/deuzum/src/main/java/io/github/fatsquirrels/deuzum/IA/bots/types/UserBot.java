@@ -3,7 +3,6 @@ package io.github.fatsquirrels.deuzum.IA.bots.types;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
 
 import javax.swing.JOptionPane;
 
@@ -11,7 +10,6 @@ import io.github.fatsquirrels.deuzum.IA.bots.BotBase;
 import io.github.fatsquirrels.deuzum.IA.bots.BotFunctions;
 import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
 import io.github.fatsquirrels.deuzum.database.exceptions.CommandBuilderBuildException;
-import io.github.fatsquirrels.deuzum.log.ArchivoLog;
 import io.github.fatsquirrels.deuzum.net.Server;
 import io.github.fatsquirrels.deuzum.utils.meta.anotations.Tested;
 
@@ -24,17 +22,16 @@ import io.github.fatsquirrels.deuzum.utils.meta.anotations.Tested;
 @Tested(tested=true)
 public class UserBot extends BotBase implements BotFunctions{
 
-	final private static ArchivoLog logger = new ArchivoLog("UserBot");
 	private Thread hiloUsuario;
 	private Connection connection;
-	private Integer cantidad;
+	private long cantidad;
 	
 	/**
 	 * Contructor de la clase, crea un UserBot con los parametros recibidos
 	 * @param namet Nombre del bot
 	 * @param cantidad Cantidad de usuarios que se quieren introducir en la BD
 	 */
-	public UserBot(String namet, Integer cantidad) {
+	public UserBot(String namet, long cantidad) {
 		this.name = namet;
 		this.cantidad = cantidad;
 		this.connection = Server.getDefaultServerConnection();
@@ -63,8 +60,7 @@ public class UserBot extends BotBase implements BotFunctions{
 					}
 				}
 				
-
-				logger.addLine(Level.INFO, "Se ha realizado el bot correctamente");
+				
 			}
 		});
 		hiloUsuario.run();
