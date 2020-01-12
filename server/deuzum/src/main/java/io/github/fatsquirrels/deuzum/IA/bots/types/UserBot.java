@@ -27,14 +27,14 @@ public class UserBot extends BotBase implements BotFunctions{
 	final private static ArchivoLog logger = new ArchivoLog("UserBot");
 	private Thread hiloUsuario;
 	private Connection connection;
-	private Integer cantidad;
+	private long cantidad;
 	
 	/**
 	 * Contructor de la clase, crea un UserBot con los parametros recibidos
 	 * @param namet Nombre del bot
 	 * @param cantidad Cantidad de usuarios que se quieren introducir en la BD
 	 */
-	public UserBot(String namet, Integer cantidad) {
+	public UserBot(String namet, long cantidad) {
 		this.name = namet;
 		this.cantidad = cantidad;
 		this.connection = Server.getDefaultServerConnection();

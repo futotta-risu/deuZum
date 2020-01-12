@@ -78,8 +78,7 @@ public class ServerCommands {
 							
 						} catch (ClassNotFoundException | NoSuchMethodException | SecurityException 
 								| IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-							ArchivoLog.addLineError(Level.SEVERE, e.getMessage(), e);
-
+							logger.addLineError(Level.SEVERE, e.getMessage(), e);
 							e.printStackTrace();
 						} 
 						return null;
@@ -89,8 +88,7 @@ public class ServerCommands {
 			  br.close();
 			  
 		} catch (IOException e) {
-			ArchivoLog.addLineError(Level.SEVERE, e.getMessage(), e);
-
+			logger.addLineError(Level.SEVERE, e.getMessage(), e);
 			e.printStackTrace();
 		}
 		  

@@ -27,12 +27,8 @@ public class MailBot extends BotBase implements BotFunctions{
 	private static String puertoEnvio = "465";
 	private static Properties props = new Properties();
 	
-	public MailBot() {
-		
-	}
 	
-	public MailBot(String name, Integer temp) {
-		this.name = name;
+	public MailBot() {
 	}
 	
 	/**
