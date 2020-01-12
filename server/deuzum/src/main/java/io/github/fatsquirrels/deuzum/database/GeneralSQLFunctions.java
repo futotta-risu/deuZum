@@ -37,18 +37,11 @@ public final class GeneralSQLFunctions {
 	 * @param user Nombre de usuario del SGBD
 	 * @param pass Contrasenia del usuario del SGDB
 	 * @return Objecto Connection, que es la conexion a la BD
+	 * @throws ClassNotFoundException 
 	 */
-	public static Connection connectToDatabase(String direction, String user, String pass) {
-		Connection conn = null;
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			conn = DriverManager.getConnection(direction,user, pass);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return conn;
+	public static Connection connectToDatabase(String direction, String user, String pass) throws SQLException, ClassNotFoundException{
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		return DriverManager.getConnection(direction,user, pass);
 	}
 	
 	public static  ArrayList<APair<String,Integer>> getColumnNameType(Connection conn, tableName ttp ){

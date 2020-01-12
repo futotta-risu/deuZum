@@ -1,6 +1,7 @@
 package io.github.fatsquirrels.deuzum.visual.panels;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -9,6 +10,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -30,6 +32,7 @@ import io.github.fatsquirrels.deuzum.utils.meta.anotations.Tested;
 import io.github.fatsquirrels.deuzum.visual.components.buttons.FlatButton;
 import io.github.fatsquirrels.deuzum.visual.panels.util.PairPanel;
 import io.github.fatsquirrels.deuzum.visual.statistics.GraphFunctions;
+import io.github.fatsquirrels.deuzum.visual.style.CustomColors;
 import io.github.fatsquirrels.deuzum.visual.style.layout.VerticalFlowLayout;
 
 @Tested
@@ -68,14 +71,16 @@ public class FunctionalityPanel extends JPanel {
 		JPanel panel_Cluster_Sector = new JPanel(new VerticalFlowLayout(10,10,10));
 		
 		JLabel lblClusterInfo = new JLabel(Strings.IA_cluster_info, SwingConstants.CENTER);
+		lblClusterInfo.setFont(new Font("Verdana", Font.PLAIN, 14));
+		
 		
 		clusteringAlgorithm = new JComboBox<Clustering.ClusteringAlgorithm>();
 		clusteringAlgorithm.setModel(new DefaultComboBoxModel<Clustering.ClusteringAlgorithm>(Clustering.ClusteringAlgorithm.values()));
 		clusteringAlgorithm.addActionListener(e -> createClusterDataPanel());
 		
 		panel_Clustering_Data = new JPanel(new VerticalFlowLayout(10,10,10));
-		
-		
+		panel_Clustering_Data.setBackground(CustomColors.UltraLightGrey);
+		panel_Clustering_Data.setBorder(BorderFactory.createMatteBorder(1,1,1,1, CustomColors.LightGrey));
 		txtFileName = new JTextField(20);
 		
 		FlatButton btnClusterizarDb = new FlatButton("Clusterizar DB");
@@ -88,8 +93,9 @@ public class FunctionalityPanel extends JPanel {
 		panel_Cluster_Sector.add(panel_Clustering_Data);
 		panel_Cluster_Sector.add(new PairPanel("Nombre de la clusterizacion", txtFileName));
 		panel_Cluster_Sector.add(btnClusterizarDb);
+		panel_Cluster_Sector.setBackground(CustomColors.VeryLightGrey);
 		panel_Funct_IA.add(panel_Cluster_Sector, BorderLayout.NORTH);
-		
+		panel_Funct_IA.setBackground(CustomColors.VeryLightGrey);
 		setLayout(new BorderLayout());
 		add(mainPanel,BorderLayout.CENTER);
 	}
@@ -99,26 +105,39 @@ public class FunctionalityPanel extends JPanel {
 		switch((Clustering.ClusteringAlgorithm)clusteringAlgorithm.getSelectedItem()) {
 		case KMC:
 			txtKMCNCluster =  new JTextField(15);
-			panel_Clustering_Data.add(new PairPanel("Numero de Clusters",txtKMCNCluster));
+			PairPanel p1_KMC = new PairPanel("Numero de Clusters",txtKMCNCluster);
+			p1_KMC.setBackground(CustomColors.UltraLightGrey);
+			panel_Clustering_Data.add(p1_KMC);
 			break;
 		case MSC:
 			lblKernel = new JLabel("Radio Kerner: 1");
+			lblKernel.setFont(new Font("Verdana", Font.PLAIN, 13));
 			sldrMSCKernel = new JSlider(1,100,1);
+			sldrMSCKernel.setBackground(CustomColors.UltraLightGrey);
 			sldrMSCKernel.addChangeListener(e -> {
 				lblKernel.setText("Radio Kernel: " + sldrMSCKernel.getValue());
 			});
-			panel_Clustering_Data.add(new PairPanel(lblKernel,sldrMSCKernel));
+			PairPanel p1_MSC =new PairPanel(lblKernel,sldrMSCKernel);
+			p1_MSC.setBackground(CustomColors.UltraLightGrey);
+			panel_Clustering_Data.add(p1_MSC);
 			break;
 		case DBSCAN:
-			lblRadius = new JLabel("Radio Kerner");
+			
 			sldrRadius = new JSlider(1,100,1);
+			sldrRadius.setBackground(CustomColors.UltraLightGrey);
 			sldrRadius.addChangeListener(e->{
 				lblRadius.setText("Radio: " + sldrRadius.getValue());
 			});
-			panel_Clustering_Data.add(new PairPanel(lblRadius,sldrRadius));
-			txtDBSANMinPoint =  new JTextField(15);
+			lblRadius = new JLabel("Radio: " + sldrRadius.getValue());
+			lblRadius.setFont(new Font("Verdana", Font.PLAIN, 13));
+			PairPanel p1_DBSACN =new PairPanel(lblRadius,sldrRadius);
+			p1_DBSACN.setBackground(CustomColors.UltraLightGrey);
+			panel_Clustering_Data.add(p1_DBSACN);
 			
-			panel_Clustering_Data.add(new PairPanel("Puntos Minimos",txtDBSANMinPoint));
+			txtDBSANMinPoint =  new JTextField(15);
+			PairPanel p2_DBSCAN =new PairPanel("Puntos Minimos",txtDBSANMinPoint);
+			p2_DBSCAN.setBackground(CustomColors.UltraLightGrey);
+			panel_Clustering_Data.add(p2_DBSCAN);
 			break;
 		default:
 			break;
@@ -128,7 +147,7 @@ public class FunctionalityPanel extends JPanel {
 	}
 	
 	public void clusterData() {
-		Connection connection = Server.createConnection();
+		Connection connection = Server.getDefaultServerConnection();
 		ClusterGroup clusterGroup = new ClusterGroup();
 		
 		String sqlDinero = "SELECT id_usuario, SUM(dinero), COUNT(numero_cuenta) FROM cuenta GROUP BY id_usuario";

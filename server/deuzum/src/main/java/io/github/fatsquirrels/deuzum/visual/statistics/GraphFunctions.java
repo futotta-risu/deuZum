@@ -30,7 +30,7 @@ public class GraphFunctions {
 	 * @see GraficoAportacionesProyecto
 	 */
 	public static void createGraphAportaciones() {
-		Connection conn = Server.createConnection();
+		Connection conn = Server.getDefaultServerConnection();
 		ArrayList<APair<Integer, Integer>> lista = new ArrayList<APair<Integer, Integer>>();
 		
 		int proyectId = Integer.parseInt(JOptionPane.showInputDialog("Introducir ID Proyecto"));
@@ -53,7 +53,7 @@ public class GraphFunctions {
 	 * @see GraficoUsuariosXTiempo
 	 */
 	public static void createGraphUsuariosXTiempo() {
-		Connection conn = Server.createConnection();
+		Connection conn = Server.getDefaultServerConnection();
 		List<String> lista = new ArrayList<String>();
 		
 		try {
@@ -77,7 +77,7 @@ public class GraphFunctions {
 	 * @see GraficoPermisos
 	 */
 	public static void createGraphPermisos() {
-		Connection conn = Server.createConnection();
+		Connection conn = Server.getDefaultServerConnection();
 		List<String> lista = new ArrayList<String>();
 		try {
 			ResultSet rs = GeneralSQLFunctions.getExecQuery(conn, "SELECT permisos FROM usuario");
@@ -97,7 +97,7 @@ public class GraphFunctions {
 	 * @see GraficoTransaciones
 	 */
 	public static void createGraphTransacciones() {
-		Connection conn = Server.createConnection();
+		Connection conn = Server.getDefaultServerConnection();
 		List<Integer> cantidades = new ArrayList<Integer>();
 		try {
 			ResultSet rs = GeneralSQLFunctions.getExecQuery(conn, "SELECT dinero FROM transaccion ORDER BY dinero ASC");
@@ -118,7 +118,7 @@ public class GraphFunctions {
 	 * @see GraficoTransacionesUsuario
 	 */
 	public static void createGraphUsuario() {
-		Connection conn = Server.createConnection();
+		Connection conn = Server.getDefaultServerConnection();
 		ArrayList<APair<Integer, Integer>> lista = new ArrayList<APair<Integer, Integer>>();
 		try {
 			ResultSet rs = GeneralSQLFunctions.getExecQuery(conn, "SELECT id FROM usuario ORDER BY id ASC");

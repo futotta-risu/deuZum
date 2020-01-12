@@ -4,9 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Window;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
@@ -14,11 +11,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import io.github.fatsquirrels.deuzum.database.CommandBuilderF;
@@ -33,10 +32,9 @@ import io.github.fatsquirrels.deuzum.utils.meta.anotations.Tested;
 import io.github.fatsquirrels.deuzum.visual.Dialogs.general.generalCreateDialog;
 import io.github.fatsquirrels.deuzum.visual.components.buttons.FlatButton;
 import io.github.fatsquirrels.deuzum.visual.style.CustomColors;
+import io.github.fatsquirrels.deuzum.visual.style.layout.BubbleBorder;
 import io.github.fatsquirrels.deuzum.visual.style.layout.VerticalFlowLayout;
-import javax.swing.border.SoftBevelBorder;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.MatteBorder;
+import javax.swing.border.EmptyBorder;
 
 
 @Tested
@@ -61,22 +59,24 @@ public class MenuPanel extends JPanel{
 
 
 		leftList.setViewportView(table);
-		leftList.getViewport().setBackground(CustomColors.BluePale);
+		leftList.getViewport().setBackground(CustomColors.UltraLightGrey);
 		add(leftList, BorderLayout.CENTER);
 		
-		rightMenu = new JPanel();
-		rightMenu.setLayout(new VerticalFlowLayout(10,10,10));
+		rightMenu = new JPanel(new VerticalFlowLayout(10,10,10));
 		rightMenu.setBackground(CustomColors.BluePale);
 		//Create
 		create = new FlatButton("Crear " + type.getName());
 		create.addActionListener(e->createElement());
-		rightMenu.add(create);
+		create.setBorder(new BubbleBorder(CustomColors.LightSaturatedBlue,1,8));
 
+		rightMenu.setMinimumSize(new Dimension(300,200));
+		
+		rightMenu.add(create);
 		
 		// Edit
 		if(type!=tableName.TRANSACCION) {
 			editar = new FlatButton("Editar " + type.getName());
-			
+			editar.setBorder(new BubbleBorder(CustomColors.LightSaturatedBlue,1,8));
 			editar.addActionListener(e->editElement());
 			rightMenu.add(editar);
 		}
@@ -84,14 +84,28 @@ public class MenuPanel extends JPanel{
 		// Delete
 		
 		delete = new FlatButton("Eliminar " + type.getName());
-		delete.addActionListener(e->deleteElement(Server.createConnection()));
+		delete.setBorder(new BubbleBorder(CustomColors.LightSaturatedBlue,1,8));
+		delete.addActionListener(e->deleteElement(Server.getDefaultServerConnection()));
 		rightMenu.add(delete);
 		
 		
 		refresh = new FlatButton("Refresh");
+		refresh.setBorder(new BubbleBorder(CustomColors.LightSaturatedBlue,1,8));
 		refresh.addActionListener(e-> refreshTable(panelType));
 		rightMenu.add(refresh);
+		
+		// Para que el VerticalFlowLayout no se encoja
+		// Es invisible
+		JTextField sizeUp = new JTextField(20);
+		sizeUp.setBorder(new EmptyBorder(0,0,0,0));
+		sizeUp.setBackground(CustomColors.BluePale);
+		sizeUp.setEditable(false);
+		rightMenu.add(sizeUp);
+		
+		JPanel rightMenuShadow = new JPanel(new BorderLayout());
+		rightMenuShadow.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 0,  CustomColors.LightGrey));
 		add(rightMenu, BorderLayout.EAST);
+		
 		table.getSelectionModel().addListSelectionListener(e-> setButtonAble(true));
 		table.setIntercellSpacing(new Dimension(0,0));
 		table.setRowHeight(25);
@@ -117,7 +131,7 @@ public class MenuPanel extends JPanel{
 	private void createElement() {
 		
 		
-		JDialog jd =new generalCreateDialog(Server.createConnection(), panelType);
+		JDialog jd =new generalCreateDialog(Server.getDefaultServerConnection(), panelType);
 		jd.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -131,7 +145,7 @@ public class MenuPanel extends JPanel{
 	
 	private void editElement() {
 		
-		JDialog jd = new generalCreateDialog(Server.createConnection(), panelType, 
+		JDialog jd = new generalCreateDialog(Server.getDefaultServerConnection(), panelType, 
 				Integer.parseInt(String.valueOf(table.getValueAt(table.getSelectedRow(),0))));
 		jd.addWindowListener(new WindowAdapter() {
             @Override
@@ -160,7 +174,7 @@ public class MenuPanel extends JPanel{
 	}
 	
 	private JTable crearTabla(tableName panelType) {
-		Connection conn = Server.createConnection();
+		Connection conn = Server.getDefaultServerConnection();
 		
 		
 		ArrayList<APair<String,Integer>> columnNameTypes = GeneralSQLFunctions.getColumnNameType(conn, this.panelType);

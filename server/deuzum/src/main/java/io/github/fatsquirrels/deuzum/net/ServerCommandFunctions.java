@@ -120,7 +120,7 @@ public class ServerCommandFunctions {
 		String usuario = data.getString("user");
 		if(usuario == null) return "-1";
 		String result = "-1";
-		Connection connection = Server.createConnection();
+		Connection connection = Server.getDefaultServerConnection();
 		try {
 			result = GeneralSQLFunctions.getEntryFromDatabase(connection, tableName.USUARIO.getName(), "preg_seguridad", tableName.USUARIO.getID() + " = " + usuario);;
 			// TODO falta que dada la id nos devuelva el String

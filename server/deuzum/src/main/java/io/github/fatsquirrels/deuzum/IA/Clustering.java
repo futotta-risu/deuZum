@@ -7,11 +7,8 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
 import java.util.Set;
-import java.util.stream.IntStream;
 
 import io.github.fatsquirrels.deuzum.utils.math.Metrics;
-import io.github.fatsquirrels.deuzum.utils.math.Pair;
-import io.github.fatsquirrels.deuzum.utils.math.Statistics;
 import io.github.fatsquirrels.deuzum.utils.math.Vectors;
 
 
@@ -24,62 +21,8 @@ public class Clustering {
 	public enum ClusteringAlgorithm{
 		MSC, DBSCAN,KMC
 	}
+
 	
-	
-	/**
-	 * Ejecuta el algoritmo KNN sobre una lista de listas de informacion.
-	 * 
-	 * @param users Lista con una matriz que representa una lista de vectores de usuarios.
-	 * @param labels Etiquetas de los usuarios.
-	 * @param newVector Vector de vectores de los que queremos saber la etiqueta.
-	 * @param kVal Valor de k.
-	 * @return Devuelve una lista con las categorias de los vectores.
-	 * @see
-	 */
-	public static final ArrayList<int[]> KNN(ArrayList<double[][]> users, ArrayList<int[]> labels, ArrayList<double[][]> newVector, int[] kVal){
-		ArrayList<int[]> resultMatrix= new ArrayList<int[]>();
-		int totalCases = users.size();
-		for(int i = 0;  i < totalCases; i++) { 
-			int KNNCaseSize = newVector.get(i).length;
-			// Para cada caso de KNN
-			int[] tempVal = new int[KNNCaseSize];
-			for(int j = 0; j < KNNCaseSize; j++) 
-				// Para cada vector que queremos comprobar
-				tempVal[j] = KNN(users.get(i), labels.get(i), newVector.get(i)[j], kVal[i]);
-			
-			resultMatrix.add(tempVal);
-		}
-		return resultMatrix;
-	}
-	
-	
-	
-	/**
-	 * Ejecuta el algoritmo KNN sobre una matriz de informacion.
-	 * 
-	 * @param users Lista de vectores que contiene las coordenadas de los usuarios
-	 * @param labels Lista de labels de los vectores
-	 * @param newVector Nuevo vector a añadir
-	 * @param k Valor de K
-	 * @return Label del vector 
-	 */
-	public static final int KNN(double[][] users, int[] labels, double[] newVector, int k) {
-		 
-		int usersSize = users.length;
-		
-		if (usersSize ==0) return -1;
-		if(users[0].length!=newVector.length) return -1;
-		
-		Pair[] distanciasIndex = new Pair[usersSize];
-				
-		for (int i = 0; i < usersSize; i++) 
-			distanciasIndex[i] = new Pair(i,Metrics.euclideanDistance(users[i], newVector));
-		
-		Arrays.sort(distanciasIndex);	
-		int[] results = IntStream.range(0, usersSize).map(i -> labels[distanciasIndex[i].getIndex()]).toArray();
-		
-		return Statistics.getModa(results);
-	}
 	/**
 	 * Ejecuta el algoritmo MSC sobre una lista de lista de usuarios
 	 * @param users Array de matrices de información

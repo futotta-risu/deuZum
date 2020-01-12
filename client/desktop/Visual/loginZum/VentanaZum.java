@@ -14,10 +14,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import Paneles.PanelConfiguracion;
-import Paneles.PanelCuentas;
+
 import Paneles.PanelTransacciones;
 import Paneles.PanelUsuario;
-import Paneles.panelGrupo;
 
 import javax.swing.ButtonGroup;
 
@@ -78,7 +77,7 @@ public class VentanaZum extends JFrame  {
 	   	 
 	   	 
 	   	 JPanel panel = new JPanel();
-	   	 panel.setLayout(new GridLayout(5,1));
+	   	 panel.setLayout(new GridLayout(3,1));
 	   	 
 
 		
@@ -91,21 +90,9 @@ public class VentanaZum extends JFrame  {
 		});
 		panel.add(usuario);
 		
-		JButton misCuentas = new JButton("Mis Cuentas");
-		misCuentas.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				switchPanel(new PanelCuentas());
-			}
-		});
-		panel.add(misCuentas);
 		
-		JButton misGrupos = new JButton("Mis Grupos");
-		misGrupos.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				switchPanel(new panelGrupo());
-			}
-		});
-		panel.add(misGrupos);
+		
+		
 		
 		JButton Transacciones = new JButton("Trasacciones");
 		Transacciones.addActionListener(new ActionListener() {

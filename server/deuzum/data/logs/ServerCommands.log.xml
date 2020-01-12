@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2020-01-12T19:43:10</date>
+  <millis>1578854590021</millis>
+  <sequence>1</sequence>
+  <logger>io.github.fatsquirrels.deuzum.log.ArchivoLog</logger>
+  <level>INFO</level>
+  <class>io.github.fatsquirrels.deuzum.log.ArchivoLog</class>
+  <method>addLine</method>
+  <thread>14</thread>
+  <message>El servidor se ha iniciado correctamente</message>
+</record>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2020-01-12T19:45:38</date>
+  <millis>1578854738148</millis>
+  <sequence>1</sequence>
+  <logger>io.github.fatsquirrels.deuzum.log.ArchivoLog</logger>
+  <level>INFO</level>
+  <class>io.github.fatsquirrels.deuzum.log.ArchivoLog</class>
+  <method>addLine</method>
+  <thread>14</thread>
+  <message>El servidor se ha iniciado correctamente</message>
+</record>
+<record>
+  <date>2020-01-12T19:45:57</date>
+  <millis>1578854757186</millis>
+  <sequence>2</sequence>
+  <logger>io.github.fatsquirrels.deuzum.log.ArchivoLog</logger>
+  <level>INFO</level>
+  <class>io.github.fatsquirrels.deuzum.log.ArchivoLog</class>
+  <method>addLine</method>
+  <thread>14</thread>
+  <message>Se ha realizado el bot correctamente</message>
+</record>

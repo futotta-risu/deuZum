@@ -23,7 +23,9 @@ class ObjectMapperTest {
 	void testCreateComponentMap() {
 		JPanel panel = new JPanel();
 		JButton btn1 = new JButton("Boton1");
+		btn1.setName("btn1");
 		JTextField txt1 = new JTextField();
+		txt1.setName("txt1");
 		panel.add(btn1);
 		panel.add(txt1);
 		
