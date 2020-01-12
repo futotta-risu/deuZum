@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.Icon;
 import javax.swing.JButton;
 
+
 /**
  * Boton con estilo Flat.
  */
@@ -38,6 +39,7 @@ public class FlatButton extends JButton {
 		
 	}
 	public void setStyle() {
+		
 		setBackground(Color.WHITE);
 		setBorderPainted(true);
 		setFocusPainted(false);

@@ -35,7 +35,7 @@ public class BotPanel extends JPanel{
 	private DropAnimation animate;
 	private JPanel bottomPanel;
 	private int botCount = 0;
-	private ArrayList<BotBase> botList;
+	private static ArrayList<BotBase> botList;
 	
 	public BotPanel(BotType typeT) {
 		this.type = typeT;
@@ -58,6 +58,7 @@ public class BotPanel extends JPanel{
 		lblBotCount = new JLabel("0");
 		lblBotCount.setHorizontalAlignment(SwingConstants.CENTER);
 		
+	
 		add(btnEnabled, BorderLayout.NORTH);
 		
 
@@ -104,7 +105,6 @@ public class BotPanel extends JPanel{
 				System.out.println(newBot.toString());
 				botList.add(newBot);
 				lblBotCount.setText(botCount +"");
-				newBot.execute();
 		});
 		t1.run();
 		
@@ -149,6 +149,10 @@ public class BotPanel extends JPanel{
 			revalidate();
 			repaint();
 		}
+	}
+	
+	public static ArrayList<BotBase> getBotList(){
+		return botList;
 	}
 	
 }

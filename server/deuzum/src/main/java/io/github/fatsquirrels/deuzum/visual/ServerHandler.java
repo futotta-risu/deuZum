@@ -5,6 +5,7 @@ import javax.swing.JOptionPane;
 
 
 import io.github.fatsquirrels.deuzum.database.tableName;
+import io.github.fatsquirrels.deuzum.log.ArchivoLog;
 import io.github.fatsquirrels.deuzum.net.Server;
 import io.github.fatsquirrels.deuzum.net.ServerThread;
 import io.github.fatsquirrels.deuzum.res.ServerProperties;
@@ -23,6 +24,8 @@ import io.github.fatsquirrels.deuzum.visual.panels.util.PanelProperties;
 import javax.swing.ImageIcon;
 
 import java.awt.Dimension;
+import java.util.logging.Level;
+
 import javax.swing.JComponent;
 
 @Tested
@@ -34,6 +37,7 @@ public class ServerHandler  extends GenericSMFrame{
 	
 	private static final long serialVersionUID = -2032372544471677287L;
 
+	final private ArchivoLog logger = new ArchivoLog("ServerHandler");
 	final private String[] notLoadedButtonOrder = {"Home", "Configuracion"};
 	final private String[] loadedButtonOrder = {"Home","Usuario","Cuentas","Transaccion","Grupos","Proyectos","Funcionalidades", "Configuracion"};
 	
@@ -58,7 +62,7 @@ public class ServerHandler  extends GenericSMFrame{
 		setTitle("DeuZum Servidor");
 		
 		setSize(new Dimension(1280, 720));
-		setMinimumSize(new Dimension(600, 400));
+		setMinimumSize(new Dimension(850, 600));
 		setVisible(true);
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -72,7 +76,7 @@ public class ServerHandler  extends GenericSMFrame{
 				new IconizedButton("symbol","stop",35,40,e -> stopServer())
 		});
 		
-		plp.addPanel("Home",new PanelProperties(new HomePanel("Bienvenido a el Servidor de Deuzum","Texto de muestra"), true));
+		plp.addPanel("Home",new PanelProperties(new HomePanel(), true));
 		
 		plp.addPanel("Configuracion",new PanelProperties(new ConfigPanel(), true));
 		
@@ -127,6 +131,7 @@ public class ServerHandler  extends GenericSMFrame{
 			loadMenuPanels();
 			createMenuButtons();
 			revalidate();
+			logger.addLine(Level.INFO, "El servidor se ha iniciado correctamente");
 		}else if(timeOut ==40) {
 			hiloStart.interrupt();
 		}else JOptionPane.showMessageDialog(null,Strings.server_execution_error_body,Strings.server_execution_error_tittle,1);

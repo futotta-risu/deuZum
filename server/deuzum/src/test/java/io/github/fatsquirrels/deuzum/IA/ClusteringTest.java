@@ -20,43 +20,6 @@ class ClusteringTest {
 	double[][] dots2 = {{1,1},{1,2},{2,1},{2,2},{1.5,1.5},
 			{5,5},{5,7},{7,5},{7,7},{6,6},{11,11},{-5,-5}};
 	
-	@Test
-	void KNNBigTest() {
-		
-		int[] labels = {0,0,0,0,0,1,1,1,1,1};
-		double[][] newVector = {{3,1},{4,3},{6,7}};
-		
-		ArrayList<double[][]> usersM = new ArrayList<double[][]>();
-		ArrayList<int[]> labelsM = new ArrayList<int[]>();
-		
-		usersM.add(dots);
-		labelsM.add(labels);
-		
-		ArrayList<double[][]> tests = new ArrayList<double[][]>();
-		tests.add(newVector);
-		
-		int[] k = {3};
-
-		ArrayList<int[]> result = new ArrayList<int[]>();
-		result.add(new int[]{0,0,1});
-		
-		assertEquals("Error en el KNN multiple",Arrays.deepToString(result.toArray()), 
-				Arrays.deepToString(Clustering.KNN(usersM,  labelsM, tests, k).toArray()));
-	}
-	@Test
-	void KNNTest() {
-		
-		int[] labels = {0,0,0,0,0,1,1,1,1,1};
-		double[] newVector1 = {3,1};
-		double[] newVector2 = {4,3};
-		double[] newVector3 = {6,7};
-		
-		 
-		assertAll( ()->assertEquals("Error primer vector en el KNN",0,Clustering.KNN(dots, labels, newVector1, 3)),
-				()->assertEquals("Error segundo vector en el KNN",0,Clustering.KNN(dots, labels, newVector2, 3)),
-				()->assertEquals("Error tercero vector en el KNN",1,Clustering.KNN(dots, labels, newVector3, 3)));
-
-	} 
 	
 	@Test
 	void MSCBigTest() {
@@ -123,12 +86,12 @@ class ClusteringTest {
 
 		users.add(dots);
 		int[] clusters = {2};
-		for(int i = 0; i < 1; i++) {
-			int[] result = Clustering.KMC(users.get(i), clusters[i]);
-			assertEquals("Error en el KMC multiple",true,  Arrays.equals(result,new int[]{1,1,1,1,1,0,0,0,0,0})
-					|| Arrays.equals(result,new int[]{0,0,0,0,0,1,1,1,1,1}));
-			// Empieza al azar y el nombre los puntos puede variar, pero siempre entre permutaciones
-		}
+		int[] result = Clustering.KMC(users.get(0), clusters[0]);
+		
+		assertEquals("Error en el KMC multiple",true,  Arrays.equals(result,new int[]{1,1,1,1,1,0,0,0,0,0})
+				|| Arrays.equals(result,new int[]{0,0,0,0,0,1,1,1,1,1}));
+		// Empieza al azar y el nombre los puntos puede variar, pero siempre entre permutaciones
+		
 	}
 	
 	@Test

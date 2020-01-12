@@ -20,9 +20,12 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import io.github.fatsquirrels.deuzum.IA.bots.*;
+import io.github.fatsquirrels.deuzum.net.Server;
+import io.github.fatsquirrels.deuzum.res.Strings;
 import io.github.fatsquirrels.deuzum.utils.WebpageConnection;
 import io.github.fatsquirrels.deuzum.utils.meta.anotations.Tested;
 import io.github.fatsquirrels.deuzum.visual.components.textAreaNoWrite;
+import io.github.fatsquirrels.deuzum.visual.components.buttons.ActivatedButtonR;
 import io.github.fatsquirrels.deuzum.visual.components.buttons.FlatButton;
 import io.github.fatsquirrels.deuzum.visual.style.CustomColors;
 import io.github.fatsquirrels.deuzum.visual.style.layout.VerticalFlowLayout;
@@ -38,6 +41,7 @@ public class HomePanel extends JPanel{
 
 	private final String FAQ_URL = "https://github.com/futotta-risu/deuZum/wiki";
 	private final String ABOUT_US_URL = "https://github.com/futotta-risu/deuZum/graphs/contributors";
+	private ActivatedButtonR btnActivateBots;
 
 	private HashMap<String,BotPanel> botPanels;
 
@@ -56,11 +60,11 @@ public class HomePanel extends JPanel{
 	
 	public JLabel serverLabel;
 	
-	public HomePanel(String titulo, String texto_central) {
+	public HomePanel() {
 		
 		stType = StatusType.off;
 		initializeProperties();
-		initializeComponents(titulo, texto_central);
+		initializeComponents();
 		
 	}
 	
@@ -70,35 +74,45 @@ public class HomePanel extends JPanel{
 		
 	}
 	
-	private void initializeComponents(String titulo, String texto_central) {
+	private void initializeComponents() {
 		
 		// Contenedor principal
-		JPanel panel_Home_Center = new JPanel();
+		JPanel panel_Home_Center = new JPanel(new VerticalFlowLayout(10,10,10));
 		panel_Home_Center.setBackground(Color.WHITE);
-		panel_Home_Center.setLayout(new BorderLayout(0, 0));
 		
 		// Titulo
-		JPanel panel_Home_Title = new JPanel();
-		panel_Home_Title.setBackground(Color.WHITE);
+		JPanel panel_Home_Tittle = new JPanel();
+		panel_Home_Tittle.setBackground(Color.WHITE);
+		panel_Home_Tittle.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, CustomColors.LightGrey));
+		JLabel lblBienvenido = new JLabel(Strings.home_Panel_Titulo, SwingConstants.CENTER);
+		lblBienvenido.setFont(new Font("Verdana", Font.BOLD, 29));
+		panel_Home_Tittle.add(lblBienvenido);
 		
-		// Titulo
-		JLabel lblBienvenido = new JLabel(titulo);
-		lblBienvenido.setFont(new Font("Helvetica", Font.BOLD, 29));
-		panel_Home_Title.add(lblBienvenido);
-		
-		
-		JPanel panel_Home_Info = new JPanel();
+		// Centro
+		JPanel panel_Home_Info = new JPanel(new VerticalFlowLayout(10,10,10));
 		panel_Home_Info.setBackground(Color.WHITE);
-		panel_Home_Info.setLayout(new VerticalFlowLayout(0,10,10));
 		
 		
 		JTextArea tf_Information = new textAreaNoWrite();
-		tf_Information.setText(texto_central);
+		tf_Information.setFont(new Font("Verdana", Font.PLAIN, 13));
+		tf_Information.setText(Strings.home_Panel_descripcion);
+		panel_Home_Info.add(tf_Information);
+		
+		panel_Home_Info.add(new JLabel(""));
+		
+		JLabel lblPrimerosPasos = new JLabel("<HTML><U>Primeros Pasos</U></HTML>");
+		lblPrimerosPasos.setFont(new Font("Verdana", Font.BOLD, 23));
+		panel_Home_Info.add(lblPrimerosPasos);
 		
 		
-		JTextArea tf_Software_Info = new textAreaNoWrite();
-		tf_Software_Info.setText("Actualmente esta aplicaci\u00F3n se encuentra en la versi\u00F3n alpha. Esta permite la realizaci\u00F3n de las tareas m\u00E1s basicas pero requiere todav\u00EDa bastantes cambios para evitar errores y mejorar el rendimiento. Las caracteristicas de esta versi\u00F3n han sido las siguientes:\r\n\r\n\t- Ventanas de control de la base de datos\r\n\t- Plantilla de la base de datos.\r\n\t- Estado actual del servidor");
 		
+		JLabel lblPrimerosPasosD = new JLabel(Strings.home_Panel_Primeros_Pasos);
+		lblPrimerosPasosD.setFont(new Font("Verdana", Font.PLAIN, 13));
+		panel_Home_Info.add(lblPrimerosPasosD);
+		
+		JLabel lblDocs = new JLabel("<HTML><U>Extras</U></HTML>");
+		lblDocs.setFont(new Font("Verdana", Font.BOLD, 23));
+		panel_Home_Info.add(lblDocs);
 		
 		JPanel panel_Home_Info_Botones = new JPanel();
 		panel_Home_Info_Botones.setBackground(Color.WHITE);
@@ -129,7 +143,7 @@ public class HomePanel extends JPanel{
 		
 		panel_Home_Info_Botones.add(btn_FAQ);
 		panel_Home_Info_Botones.add(btn_About_Us);
-		
+		panel_Home_Info.add(panel_Home_Info_Botones);
 		JPanel panel_Home_Lateral = new JPanel();
 		panel_Home_Lateral.setSize(500, 500);
 		panel_Home_Lateral.setBackground(new Color(176, 224, 230));		
@@ -168,6 +182,11 @@ public class HomePanel extends JPanel{
 		panel_Home_Lateral_Bots.setBorder(new BubbleBorder(CustomColors.LightSaturatedBlue,1,16));
 		
 		
+		btnActivateBots = new ActivatedButtonR("Iniciar Bots");
+		btnActivateBots.addActionListener( e -> launchBots());
+		panel_Home_Lateral_Bots.add(btnActivateBots);
+		
+		
 		botPanels = new HashMap<String,BotPanel>();
 		botPanels.put("mail", new BotPanel(BotType.MAIL));
 		botPanels.put("cleaning", new BotPanel(BotType.CLEANING));
@@ -181,6 +200,7 @@ public class HomePanel extends JPanel{
 		for(Entry<String, BotPanel> botPanel : botPanels.entrySet())
 			panel_Home_Lateral_Bots.add(botPanel.getValue());
 		
+		
 		JScrollPane scrollPanel_Lateral = new JScrollPane(panel_Home_Lateral,
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
 	            ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -188,14 +208,13 @@ public class HomePanel extends JPanel{
 		scrollPanel_Lateral.setPreferredSize(new Dimension(300,100));
 		add(scrollPanel_Lateral, BorderLayout.EAST);
 		
-		panel_Home_Info.add(panel_Home_Info_Botones, BorderLayout.SOUTH);
-		panel_Home_Info.add(tf_Software_Info, BorderLayout.EAST);
-		panel_Home_Info.add(tf_Information, BorderLayout.NORTH);
 		
-		panel_Home_Title.setBorder(new EmptyBorder(0,0,20,0));
 		
-		panel_Home_Center.add(panel_Home_Info,BorderLayout.CENTER);
-		panel_Home_Center.add(panel_Home_Title, BorderLayout.NORTH);
+		
+		
+		panel_Home_Center.add(panel_Home_Tittle);
+		panel_Home_Center.add(panel_Home_Info);
+		
 		
 		panel_Home_Center.setBorder(new EmptyBorder(20,20,20,20));
 		JPanel panel_Shadow_Home_Center = new JPanel(new BorderLayout());
@@ -208,6 +227,23 @@ public class HomePanel extends JPanel{
 	}
 
 
+	public void launchBots() {
+		Thread hiloInicioBots = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				if(Server.isRunning) {
+					if(!BotPanel.getBotList().isEmpty()) 
+						for (BotBase bot : BotPanel.getBotList()) 
+							bot.execute();
+					else 
+						JOptionPane.showMessageDialog(null, "No hay ningun bot disponible");
+				}else 
+					JOptionPane.showMessageDialog(null, "No puede activar bots con el servidor apagado.\n Enciendalo por favor.");
+			}
+		});
+		hiloInicioBots.run();
+	}
 
 
 	public void changeServerStatus(StatusType s) {

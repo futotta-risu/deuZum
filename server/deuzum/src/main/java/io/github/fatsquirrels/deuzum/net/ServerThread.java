@@ -14,6 +14,9 @@ public class ServerThread extends Thread{
 		
 		server = new Server();
 		server.setDBName(ServerProperties.properties.getProperty("server.dbName"));
+		server.setDBPort(ServerProperties.properties.getProperty("server.dbPort"));
+		server.setDBUser(ServerProperties.properties.getProperty("server.dbUser"));
+		server.setDBPass(ServerProperties.properties.getProperty("server.dbPass"));
 		server.setPort(Integer.valueOf(ServerProperties.properties.getProperty("server.port")));
 		server.runServer();
 		server.start();

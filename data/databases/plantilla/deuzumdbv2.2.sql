@@ -1,7 +1,7 @@
 -- Esta base de datos constituye la plantilla desde la que la aplicacion funciona.
 -- 
 -- Autor	: 	Fat Squirrels
--- Version	: 	1.2
+-- Version	: 	2.2
 -- 
 
 
@@ -29,7 +29,6 @@ CREATE TABLE `usuario` (
    PRIMARY KEY (`id`),
    UNIQUE KEY `usuario` (`usuario`),
    KEY `preg_seguridad` (`preg_seguridad`),
-   KEY `categoria` (`categoria`),
    KEY `permisos` (`permisos`)
 );
 
@@ -54,21 +53,6 @@ INSERT INTO `permisos` (`nombre`, `poder`) VALUES
 	('administrador', 1),
 	('programador', 2),
 	('cliente', 3);
-
--- Tabla		:	Cliente Categoria
--- Descripcion	:	Categorias en las que pueden entrar los clientes tras ser analizados por algoritmos de clustering.
-CREATE TABLE `clientecategoria` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(15) NOT NULL,
-  `descripcion` text NOT NULL,
-  PRIMARY KEY (`id`)
-);
-
--- Los permisos de usuario basicos
-INSERT INTO `clientecategoria` (`nombre`, `descripcion`) VALUES
-	('Gastador', 'Otro'),
-	('Comprador', 'Alguien'),
-	('Timador', 'Yo');
 
  
 -- Tabla		:	Informacion de Usuario
@@ -118,7 +102,10 @@ CREATE TABLE `grupomiembro` (
   `id_grupo` int(10) NOT NULL,
   `id_miembro` int(10) NOT NULL,
   `permisos` int(10) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `id_grupo` (`id_grupo`),
+  KEY `permisos` (`permisos`),
+  KEY `miembro` (`id_miembro`)
 );
 
 
@@ -168,7 +155,9 @@ CREATE TABLE `proyectomiembro` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `id_proyecto` int(10) NOT NULL,
   `id_miembro` int(10) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `id_miembro` (`id_miembro`),
+  KEY `id_proyecto` (`id_proyecto`)
 );
 
 
@@ -180,7 +169,9 @@ CREATE TABLE `proyectotransaccion` (
   `cantidad` int(11) NOT NULL,
   `razon` varchar(50) NULL,
   `fecha` date NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `id_proyecto` (`id_proyecto`),
+  KEY `id_miembro` (`id_miembro`)
 );
 
 
@@ -201,7 +192,9 @@ CREATE TABLE `transaccion` (
   `destino` int(10) NOT NULL,
   `dinero` int(10) NOT NULL,
   `fecha` date NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`codigo`)
+  PRIMARY KEY (`codigo`),
+  KEY `source` (`source`),
+  KEY `dest` (`destino`)
 );
 
 
@@ -261,8 +254,6 @@ ALTER TABLE `transaccion`
 
 ALTER TABLE `usuario`
   ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`preg_seguridad`) REFERENCES `pregseguridad` (`id`) ON UPDATE CASCADE ON DELETE CASCADE;
-ALTER TABLE `usuario`
-  ADD CONSTRAINT `usuario_ibfk_2` FOREIGN KEY (`categoria`) REFERENCES `clientecategoria` (`id`) ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE `usuario`
   ADD CONSTRAINT `usuario_ibfk_3` FOREIGN KEY (`permisos`) REFERENCES `permisos` (`id`) ON UPDATE CASCADE ON DELETE CASCADE;
 
