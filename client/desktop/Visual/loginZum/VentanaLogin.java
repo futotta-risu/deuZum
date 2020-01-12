@@ -8,14 +8,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 
+import Paneles.PanelConfiguracion;
 import Paneles.UserLogin;
 import Paneles.UserRegister;
-
+import Paneles.PanelRegistro;
+import Paneles.PanelLogin;
 
 public class VentanaLogin extends JFrame{
 	
@@ -32,8 +36,9 @@ public class VentanaLogin extends JFrame{
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setVisible(true);
 		this.setLayout(new BorderLayout());
-		JPanel login = new UserLogin();
-		JPanel register = new UserRegister();
+		
+		JPanel PanelLogin = new UserRegister();
+		JPanel PanelRegistro = new UserRegister();
 		center = new JPanel();
 		center.setLayout(new BorderLayout());
 		
@@ -45,11 +50,16 @@ public class VentanaLogin extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				center.removeAll();
-				center.add(login, BorderLayout.CENTER);
+				center.add(PanelLogin, BorderLayout.CENTER);
 				registerP.setEnabled(true);
 				loginP.setEnabled(false);
 				revalidate();
 				repaint();
+				
+				switchPanel(new PanelLogin());
+				
+				center.add(PanelLogin);
+				
 			}
 		});
 		registerP = new JButton("Register");
@@ -57,22 +67,40 @@ public class VentanaLogin extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				center.removeAll();
-				center.add(register, BorderLayout.CENTER);
+				center.add(PanelRegistro, BorderLayout.CENTER);
 				registerP.setEnabled(false);
 				loginP.setEnabled(true);
 				revalidate();
 				repaint();
+				switchPanel(new PanelRegistro());
+				
+				center.add(PanelRegistro);
+				
 			}
 		});
 		
 		top.add(loginP);
 		top.add(registerP);
 		
-		center.add(login, BorderLayout.CENTER);
-		
+		center.add(PanelLogin, BorderLayout.CENTER);
+		center.add(PanelRegistro, BorderLayout.CENTER);
 		add(top, BorderLayout.NORTH);
 		add(center, BorderLayout.CENTER);
-	}
+		}
+		
+		public void switchPanel ( JComponent panel ){
+			 center.removeAll();
+
+		   	 JScrollPane scrolledPane = new JScrollPane();
+		   	 scrolledPane.setViewportView(top);
+		   	center.add(scrolledPane, BorderLayout.CENTER);
+		   	center.validate();
+		   	center.repaint();
+
+		}
+		
+
+
 	public static void main(String[] args) {
 		new VentanaLogin();
 	}
