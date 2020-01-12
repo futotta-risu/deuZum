@@ -66,9 +66,10 @@ public class MailBot extends BotBase implements BotFunctions{
 
 	            Authenticator auth = new autentificadorSMTP();//autentificar el correo
 	            Session sesion = Session.getInstance(props, auth);//se inica una session
-	            // session.setDebug(true);
+	            //sesion.setDebug(true);
 	            
 		        for (String mail : destinatarios) {
+		        		System.out.println("enviando a mail" + mail);
 						enviaEmail(mail, sesion);		
 				}				
 			}
@@ -112,7 +113,7 @@ public class MailBot extends BotBase implements BotFunctions{
             msg.setSubject(mensaje.index);//setea asusto (opcional)
             msg.setFrom(new InternetAddress(correo));//agrega la la propiedad del correo origen
             msg.addRecipient(Message.RecipientType.TO, new InternetAddress(mailReceptor));//agrega el destinatario
-
+            System.out.println("enviando");
             Transport.send(msg);//envia el mensaje
 
             JOptionPane.showMessageDialog(null, "Email enviado");//alerta de que mensaje fue enviado correctamente

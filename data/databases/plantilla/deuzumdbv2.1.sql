@@ -1,4 +1,4 @@
--- Esta base de datos constituye la plantilla desde la que la aplicacion funciona.
+﻿-- Esta base de datos constituye la plantilla desde la que la aplicacion funciona.
 -- 
 -- Autor	: 	Fat Squirrels
 -- Version	: 	1.2
@@ -251,9 +251,7 @@ ALTER TABLE `sessionhandler`
 --
 ALTER TABLE `transaccion`
   ADD CONSTRAINT `dest` FOREIGN KEY (`destino`) REFERENCES `cuenta` (`numero_cuenta`) ON UPDATE CASCADE ON DELETE CASCADE,
-  ADD CONSTRAINT `sour` FOREIGN KEY (`source`) REFERENCES `cuenta` (`numero_cuenta`) ON UPDATE CASCADE ON DELETE CASCADE,
-  ADD CONSTRAINT `transaccion_ibfk_1` FOREIGN KEY (`source`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE ON DELETE CASCADE,
-  ADD CONSTRAINT `transaccion_ibfk_2` FOREIGN KEY (`destino`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE ON DELETE CASCADE;
+  ADD CONSTRAINT `sour` FOREIGN KEY (`source`) REFERENCES `cuenta` (`numero_cuenta`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 -- 
 -- Filtros para la tabla `usuario`

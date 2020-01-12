@@ -77,6 +77,7 @@ public class TransactionBot extends BotBase implements BotFunctions{
 					}
 						
 				} catch (SQLException | CommandBuilderBuildException e) {
+					e.printStackTrace();
 					JOptionPane.showMessageDialog(null, "Ha habido un error con el bot. Cerrando el hilo.");
 					return;
 				}
