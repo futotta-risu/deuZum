@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
@@ -20,9 +22,11 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import io.github.fatsquirrels.deuzum.IA.bots.*;
+import io.github.fatsquirrels.deuzum.net.Server;
 import io.github.fatsquirrels.deuzum.utils.WebpageConnection;
 import io.github.fatsquirrels.deuzum.utils.meta.anotations.Tested;
 import io.github.fatsquirrels.deuzum.visual.components.textAreaNoWrite;
+import io.github.fatsquirrels.deuzum.visual.components.buttons.ActivatedButton;
 import io.github.fatsquirrels.deuzum.visual.components.buttons.FlatButton;
 import io.github.fatsquirrels.deuzum.visual.style.CustomColors;
 import io.github.fatsquirrels.deuzum.visual.style.layout.VerticalFlowLayout;
@@ -38,6 +42,7 @@ public class HomePanel extends JPanel{
 
 	private final String FAQ_URL = "https://github.com/futotta-risu/deuZum/wiki";
 	private final String ABOUT_US_URL = "https://github.com/futotta-risu/deuZum/graphs/contributors";
+	private ActivatedButton btnActivateBots;
 
 	private HashMap<String,BotPanel> botPanels;
 
@@ -168,6 +173,48 @@ public class HomePanel extends JPanel{
 		panel_Home_Lateral_Bots.setBorder(new BubbleBorder(CustomColors.LightSaturatedBlue,1,16));
 		
 		
+		btnActivateBots = new ActivatedButton("Iniciar Bots");
+		btnActivateBots.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				Thread hiloInicio = new Thread(new Runnable() {
+					
+					@Override
+					public void run() {
+						if(Server.isRunning) {
+							if(!BotPanel.getBotList().isEmpty()) {
+								if(!btnActivateBots.isSelected()) {
+									btnActivateBots.setText("Iniciar Bots");
+									for (BotBase bot : BotPanel.getBotList()) {
+										bot.kill();
+									}
+									btnActivateBots.setSelected(false);
+								}else {
+									btnActivateBots.setText("Detener Bots");
+									for (BotBase bot : BotPanel.getBotList()) {
+										bot.execute();
+									}
+								}
+							}else {
+								JOptionPane.showMessageDialog(null, "No hay ningun bot disponible");
+								btnActivateBots.setSelected(false);
+							}				
+						}else {
+							JOptionPane.showMessageDialog(null, "No puede activar bots con el servidor apagado.\n Enciendalo por favor.");
+							btnActivateBots.setSelected(false);
+						}
+						
+						
+					}
+				});
+				hiloInicio.run();
+						
+			}
+		});
+		btnActivateBots.setBackground(Color.WHITE);
+		panel_Home_Lateral_Bots.add(btnActivateBots);
+		
+		
 		botPanels = new HashMap<String,BotPanel>();
 		botPanels.put("mail", new BotPanel(BotType.MAIL));
 		botPanels.put("cleaning", new BotPanel(BotType.CLEANING));
@@ -180,6 +227,7 @@ public class HomePanel extends JPanel{
 		
 		for(Entry<String, BotPanel> botPanel : botPanels.entrySet())
 			panel_Home_Lateral_Bots.add(botPanel.getValue());
+		
 		
 		JScrollPane scrollPanel_Lateral = new JScrollPane(panel_Home_Lateral,
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
