@@ -1,12 +1,10 @@
 package io.github.fatsquirrels.deuzum.visual.statistics;
 
 import java.awt.Color;
-import java.awt.Container;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
-import javax.swing.JFrame;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
@@ -20,9 +18,8 @@ import org.jfree.data.category.DefaultCategoryDataset;
  * Esta clase permite crear ventanas que contienen un Grafico la cantidad de usuarios
  * registrados a traves del tiempo (solo contiene usuarios que siguen registrados en la BD)
  */
-public class GraficoUsuariosXTiempo extends JFrame{
+public class GraficoUsuariosXTiempo{
 
-	private static final long serialVersionUID = 1L;
 	private List<String> cantidades;
 		
 	/**
@@ -31,15 +28,8 @@ public class GraficoUsuariosXTiempo extends JFrame{
 	 * @see crearGraficoBarrasUsuario
 	 */
 	public GraficoUsuariosXTiempo(List<String> data){
-		this.cantidades = data;
-		Container cp = this.getContentPane();
-		
-		cp.add(crearGraficoUsuariosXTiempo());
-		
-		setVisible(true);
-		setSize(500,500);
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setTitle("Grafico de usuarios Registrados en el Tiempo");
+		this.cantidades = data;		
+		crearGraficoUsuariosXTiempo();			
 	}
 
 	/**

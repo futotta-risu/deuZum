@@ -1,13 +1,11 @@
 package io.github.fatsquirrels.deuzum.visual.statistics;
 
 import java.awt.Color;
-import java.awt.Container;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
-import javax.swing.JFrame;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
@@ -20,9 +18,8 @@ import org.jfree.data.category.DefaultCategoryDataset;
  * Esta clase permite crear ventanas que contienen un Grafico las repeticiones de cantidad de dinero transferidas
  * en transacciones normales (no grupales).
  */
-public class GraficoTransaciones extends JFrame {
+public class GraficoTransaciones{
 
-	private static final long serialVersionUID = 1L;
 	private static List<Integer> cantidades;
 	
 	/**
@@ -32,14 +29,7 @@ public class GraficoTransaciones extends JFrame {
 	 */
 	public GraficoTransaciones(List<Integer> data) {
 		GraficoTransaciones.cantidades = data;
-		Container cp = this.getContentPane();
-		
-		cp.add(crearGraficoBarras());
-				
-		setVisible(true);
-		setSize(500,500);
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setTitle("Grafico Transaciones");
+		crearGraficoBarras();
 	}
 	
 	/**
