@@ -178,7 +178,7 @@ public class Server implements Runnable{
 	public void execute() throws ClassNotFoundException, SQLException {
 		ServerCommands.createMethodArray();
 		this.connection = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost:" + Server.dbPort+"/"+Server.dbName, Server.dbUser, Server.dbPass);
-		// TODO Add to the database the user status
+
 		// El servidor tiene que tener una base de datos hosteando el estado de los usuarios
 		// activos e inactivos
 		

@@ -50,8 +50,6 @@ public class Clustering {
 		
 		int dimension = users[0].length;
 		int points = users.length;
-		// TODO revisar el codigo y optimizar
-		// TODO Entender esta linea. Sirve para copiar arrays, pero quiero aprender como funciona stream
 		double[][] clusterPoints = Arrays.stream(users).map(double[]::clone).toArray(double[][]::new);
 		boolean[] hasConverged = new boolean[points];
 		int totalConverged = 0;
@@ -231,7 +229,6 @@ public class Clustering {
 		
 		double[][] clusterPoints = new double[clusters][dimension];
 		
-		// TODO Revisar que algoritmo usar para optener numeros aleatorios
 		
 		Set<Integer> puntosIniciales = new HashSet<Integer>();
 		Random ran = new Random();

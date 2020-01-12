@@ -169,7 +169,7 @@ public class MenuPanel extends JPanel{
 			System.err.println("Ha habido un error a la hora de eliminar una entrada");
 			e.printStackTrace();
 		} catch (CommandBuilderBuildException e) {
-			// TODO Auto-generated catch block
+			System.err.println("Ha habido un error a la hora de eliminar una entrada");
 			e.printStackTrace();
 		}
 		refreshTable(panelType);
@@ -190,7 +190,7 @@ public class MenuPanel extends JPanel{
 			cmdb = new CommandBuilderF().setSQLType(StatementType.SELECT)
 					.setTable(panelType.getName()).addColumns(columnNames);
 		} catch (CommandBuilderBuildException e1) {
-			// TODO Auto-generated catch block
+			System.err.println("Ha habido un error a la hora de eliminar una entrada");
 			e1.printStackTrace();
 		}
 		ResultSet dataRS, rowCountRS;

@@ -95,7 +95,6 @@ public class WhereAST {
 	}
 	
 	public WhereAST goChild(int n) {
-		// TODO Corregir todos los erroes en estos casos
 		if(this.root.nodeT == nodeType.TOKEN) return this;
 		this.root = this.root.children.get(n);
 		return this;
@@ -105,7 +104,6 @@ public class WhereAST {
 		return this;
 	}
 	
-	// TODO Comprobar las enyes y las tildes
 	/**
 	 * Inserta en el AST el valor con estructura (col1 ariOP dat1) logOP (col2 ariOP dat2) ...
 	 * @param columnNames Nombre de las columnas

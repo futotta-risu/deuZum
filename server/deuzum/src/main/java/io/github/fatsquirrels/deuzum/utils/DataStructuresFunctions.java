@@ -9,15 +9,12 @@ import org.json.JSONObject;
 import io.github.fatsquirrels.deuzum.utils.math.APair;
 import io.github.fatsquirrels.deuzum.utils.meta.anotations.Tested;
 
-
-// TODO Esta clase deprecated con los JSON?
-
+@Tested
 /**
  * Clase Funciones de Array
  * Esta clase proporciona metodos para realizar operaciones sobre varrios Arrays
  * @see #getReducedArrayString
  */
-@Tested(tested = false)
 public class DataStructuresFunctions {
 		
 	/**

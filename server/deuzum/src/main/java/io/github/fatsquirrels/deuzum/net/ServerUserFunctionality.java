@@ -20,6 +20,7 @@ import io.github.fatsquirrels.deuzum.utils.math.APair;
 import io.github.fatsquirrels.deuzum.utils.meta.anotations.Tested;
 import io.github.fatsquirrels.deuzum.visual.Dialogs.general.InvalidTransactionException;
 
+
 /**
  * Funciones comunes para la gestion de usuarios
  *
@@ -36,14 +37,17 @@ public class ServerUserFunctionality {
 		createUser(connection,DataStructuresFunctions.JSONtoHashMap(data));
 	}
 	
+	/** Es preferible usar funciones de
+	 * 
+	 * @param connection
+	 * @param data
+	 */
 	public static void createUser(Connection connection,HashMap<String,String> data) {
 		try {
 			GeneralSQLFunctions.insertEntryIntoDatabase(connection,"usuario",  data);
 		} catch (SQLException e) {
-			// TODO Añadir el error a un posible log ya que esta funcion solo se ejecuta desde el cliente
 			e.printStackTrace();
 		} catch (CommandBuilderBuildException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -56,7 +60,7 @@ public class ServerUserFunctionality {
 	 * @param connection Conexiï¿½n de SQL
 	 * @param data Array que contiene la informaciï¿½n de creacion del usuario (User, Pass, Pregunta Seguridad, Respuesta)
 	 */
-	@Tested(tested=true)
+	@Tested
 	public static void createUser(Connection connection, String[] data){
 		String[] columnNamesUsuarios = {"usuario","contraseÃ±a","preg_seguridad","resp_seguridad"};
 		try {
@@ -64,7 +68,6 @@ public class ServerUserFunctionality {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (CommandBuilderBuildException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -82,7 +85,8 @@ public class ServerUserFunctionality {
 		createUserInf(conn, new String[] {data.getString("nombre"), data.getString("apellido"), data.getString("telefono"), 
 				data.getString("email"), data.getString("direccion"), data.getString("fecha_nacimiento"), data.getString("sexo")});	
 	}
-		
+	
+	@Deprecated
 	/**
 	 * Crea la informacion de un usuario dentro de la base de datos dada en la conexion. Tabla infousuario.
 	 * @param connection ConexiÃ³n de SQL
@@ -90,7 +94,6 @@ public class ServerUserFunctionality {
 	 */	
 	public static void createUserInf(Connection connection, String[] data) {
 		// INFO Esta función no se llega a usar durante el codigo.
-		// TODO Repasar la utilidad de esta funcion
 		String[] columnNamesUserInf = {"id","nombre", "apellido", "telefono", "email", "direccion", "sexo"};
 		// Create UserInf
 		APair<String[],String[]> reducedInfo = getReducedArrayString(columnNamesUserInf, data);
@@ -99,7 +102,6 @@ public class ServerUserFunctionality {
 		}catch(SQLException e) {
 			e.printStackTrace();
 		} catch (CommandBuilderBuildException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -114,7 +116,7 @@ public class ServerUserFunctionality {
 		Connection conn = Server.getDefaultServerConnection();
 		updateUser(conn,data.getString("id") ,new String[] {data.getString("user"), data.getString("pass"), data.getString("pregSegu"),data.getString("resp"),"3"});
 	}
-	
+	@Deprecated
 	/**
 	 * Actualiza los datos de un usuario elegido por el administrador mediante su ID
 	 * @param connection Conexion de SQL
@@ -130,7 +132,6 @@ public class ServerUserFunctionality {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (CommandBuilderBuildException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -174,9 +175,8 @@ public class ServerUserFunctionality {
 	 * @param value
 	 * @return int of the error (0-correct, 1- SQL Error, 2-Not enought Money)
 	 */
-	@Tested(tested=true)
+	@Tested
 	public static int createTransaction(Connection connection, String userID_A, String userID_B, int value) {
-		// TODO Hacer las comprobaciones de SQL
 		String dinero_A, dinero_B;
 		try {
 			dinero_A = GeneralSQLFunctions.getEntryFromDatabase(connection, "cuenta", "dinero", " numero_cuenta='"+userID_A+"'");
@@ -261,36 +261,33 @@ public class ServerUserFunctionality {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (CommandBuilderBuildException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
+	@Deprecated
 	public static void addToGroup(Connection connection, String userID, String groupID, String permisos) {
-		// TODO aï¿½adir las funciones de verificacion de groupName
+
 		try {
 			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "grupomiembros", new String[] {"id_grupo","miembro", "permisos"},new String[] {groupID, userID, permisos} );
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (CommandBuilderBuildException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+	@Deprecated
 	public static void updateGroup(Connection conn, String groupID, String[] data) {
-		// TODO anyadir las funciones de verificacion de groupID, groupName
 		try {
 			WhereAST where = new WhereAST().addValue("id='"+groupID+"'");
 			GeneralSQLFunctions.updateEntryFromDatabase(conn, "grupo", new String[] { "nombre" },data, where);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (CommandBuilderBuildException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+	@Deprecated
 	public static void updateGroupMiembros(Connection conn, String groupID, String[] userId, String[] comboPermisos) {
 		WhereAST where = new WhereAST().addValue("id='"+ groupID +"'");
 		try {
@@ -300,24 +297,21 @@ public class ServerUserFunctionality {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (CommandBuilderBuildException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
-	
+	@Deprecated
 	public static void createGroup(Connection connection, String[] data) {
-		// TODO aï¿½adir las funciones de verificacion de groupName
 		try {
 			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "grupo", new String[] {"nombre", "descripcion"}, data);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (CommandBuilderBuildException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+	@Deprecated
 	public static void deleteGroup(Connection connection, String groupId) {
 		//Borramos de la base de datos el grupo que nos ha pedido el cliente que borremos
 		try {
@@ -326,11 +320,10 @@ public class ServerUserFunctionality {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (CommandBuilderBuildException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+	@Deprecated
 	public static void createProyect(Connection connection, String[] data) {
 		try {
 			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "proyecto",
@@ -338,11 +331,10 @@ public class ServerUserFunctionality {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (CommandBuilderBuildException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+	@Deprecated
 	public static void deleteProyect(Connection connection, String proyectID) {
 		try {
 			WhereAST where = new WhereAST().addValue("id='"+proyectID+"'");
@@ -350,11 +342,10 @@ public class ServerUserFunctionality {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (CommandBuilderBuildException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+	@Deprecated
 	public static void updateProyect(Connection connection, String proyectID, String[] data) {
 		try {
 			WhereAST where = new WhereAST().addValue("id='"+proyectID+"'");
@@ -362,26 +353,23 @@ public class ServerUserFunctionality {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (CommandBuilderBuildException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
+	@Deprecated
 	public static void createAccount(Connection connection, String[] data) {
-		// TODO aï¿½adir las funciones de verificacion de userId, accountName
 		try {
-			// TODO cambiar esto entero para que meta mediante mapas
 			GeneralSQLFunctions.insertEntryIntoDatabase(connection, "cuenta", 
 					new String[] {"numero_cuenta", "id_usuario","dinero"},
 					data);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (CommandBuilderBuildException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+	@Deprecated
 	public static void deleteAccount(Connection connection, String accountID) {
 		try {
 			WhereAST where = new WhereAST().addValue("numero_cuenta='"+accountID+"'");
@@ -390,12 +378,11 @@ public class ServerUserFunctionality {
 			System.err.println("Error a la hora de eliminar una cuenta.");
 			e.printStackTrace();
 		} catch (CommandBuilderBuildException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+	@Deprecated
 	public static void updateAccount(Connection connection, String accountID, String[] columns, String[] data) {
-		// TODO aï¿½adir las funciones de verificacion de userId, accountName
 		try {
 			WhereAST where = new WhereAST().addValue("id='"+accountID+"'");
 			GeneralSQLFunctions.updateEntryFromDatabase(connection, "cuenta", columns, data, where);
@@ -403,7 +390,6 @@ public class ServerUserFunctionality {
 			System.err.println("Error a la hora de updatear una cuenta.");
 			e.printStackTrace();
 		} catch (CommandBuilderBuildException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

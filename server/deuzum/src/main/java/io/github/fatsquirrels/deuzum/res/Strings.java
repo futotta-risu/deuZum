@@ -12,7 +12,6 @@ public class Strings {
 	public final static String server_execution_error_body = "Parece que ha habido algun tipo de error al ejecutar el servidor. Reinicia la aplicacion.";
 	
 	
-	// TODO acabar
 	public final static String IA_cluster_info = 
 			"El clustering de la informacion se realiza aplicando algunos de los algoritmos de Clustering ofrecido por "+
 			"el servidor y se guarda en un binario.";

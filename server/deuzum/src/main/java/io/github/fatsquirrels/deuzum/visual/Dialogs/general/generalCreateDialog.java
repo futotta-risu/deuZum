@@ -85,8 +85,6 @@ public class generalCreateDialog extends JDialog{
 		}
 		
 		// Creates the list of components fo each column of the table
-		// TODO implementar con PairPanel (Preguntar a Erik o dejarle a el)
-		// TODO la id no debe aparecer
 		for(int i =1 ; i < numberOfColumns; i++) {
 			JPanel temp = new JPanel();
 			temp.setLayout(new BorderLayout());

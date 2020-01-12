@@ -38,7 +38,6 @@ public class ServerSocketHandler extends Thread{
 			out = new PrintWriter(socket.getOutputStream());
 	        in = new BufferedReader(
 	          new InputStreamReader(socket.getInputStream()));
-	        // TODO Add a function to check whether a Hash exist for the user
 	        String command = in.readLine();
 	        // Dechiper the Command
 	        JSONObject data = new JSONObject(in.readLine());
