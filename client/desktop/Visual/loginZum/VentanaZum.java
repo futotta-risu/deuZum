@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import Paneles.PanelConfiguracion;
-
+import Paneles.PanelCuenta;
 import Paneles.PanelTransacciones;
 import Paneles.PanelUsuario;
 
@@ -77,7 +77,7 @@ public class VentanaZum extends JFrame  {
 	   	 
 	   	 
 	   	 JPanel panel = new JPanel();
-	   	 panel.setLayout(new GridLayout(3,1));
+	   	 panel.setLayout(new GridLayout(4,1));
 	   	 
 
 		
@@ -90,7 +90,13 @@ public class VentanaZum extends JFrame  {
 		});
 		panel.add(usuario);
 		
-		
+		JButton cuenta = new JButton("Mi cuenta");
+		cuenta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				switchPanel(new PanelCuenta());
+			} 
+		});
+		panel.add(cuenta);
 		
 		
 		

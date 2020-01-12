@@ -102,11 +102,11 @@ public class VentanaLogin extends JFrame{
 
 
 	public static void main(String[] args) {
-		new VentanaLogin();
+		new VentanaLogin();	
+		
 	}
 	
-	public static void main(String[] args) {
-		new VentanaLogin();
-	}
+	
+	
 
 }
