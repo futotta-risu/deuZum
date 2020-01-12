@@ -15,37 +15,15 @@
 
 Deuzum es un sistema de transacciones online estilo bizum que permite además la gestión de gastos grupales. 
 
-======
 
 ## Instalación
 
-El servidor requiere de algún servidor de SQL externo para el hosteo de la base de datos. En el, importaremos la base de datos situada en `data/databases/pantilla/deuzumdb`. Una vez tengamos la base de datos preparada, descargamos la carpeta server de src y la situamos donde queramos que se encuentre nuestro servidor.
-
-Para configurar el servidor nos dirigimos a `data/server.propierties`. Dentro de este archivo se encuentran un conjunto de atributos que deberemos cambiar:
-
-  
-
-|Propiedad     | Descripción                                                  |
-|------------- | -------------------------------------------------------------|
-|server.port   | Número del puerto que queramos usar para el servidor.        |
-|server.dbName | Nombre de la base de datos que usamos para guardar los datos.|
+El servidor requiere de algún servidor de SQL externo para el hosteo de la base de datos. En el, importaremos la base de datos situada en `data/databases/pantilla/deuzumdbv2.2`. Una vez tengamos la base de datos preparada podemos lanzar el servidor.
 
 Una vez configurado esto, podemos lanzar el server desde la carpeta `src/deustoZumServer` mediante el comando:
 
-    java ServerHandlerFrame
+    java ServerLauncher
+
+El resto de la configuración se puede realizar desde la propia pestaña de "configuración" del programa.
 
 
-
-## Caracteristicas
-
-1. Bases de Datos como plantilla
-2. Archivos de Configuración/Propiedades
-3. Algoritmos para Clusterizar la información
-
-## FAQ y Documentación
-
-La sección de FAQ se encuentra dentro de la Wiki del repositorio. Por otro lado, la documentación oficial del código todavía no esta disponible, esperamos tenerla preparada para finales de diciembre.
-
-## Bugs conocidos
-
-- Al pulsar sobre "Activar bot" estando el servidor apagado, este se mantendrá en azul aun habiando saltado el error. Si luego se ejecuta el server y se vuelve a pulsar, la transicion se buggea no dejando ver los botones.

@@ -206,6 +206,7 @@ public class HomePanel extends JPanel{
 	            ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPanel_Lateral.setBorder(new EmptyBorder(0, 0, 0, 0));
 		scrollPanel_Lateral.setPreferredSize(new Dimension(300,100));
+		scrollPanel_Lateral.getVerticalScrollBar().setUI(new ScrollBarUI());
 		add(scrollPanel_Lateral, BorderLayout.EAST);
 		
 		

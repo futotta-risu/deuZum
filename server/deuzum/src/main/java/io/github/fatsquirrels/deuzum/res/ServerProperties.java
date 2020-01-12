@@ -42,7 +42,7 @@ public class ServerProperties {
 		}
 	}
 	public static void createErrorLog() {
-		new ArchivoLog("logServerHandlerFrame");
+		new ArchivoLog("logDeuzum");
 	}
 	
 }

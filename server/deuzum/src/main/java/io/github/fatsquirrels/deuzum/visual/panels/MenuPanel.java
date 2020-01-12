@@ -33,6 +33,7 @@ import io.github.fatsquirrels.deuzum.visual.Dialogs.general.generalCreateDialog;
 import io.github.fatsquirrels.deuzum.visual.components.buttons.FlatButton;
 import io.github.fatsquirrels.deuzum.visual.style.CustomColors;
 import io.github.fatsquirrels.deuzum.visual.style.layout.BubbleBorder;
+import io.github.fatsquirrels.deuzum.visual.style.layout.ScrollBarUI;
 import io.github.fatsquirrels.deuzum.visual.style.layout.VerticalFlowLayout;
 import javax.swing.border.EmptyBorder;
 
@@ -55,6 +56,7 @@ public class MenuPanel extends JPanel{
 		setLayout(new BorderLayout());
 		
 		leftList = new JScrollPane();
+		leftList.getVerticalScrollBar().setUI(new ScrollBarUI());
 		table = crearTabla(type);
 
 
