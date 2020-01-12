@@ -48,7 +48,6 @@ public class CommandBuilderFTest {
 							.backP()
 							);
 			String commando = newCommand.pack();
-			System.out.println(commando);
 			assertEquals("SELECT ejemplo1,plantilla,comando FROM HOSPITAL INNER JOIN EMPRESA WHERE (pantilla='ej1' AND comando='ej2') GROUP BY comando ORDER BY plantilla ASC LIMIT 3" ,commando);
 		} catch (CommandBuilderBuildException e) {
 			assertTrue(false);
@@ -65,7 +64,6 @@ public class CommandBuilderFTest {
 			newCommand = new CommandBuilderF(StatementType.DELETE)
 					.setTable("tabla2").addWhere(where);
 			String commando = newCommand.pack();
-			System.out.println(commando);
 			assertEquals("DELETE FROM tabla2 WHERE id='2'  " ,commando);
 		
 		} catch (CommandBuilderBuildException e) {
@@ -84,7 +82,6 @@ public class CommandBuilderFTest {
 					.setTable("tabla2").addWhere(where);
 			
 			String commando = newCommand.pack();
-			System.out.println(commando);
 			assertEquals("DELETE FROM tabla2 WHERE (DELETE FROM tabla2 WHERE id='2'  )  " ,commando);
 		} catch (CommandBuilderBuildException e) {
 			assertTrue(false);
@@ -101,7 +98,6 @@ public class CommandBuilderFTest {
 			newCommand = new CommandBuilderF(StatementType.UPDATE)
 					.setTable("tabla2").addExpression("name","Jose").addExpression("name2","Jose2").addWhere(where);
 			String comando = newCommand.pack();
-			System.out.println(comando);
 			assertEquals("UPDATE tabla2 SET name=\"Jose\",name2=\"Jose2\" WHERE id='2'  ", comando);
 		} catch (CommandBuilderBuildException e) {
 			assertTrue(false);

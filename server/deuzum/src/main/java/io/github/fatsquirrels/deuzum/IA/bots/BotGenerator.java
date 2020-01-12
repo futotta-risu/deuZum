@@ -84,23 +84,15 @@ public class BotGenerator {
 		jfc.showOpenDialog(null);
 		File selected = jfc.getSelectedFile();
 		
-		BufferedReader br = null;
-		try {
-			br = new BufferedReader(new FileReader(selected));
+		try(BufferedReader br = new BufferedReader(new FileReader(selected))){
 			for(String line =br.readLine() ;  line!=null; line = br.readLine()) 
-				destinatarios.add(line);
+				if(!line.trim().isEmpty())
+					destinatarios.add(line);
 			 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}catch (IOException e) {
 			e.printStackTrace();
-		}finally {			
-			try {
-				br.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			
 		}
 		
 		FileFilter filter2 = new FileNameExtensionFilter("TXT File","txt");
@@ -111,27 +103,19 @@ public class BotGenerator {
 		File selected2 = jfc2.getSelectedFile();
 		
 
-		BufferedReader br2 = null;
 		String cabecera = "";
 		String cuerpo = "";
 		
-		try {
-			br2 = new BufferedReader(new FileReader(selected2));
-			cabecera =br2.readLine();
+		try(BufferedReader br = new BufferedReader(new FileReader(selected2))) {
+			cabecera =br.readLine();
 			
-			for( String line = br2.readLine();  line!=null; line = br2.readLine()) 
+			for( String line = br.readLine();  line!=null; line = br.readLine()) 
 				cuerpo += line + "\n";
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}catch (IOException e) {
 			e.printStackTrace();
-		}finally {
-			try {
-				br2.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 		}
 		
 		APair<String, String> mensaje = new APair<String,String>(cabecera, cuerpo);

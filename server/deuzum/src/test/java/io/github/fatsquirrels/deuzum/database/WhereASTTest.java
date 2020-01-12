@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 
 import io.github.fatsquirrels.deuzum.database.WhereAST;
@@ -15,7 +14,7 @@ public class WhereASTTest {
 	
 	private WhereAST newWhere;
 	
-	@BeforeEach
+	@Before
 	public void setUp() {
 		newWhere = new WhereAST();
 	}

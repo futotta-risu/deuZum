@@ -22,7 +22,7 @@ public class CustomColors {
 	
 	public static Color BlueGray = new Color(244,247,248);
 	
-	
+	public static Color UltraLightGrey = new Color(252,252,252);
 	// NEW COLORS
 	
 	public static Color BluePale = new Color(193, 233, 238);

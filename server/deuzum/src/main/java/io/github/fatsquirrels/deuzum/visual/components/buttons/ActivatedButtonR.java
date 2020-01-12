@@ -2,17 +2,16 @@ package io.github.fatsquirrels.deuzum.visual.components.buttons;
 
 import java.awt.Color;
 
-import javax.swing.JToggleButton;
+import javax.swing.JButton;
 
 import io.github.fatsquirrels.deuzum.visual.style.CustomColors;
 import io.github.fatsquirrels.deuzum.visual.style.layout.BubbleBorder;
 
+public class ActivatedButtonR extends JButton{
 
-public class ActivatedButton extends JToggleButton{
-	
-	private static final long serialVersionUID = 8599437877918600714L;
+	private static final long serialVersionUID = 358345752120253285L;
 
-	public ActivatedButton(String text) {
+	public ActivatedButtonR(String text) {
 		setStyle();
 		setText(text);
 	}
@@ -27,7 +26,5 @@ public class ActivatedButton extends JToggleButton{
 		setContentAreaFilled(true);
 		
 
-		
 	}
-
 }
