@@ -1,12 +1,10 @@
 package io.github.fatsquirrels.deuzum.visual.statistics;
 
 import java.awt.Color;
-import java.awt.Container;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-import javax.swing.JFrame;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
@@ -21,9 +19,8 @@ import io.github.fatsquirrels.deuzum.utils.math.APair;
  * Esta clase permite crear ventanas que contienen un Grafico con la cantidad
  * que ha aportado cada usuario a un proyecto en especifico.
  */
-public class GraficoAportacionesProyecto extends JFrame{
+public class GraficoAportacionesProyecto{
 	
-	private static final long serialVersionUID = 1L;
 	private static ArrayList<APair<Integer,Integer>> cantidades;
 	
 	/**
@@ -33,14 +30,7 @@ public class GraficoAportacionesProyecto extends JFrame{
 	 */
 	public GraficoAportacionesProyecto(ArrayList<APair<Integer,Integer>> data) {
 		GraficoAportacionesProyecto.cantidades = data;
-		Container cp = this.getContentPane();
-		
-		cp.add(crearGraficoBarras());
-				
-		setVisible(true);
-		setSize(500,500);
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setTitle("Grafico Aportaciones en Proyecto");
+		crearGraficoBarras();
 	}
 
 	/**

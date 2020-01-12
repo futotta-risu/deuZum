@@ -1,12 +1,10 @@
 package io.github.fatsquirrels.deuzum.visual.statistics;
 
 import java.awt.Color;
-import java.awt.Container;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-import javax.swing.JFrame;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
@@ -21,9 +19,8 @@ import io.github.fatsquirrels.deuzum.utils.math.APair;
  * Esta clase permite crear ventanas que contienen un Grafico la cantidad de dinero transferida por cada
  * usuario en transacciones normales (no grupales).
  */
-public class GraficoTransacionesUsuario extends JFrame{
+public class GraficoTransacionesUsuario{
 
-	private static final long serialVersionUID = 1L;
 	private ArrayList<APair<Integer,Integer>> cantidades;
 	
 	/**
@@ -32,15 +29,8 @@ public class GraficoTransacionesUsuario extends JFrame{
 	 * @see crearGraficoBarrasUsuario
 	 */
 	public GraficoTransacionesUsuario(ArrayList<APair<Integer, Integer>> data) {
-		this.cantidades = data;
-		Container cp = this.getContentPane();
-		
-		cp.add(crearGraficoBarrasUsuario());
-		
-		setVisible(true);
-		setSize(500,500);
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setTitle("Grafico cantidad transferida por usuario");
+		this.cantidades = data;		
+		crearGraficoBarrasUsuario();
 	}
 
 	/**

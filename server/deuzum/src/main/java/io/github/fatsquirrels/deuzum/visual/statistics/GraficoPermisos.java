@@ -1,11 +1,9 @@
 package io.github.fatsquirrels.deuzum.visual.statistics;
 
-import java.awt.Container;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
-import javax.swing.JFrame;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
@@ -18,9 +16,9 @@ import org.jfree.data.general.DefaultPieDataset;
  * Esta clase permite crear ventanas que contienen un Grafico con el porcentaje
  * de usuarios que contienen cada permiso.
  */
-public class GraficoPermisos extends JFrame{
+public class GraficoPermisos{
 
-	private static final long serialVersionUID = 1L;
+
 	private List<String> cantidades;
 	
 	/**
@@ -30,14 +28,7 @@ public class GraficoPermisos extends JFrame{
 	 */
 	public GraficoPermisos(List<String> data) {
 		this.cantidades = data;
-		Container cp = this.getContentPane();
-		
-		cp.add(crearGraficoPermisosUsuario());
-		
-		setVisible(true);
-		setSize(500,500);
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setTitle("Grafico Permisos de usuario");
+		crearGraficoPermisosUsuario();
 	}
 
 	/**

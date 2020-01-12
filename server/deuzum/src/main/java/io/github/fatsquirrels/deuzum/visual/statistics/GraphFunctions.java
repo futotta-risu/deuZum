@@ -131,7 +131,6 @@ public class GraphFunctions {
 					ResultSet rs3 = GeneralSQLFunctions.getExecQuery(conn, "SELECT dinero FROM transaccion WHERE source = "+ accountId);
 					int cantidad = 0;
 					while(rs3.next()) {
-						System.out.println(rs3.getString("dinero"));
 						if(!rs3.getString("dinero").equals(null)) {
 							cantidad = cantidad + Integer.parseInt(rs3.getString("dinero"));	
 						}else {
