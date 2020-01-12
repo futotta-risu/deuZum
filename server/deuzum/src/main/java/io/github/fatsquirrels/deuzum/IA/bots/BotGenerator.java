@@ -13,14 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import io.github.fatsquirrels.deuzum.IA.bots.types.AccountBot;
-import io.github.fatsquirrels.deuzum.IA.bots.types.CleaningBot;
-import io.github.fatsquirrels.deuzum.IA.bots.types.GroupBot;
 import io.github.fatsquirrels.deuzum.IA.bots.types.MailBot;
-import io.github.fatsquirrels.deuzum.IA.bots.types.ProyectBot;
-import io.github.fatsquirrels.deuzum.IA.bots.types.ProyectTransactionBot;
-import io.github.fatsquirrels.deuzum.IA.bots.types.TransactionBot;
-import io.github.fatsquirrels.deuzum.IA.bots.types.UserBot;
 import io.github.fatsquirrels.deuzum.utils.math.APair;
 
 /**
