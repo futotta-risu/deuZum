@@ -59,7 +59,8 @@ public class ServerSocketHandler extends Thread{
 			out.close();
 	        socket.close();
 		} catch (IOException e) {
-			logger.addLineError(Level.SEVERE, e.getMessage(), e);
+			ArchivoLog.addLineError(Level.SEVERE, e.getMessage(), e);
+
 		}
         
 	}

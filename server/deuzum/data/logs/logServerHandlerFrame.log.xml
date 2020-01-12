@@ -13,17 +13,8 @@
   <message>El servidor se ha iniciado correctamente</message>
 </record>
 </log>
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
-<record>
-  <date>2020-01-12T19:14:38</date>
-  <millis>1578852878029</millis>
-  <sequence>0</sequence>
-  <logger>io.github.fatsquirrels.deuzum.log.archivoLog</logger>
-  <level>INFO</level>
-  <class>io.github.fatsquirrels.deuzum.log.archivoLog</class>
-  <method>addLine</method>
-  <thread>14</thread>
-  <message>El servidor se ha iniciado correctamente</message>
-</record>
+</log>
+

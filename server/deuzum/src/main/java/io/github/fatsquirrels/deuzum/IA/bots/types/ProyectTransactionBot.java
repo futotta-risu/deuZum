@@ -25,14 +25,14 @@ public class ProyectTransactionBot extends BotBase implements BotFunctions{
 	private String name;
 	private Thread hiloProyectTransactions;
 	private Connection connection;
-	private long cantidad;
+	private Integer cantidad;
 		
 	/**
 	 * Contructor de la clase, crea un ProyectTransactionBot con los parametros recibidos
 	 * @param namet Nombre del bot
 	 * @param cantidad Cantidad de transacciones de proyecto que se quieren introducir en la BD
 	 */
-	public ProyectTransactionBot(String name, long cantidad){
+	public ProyectTransactionBot(String name, Integer cantidad){
 		this.name = name;
 		this.connection = Server.getDefaultServerConnection();
 		this.cantidad = cantidad;

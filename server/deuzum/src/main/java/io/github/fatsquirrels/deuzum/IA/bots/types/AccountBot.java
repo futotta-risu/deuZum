@@ -24,7 +24,7 @@ import io.github.fatsquirrels.deuzum.net.Server;
 public class AccountBot extends BotBase implements BotFunctions{
 	@SuppressWarnings("unused")
 	private String name;
-	private long cantidad;
+	private Integer cantidad;
 	private Connection connection;
 	private Thread hiloCuentas; 
 	final private static ArchivoLog logger = new ArchivoLog("AccountBot");
@@ -34,7 +34,7 @@ public class AccountBot extends BotBase implements BotFunctions{
 	 * @param name Nombre del bot
 	 * @param cantidad Cantidad de cuentas a introducir;
 	 */
-	public AccountBot(String name, long cantidad){
+	public AccountBot(String name, Integer cantidad){
 		this.name = name;
 		this.cantidad = cantidad;
 		this.connection = Server.getDefaultServerConnection();

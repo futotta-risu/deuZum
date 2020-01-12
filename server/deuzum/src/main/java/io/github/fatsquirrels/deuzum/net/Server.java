@@ -9,6 +9,9 @@ import java.util.logging.Level;
 import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
 import io.github.fatsquirrels.deuzum.log.ArchivoLog;
 
+import io.github.fatsquirrels.deuzum.res.Strings;
+
+
 
 /**
  * 
@@ -104,7 +107,8 @@ public class Server implements Runnable{
 		try{
 			this.serverSocket.close();
 		}catch(IOException e) {
-			logger.addLineError(Level.INFO, e.getMessage(), e);
+
+			ArchivoLog.addLineError(Level.INFO, e.getMessage(), e);
 			System.err.println("Se ha cerrado la conexion con uno o varios sockets");
 		} 
     }
@@ -166,7 +170,8 @@ public class Server implements Runnable{
 			shutdown();
 			execute();
 		}catch(Exception e) {
-			logger.addLineError(Level.INFO, e.getMessage(), e);
+			ArchivoLog.addLineError(Level.INFO, e.getMessage(), e);
+
 			shutdown();
 		}
 		
