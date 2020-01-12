@@ -95,7 +95,6 @@ public class Server implements Runnable{
 		return null;
 	}
 	
-	// Server Execution Functions
 	
 	/**
 	 * Inicia el ServerSocket y activa hilos con cada conexi�n de un Socket.
@@ -133,13 +132,9 @@ public class Server implements Runnable{
 		} 
     }
     
-    // Server Bot Functionality
     
 
-	public void run() {
-		
-		
-	}
+	public void run() {}
 
 
 	/**
@@ -178,9 +173,6 @@ public class Server implements Runnable{
 	public void execute() throws ClassNotFoundException, SQLException {
 		ServerCommands.createMethodArray();
 		this.connection = GeneralSQLFunctions.connectToDatabase("jdbc:mysql://localhost:" + Server.dbPort+"/"+Server.dbName, Server.dbUser, Server.dbPass);
-
-		// El servidor tiene que tener una base de datos hosteando el estado de los usuarios
-		// activos e inactivos
 		
 	}
 	

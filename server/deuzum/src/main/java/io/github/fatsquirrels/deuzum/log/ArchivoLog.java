@@ -10,7 +10,7 @@ import java.util.logging.StreamHandler;
 
 
 
-/* Mediante esta clase, pretendemos que cada vez que nosotros hagamos un cambio, haya algun error en algun
+/** Mediante esta clase, pretendemos que cada vez que nosotros hagamos un cambio, haya algun error en algun
  * metodo/clase, se almacene esa informacion en algun lado.
  * Para ello, hemos usado Logger, creando un archivo log donde aparezca toda la informacion
  * almacenada en la carpeta de logs. 

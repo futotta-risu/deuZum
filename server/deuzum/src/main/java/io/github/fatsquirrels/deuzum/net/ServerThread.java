@@ -2,6 +2,11 @@ package io.github.fatsquirrels.deuzum.net;
 
 import io.github.fatsquirrels.deuzum.res.ServerProperties;
 
+/**
+ * Thread encargado de mantener activo el servidor.
+ * @author whiwho
+ *
+ */
 public class ServerThread extends Thread{
 
 	private Server server;
