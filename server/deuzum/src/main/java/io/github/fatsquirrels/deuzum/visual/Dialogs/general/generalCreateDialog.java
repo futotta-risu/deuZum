@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 import io.github.fatsquirrels.deuzum.database.CommandBuilderF;
 import io.github.fatsquirrels.deuzum.database.GeneralSQLFunctions;
@@ -60,9 +61,15 @@ public class generalCreateDialog extends JDialog{
 	}
 	
 	public void initialize(Connection conn, tableName table,boolean isEdit, int id) {
+		
+		
 		componentMap = new HashMap<String, APair<JComponent, Integer>>();
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setLayout(new VerticalFlowLayout(10,10,10));
+		
+		setVisible(true);
+		setModal(false);
+		
 		columnVars = GeneralSQLFunctions.getColumnNameType(conn, table);
 		
 		numberOfColumns = columnVars.size();
@@ -122,8 +129,7 @@ public class generalCreateDialog extends JDialog{
 		
 		
 		setSize(320,35*(numberOfColumns)+35);
-		setVisible(true);
-		setModal(true);
+		
 	}
 	
 	public void guardarCambios(Connection conn, tableName table,boolean isEdit, int id) throws SQLException, InvalidTransactionException, CommandBuilderBuildException{
