@@ -50,9 +50,9 @@ public class EnviarDinero extends AppCompatActivity {
     public void enviarDinero(){
         JSONObject jsonData = new JSONObject();
         try {
-            jsonData.put("tableName","transacciones");
-            jsonData.put("dest", String.valueOf(tUsuarioDestinatario.getText()));
-            jsonData.put("dinero", String.valueOf(tImporte.getText()));
+            jsonData.put("tableName","cuenta");
+            jsonData.put("account", String.valueOf(tUsuarioDestinatario.getText()));
+            jsonData.put("ammount", String.valueOf(tImporte.getText()));
         } catch (JSONException e) {
             Toast toast= Toast. makeText(getApplicationContext(),
                     "Local: Error al intentar añadir tarjeta.",Toast. LENGTH_SHORT);
@@ -62,7 +62,7 @@ public class EnviarDinero extends AppCompatActivity {
             return;
         }
 
-        Thread t1 = new Thread(new MessageSender("addData", jsonData));
+        Thread t1 = new Thread(new MessageSender("addMoney", jsonData));
         t1.start();
         try{
             Thread.sleep(200);

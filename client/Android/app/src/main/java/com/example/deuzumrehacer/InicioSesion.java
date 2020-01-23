@@ -47,7 +47,7 @@ public class InicioSesion extends AppCompatActivity {
         bIni.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                comprobarUsuarioContraseña();
+                abrirCrearUsuario2();
             }
         });
 
@@ -59,10 +59,13 @@ public class InicioSesion extends AppCompatActivity {
         });
     }
 
+
+
     public void comprobarUsuarioContraseña() {
 
         JSONObject data = new JSONObject();
-        try {
+        try{
+            data.put("tableName","usuario");
             data.put("user",nUsuario.getText().toString());
             data.put("pass",cUsuario.getText().toString());
         } catch (JSONException e) {
@@ -80,6 +83,7 @@ public class InicioSesion extends AppCompatActivity {
             Toast toast= Toast. makeText(getApplicationContext(),"Conectado:"+ServerRespond.result,Toast. LENGTH_SHORT);
             toast. setMargin(50,50);
             toast. show();
+            abrirCrearUsuario2();
         }else{
             Toast toast= Toast. makeText(getApplicationContext(),"Contraseña equivocada:"+ServerRespond.result,Toast. LENGTH_SHORT);
             toast. setMargin(50,50);
@@ -90,6 +94,10 @@ public class InicioSesion extends AppCompatActivity {
 
     public void abrirCrearUsuario1() {
         Intent i = new Intent(this, CrearUsuario.class);
+        startActivity(i);
+    }
+    public void abrirCrearUsuario2() {
+        Intent i = new Intent(this, MenuPrincipal.class);
         startActivity(i);
     }
 }

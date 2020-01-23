@@ -55,8 +55,9 @@ public class GestionarTarjetas extends AppCompatActivity {
     public void guardar() {
         JSONObject jsonData = new JSONObject();
         try {
-            jsonData.put("tableName","cuentas");
-            jsonData.put("numeroCuenta", String.valueOf(tNumeroTarjeta.getText()));
+            jsonData.put("tableName","cuenta");
+            jsonData.put("numero_cuenta", String.valueOf(tNumeroTarjeta.getText()));
+            jsonData.put("dinero", "0");
         } catch (JSONException e) {
             Toast toast= Toast. makeText(getApplicationContext(),
                     "Local: Error al intentar añadir tarjeta.",Toast. LENGTH_SHORT);
